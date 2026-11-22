@@ -1,0 +1,11 @@
+{
+"version": "1.0.0-rc2",
+"interface": 16001,
+"game_build": "1.60.1.70959",
+"ship": {
+  "surfaces": ["quests", "tracker", "zones", "spellbook", "talents"],
+  "names": ["class", "spell", "tree", "zone"]
+},
+"floors": {},
+"ratchet": {}
+}

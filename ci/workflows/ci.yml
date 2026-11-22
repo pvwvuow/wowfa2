@@ -1,0 +1,46 @@
+# COPY of .github/workflows/ci.yml (the bot token cannot write .github/, the owner pastes it once).
+# All logic is in tools/ci.py, so this file should never need to change.
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pull-requests: write
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: toolchain
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1
+          python3 -m pip install --quiet --break-system-packages fonttools==4.55.0 || python3 -m pip install --quiet fonttools==4.55.0
+      - name: ci
+        run: |
+          mkdir -p out
+          python3 tools/ci.py ci --report out/report.md
+      - name: report on the PR
+        if: always() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          mkdir -p out
+          test -s out/report.md || echo "ci.py crashed before writing a report: open the run log" > out/report.md
+          gh pr comment "$PR" --body-file out/report.md
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wowfa-build
+          path: |
+            out/*.zip
+            out/report.md
+          if-no-files-found: ignore

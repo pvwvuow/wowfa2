@@ -1,0 +1,10 @@
+{
+"id": "0001-migrate",
+"kind": "migrate",
+"args": {
+  "wowfa_quests_ref": "bb1f7a9ba8b43cefb5d8df87d870231f3197cd11",
+  "wowfa_tpl_ref": "63d4fa8b875780ecb2f5dbb17ec300390015444b",
+  "wow_ref": "main"
+},
+"why": "quests + names from wowfa main after #245 (a40 names, wow #588 fixes); templates from 63d4fa8, the last build that still had the ~585 site templates (#245 dropped them)"
+}

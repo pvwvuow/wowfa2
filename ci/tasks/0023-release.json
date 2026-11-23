@@ -1,0 +1,8 @@
+{
+ "id": "0023-release",
+ "kind": "release",
+ "why": "rc6 for the owner's in-game test: /wowfa dump + miss-list fixes",
+ "args": {
+  "notes": "WoWFA Forever 1.0.0-rc6 (test build, built by wowfa2 CI).\n\nIncludes /wowfa dump (export of every spell's live English tooltip text, all classes, no account data), spec tab tooltips (Survival, Beast Mastery...) in Persian, and the miss list no longer logs the addon's own Persian text.\n\nTip: for Persian spell names and terms choose the preset 'fully Persian' in /wowfa.\n\nData from ForeverDB.net"
+ }
+}

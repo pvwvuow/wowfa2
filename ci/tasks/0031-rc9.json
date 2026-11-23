@@ -1,0 +1,75 @@
+{
+ "id": "0031-rc9",
+ "kind": "edit",
+ "why": "rc9: stale quest text on the map quest log, duplicate tooltip lines, per-family colours (+ colours page)",
+ "args": {
+  "ops": [
+   {
+    "file": "addon/WoWFA/Text.lua",
+    "old": "-- {{fam:English|Persian}} -> Persian, or English when that family is off\n",
+    "new": "-- rc9: colours per name family (zone / spell / NPC / class / item / term / object).\n-- F.db.col = { on = true, zn = \"green\", cls = \"class\", ... }; no entry = the default\n-- below, \"off\" = no colour, \"class\" (cls only) = the official class colour.\n-- Colour codes only ride on text in display modes 1 and 2: mode 3 reorders the\n-- characters itself and a hex code inside would be reversed with them.\nT.COL_PALETTE = { \"green\", \"blue\", \"gold\", \"orange\", \"red\", \"purple\", \"cyan\", \"pink\", \"white\" }\nT.COL_HEX = { green = \"4cd964\", blue = \"5ac8fa\", gold = \"ffd24a\", orange = \"ff9f43\", red = \"ff6b6b\",\n    purple = \"c58cff\", cyan = \"3de3d0\", pink = \"ff8fc7\", white = \"ffffff\" }\nT.COL_DEFAULT = { zn = \"green\", sp = \"blue\", npc = \"orange\", cls = \"class\" }\nT.COL_FAMS = { \"zn\", \"sp\", \"npc\", \"cls\", \"it\", \"tm\", \"ob\" }\nlocal CLASS_HEX = { warrior = \"c79c6e\", paladin = \"f58cba\", hunter = \"abd473\", rogue = \"fff569\",\n    priest = \"ffffff\", shaman = \"0070de\", mage = \"69ccf0\", warlock = \"9482c9\", druid = \"ff7d0a\",\n    [\"death knight\"] = \"c41f3b\", monk = \"00ff96\", [\"demon hunter\"] = \"a330c9\", evoker = \"33937f\" }\n\nfunction T.ColorOf(fam, en)\n    local c = F.db and F.db.col\n    if type(c) ~= \"table\" or not c.on or T.Mode() == 3 then\n        return nil\n    end\n    local id = c[fam]\n    if id == nil then\n        id = T.COL_DEFAULT[fam]\n    end\n    if id == \"class\" then\n        if fam ~= \"cls\" then\n            return nil\n        end\n        local l = string.lower(tostring(en or \"\"))\n        return CLASS_HEX[l] or CLASS_HEX[(string.gsub(l, \"s$\", \"\"))]\n    end\n    return T.COL_HEX[id]\nend\n\nlocal function col_ids(fam)\n    local ids = { \"off\" }\n    for _, id in ipairs(T.COL_PALETTE) do\n        ids[#ids + 1] = id\n    end\n    if fam == \"cls\" then\n        ids[#ids + 1] = \"class\"\n    end\n    return ids\nend\n\nlocal function col_db()\n    if not F.db then\n        return {}\n    end\n    if type(F.db.col) ~= \"table\" then\n        F.db.col = {}\n    end\n    return F.db.col\nend\n\nlocal function col_refresh()\n    if T.RefreshAll then\n        T.RefreshAll()\n    end\n    F:Fire(\"names\")\n    F:Fire(\"disp\")\nend\n\nfunction F.ColLabels(fam)\n    local out = {}\n    for i, id in ipairs(col_ids(fam)) do\n        out[i] = (L.col_id and L.col_id[id]) or id\n    end\n    return out\nend\n\nfunction F.ColId(fam)\n    return col_db()[fam] or T.COL_DEFAULT[fam] or \"off\"\nend\n\nfunction F.ColIndex(fam)\n    local id = F.ColId(fam)\n    for i, x in ipairs(col_ids(fam)) do\n        if x == id then\n            return i\n        end\n    end\n    return 1\nend\n\nfunction F.ColHex(fam) -- the colour of the choice itself (the class choice previews gold)\n    local id = F.ColId(fam)\n    return T.COL_HEX[id] or (id == \"class\" and \"ffd24a\") or nil\nend\n\nfunction F.ColSet(fam, idx)\n    col_db()[fam] = col_ids(fam)[idx] or \"off\"\n    col_refresh()\nend\n\nfunction F.ColSetOn(v)\n    col_db().on = v and true or false\n    col_refresh()\nend\n\n-- {{fam:English|Persian}} -> Persian, or English when that family is off\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Text.lua",
+    "old": "        return fa\n    end)\n    -- any other marker left by older data: {{x:a|b}} -> b, {{x:a}} -> a\n",
+    "new": "        local hex = (fa ~= \"\") and T.ColorOf(fam, en) or nil\n        if hex then\n            return \"|cff\" .. hex .. fa .. \"|r\"\n        end\n        return fa\n    end)\n    -- any other marker left by older data: {{x:a|b}} -> b, {{x:a}} -> a\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Text.lua",
+    "old": "    for _, ln in ipairs(T.Lines(text, wrap, size, mode)) do\n        tt:AddLine(ln, color[1], color[2], color[3], mode ~= 3)\n        style(tt, \"Left\")\n    end\n",
+    "new": "    -- rc9: the same long line is never added twice to one tooltip content (the\n    -- owner saw talent descriptions twice in Persian); reset when the tooltip clears\n    local seen = tt.wfaAdded\n    if not seen then\n        seen = {}\n        tt.wfaAdded = seen\n    end\n    for _, ln in ipairs(T.Lines(text, wrap, size, mode)) do\n        if #ln < 14 or not seen[ln] then\n            seen[ln] = true\n            tt:AddLine(ln, color[1], color[2], color[3], mode ~= 3)\n            style(tt, \"Left\")\n        end\n    end\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Text.lua",
+    "old": "    tt.wfaOurs = nil -- Brain 59: the post-layout re-wrap records (T.TipRecheck)\n",
+    "new": "    tt.wfaOurs = nil -- Brain 59: the post-layout re-wrap records (T.TipRecheck)\n    tt.wfaAdded = nil -- rc9: the lines TipLine added\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Quests.lua",
+    "old": "    local throttle = 0\n    F:On(\"QUEST_LOG_UPDATE\", \"quests\", function()\n        local now = GetTime()\n        if now - throttle > 0.3 and log_frame() then\n            throttle = now\n            on_log()\n        end\n    end)\n",
+    "new": "    local throttle, pending = 0, false\n    F:On(\"QUEST_LOG_UPDATE\", \"quests\", function()\n        local now = GetTime()\n        if now - throttle > 0.3 and log_frame() then\n            throttle = now\n            on_log()\n        elseif not pending and log_frame() then\n            -- rc9: an update inside the throttle used to be dropped for good, so a quick\n            -- second click on the map quest log kept showing the first quest's text:\n            -- run once more when the window is over\n            pending = true\n            F.After(0.35, function()\n                pending = false\n                if log_frame() then\n                    throttle = GetTime()\n                    on_log()\n                end\n            end)\n        end\n    end)\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Quests.lua",
+    "old": "    local wrapped = F:Wrap(\"quests\", on_log)\n    for _, fn in ipairs({ \"SelectQuestLogEntry\", \"QuestLog_SetSelection\" }) do\n        if type(_G[fn]) == \"function\" then\n            hooksecurefunc(fn, wrapped)\n        end\n    end\n",
+    "new": "    local wrapped = F:Wrap(\"quests\", on_log)\n    for _, fn in ipairs({ \"SelectQuestLogEntry\", \"QuestLog_SetSelection\" }) do\n        if type(_G[fn]) == \"function\" then\n            hooksecurefunc(fn, wrapped)\n        end\n    end\n    -- rc9: the modern map quest log selects a quest through C_QuestLog.SetSelectedQuest /\n    -- QuestMapFrame_ShowQuestDetails (none of the old functions run): re-read the\n    -- selection right after the click AND once more a moment later (the selection\n    -- settles a frame after the call)\n    local after_select = F:Wrap(\"quests\", function()\n        F.After(0, wrapped)\n        F.After(0.2, wrapped)\n    end)\n    for _, fn in ipairs({ \"QuestMapFrame_ShowQuestDetails\", \"QuestMapFrame_OpenToQuestDetails\",\n        \"QuestMapLogTitleButton_OnClick\" }) do\n        if type(_G[fn]) == \"function\" then\n            pcall(hooksecurefunc, fn, after_select)\n        end\n    end\n    if type(C_QuestLog) == \"table\" and type(C_QuestLog.SetSelectedQuest) == \"function\" then\n        pcall(hooksecurefunc, C_QuestLog, \"SetSelectedQuest\", after_select)\n    end\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Panel.lua",
+    "old": "local SECTIONS = { \"general\", \"quests\", \"tracker\", \"map\", \"spellbook\", \"talents\", \"health\", \"about\" }",
+    "new": "local SECTIONS = { \"general\", \"quests\", \"tracker\", \"map\", \"spellbook\", \"talents\", \"colors\", \"health\", \"about\" }",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Panel.lua",
+    "old": "    -- ===================================================== Status\n    begin_page(\"health\")\n",
+    "new": "    -- ===================================================== Colours\n    begin_page(\"colors\")\n    panel.colOn = place(UI.Toggle(page.child, PW - 16, L.col_on, L.col_on_d,\n        function() return F.db.col and F.db.col.on and true or false end,\n        function(v) F.ColSetOn(v) end), 50, 6)\n    header(L.col_hdr)\n    panel.col = {}\n    for _, fam in ipairs(F.T.COL_FAMS) do\n        local row = UI.Choice(page.child, PW - 16, L[\"col_\" .. fam], nil, F.ColLabels(fam),\n            function() return F.ColIndex(fam) end,\n            function(v) F.ColSet(fam, v) end)\n        local base = row.Update\n        row.Update = function(self)\n            base(self)\n            local hex = F.ColHex(fam)\n            if hex then\n                self.val:SetTextColor(tonumber(string.sub(hex, 1, 2), 16) / 255,\n                    tonumber(string.sub(hex, 3, 4), 16) / 255, tonumber(string.sub(hex, 5, 6), 16) / 255)\n            else\n                self.val:SetTextColor(C.muted[1], C.muted[2], C.muted[3])\n            end\n        end\n        row:Update()\n        panel.col[fam] = place(row, 32, 2)\n    end\n    note(L.col_note)\n    end_page()\n\n    -- ===================================================== Status\n    begin_page(\"health\")\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Locale.lua",
+    "old": "L.btn_miss_clear =",
+    "new": "L.sec_colors = \"\u0631\u0646\u06af\u200c\u0647\u0627\"\nL.col_on = \"\u0631\u0646\u06af\u06cc \u06a9\u0631\u062f\u0646 \u0646\u0627\u0645\u200c\u0647\u0627\"\nL.col_on_d = \"\u0646\u0627\u0645 \u0645\u0646\u0637\u0642\u0647\u060c \u0627\u0633\u067e\u0644\u060c \u0634\u062e\u0635\u06cc\u062a \u0648 ... \u062f\u0631 \u0645\u062a\u0646\u200c\u0647\u0627 \u0648 \u0631\u0627\u0647\u0646\u0645\u0627\u0647\u0627 \u0628\u0627 \u0631\u0646\u06af \u0627\u0646\u062a\u062e\u0627\u0628\u06cc \u0646\u0634\u0627\u0646 \u062f\u0627\u062f\u0647 \u0645\u06cc\u200c\u0634\u0648\u062f\"\nL.col_hdr = \"\u0631\u0646\u06af \u0647\u0631 \u0646\u0648\u0639 \u0646\u0627\u0645\"\nL.col_zn = \"\u0645\u0646\u0627\u0637\u0642 \u0648 \u0646\u0642\u0634\u0647\"\nL.col_sp = \"\u0627\u0633\u067e\u0644\u200c\u0647\u0627 \u0648 \u0627\u0633\u062a\u0639\u062f\u0627\u062f\u0647\u0627\"\nL.col_npc = \"\u0634\u062e\u0635\u06cc\u062a\u200c\u0647\u0627 (NPC)\"\nL.col_cls = \"\u06a9\u0644\u0627\u0633\u200c\u0647\u0627\"\nL.col_it = \"\u0622\u06cc\u062a\u0645\u200c\u0647\u0627\"\nL.col_tm = \"\u0627\u0635\u0637\u0644\u0627\u062d\u0627\u062a\"\nL.col_ob = \"\u0627\u0634\u06cc\u0627\u06cc \u062f\u0646\u06cc\u0627\u06cc \u0628\u0627\u0632\u06cc\"\nL.col_note = \"\u0631\u0646\u06af \u0641\u0642\u0637 \u062f\u0631 \u062d\u0627\u0644\u062a \u0646\u0645\u0627\u06cc\u0634 \u06f1 \u0648 \u06f2 \u06a9\u0627\u0631 \u0645\u06cc\u200c\u06a9\u0646\u062f \u0648 \u0631\u0648\u06cc \u0646\u0627\u0645\u200c\u0647\u0627\u06cc\u06cc \u0627\u062b\u0631 \u0645\u06cc\u200c\u06af\u0630\u0627\u0631\u062f \u06a9\u0647 \u062a\u0631\u062c\u0645\u0647 \u0634\u062f\u0647\u200c\u0627\u0646\u062f.\"\nL.col_id = { off = \"\u062e\u0627\u0645\u0648\u0634\", green = \"\u0633\u0628\u0632\", blue = \"\u0622\u0628\u06cc\", gold = \"\u0637\u0644\u0627\u06cc\u06cc\", orange = \"\u0646\u0627\u0631\u0646\u062c\u06cc\", red = \"\u0642\u0631\u0645\u0632\",\n    purple = \"\u0628\u0646\u0641\u0634\", cyan = \"\u0641\u06cc\u0631\u0648\u0632\u0647\u200c\u0627\u06cc\", pink = \"\u0635\u0648\u0631\u062a\u06cc\", white = \"\u0633\u0641\u06cc\u062f\", class = \"\u0631\u0646\u06af \u0631\u0633\u0645\u06cc \u06a9\u0644\u0627\u0633\" }\nL.btn_miss_clear =",
+    "count": 1
+   },
+   {
+    "file": "policy.json",
+    "old": "\"version\": \"1.0.0-rc8\"",
+    "new": "\"version\": \"1.0.0-rc9\"",
+    "count": 1
+   },
+   {
+    "file": "tests/run.lua",
+    "old": "-- ------------------------------------------------------------------ tracker\n",
+    "new": "-- ------------------------------------------------------------------ rc9: colours + no duplicate tooltip lines\nlocal okRc9, errRc9 = pcall(function()\n    local T = F.T\n    local m = \"x {{zn:Elwynn|ZZ}} y {{cls:Rogue|RR}} z {{sp:Frostbolt|SS}}\"\n    local oldMode, oldCol = F.db.mode, F.db.col\n    local savedCode = F.Room.Encode()\n    F.Room.Apply(\"fa\")\n    F.db.mode = 1\n    F.db.col = nil\n    check(\"colours are off until switched on\", T.Markers(m) == \"x ZZ y RR z SS\", T.Markers(m))\n    F.db.col = { on = true }\n    local out = T.Markers(m)\n    check(\"zone gets the default green\", out:find(\"|cff4cd964ZZ|r\", 1, true) ~= nil, out)\n    check(\"a class gets its official colour\", out:find(\"|cfffff569RR|r\", 1, true) ~= nil, out)\n    check(\"a spell gets the default blue\", out:find(\"|cff5ac8faSS|r\", 1, true) ~= nil, out)\n    F.db.col = { on = true, zn = \"off\", sp = \"red\" }\n    out = T.Markers(m)\n    check(\"a family set to off stays plain, another takes its own colour\",\n        out:find(\"x ZZ y\", 1, true) ~= nil and out:find(\"|cffff6b6bSS|r\", 1, true) ~= nil, out)\n    F.db.mode = 3\n    check(\"no colour codes in display mode 3\", T.Markers(m):find(\"|c\", 1, true) == nil)\n    F.db.mode = 1\n    F.Room.Set(\"namesZone\", false)\n    F.db.col = { on = true }\n    check(\"a family that is off shows English, uncoloured\", T.Markers(m):find(\"x Elwynn y\", 1, true) ~= nil, T.Markers(m))\n    F.Room.Set(\"namesZone\", true)\n\n    F.OpenPanel(\"colors\")\n    local PF = F.PanelFrame()\n    check(\"colours page opens\", F.PanelPage() == \"colors\", F.PanelPage())\n    F.db.col = nil\n    Click(PF.col.zn)\n    check(\"a colour choice cycles and is saved\", F.db.col and F.db.col.zn == \"blue\", F.db.col and F.db.col.zn)\n    Click(PF.colOn)\n    check(\"the colour switch turns on\", F.db.col.on == true)\n    F.db.col, F.db.mode = oldCol, oldMode\n    F.Room.Decode(savedCode)\n    PF:Hide()\n\n    GameTooltip:Hide()\n    GameTooltip:ClearLines()\n    T.TipLine(GameTooltip, \"A fairly long description line for the tooltip\", F.C.text)\n    local n1 = GameTooltip:NumLines()\n    T.TipLine(GameTooltip, \"A fairly long description line for the tooltip\", F.C.text)\n    check(\"the same long line is not added twice\", GameTooltip:NumLines() == n1, n1 .. \" vs \" .. GameTooltip:NumLines())\n    GameTooltip:Hide()\nend)\ncheck(\"rc9 tests ran\", okRc9, errRc9)\n-- ------------------------------------------------------------------ tracker\n",
+    "count": 1
+   }
+  ]
+ }
+}

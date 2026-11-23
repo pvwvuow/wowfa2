@@ -3,7 +3,8 @@ runners (this replaces the old Z build host). Each task ends as a PR on branch t
 body is the report, so the result is always readable and nothing lands on main unreviewed.
 
 ci/tasks/<id>.json = {"id": "<id>", "kind": "<kind>", "args": {...}}
-kinds: migrate, release (see the handlers below). Unknown kinds fail loudly."""
+kinds: migrate, fix, release (see the handlers below). Unknown kinds fail loudly.
+Optional "onto": "<branch>" runs on that branch and pushes back to it (its PR gets a comment)."""
 import base64
 import json
 import os
@@ -128,6 +129,123 @@ def task_migrate(t, rep):
     rep.add("- floors now (put these in policy.json): `%s`" % json.dumps(r.counts, sort_keys=True))
     return ["data"]
 
+# ------------------------------------------------------------------ fix: precise data edits
+def _tables(store, name):
+    """name: quests | tpl | ui | names.<kind> | * -> list of (table_name, dict)"""
+    if name == "*":
+        out = [("quests", store.quests), ("tpl", store.tpl), ("ui", store.ui)]
+        return out + [("names." + k, v) for k, v in sorted(store.names.items())]
+    if name == "quests":
+        return [("quests", store.quests)]
+    if name in ("tpl", "ui"):
+        return [(name, getattr(store, name))]
+    if name.startswith("names.") and name[6:] in store.names:
+        return [(name, store.names[name[6:]])]
+    raise ValueError("unknown table %r" % name)
+
+
+def _keys(tab, op):
+    if "key" in op:
+        k = int(op["key"]) if isinstance(next(iter(tab), ""), int) else str(op["key"])
+        return [k] if k in tab else []
+    pre = op.get("key_prefix")
+    return [k for k in tab if pre is None or str(k).startswith(pre)]
+
+
+def _strings(val):
+    """yield (path, text) for every string inside a value (quest records are dicts + lists)"""
+    if isinstance(val, str):
+        yield (), val
+    elif isinstance(val, dict):
+        for f in sorted(val):
+            for p, x in _strings(val[f]):
+                yield (f,) + p, x
+    elif isinstance(val, list):
+        for i, v in enumerate(val):
+            for p, x in _strings(v):
+                yield (i,) + p, x
+
+
+def _put(val, path, new):
+    if not path:
+        return new
+    val[path[0]] = _put(val[path[0]], path[1:], new)
+    return val
+
+
+def task_fix(t, rep):
+    """ops (all literal, no regex):
+      {"op":"replace","table":T,"key"|"key_prefix":..,"old":..,"new":..,"count":N}  N = expected hits
+      {"op":"set","table":T,"key":K,"value":V,"expect_old":X?,"create":false}
+      {"op":"find","table":T,"text":S}            report every hit (max 80)
+      {"op":"show","table":T,"key"|"key_prefix":..}  report full values (max 20)
+    A wrong count / missing key / unexpected old value fails the task and nothing is committed."""
+    import sys
+    sys.path.insert(0, os.path.join(ROOT, "tools"))
+    from ci import lint_into, policy
+    from .store import Store
+    store = Store.load()
+    ok = True
+    rep.h("Ops")
+    for i, op in enumerate(t["args"]["ops"], 1):
+        kind = op["op"]
+        tabs = _tables(store, op.get("table", "*"))
+        if kind == "replace":
+            hits = 0
+            for tn, tab in tabs:
+                for k in _keys(tab, op):
+                    for path, x in list(_strings(tab[k])):
+                        if op["old"] in x:
+                            hits += x.count(op["old"])
+                            tab[k] = _put(tab[k], path, x.replace(op["old"], op["new"]))
+            good = hits == op.get("count", hits)
+            ok &= good
+            (rep.ok if good else rep.fail)("#%d replace %r -> %r in %s: %d hits (expected %s)"
+                                          % (i, op["old"], op["new"], op.get("table", "*"), hits, op.get("count", "any")))
+        elif kind == "set":
+            tn, tab = tabs[0]
+            k = op["key"]
+            if tn == "quests":
+                raise ValueError("set works on name/tpl/ui tables only")
+            if k not in tab and not op.get("create"):
+                ok = False
+                rep.fail("#%d set %s[%r]: key missing (use create)" % (i, tn, k))
+                continue
+            if "expect_old" in op and tab.get(k) != op["expect_old"]:
+                ok = False
+                rep.fail("#%d set %s[%r]: old value is %r, expected %r" % (i, tn, k, tab.get(k), op["expect_old"]))
+                continue
+            rep.ok("#%d set %s[%r]: %r -> %r" % (i, tn, k, tab.get(k), op["value"]))
+            tab[k] = op["value"]
+        elif kind == "find":
+            n = 0
+            for tn, tab in tabs:
+                for k in sorted(tab, key=str):
+                    for path, x in _strings(tab[k]):
+                        if op["text"] in x:
+                            n += 1
+                            if n <= 80:
+                                j = x.find(op["text"])
+                                rep.add("  - %s:%s%s: ...%s..." % (tn, k, "".join(":%s" % p for p in path),
+                                                                 x[max(0, j - 60):j + 80].replace("\n", " ")))
+            rep.add("- #%d find %r: %d hits" % (i, op["text"], n))
+        elif kind == "show":
+            n = 0
+            for tn, tab in tabs:
+                for k in sorted(_keys(tab, op), key=str):
+                    n += 1
+                    if n <= 20:
+                        rep.add("- #%d %s[%r] =\n```\n%s\n```" % (i, tn, k, json.dumps(tab[k], ensure_ascii=False, indent=1)))
+            rep.add("- #%d show: %d rows" % (i, n))
+        else:
+            raise ValueError("unknown op %r" % kind)
+    if not ok:
+        rep.fail("an op did not match: nothing committed")
+        return []
+    store.save()
+    lint_into(rep, store, policy())
+    return ["data"]
+
 
 def task_release(t, rep):
     """Build from main and create a DRAFT pre-release in pvwvuow/wowfarsi-addon. Never publishes:
@@ -149,7 +267,7 @@ def task_release(t, rep):
     return []
 
 
-HANDLERS = {"migrate": task_migrate, "release": task_release}
+HANDLERS = {"migrate": task_migrate, "fix": task_fix, "release": task_release}
 
 
 # ------------------------------------------------------------------ runner
@@ -163,7 +281,8 @@ def changed_tasks(since):
 def run(since, only):
     import sys
     sys.path.insert(0, os.path.join(ROOT, "tools"))
-    from ci import Report
+    from ci import Report, lint_into, policy  # noqa: F401  (preload before a branch checkout)
+    from . import store as _store  # noqa: F401
     files = ["ci/tasks/%s.json" % only] if only else changed_tasks(since)
     if not files:
         print("no new task files")
@@ -179,8 +298,10 @@ def run(since, only):
         if t["kind"] not in HANDLERS:
             raise SystemExit("%s: unknown kind %r" % (f, t["kind"]))
         rep = Report("task %s (%s)" % (tid, t["kind"]))
-        branch = "task/" + tid
-        git("checkout", "-q", "-B", branch, "origin/main")
+        onto = t.get("onto")
+        branch = onto or "task/" + tid
+        git("fetch", "-q", "origin")
+        git("checkout", "-q", "-B", branch, "origin/" + (onto or "main"))
         try:
             paths = HANDLERS[t["kind"]](t, rep)
         except subprocess.CalledProcessError as e:
@@ -198,15 +319,19 @@ def run(since, only):
             fh.write(body)
         git("add", "--", res, *[os.path.join(ROOT, p) for p in paths])
         git("commit", "-q", "-m", "task %s: %s" % (tid, "RED" if rep.failed else "green"))
-        git("push", "-q", "-f", "origin", branch)
+        git("push", "-q", *([] if onto else ["-f"]), "origin", branch)
         env = dict(os.environ, GH_TOKEN=os.environ.get("BOT_TOKEN", ""))
         short = body if len(body) < 60000 else body[:60000] + "\n\n(truncated: full text in ci/results/%s.md)\n" % tid
         with open("/tmp/pr-body.md", "w", encoding="utf-8") as fh:
             fh.write(short)
-        p = subprocess.run(["gh", "pr", "create", "--base", "main", "--head", branch, "--title",
+        if onto:
+            subprocess.run(["gh", "pr", "comment", branch, "--body-file", "/tmp/pr-body.md"], env=env, check=True)
+            p = None
+        else:
+            p = subprocess.run(["gh", "pr", "create", "--base", "main", "--head", branch, "--title",
                             "task %s (%s)" % (tid, t["kind"]), "--body-file", "/tmp/pr-body.md"],
-                           env=env, text=True, capture_output=True)
-        if p.returncode:
+                               env=env, text=True, capture_output=True)
+        if p is not None and p.returncode:
             subprocess.run(["gh", "pr", "edit", branch, "--body-file", "/tmp/pr-body.md"], env=env, check=True)
         worst = max(worst, 1 if rep.failed else 0)
         git("reset", "-q", "--hard")

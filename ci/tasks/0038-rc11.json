@@ -1,0 +1,163 @@
+{
+ "id": "0038-rc11",
+ "kind": "edit",
+ "why": "rc11: NPC names (tooltip, nameplates, target frame) with a display setting, every map font string translated, share codes for a whole setup",
+ "args": {
+  "ops": [
+   {
+    "file": "addon/WoWFA/Modules/Npc.lua",
+    "write": "-- WoWFA Forever - NPC names (rc11): the name line of an NPC tooltip, the name\n-- above an NPC (nameplates, the V key) and the target frame name.\n-- F.db.npcName: 1 = Persian only, 2 = Persian with the English under it\n-- (tooltip + nameplates), 3 = English (untouched). Players are never touched.\n-- Lookup = names.npc, then names.boss, by T.NameKey of the English name (the\n-- export keys the same way). A name the data does not know stays English and\n-- is remembered in the miss list.\n\nlocal F = WoWFAF\nlocal L = F.L\nlocal T = F.T\n\nlocal M = { id = \"npc\", order = 4, risk = \"low\", nameKey = \"m_npc\", descKey = \"m_npc_d\" }\n\nfunction M.data()\n    return F.D.names and F.D.names.npc\nend\n\nfunction M.api()\n    return UnitName ~= nil and GameTooltip ~= nil\nend\n\nlocal function mode()\n    local v = F.db and F.db.npcName\n    if v ~= 2 and v ~= 3 then\n        return 1\n    end\n    return v\nend\nF.NpcMode = mode\n\nlocal function lookup(name, quiet)\n    if not F.Usable(name) or type(name) ~= \"string\" or name == \"\" then\n        return nil\n    end\n    if not F.Room.On(\"namesNpc\") or mode() == 3 then\n        return nil\n    end\n    local names = F.D.names or {}\n    local key = T.NameKey(name)\n    local v = (names.npc and names.npc[key]) or (names.boss and names.boss[key])\n    if v == nil and not quiet and not string.find(name, \"[\\216-\\219\\239]\") then\n        F:Miss(\"npc\", key, name)\n    end\n    return v\nend\nF.NpcLookup = lookup\n\nlocal memo = {}\nlocal function shaped(fa)\n    local key = fa .. \"\\1\" .. tostring(T.Mode()) .. tostring(F.Room.On(\"faDigits\"))\n    local s = memo[key]\n    if not s then\n        s = T.ShapeLine(T.Digits(fa), T.Mode())\n        memo[key] = s\n    end\n    return s\nend\n\n-- font strings we rewrote: fs -> the font to give back\nlocal orig = setmetatable({}, { __mode = \"k\" })\n\nlocal function put(fs, fa, en, two)\n    if not orig[fs] then\n        local font, size, flags = fs:GetFont()\n        orig[fs] = { font = font, size = size, flags = flags }\n    end\n    local o = orig[fs]\n    fs:SetFont(F.FONT, o.size or 12, o.flags or \"\")\n    local s = shaped(fa)\n    if two and type(en) == \"string\" then\n        s = s .. \"\\n\" .. en\n    end\n    fs:SetText(s)\nend\n\nlocal function unput(fs)\n    local o = orig[fs]\n    if o and o.font then\n        pcall(fs.SetFont, fs, o.font, o.size, o.flags or \"\")\n    end\n    orig[fs] = nil\nend\n\n-- the name above a unit: the client calls CompactUnitFrame_UpdateName every\n-- time it writes the name; we write ours right after it\nlocal function plate(frame)\n    if type(frame) ~= \"table\" then\n        return\n    end\n    local fs = frame.name\n    if type(fs) ~= \"table\" or not fs.SetText then\n        return\n    end\n    if not M.active then\n        if orig[fs] then\n            unput(fs)\n        end\n        return\n    end\n    local unit = frame.unit\n    if not F.Usable(unit) or type(unit) ~= \"string\" or string.sub(unit, 1, 9) ~= \"nameplate\" then\n        return\n    end\n    local isp = UnitIsPlayer(unit)\n    local en = UnitName(unit)\n    if (F.Usable(isp) and isp) or not F.Usable(en) then\n        unput(fs)\n        return\n    end\n    local fa = lookup(en, true)\n    if fa then\n        put(fs, fa, en, mode() == 2)\n    else\n        unput(fs)\n    end\nend\nM.plate = plate\n\n-- the unit tooltip: line 1 is the name\nlocal function tip(tt)\n    if tt ~= GameTooltip or not M.active then\n        return\n    end\n    local name, unit = tt:GetUnit()\n    if not F.Usable(name) or not F.Usable(unit) then\n        return\n    end\n    local isp = UnitIsPlayer(unit)\n    if F.Usable(isp) and isp then\n        return\n    end\n    local fa = lookup(name)\n    if not fa then\n        return\n    end\n    if not T.Once(tt, \"n|\" .. tostring(name)) then\n        return\n    end\n    local fs = _G[(tt:GetName() or \"GameTooltip\") .. \"TextLeft1\"]\n    if type(fs) ~= \"table\" or not fs.GetText then\n        return\n    end\n    local cur = fs:GetText()\n    if not F.Usable(cur) or cur ~= name then\n        return\n    end\n    local shown = fa\n    if mode() == 2 then\n        shown = fa .. \"\\n\" .. name\n    end\n    pcall(T.TipSet, tt, fs, shown, nil, \"Left\")\n    T.Done(tt)\n    tt:Show()\nend\n\n-- the target frame name (a single line: Persian only)\nlocal function target_fonts()\n    local out = {}\n    local function add(fs)\n        if type(fs) == \"table\" and fs.SetText and fs.GetFont then\n            out[#out + 1] = fs\n        end\n    end\n    add(_G.TargetFrameTextureFrameName)\n    local tf = _G.TargetFrame\n    if type(tf) == \"table\" then\n        add(tf.name)\n        local c = tf.TargetFrameContent\n        if type(c) == \"table\" and type(c.TargetFrameContentMain) == \"table\" then\n            add(c.TargetFrameContentMain.Name)\n        end\n    end\n    return out\nend\n\nlocal function target()\n    local fonts = target_fonts()\n    local fa, en\n    if M.active and UnitExists and UnitExists(\"target\") then\n        local isp = UnitIsPlayer(\"target\")\n        en = UnitName(\"target\")\n        if not (F.Usable(isp) and isp) and F.Usable(en) then\n            fa = lookup(en, true)\n        end\n    end\n    for _, fs in ipairs(fonts) do\n        if fa then\n            put(fs, fa, en, false)\n        else\n            unput(fs)\n        end\n    end\nend\nM.target = target\n\n-- the name family or the display changed: the plates and the target frame again\nlocal function redo()\n    if C_NamePlate and C_NamePlate.GetNamePlates and CompactUnitFrame_UpdateName then\n        local okp, plates = pcall(C_NamePlate.GetNamePlates)\n        if okp and type(plates) == \"table\" then\n            for _, np in ipairs(plates) do\n                if type(np) == \"table\" and np.UnitFrame then\n                    pcall(CompactUnitFrame_UpdateName, np.UnitFrame)\n                end\n            end\n        end\n    end\n    target()\nend\n\nfunction M.install()\n    if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and Enum.TooltipDataType\n        and Enum.TooltipDataType.Unit then\n        TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, F:Wrap(\"npc\", tip))\n    elseif GameTooltip.HookScript then\n        GameTooltip:HookScript(\"OnTooltipSetUnit\", F:Wrap(\"npc\", tip))\n    end\n    if type(CompactUnitFrame_UpdateName) == \"function\" then\n        hooksecurefunc(\"CompactUnitFrame_UpdateName\", function(frame)\n            local ok, err = pcall(plate, frame)\n            if not ok then\n                F:LogError(\"npc\", err)\n            end\n        end)\n    end\n    F:On(\"PLAYER_TARGET_CHANGED\", \"npc\", function()\n        F.After(0, F:Wrap(\"npc\", target))\n    end)\n    if type(TargetFrame_Update) == \"function\" then\n        hooksecurefunc(\"TargetFrame_Update\", F:Wrap(\"npc\", target))\n    end\n    if type(TargetFrame) == \"table\" and type(TargetFrame.Update) == \"function\" then\n        hooksecurefunc(TargetFrame, \"Update\", F:Wrap(\"npc\", target))\n    end\n    for _, sig in ipairs({ \"names\", \"room\", \"npcname\" }) do\n        F:Listen(sig, F:Wrap(\"npc\", redo))\n    end\nend\n\nfunction M.onState()\n    pcall(redo)\nend\n\nF:RegisterModule(M)\n"
+   },
+   {
+    "file": "addon/WoWFA/WoWFA_Forever.toc.in",
+    "old": "Modules\\Spells.lua\n",
+    "new": "Modules\\Spells.lua\nModules\\Npc.lua\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Core.lua",
+    "old": "F.RELEASE_LOCK = { items = true, npc = true,\n                   namesItem = true, namesNpc = true }",
+    "new": "F.RELEASE_LOCK = { items = true,\n                   namesItem = true }",
+    "count": 1
+   },
+   {
+    "file": "policy.json",
+    "old": "   \"tree\",\n   \"zone\"\n  ]",
+    "new": "   \"tree\",\n   \"zone\",\n   \"npc\",\n   \"boss\"\n  ]",
+    "count": 1
+   },
+   {
+    "file": "policy.json",
+    "old": "\"version\": \"1.0.0-rc10\"",
+    "new": "\"version\": \"1.0.0-rc11\"",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "local function fa(name)\n    if not F.Usable(name)",
+    "new": "local function fa(name, quiet)\n    if not F.Usable(name)",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "    if v == nil and not string.find(name, \"%d\") and not string.find(name, \"[\\216-\\219\\239]\") then\n        F:Miss(\"zone\"",
+    "new": "    if v == nil and not quiet and not string.find(name, \"%d\") and not string.find(name, \"[\\216-\\219\\239]\") then\n        F:Miss(\"zone\"",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "    elseif kind == \"map\" and (not F.Room.On(\"namesZone\") or map_mode() == 3) then",
+    "new": "    elseif (kind == \"map\" or kind == \"maplabel\") and (not F.Room.On(\"namesZone\") or map_mode() == 3) then",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "    if kind == \"map\" and InCombatLockdown and InCombatLockdown() then",
+    "new": "    if (kind == \"map\" or kind == \"maplabel\") and InCombatLockdown and InCombatLockdown() then",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "    local faText = enText ~= \"\" and fa(enText) or nil",
+    "new": "    local faText = enText ~= \"\" and fa(enText, kind == \"maplabel\") or nil",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "                hook_inplace(lb.Name, \"map\")\n            end\n        end\n    end\nend\n",
+    "new": "                hook_inplace(lb.Name, \"map\")\n            end\n        end\n    end\n    -- rc11: every other font string under the map (title, navigation bar, the\n    -- zone headers of the quest log, the pin labels), now and when the map changes\n    if M.scan_map then\n        M.scan_map()\n        F.After(0.4, M.scan_map)\n        if wm.OnMapChanged and not wm.wfaMapChanged and type(hooksecurefunc) == \"function\" then\n            wm.wfaMapChanged = true\n            pcall(hooksecurefunc, wm, \"OnMapChanged\", function()\n                F.After(0.25, M.scan_map)\n            end)\n        end\n        if C_Timer and C_Timer.NewTicker and not M.ticker then\n            M.ticker = C_Timer.NewTicker(2, function()\n                if wm.IsShown and wm:IsShown() then\n                    M.scan_map()\n                end\n            end)\n        end\n    end\nend\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "-- Brain 64 (the owner: \"the Persian zone title fades out on its own timer, make\n",
+    "new": "-- rc11 (the owner: \"the zone names on the map: only the two continents work\"):\n-- every font string under the world map (the title, the navigation bar, the zone\n-- headers of the quest log, the pin labels) gets the same in-place SetText hook;\n-- the walk repeats whenever the map changes because the map builds its pins\n-- lazily. A font string whose text is no zone name is left alone (and never\n-- logged as a miss).\nlocal function walk_map(frame, depth, budget)\n    if budget.n <= 0 or depth > 10 then\n        return\n    end\n    budget.n = budget.n - 1\n    local okr, regions = pcall(function()\n        return { frame:GetRegions() }\n    end)\n    if okr then\n        for _, r in ipairs(regions) do\n            if type(r) == \"table\" and r.GetObjectType and r.SetText and r.GetText then\n                local okt, ot = pcall(r.GetObjectType, r)\n                if okt and ot == \"FontString\" then\n                    hook_inplace(r, \"maplabel\")\n                    local okx, txt = pcall(r.GetText, r)\n                    if okx and F.Usable(txt) and type(txt) == \"string\" and txt ~= \"\" then\n                        on_inplace(r, txt, \"maplabel\")\n                    end\n                end\n            end\n        end\n    end\n    local okc, kids = pcall(function()\n        return { frame:GetChildren() }\n    end)\n    if okc then\n        for _, k in ipairs(kids) do\n            if type(k) == \"table\" and k.GetRegions then\n                walk_map(k, depth + 1, budget)\n            end\n        end\n    end\nend\n\nfunction M.scan_map()\n    local wm = WorldMapFrame\n    if type(wm) ~= \"table\" or not M.active or not F.Room.On(\"namesZone\") then\n        return\n    end\n    pcall(walk_map, wm, 0, { n = 1500 })\nend\n\n-- Brain 64 (the owner: \"the Persian zone title fades out on its own timer, make\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Room.lua",
+    "old": "-- ------------------------------------------------------------ boot\nRoom.Boot = function()",
+    "new": "-- ------------------------------------------------------------ rc11: share a whole setup\n-- WFP1-<tokens>-<check>: everything the user customised as one short code that\n-- others can paste into their own panel (the site's WF4 code only holds the 15\n-- name / text bits; a WF4 code is still accepted by ShareImport).\n-- The tokens are separated by \".\"; the first character is the key, the rest the value:\n--   s = the 15 site bits (base36)   g = the game bits (base36)   p = faPlace (1 / 2)\n--   t / e = General title / description display (1-3)\n--   b / a = the spellbook / talents section: custom 0|1, title, description (3 digits)\n--   n = the NPC name display (1-3)   c = colours on (0|1)\n--   u v w x y q r = the colour index of zn / sp / npc / cls / it / tm / ob\nlocal SHARE_COL = { u = \"zn\", v = \"sp\", w = \"npc\", x = \"cls\", y = \"it\", q = \"tm\", r = \"ob\" }\nlocal SHARE_COL_ORDER = { \"u\", \"v\", \"w\", \"x\", \"y\", \"q\", \"r\" }\nlocal SHARE_SEC = { { \"b\", \"spellbook\" }, { \"a\", \"talents\" } }\n\nlocal function share_check(s)\n    local a = 0\n    for i = 1, #s do\n        a = (a + string.byte(s, i) * (i % 89 + 1)) % 46656\n    end\n    local out = b36num(a)\n    while #out < 3 do\n        out = \"0\" .. out\n    end\n    return out\nend\n\nlocal function raw_on(k)\n    local v = db().d[k]\n    if v == nil then\n        v = (Room.GAME_DEFAULT[k] ~= false)\n    end\n    return v ~= false\nend\n\nlocal function bits_of(keys)\n    local n = 0\n    for i, k in ipairs(keys) do\n        if raw_on(k) then\n            n = n + 2 ^ (i - 1)\n        end\n    end\n    return n\nend\n\nfunction Room.ShareExport()\n    local d = db().d\n    local t = {}\n    t[#t + 1] = \"s\" .. b36num(bits_of(Room.SITE_KEYS))\n    t[#t + 1] = \"g\" .. b36num(bits_of(Room.GAME_KEYS))\n    t[#t + 1] = \"p\" .. tostring(d.faPlace == 2 and 2 or 1)\n    t[#t + 1] = \"t\" .. tostring(F.Disp(\"*\", \"title\"))\n    t[#t + 1] = \"e\" .. tostring(F.Disp(\"*\", \"desc\"))\n    for _, e in ipairs(SHARE_SEC) do\n        t[#t + 1] = e[1] .. (F.DispCustom(e[2]) and \"1\" or \"0\") .. tostring(F.Disp(e[2], \"title\")) .. tostring(F.Disp(e[2], \"desc\"))\n    end\n    t[#t + 1] = \"n\" .. tostring(F.NpcMode and F.NpcMode() or 1)\n    local col = type(F.db.col) == \"table\" and F.db.col or {}\n    t[#t + 1] = \"c\" .. (col.on and \"1\" or \"0\")\n    for _, k in ipairs(SHARE_COL_ORDER) do\n        t[#t + 1] = k .. tostring(F.ColIndex and F.ColIndex(SHARE_COL[k]) or 1)\n    end\n    local payload = table.concat(t, \".\")\n    return \"WFP1-\" .. payload .. \"-\" .. share_check(payload)\nend\n\n-- returns true + the mode, or nil + a Persian reason\nfunction Room.ShareImport(code)\n    if type(code) ~= \"string\" then\n        return nil, \"\u06a9\u062f \u062e\u0627\u0644\u06cc \u0627\u0633\u062a\"\n    end\n    code = string.gsub(code, \"%s+\", \"\")\n    if code == \"\" then\n        return nil, \"\u06a9\u062f \u062e\u0627\u0644\u06cc \u0627\u0633\u062a\"\n    end\n    if string.lower(string.sub(code, 1, 4)) == \"wf4-\" then\n        return Room.Decode(code)\n    end\n    local payload, cc = string.match(code, \"^[Ww][Ff][Pp]1%-([%w%.]+)%-(%w%w%w)$\")\n    if not payload then\n        return nil, \"\u0627\u06cc\u0646 \u06a9\u062f \u0634\u06a9\u0644 \u06a9\u062f \u062a\u0646\u0638\u06cc\u0645\u0627\u062a (WFP1) \u0646\u06cc\u0633\u062a\"\n    end\n    if share_check(payload) ~= string.lower(cc) then\n        return nil, \"\u0631\u0642\u0645 \u06a9\u0646\u062a\u0631\u0644 \u06a9\u062f \u062f\u0631\u0633\u062a \u0646\u06cc\u0633\u062a\u061b \u06cc\u06a9 \u062d\u0631\u0641 \u062c\u0627 \u0627\u0641\u062a\u0627\u062f\u0647 \u06cc\u0627 \u0639\u0648\u0636 \u0634\u062f\u0647\"\n    end\n    local vals = {}\n    for tok in string.gmatch(payload, \"[^%.]+\") do\n        vals[string.sub(tok, 1, 1)] = string.sub(tok, 2)\n    end\n    local function num36(s)\n        if s == nil or s == \"\" then\n            return nil\n        end\n        local n = 0\n        for i = 1, #s do\n            local v = B36I[string.sub(s, i, i)]\n            if v == nil then\n                return nil\n            end\n            n = n * 36 + v\n        end\n        return n\n    end\n    local s, g = num36(vals.s), num36(vals.g)\n    if not s or not g then\n        return nil, \"\u06a9\u062f \u0646\u0627\u0642\u0635 \u0627\u0633\u062a\"\n    end\n    local r = db()\n    local d = {}\n    for i, k in ipairs(Room.SITE_KEYS) do\n        d[k] = (floor(s / 2 ^ (i - 1)) % 2) == 1\n    end\n    for i, k in ipairs(Room.GAME_KEYS) do\n        d[k] = (floor(g / 2 ^ (i - 1)) % 2) == 1\n    end\n    d.faPlace = (vals.p == \"2\") and 2 or 1\n    r.d = d\n    r.m = mode_of(d)\n    local dd = disp_db()\n    dd.title = mode3(vals.t) or 2\n    dd.desc = mode3(vals.e) or 2\n    dd.sec = {}\n    for _, e in ipairs(SHARE_SEC) do\n        local v = vals[e[1]]\n        if v and #v == 3 then\n            dd.sec[e[2]] = { custom = string.sub(v, 1, 1) == \"1\", title = mode3(string.sub(v, 2, 2)) or 2,\n                desc = mode3(string.sub(v, 3, 3)) or 2 }\n        end\n    end\n    local n = tonumber(vals.n)\n    if n == 1 or n == 2 or n == 3 then\n        F.db.npcName = n\n    end\n    if type(F.db.col) ~= \"table\" then\n        F.db.col = {}\n    end\n    F.db.col.on = vals.c == \"1\"\n    for _, k in ipairs(SHARE_COL_ORDER) do\n        local idx = tonumber(vals[k])\n        local ids = F.ColIds and F.ColIds(SHARE_COL[k]) or {}\n        if idx and ids[idx] then\n            F.db.col[SHARE_COL[k]] = ids[idx]\n        end\n    end\n    Room.Changed()\n    F:Fire(\"disp\")\n    F:Fire(\"npcname\")\n    return true, r.m\nend\n\n-- ------------------------------------------------------------ boot\nRoom.Boot = function()",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Panel.lua",
+    "old": "local SHIPPED = { \"quests\", \"tracker\", \"dungeons\", \"spellbook\", \"talents\" }",
+    "new": "local SHIPPED = { \"quests\", \"tracker\", \"dungeons\", \"npc\", \"spellbook\", \"talents\" }",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Panel.lua",
+    "old": "\"npcSay\", \"faDigits\" }\nlocal SECTIONS = { \"general\", \"quests\", \"tracker\", \"map\", \"spellbook\", \"talents\", \"colors\", \"health\", \"about\" }",
+    "new": "\"npcSay\", \"faDigits\", \"namesNpc\" }\nlocal SECTIONS = { \"general\", \"quests\", \"tracker\", \"map\", \"npc\", \"spellbook\", \"talents\", \"colors\", \"share\", \"health\", \"about\" }",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Panel.lua",
+    "old": "    refresh_health()\nend\nF.PanelRefresh = refresh",
+    "new": "    refresh_health()\n    if panel.shareBox and F.Room.ShareExport then\n        panel.shareBox:SetFixed(F.Room.ShareExport())\n    end\nend\nF.PanelRefresh = refresh",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Panel.lua",
+    "old": "-- ------------------------------------------------------------------ build\n",
+    "new": "-- a one-line code box: read-only (the text can only be selected and copied) or editable\nlocal function code_box(parent, editable)\n    UI.Glass(parent, 0.6)\n    local eb = CreateFrame(\"EditBox\", nil, parent)\n    eb:SetMultiLine(false)\n    eb:SetAutoFocus(false)\n    eb:SetMaxLetters(0)\n    eb:SetFont(F.FONT, 11, \"\")\n    eb:SetTextColor(C.text[1], C.text[2], C.text[3])\n    eb:SetSize(PW - 30, 22)\n    eb:SetPoint(\"TOPLEFT\", parent, \"TOPLEFT\", 6, -2)\n    eb:SetScript(\"OnEscapePressed\", function(self)\n        self:ClearFocus()\n    end)\n    eb:SetScript(\"OnEditFocusGained\", function(self)\n        self:HighlightText()\n    end)\n    if not editable then\n        eb.wfaFixed = \"\"\n        eb:SetScript(\"OnTextChanged\", function(self, user)\n            if user then\n                self:SetText(self.wfaFixed or \"\")\n                self:HighlightText()\n            end\n        end)\n        eb.SetFixed = function(self, s)\n            self.wfaFixed = s or \"\"\n            self:SetText(self.wfaFixed)\n            self:SetCursorPosition(0)\n        end\n    end\n    return eb\nend\n\n-- ------------------------------------------------------------------ build\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Panel.lua",
+    "old": "    -- ===================================================== Spellbook\n    begin_page(\"spellbook\")",
+    "new": "    -- ===================================================== NPC names\n    begin_page(\"npc\")\n    mod_toggle(\"npc\")\n    header(L.sec_npc)\n    room_toggle(\"namesNpc\")\n    -- F.db.npcName: 1 Persian / 2 Persian + English under it / 3 English (Modules/Npc.lua)\n    panel.npcName = place(UI.Choice(page.child, PW - 16, L.d_npcname, nil, L.opt_npc,\n        function() return F.NpcMode and F.NpcMode() or 1 end,\n        function(v)\n            F.db.npcName = v\n            F:Fire(\"npcname\")\n        end), 32, 2)\n    note(L.n_npc)\n    end_page()\n\n    -- ===================================================== Spellbook\n    begin_page(\"spellbook\")",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Panel.lua",
+    "old": "    -- ===================================================== Status\n    begin_page(\"health\")",
+    "new": "    -- ===================================================== Share\n    begin_page(\"share\")\n    header(L.sh_mine)\n    note(L.sh_mine_d)\n    local c1 = CreateFrame(\"Frame\", nil, page.child)\n    c1:SetSize(PW - 16, 26)\n    panel.shareBox = code_box(c1, false)\n    place(c1, 26, 8)\n    header(L.sh_use)\n    note(L.sh_use_d)\n    local c2 = CreateFrame(\"Frame\", nil, page.child)\n    c2:SetSize(PW - 16, 26)\n    panel.shareIn = code_box(c2, true)\n    place(c2, 26, 6)\n    local ab = CreateFrame(\"Frame\", nil, page.child)\n    ab:SetSize(PW - 16, 30)\n    panel.shareApply = UI.Button(ab, L.sh_apply, 150, 26, function()\n        local txt = panel.shareIn:GetText() or \"\"\n        local ok, why = F.Room.ShareImport(txt)\n        panel.shareMsg:SetFa(ok and L.sh_ok or tostring(why), PW - 30)\n        if ok then\n            refresh()\n        end\n    end)\n    panel.shareApply:SetPoint(\"RIGHT\", ab, \"RIGHT\", -4, 0)\n    place(ab, 30, 4)\n    local mf = CreateFrame(\"Frame\", nil, page.child)\n    mf:SetSize(PW - 16, 30)\n    panel.shareMsg = UI.Text(mf, 12, C.goldLight)\n    panel.shareMsg:SetPoint(\"TOPRIGHT\", mf, \"TOPRIGHT\", -4, 0)\n    panel.shareMsg:SetFa(\" \", PW - 30)\n    place(mf, 30, 2)\n    end_page()\n\n    -- ===================================================== Status\n    begin_page(\"health\")",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Locale.lua",
+    "old": "L.btn_miss_clear =",
+    "new": "L.sec_npc = \"\u0634\u062e\u0635\u06cc\u062a\u200c\u0647\u0627 (NPC)\"\nL.sec_share = \"\u0627\u0634\u062a\u0631\u0627\u06a9\u200c\u06af\u0630\u0627\u0631\u06cc\"\nL.d_npcname = \"\u0646\u0627\u0645 \u0634\u062e\u0635\u06cc\u062a\u200c\u0647\u0627 \u0628\u0627\u0644\u0627\u06cc \u0633\u0631\u0634\u0627\u0646\"\nL.opt_npc = { \"\u0641\u0627\u0631\u0633\u06cc\", \"\u0641\u0627\u0631\u0633\u06cc \u0648 \u0627\u0646\u06af\u0644\u06cc\u0633\u06cc \u0632\u06cc\u0631\u0634\", \"\u0627\u0646\u06af\u0644\u06cc\u0633\u06cc\" }\nL.n_npc = \"\u0646\u0627\u0645 \u0628\u0627\u0644\u0627\u06cc \u0633\u0631 \u0634\u062e\u0635\u06cc\u062a\u200c\u0647\u0627 \u0648\u0642\u062a\u06cc \u062f\u06cc\u062f\u0647 \u0645\u06cc\u200c\u0634\u0648\u062f \u06a9\u0647 \u0646\u0645\u0627\u06cc\u0634 \u0646\u0627\u0645\u200c\u0647\u0627 \u0631\u0648\u0634\u0646 \u0628\u0627\u0634\u062f (\u06a9\u0644\u06cc\u062f V). \u0631\u0648\u06cc \u0631\u0627\u0647\u0646\u0645\u0627\u06cc \u0634\u062e\u0635\u06cc\u062a \u0648 \u0646\u0627\u0645 \u0647\u062f\u0641 \u0647\u0645 \u0627\u062b\u0631 \u0645\u06cc\u200c\u06a9\u0646\u062f.\"\nL.sh_mine = \"\u06a9\u062f \u062a\u0646\u0638\u06cc\u0645\u0627\u062a \u0645\u0646\"\nL.sh_mine_d = \"\u0627\u06cc\u0646 \u06a9\u062f \u0647\u0645\u0647\u0654 \u0627\u0646\u062a\u062e\u0627\u0628\u200c\u0647\u0627\u06cc \u062a\u0648 \u0631\u0627 \u062f\u0627\u0631\u062f: \u0631\u0648\u06cc \u06a9\u0627\u062f\u0631 \u06a9\u0644\u06cc\u06a9 \u06a9\u0646\u060c Ctrl+C \u0628\u0632\u0646 \u0648 \u0628\u0647 \u0628\u0642\u06cc\u0647 \u0628\u062f\u0647.\"\nL.sh_use = \"\u06af\u0630\u0627\u0634\u062a\u0646 \u06a9\u062f \u062f\u06cc\u06af\u0631\u0627\u0646\"\nL.sh_use_d = \"\u06a9\u062f\u06cc \u06a9\u0647 \u0627\u0632 \u06a9\u0633\u06cc \u06af\u0631\u0641\u062a\u0647\u200c\u0627\u06cc \u0631\u0627 \u0627\u06cc\u0646\u062c\u0627 \u0628\u0686\u0633\u0628\u0627\u0646 (Ctrl+V) \u0648 \u00ab\u0627\u0639\u0645\u0627\u0644 \u06a9\u062f\u00bb \u0631\u0627 \u0628\u0632\u0646.\"\nL.sh_apply = \"\u0627\u0639\u0645\u0627\u0644 \u06a9\u062f\"\nL.sh_ok = \"\u062a\u0646\u0638\u06cc\u0645\u0627\u062a \u0627\u0639\u0645\u0627\u0644 \u0634\u062f.\"\nL.btn_miss_clear =",
+    "count": 1
+   },
+   {
+    "file": "tests/run.lua",
+    "old": "-- ------------------------------------------------------------------ tracker\n",
+    "new": "-- ------------------------------------------------------------------ rc11: NPC names, share codes\nlocal okRc11, errRc11 = pcall(function()\n    local savedCode = F.Room.Encode()\n    local oldDisp, oldCol, oldNpc = F.db.disp, F.db.col, F.db.npcName\n    F.Room.Apply(\"fa\")\n    -- the npc family is no longer locked and its names ship\n    check(\"namesNpc is no longer release-locked\", F.RELEASE_LOCK.namesNpc == nil and F.RELEASE_LOCK.npc == nil)\n    check(\"the npc module is registered\", F.mods.npc ~= nil)\n    local k, v = next(F.D.names.npc or {})\n    check(\"npc names ship\", k ~= nil and v ~= nil)\n    if k then\n        F.db.npcName = nil\n        check(\"an NPC name resolves to Persian\", F.NpcLookup(k) == v, tostring(F.NpcLookup(k)))\n        F.db.npcName = 3\n        check(\"npcName 3 = English: no lookup\", F.NpcLookup(k) == nil)\n        F.db.npcName = 1\n        F.Room.Set(\"namesNpc\", false)\n        check(\"the namesNpc switch off = English\", F.NpcLookup(k) == nil)\n        F.Room.Set(\"namesNpc\", true)\n    end\n    -- the share code: a round trip of a customised setup\n    F.Room.Set(\"namesZone\", false)\n    F.DispSetDefault(\"title\", 3)\n    F.DispSet(\"talents\", \"desc\", 1)\n    F.db.npcName = 2\n    F.db.col = { on = true, zn = \"red\", cls = \"off\" }\n    local code = F.Room.ShareExport()\n    check(\"the share code has the WFP1 shape\", string.find(code, \"^WFP1%-[%w%.]+%-%w%w%w$\") ~= nil, code)\n    F.Room.Set(\"namesZone\", true)\n    F.DispSetDefault(\"title\", 1)\n    F.DispSetCustom(\"talents\", false)\n    F.db.npcName = 1\n    F.db.col = nil\n    local ok, why = F.Room.ShareImport(code)\n    check(\"the share code imports\", ok == true, tostring(why))\n    check(\"the room bits come back\", not F.Room.On(\"namesZone\"))\n    check(\"the display defaults come back\", F.Disp(\"*\", \"title\") == 3 and F.Disp(\"talents\", \"desc\") == 1)\n    check(\"the npc display comes back\", F.NpcMode() == 2)\n    check(\"the colours come back\", F.db.col and F.db.col.on == true and F.db.col.zn == \"red\" and F.db.col.cls == \"off\")\n    local bad = string.gsub(code, \"^(WFP1%-s)(%w)\", function(a, b)\n        return a .. (b == \"z\" and \"y\" or \"z\")\n    end)\n    local okb = F.Room.ShareImport(bad)\n    check(\"a changed code is refused\", okb == nil)\n    check(\"a site WF4 code is still accepted\", F.Room.ShareImport(F.Room.Encode()) == true)\n    check(\"an empty code is refused\", F.Room.ShareImport(\"  \") == nil)\n    -- the panel: the NPC and Share sections\n    F.OpenPanel(\"npc\")\n    check(\"the panel opens the NPC section\", F.PanelPage() == \"npc\")\n    local PF = F.PanelFrame()\n    check(\"the NPC section has its display choice\", PF.npcName ~= nil)\n    Click(PF.npcName)\n    check(\"the NPC display choice cycles\", F.NpcMode() == 3, F.NpcMode())\n    F.OpenPanel(\"share\")\n    RunTimers()\n    check(\"the share box shows my code\", PF.shareBox.wfaFixed and string.find(PF.shareBox.wfaFixed, \"^WFP1%-\") ~= nil)\n    PF.shareIn:SetText(\"garbage\")\n    Click(PF.shareApply)\n    check(\"the share page refuses a garbage code\", F.Disp(\"*\", \"title\") == 3)\n    PF:Hide()\n    F.db.disp, F.db.col, F.db.npcName = oldDisp, oldCol, oldNpc\n    F.Room.Decode(savedCode)\nend)\ncheck(\"rc11 tests ran\", okRc11, errRc11)\n-- ------------------------------------------------------------------ tracker\n",
+    "count": 1
+   },
+   {
+    "file": "tools/wfa/jobs/mark_quests.py",
+    "old": "    stop = set(args.get(\"stop\") or [])\n",
+    "new": "    stop = set(args.get(\"stop\") or [])\n    stop_keys = set(args.get(\"stop_keys\") or [])\n",
+    "count": 1
+   },
+   {
+    "file": "tools/wfa/jobs/mark_quests.py",
+    "old": "            if len(fa) < min_len or re.search(r\"[A-Za-z0-9{}|]\", fa):\n                continue\n",
+    "new": "            if len(fa) < min_len or re.search(r\"[A-Za-z0-9{}|]\", fa) or key in stop_keys:\n                continue\n",
+    "count": 1
+   },
+   {
+    "file": "tools/wfa/jobs/mark_quests.py",
+    "old": "    hits = collections.Counter()\n",
+    "new": "    # a name that also shows up as a plural (\"... \u0647\u0627\") is a common noun (spider, boar), not a name\n    rx_pl = re.compile(\"(?<![%sA-Za-z0-9])(%s)(?=\\u200c?(?:\\u0647\\u0627|\\u0647\\u0627\\u06cc)(?![%s]))\" % (PERS, alt, PERS))\n    plural = collections.Counter()\n    hits = collections.Counter()\n",
+    "count": 1
+   },
+   {
+    "file": "tools/wfa/jobs/mark_quests.py",
+    "old": "    suspicious = {fa for fa, n in hits.items() if \" \" not in fa and n > max_single}\n",
+    "new": "    for qid, rec in store.quests.items():\n        for f in FIELDS:\n            t = rec.get(f)\n            if t:\n                each_seg(t, lambda s: (plural.update(m.group(1) for m in rx_pl.finditer(s)), s)[1])\n    # zones are always names; an NPC is skipped when it is also used as a plural, or is a\n    # single word seen more than max_single times (a common noun)\n    suspicious = set()\n    for fa, n in hits.items():\n        if names[fa][0] == \"npc\" and (plural.get(fa) or (\" \" not in fa and n > max_single)):\n            suspicious.add(fa)\n",
+    "count": 1
+   },
+   {
+    "file": "tools/wfa/jobs/mark_quests.py",
+    "old": "    rep.ok(\"%d different names, %d hits in %d quests; %d single-word names above %d hits are treated as common words\"",
+    "new": "    rep.ok(\"%d different names, %d hits in %d quests; %d NPC names skipped as common nouns (plural use or above %d hits)\"",
+    "count": 1
+   }
+  ]
+ }
+}

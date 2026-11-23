@@ -1,0 +1,8 @@
+{
+ "id": "0035-release",
+ "kind": "release",
+ "why": "rc10: colours that work in display mode 3",
+ "args": {
+  "notes": "WoWFA Forever 1.0.0-rc10 (test build, built by wowfa2 CI).\n\nFix: the colours page now works. The addon always runs in display mode 3 (its own reordering) and rc9 colours only worked in modes 1 and 2; mode 3 now carries the colour of every character through reshaping and reordering, and a colour span that a line break cuts is opened again on the next line.\n\nIncludes rc9 (stale quest text fix, duplicate tooltip lines), rc8 (settings side menu) and rc7.\n\nData from ForeverDB.net"
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "id": "0033-release",
+ "kind": "release",
+ "why": "rc9 for the owner's in-game test",
+ "args": {
+  "notes": "WoWFA Forever 1.0.0-rc9 (test build, built by wowfa2 CI).\n\nNew: a Colours page (zone / spell / NPC / class / item / term / object names in the colour you pick, classes in their official colour; off by default, switch it on in the page). Fixed: the quest pane showing the previous quest after a quick second click on the map quest log; the same long Persian line appearing twice in a tooltip.\n\nIncludes rc8 (settings side menu) and rc7.\n\nData from ForeverDB.net"
+ }
+}

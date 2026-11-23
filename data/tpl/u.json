@@ -46,7 +46,7 @@
 "use: heal target, recovers # to # hp.(# min cooldown)":"استفاده: هدف را {{tm:Heal|شفا}} می‌دهد و {0} تا {1} {{tm:HP|سلامتی}} بازیابی می‌کند. ({{tm:cooldown|کول‌داون}} {2} دقیقه)",
 "use: heals # to # hp.(# min cooldown)":"استفاده: {0} تا {1} {{tm:HP|سلامتی}} بازیابی می‌کند. ({{tm:cooldown|کول‌داون}} {2} دقیقه)",
 "use: heals a sick animal contaminated by evil energy.(# sec cooldown)":"استفاده: جانور بیمار و آلوده به {{tm:energy|انرژی}} پلید را شفا می‌دهد. ({{tm:cooldown|کول‌داون}} {0} ثانیه)",
-"use: immerse a weapon with poison for # min. each attack has a #% chance to poison the enemy, increasing its casting time by #% for # sec. can be used # times":"استفاده: به مدت {0} دقیقه سلاح را زهرآگین می‌کند. هر حمله {1}% شانس دارد دشمن را مسموم کند و زمان اجرای اسپیلش را {2}% افزایش دهد؛ این اثر {3} ثانیه دوام دارد. {4} بار قابل استفاده است.",
+"use: immerse a weapon with poison for # min. each attack has a #% chance to poison the enemy, increasing its casting time by #% for # sec. can be used # times":"استفاده: به مدت {0} دقیقه سلاح را زهرآگین می‌کند. هر حمله {1}% شانس دارد دشمن را مسموم کند و زمان اجرای اسپلش را {2}% افزایش دهد؛ این اثر {3} ثانیه دوام دارد. {4} بار قابل استفاده است.",
 "use: immovable target for # sec.(# minute cooldown)":"استفاده: هدف را به مدت {0} ثانیه بی‌حرکت می‌کند. ({{tm:cooldown|کول‌داون}} {1} دقیقه)",
 "use: increases agility by # for # hour.(# sec cooldown)":"استفاده: {{tm:Agility|چابکی}} را {0} واحد به مدت {1} ساعت افزایش می‌دهد. ({{tm:cooldown|کول‌داون}} {2} ثانیه)",
 "use: increases armor by # for # hour.(# sec cooldown)":"استفاده: {{tm:armor|زره}} را به مدت {1} ساعت {0} واحد افزایش می‌دهد. ({{tm:cooldown|کول‌داون}} {2} ثانیه)",

@@ -1,0 +1,8 @@
+{
+ "id": "0030-release",
+ "kind": "release",
+ "why": "rc8: settings v2 for the owner's in-game test",
+ "args": {
+  "notes": "WoWFA Forever 1.0.0-rc8 (test build, built by wowfa2 CI).\n\nNew settings window: a side menu with General, Quests, Quest tracker, Map and zones, Spellbook, Talents, Status, About. Spellbook and Talents each choose how the name (Persian only / Persian + English below / English) and the description (Persian replaces English / below / off) are shown, or follow the General default.\n\nIncludes rc7: armor / language lists, Quickness, Wisp Spirit, fresh miss list per version.\n\nTip: for Persian spell names and terms choose the preset 'fully Persian' in /wowfa.\n\nData from ForeverDB.net"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "id": "0032-rc9fix",
+ "kind": "edit",
+ "onto": "task/0031-rc9",
+ "why": "rc9 CI: a wrapped long text left its short tail line outside the duplicate guard; the guard now works on the whole text",
+ "args": {
+  "ops": [
+   {
+    "file": "addon/WoWFA/Text.lua",
+    "old": "    for _, ln in ipairs(T.Lines(text, wrap, size, mode)) do\n        if #ln < 14 or not seen[ln] then\n            seen[ln] = true\n            tt:AddLine(ln, color[1], color[2], color[3], mode ~= 3)\n            style(tt, \"Left\")\n        end\n    end\n",
+    "new": "    if #text >= 14 then\n        if seen[text] then\n            return\n        end\n        seen[text] = true\n    end\n    for _, ln in ipairs(T.Lines(text, wrap, size, mode)) do\n        tt:AddLine(ln, color[1], color[2], color[3], mode ~= 3)\n        style(tt, \"Left\")\n    end\n",
+    "count": 1
+   }
+  ]
+ }
+}

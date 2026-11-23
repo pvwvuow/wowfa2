@@ -1,0 +1,12 @@
+{
+ "id": "0042-tagscan",
+ "kind": "script",
+ "why": "report only: the Latin emote tags the quest texts hold (the ratchet counts them as Latin in Persian)",
+ "args": {
+  "module": "tags",
+  "args": {
+   "apply": false,
+   "top": 200
+  }
+ }
+}

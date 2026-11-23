@@ -69,6 +69,42 @@ local function gender_alts(key)
     return { his, him }
 end
 
+-- rc7 (rc6 miss list): a tooltip line that is a LIST ("You are proficient in the
+-- use of the following armor types:" + one word per line, the languages a race
+-- speaks) differs per class and race, so no single template can hold it. The
+-- header and every word are rows of the ui table ("l:" + lowercase English);
+-- the list is shown only when ALL of its parts are known, else it stays English
+-- and the normal miss log shows it.
+local function list_fa(text)
+    if not string.find(text, "[\r\n]") then
+        return nil
+    end
+    local ui = F.D.ui
+    if type(ui) ~= "table" then
+        return nil
+    end
+    local parts = {}
+    for ln in string.gmatch(text, "[^\r\n]+") do
+        ln = string.gsub(ln, "^%s+", "")
+        ln = string.gsub(ln, "%s+$", "")
+        if ln ~= "" then
+            parts[#parts + 1] = ln
+        end
+    end
+    if #parts < 2 then
+        return nil
+    end
+    local out = {}
+    for i = 1, #parts do
+        local fa = ui["l:" .. string.lower(parts[i])]
+        if type(fa) ~= "string" then
+            return nil
+        end
+        out[#out + 1] = fa
+    end
+    return out
+end
+
 local function spell_tip(modId, tt, data)
     if tt and tt.wfaScan then
         return -- the /wowfa dump scanner tooltip: we export English, never translate it
@@ -96,15 +132,20 @@ local function spell_tip(modId, tt, data)
     for i = 2, #lines do
         local text = lines[i]
         if text ~= "" and #text > 8 and not has_fa(text) then
+            local lst = list_fa(text)
             local key, nums = T.NumKey(text)
-            local fa = tpl[key]
-            if not fa then
+            local fa = (not lst) and tpl[key] or nil
+            if not fa and not lst then
                 local alts = gender_alts(key)
                 if alts then
                     fa = tpl[alts[1]] or tpl[alts[2]]
                 end
             end
-            if fa then
+            if lst then
+                for _, s in ipairs(lst) do
+                    found[#found + 1] = s
+                end
+            elseif fa then
                 found[#found + 1] = T.Fill(fa, nums)
             elseif #text > 30 then
                 -- rc4: description-sized lines only (cost / range / cast header

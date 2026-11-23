@@ -238,6 +238,51 @@ local okRc6, errRc6 = pcall(function()
     end
 end)
 check("rc6 tests ran", okRc6, errRc6)
+-- ------------------------------------------------------------------ rc7: list lines + stale misses
+local okRc7, errRc7 = pcall(function()
+    local ui = F.D.ui
+    local had = {}
+    local rows = {
+        ["l:zz test header:"] = "هدر آزمایشی:",
+        ["l:zzcloth"] = "پارچه‌ای",
+        ["l:zzleather"] = "چرمی",
+    }
+    for k, v in pairs(rows) do
+        had[k] = ui[k]
+        ui[k] = v
+    end
+    F:ClearMiss()
+    GameTooltip:Hide()
+    GameTooltip:ClearLines()
+    GameTooltip:AddLine(skey)
+    GameTooltip:AddLine("Zz test header:\r\nZzCloth\r\nZzUnknownWord")
+    RunTip("Spell", GameTooltip, nil)
+    local base = #GameTooltip:TipLines()
+    check("a list with an unknown word stays English (no list lines added)", base >= 2 and base <= 3, base)
+    GameTooltip:Hide()
+    GameTooltip:ClearLines()
+    GameTooltip:AddLine(skey)
+    GameTooltip:AddLine("Zz test header:\r\nZzCloth\r\nZzLeather")
+    RunTip("Spell", GameTooltip, nil)
+    local ls = GameTooltip:TipLines()
+    check("a known list line gets Persian header + 2 words", #ls == base + 3 and non_ascii(ls[#ls]) and non_ascii(ls[#ls - 2]),
+        #ls .. " vs base " .. base .. " / " .. table.concat(ls, " / "))
+    for k in pairs(rows) do
+        ui[k] = had[k]
+    end
+    check("ui table ships the rc7 list words", type(ui["l:you are fluent in the following languages:"]) == "string"
+        and type(ui["l:cloth"]) == "string" and type(ui["l:common"]) == "string")
+    -- stale misses: a list from an older addon build is dropped, the current one is kept
+    F.db.miss = { ["tpl:old"] = { k = "tpl", t = "old", n = 1 } }
+    F.db.missN, F.db.missV = 1, "0.0.0-old"
+    F:MissFresh()
+    check("an older build's miss list is dropped", F.db.missN == 0 and next(F.db.miss) == nil, F.db.missN)
+    F:Miss("zone", "zz fresh", "Zz Fresh")
+    F:MissFresh()
+    check("the current build's misses are kept", F.db.missN == 1, F.db.missN)
+    F:ClearMiss()
+end)
+check("rc7 tests ran", okRc7, errRc7)
 -- ------------------------------------------------------------------ tracker
 function GetNumQuestLogEntries() return #MOCK.logList end -- the mock lacks it
 MOCK.logList = { { title = "Live Title Of The Quest", id = qid } }

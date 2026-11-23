@@ -47,6 +47,20 @@ local function plain(s)
     return s
 end
 
+-- rc4 (the owner's miss list: "If the hunter takes damage, she will be dazed"):
+-- the client fills the $g he/she choice with the PLAYER's gender while the data
+-- was keyed from the male text. On a miss, retry the key with the male words.
+local function gender_alts(key)
+    if not string.find(key, "%f[%a]she%f[%A]") and not string.find(key, "%f[%a]her") then
+        return nil
+    end
+    local k = string.gsub(key, "%f[%a]she%f[%A]", "he")
+    k = string.gsub(k, "%f[%a]herself%f[%A]", "himself")
+    local his = string.gsub(k, "%f[%a]her%f[%A]", "his")
+    local him = string.gsub(k, "%f[%a]her%f[%A]", "him")
+    return { his, him }
+end
+
 local function spell_tip(modId, tt, data)
     if not tt or (tt.IsForbidden and tt:IsForbidden()) then
         return
@@ -63,7 +77,8 @@ local function spell_tip(modId, tt, data)
     local names = F.D.names and F.D.names.spell or {}
     local tpl = F.D.tpl or {}
     local faName = names[T.NameKey(name)] -- lane-28 §A3: NameKey on both sides
-    if faName == nil then
+    -- rc4: a line 1 that starts with a digit is a cost row ("107 Mana"), never a name
+    if faName == nil and not string.find(name, "^%d") then
         F:Miss("spell", T.NameKey(name), name) -- rc3 update watch (Core F:Miss)
     end
     local found = {}
@@ -72,9 +87,17 @@ local function spell_tip(modId, tt, data)
         if text ~= "" and #text > 8 then
             local key, nums = T.NumKey(text)
             local fa = tpl[key]
+            if not fa then
+                local alts = gender_alts(key)
+                if alts then
+                    fa = tpl[alts[1]] or tpl[alts[2]]
+                end
+            end
             if fa then
                 found[#found + 1] = T.Fill(fa, nums)
-            else
+            elseif #text > 30 then
+                -- rc4: description-sized lines only (cost / range / cast header
+                -- rows are short; they belong to the in-place settings v2 work)
                 F:Miss("tpl", key, plain(text), name)
             end
         end
@@ -180,3 +203,88 @@ function TL.install()
     end))
 end
 F:RegisterModule(TL)
+
+-- --------------------------------------------- rc4: tooltips with no spell data
+-- The owner's rc3 test: the Forever talent frame (Primary / Secondary, Apply
+-- Changes) shows plain GameTooltip text with no Spell tooltip data, so no
+-- post-call fires (Ferocity stayed English and never reached the miss list).
+-- Fallback: on GameTooltip show, when line 1 is a KNOWN spell/talent name and
+-- the tooltip is not an item or a unit, run the same spell_tip. T.Once (same
+-- "s"..name key) keeps a tooltip the post-call already did from getting the
+-- Persian twice. Unknown names under a talent/spell frame are logged (kind
+-- "tip", with the owner frame path) so the next build can hook that frame.
+local function owner_path(tt)
+    local ok, path = pcall(function()
+        local parts = {}
+        local f = tt.GetOwner and tt:GetOwner()
+        local n = 0
+        while f and n < 6 do
+            local nm = f.GetName and f:GetName()
+            if type(nm) == "string" and F.Usable(nm) then
+                parts[#parts + 1] = nm
+            end
+            f = f.GetParent and f:GetParent()
+            n = n + 1
+        end
+        return table.concat(parts, "<")
+    end)
+    return (ok and type(path) == "string") and path or ""
+end
+
+local function is_item_or_unit(tt)
+    local ok, r = pcall(function()
+        if tt.GetItem then
+            local _, link = tt:GetItem()
+            if link then
+                return true
+            end
+        end
+        if tt.GetUnit then
+            local _, unit = tt:GetUnit()
+            if unit then
+                return true
+            end
+        end
+        return false
+    end)
+    return (not ok) or r
+end
+
+local function plain_tip(tt)
+    if not tt or (tt.IsForbidden and tt:IsForbidden()) then
+        return
+    end
+    local mod = (F:Active("spellbook") and "spellbook") or (F:Active("talents") and "talents") or nil
+    if not mod then
+        return
+    end
+    local tname = tt.GetName and tt:GetName()
+    local fs = tname and _G[tname .. "TextLeft1"]
+    local first = fs and fs:GetText()
+    if not F.Usable(first) or type(first) ~= "string" or first == "" then
+        return
+    end
+    first = plain(first)
+    local names = F.D.names and F.D.names.spell or {}
+    if names[T.NameKey(first)] == nil then
+        local path = owner_path(tt)
+        local low = string.lower(path)
+        if string.find(low, "talent") or string.find(low, "spell") then
+            F:Miss("tip", path .. "|" .. T.NameKey(first), first, path)
+        end
+        return
+    end
+    if is_item_or_unit(tt) then
+        return
+    end
+    spell_tip(mod, tt, nil)
+end
+
+if GameTooltip and GameTooltip.HookScript then
+    GameTooltip:HookScript("OnShow", function(tt)
+        local ok, err = pcall(plain_tip, tt)
+        if not ok then
+            F:LogError("spellbook", err)
+        end
+    end)
+end

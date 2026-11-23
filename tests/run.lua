@@ -107,6 +107,17 @@ check("minimap zone text in Persian", non_ascii(MinimapZoneText:GetText()), Mini
 check("minimap zone text uses the Persian font", (MinimapZoneText._font or ""):find("Vazirmatn") ~= nil, MinimapZoneText._font)
 MinimapZoneText:SetText("Zzz Unknown Place")
 check("unknown zone stays English", MinimapZoneText:GetText() == "Zzz Unknown Place", MinimapZoneText:GetText())
+-- rc4: our own Persian write must never come back as a zone miss
+F:ClearMiss()
+local zk1 = next(D.names.zone)
+MinimapZoneText:SetText(zk1)
+local selfMiss = 0
+for id, e in pairs(F.db.miss or {}) do
+    if e.k == "zone" then
+        selfMiss = selfMiss + 1
+    end
+end
+check("own Persian write is not logged as a zone miss", selfMiss == 0, selfMiss)
 
 -- ------------------------------------------------------------ spell tooltip
 local tkey
@@ -137,6 +148,38 @@ for _, l in ipairs(lines) do
     end
 end
 check("spell tooltip gets Persian (" .. tkey:sub(1, 40) .. ")", anyFa, table.concat(lines, " / "))
+-- rc4: the client writes "she" for a female character; the data is keyed "he"
+D.tpl["zz test he will be dazed for # sec"] = "{0} ثانیه گیج"
+GameTooltip:ClearLines()
+GameTooltip:AddLine(skey)
+GameTooltip:AddLine("Zz test she will be dizzy for 4 sec.")
+RunTip("Spell", GameTooltip, nil)
+local nCtl = #GameTooltip:TipLines() -- control: no template for this line
+GameTooltip:ClearLines()
+GameTooltip:AddLine(skey)
+GameTooltip:AddLine("Zz test she will be dazed for 4 sec.")
+RunTip("Spell", GameTooltip, nil)
+local nG = #GameTooltip:TipLines()
+check("female-text tooltip matches the male-keyed template", nG == nCtl + 1, nG .. " vs control " .. nCtl)
+D.tpl["zz test he will be dazed for # sec"] = nil
+-- rc4: a plain GameTooltip (no Spell data: the Forever talent frame) translates too
+GameTooltip:Hide()
+GameTooltip:ClearLines()
+GameTooltip:AddLine(skey)
+GameTooltip:AddLine(live)
+GameTooltip:Show()
+local pl = GameTooltip:TipLines()
+local plFa = false
+for _, l in ipairs(pl) do
+    if non_ascii(l) then
+        plFa = true
+    end
+end
+check("plain talent-style tooltip gets Persian (OnShow fallback)", plFa, table.concat(pl, " / "))
+local nP = #pl
+RunTip("Spell", GameTooltip, nil)
+check("the post-call after the fallback adds nothing twice", #GameTooltip:TipLines() == nP,
+    #GameTooltip:TipLines() .. " vs " .. nP)
 
 -- ------------------------------------------------------------------ tracker
 function GetNumQuestLogEntries() return #MOCK.logList end -- the mock lacks it

@@ -3,6 +3,7 @@
 "each instance of damage of mind flay deals #% more damage than its previous instance of damage":"هر نوبت {{tm:damage|آسیب}} {{sp:Mind Flay}}، {0}% بیش از نوبت پیشین {{tm:damage|آسیب}} وارد می‌کند.",
 "each time you heal a target other than yourself with flash heal, you are healed for #% as much. this healing generates no threat":"هر بار که با {{sp:Flash Heal}} هدفی جز خودت را شفا می‌دهی، خودت هم {0}% همان مقدار شفا می‌گیری. این شفا {{tm:threat|تهدید}} ایجاد نمی‌کند.",
 "enemies stunned by your kidney shot ability take #% increased damage from your poisons and attacks":"{{tm:enemies|دشمنان}} که توسط توانایی {{sp:kidney shot}} تو فلج شده‌اند، {0}% {{tm:Damage|آسیب}} بیشتر از {{sp:poisons}} و حمله‌های تو دریافت می‌کنند.",
+"equip a fishing pole and find a body of water to fish. right-click on the bob in the water when it splashes to catch your fish. higher skill increases your chance of fishing successfully in higher level areas":"یک چوب ماهیگیری به دست بگیر و کنار آب برو. وقتی چوب‌پنبهٔ روی آب تکان خورد، روی آن راست‌کلیک کن تا ماهی را بگیری. مهارت بالاتر شانس موفقیت ماهیگیری در مناطق سطح‌بالاتر را بیشتر می‌کند.",
 "equip: + # ranged attack strength":"مجهز به: +{0} {{tm:strength|قدرت}} حملهٔ دوربرد.",
 "equip: +# armor":"مجهز به: +{0} {{tm:armor|زره}}.",
 "equip: adds # fire damage to your weapon attacks":"مجهز به: {0} {{tm:fire damage|آسیب آتش}} به حملات سلاح شما اضافه می‌کند.",

@@ -35,7 +35,7 @@ local function fa(name)
     local v = F.D.names.zone[T.NameKey(name)]
     -- rc3 update watch: a zone the data does not know (a label with digits is
     -- a level range / description line, never a zone name)
-    if v == nil and not string.find(name, "%d") then
+    if v == nil and not string.find(name, "%d") and not string.find(name, "[\216-\219\239]") then
         F:Miss("zone", T.NameKey(name), name)
     end
     return v
@@ -58,6 +58,7 @@ local function map_mode()
     return v
 end
 
+local shapeMemo = {} -- rc4: Persian zone text -> shaped string (per display mode)
 local writing = {}  -- fs -> true while WE are inside SetText (re-entry flag)
 local original = {} -- fs -> { font, size, flags, text } of the state to restore
 
@@ -79,7 +80,13 @@ local function apply_inplace(fs, faText, enText, kind)
     original[fs].text = enText
     fs:SetFont(F.FONT, (original[fs].size or T.Size()), "")
     -- Brain review #136-1: the player's CURRENT display mode, never a hardcoded 3
-    local shown = T.ShapeLine(T.Digits(faText), T.Mode())
+    -- rc4: the map label is re-set by the client every frame: shape once per text
+    local mkey = faText .. "\1" .. tostring(T.Mode()) .. tostring(F.Room.On("faDigits"))
+    local shown = shapeMemo[mkey]
+    if not shown then
+        shown = T.ShapeLine(T.Digits(faText), T.Mode())
+        shapeMemo[mkey] = shown
+    end
     -- zoneMap 2: ONE font string, two lines (Persian, then the English), so the
     -- label's own description line keeps anchoring below it (no overlap)
     if kind == "map" and map_mode() == 2 and type(enText) == "string" and enText ~= "" then
@@ -133,6 +140,11 @@ local function on_inplace(fs, enText, kind)
     -- 0.1 s would be skipped and the English would stay; the re-entry flag is
     -- the guard (throttles live on the tracker walkers only)
     if not hookable(fs) then
+        return
+    end
+    -- rc4 (the owner's miss list: "<Persian> / Eastern Kingdoms" x1755): our OWN
+    -- SetText re-enters this hook; never look our Persian output up as a zone
+    if writing[fs] then
         return
     end
     -- the hooks are raw (not F:Wrap): after switch/module OFF they must stop

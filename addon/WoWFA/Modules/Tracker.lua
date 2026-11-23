@@ -50,7 +50,7 @@ local function get_quest(id)
         return nil
     end
     local p = F.Split(raw, SEP)
-    return { en = p[1] or "", t = p[2] or "" }
+    return { h = p[1] or "", t = p[2] or "" }
 end
 
 local function simple(s)
@@ -125,15 +125,21 @@ local function parse_obj_line(en)
 end
 
 local function name_fa(fam, en)
-    local names = F.D.names
+    local names = F.D.names or {}
+    local tbl
     if fam == "npc" then
-        return names.npc and names.npc[T.NameKey(en)]
+        tbl = names.npc
     elseif fam == "it" then
-        return names.itn and names.itn[T.NameKey(en)]
+        tbl = names.itn
     elseif fam == "ob" then
-        return names.obj and names.obj[T.NameKey(en)]
+        tbl = names.obj
+    else
+        return nil
     end
-    return nil
+    -- wowfa2: v1.0 ships no npc / item / object name tables (locked kinds), so
+    -- the English name rides in the marker: the line still gets the Persian
+    -- verb and the live counts, exactly what the v0 lock showed in game
+    return (tbl and tbl[T.NameKey(en)]) or en
 end
 
 -- monster "%s slain: %d/%d" -> {{npc:EN|fa}} کشته‌شده: %d/%d   (lane-28 §C)
@@ -272,9 +278,9 @@ local function static_titles()
     staticTitle = {}
     for id, row in pairs(F.D.quests or {}) do
         if type(row) == "string" then
-            local en = F.Split(row, SEP)
-            en = (type(en[1]) == "string" and en[1]) or ""
-            local k = simple(en)
+            -- wowfa2: field 1 is the title hash (F.TitleHash), not the EN title
+            local p = F.Split(row, SEP)
+            local k = (type(p[1]) == "string" and p[1]) or ""
             if k ~= "" and not staticTitle[k] then
                 staticTitle[k] = id
             end
@@ -304,8 +310,9 @@ local function title_id_of(txt)
         return titleIndex[k], bare ~= txt
     end
     local st = static_titles()
-    if st[k] then
-        return st[k], bare ~= txt
+    local hk = F.TitleHash(bare)
+    if hk ~= "" and st[hk] then
+        return st[hk], bare ~= txt
     end
     return nil, bare ~= txt
 end

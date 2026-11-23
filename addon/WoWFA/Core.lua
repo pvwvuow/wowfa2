@@ -19,7 +19,7 @@ local F = {}
 WoWFAF = F
 
 F.ADDON = ADDON
-F.SCHEMA = 1
+F.SCHEMA = 2 -- wowfa2 data (tools/wfa/build.py: Meta schema 2, quest field 1 = title hash)
 F.TOC_INTERFACE = 16001
 F.ROOT = "Interface\\AddOns\\" .. ADDON .. "\\"
 F.FONT = F.ROOT .. "Fonts\\Vazirmatn.ttf"
@@ -98,6 +98,32 @@ function F.Split(s, sep)
         out[#out + 1] = string.sub(s, pos, a - 1)
         pos = a + #sep
     end
+end
+
+-- djb2 over the bytes of T.NameKey(title), mod 2^32, as 8 lowercase hex chars.
+-- Mirrors tools/wfa/core.py title_hash: the data stores this hash instead of
+-- the English quest title. h * 33 + byte stays below 2^38 (exact in doubles);
+-- the hex is built by hand because %x on a 32-bit client int would overflow.
+local HEX = "0123456789abcdef"
+function F.TitleHash(title)
+    if type(title) ~= "string" or title == "" or not F.T or not F.T.NameKey then
+        return ""
+    end
+    local s = F.T.NameKey(title)
+    if s == "" then
+        return ""
+    end
+    local h = 5381
+    for i = 1, #s do
+        h = (h * 33 + string.byte(s, i)) % 4294967296
+    end
+    local out = ""
+    for _ = 1, 8 do
+        local d = h % 16
+        out = string.sub(HEX, d + 1, d + 1) .. out
+        h = (h - d) / 16
+    end
+    return out
 end
 
 local function vparts(v)
@@ -254,7 +280,10 @@ local SURF_ROOM = {
 -- F:Active reads the state "locked" (never installed, the saved switch
 -- untouched) and Room.On gates the kinds. /wowfa unlock <id> flips a
 -- SESSION-only override (never saved; a reload restores the lock).
-F.RELEASE_LOCK = { items = true, npc = true, dungeons = true,
+-- wowfa2: "dungeons" is the ONLY zone-name module (arrival text, minimap, map
+-- labels), so locking it hid every zone name although zones ship in v1.0.
+-- The lock now holds exactly the not-shipped surfaces.
+F.RELEASE_LOCK = { items = true, npc = true,
                    namesItem = true, namesNpc = true }
 F.RELEASE_LABEL = "v1.0"
 F.RELEASE_UNLOCK = {} -- session only; never written to the db

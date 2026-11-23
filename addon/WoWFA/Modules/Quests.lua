@@ -41,7 +41,7 @@ local function get(id)
         return nil
     end
     local p = F.Split(raw, SEP)
-    return { en = p[1] or "", t = p[2] or "", obj = p[3] or "", details = p[4] or "", progress = p[5] or "", completion = p[6] or "", desc = p[7] or "" }
+    return { h = p[1] or "", t = p[2] or "", obj = p[3] or "", details = p[4] or "", progress = p[5] or "", completion = p[6] or "", desc = p[7] or "" }
 end
 
 local function simple(s)
@@ -282,9 +282,12 @@ end
 local function layout(entry, ctx)
     -- lane-b16: the qs family switch off = the English quest title on the
     -- pane (the bodies keep their own per-family marker handling)
-    local title = (entry.t ~= "" and entry.t) or (entry.en ~= "" and entry.en) or "?"
-    if not F.Room.On("namesQuest") and entry.en ~= "" then -- 51-B
-        title = entry.en
+    -- wowfa2: the data carries no English title any more (only its hash); the
+    -- English fallback is the live client title the source handed in
+    local en = (pane and F.Usable(pane.enTitle) and type(pane.enTitle) == "string") and pane.enTitle or ""
+    local title = (entry.t ~= "" and entry.t) or (en ~= "" and en) or "?"
+    if not F.Room.On("namesQuest") and en ~= "" then -- 51-B
+        title = en
     end
     -- inbox/29 C: title = fontSize + 3 in gold (the body strings = fontSize)
     pane.title.wfaSize = T.Size() + 3
@@ -354,7 +357,10 @@ local function show(id, enTitle, ctx, anchor)
     end
     enTitle = enTitle or (pane.entry == entry and pane.enTitle) or nil
     pane.enTitle = enTitle
-    local stale = F.Usable(enTitle) and entry.en ~= "" and simple(enTitle) ~= "" and simple(enTitle) ~= simple(entry.en)
+    -- wowfa2: stale = the live title hashes differently from the title the
+    -- translation was made for (F.TitleHash mirrors the build's title_hash)
+    local stale = F.Usable(enTitle) and type(enTitle) == "string" and enTitle ~= "" and entry.h ~= ""
+        and F.TitleHash(enTitle) ~= entry.h
     if shownId ~= id or shownCtx ~= ctx then
         F:Track("quests", true, stale)
     end

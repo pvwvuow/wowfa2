@@ -3,7 +3,7 @@ runners (this replaces the old Z build host). Each task ends as a PR on branch t
 body is the report, so the result is always readable and nothing lands on main unreviewed.
 
 ci/tasks/<id>.json = {"id": "<id>", "kind": "<kind>", "args": {...}}
-kinds: migrate, fix, release (see the handlers below). Unknown kinds fail loudly.
+kinds: migrate, fix, import, release (see the handlers below). Unknown kinds fail loudly.
 Optional "onto": "<branch>" runs on that branch and pushes back to it (its PR gets a comment)."""
 import base64
 import json
@@ -259,6 +259,44 @@ def task_fix(t, rep):
     return ["data"]
 
 
+# ------------------------------------------------------------------ import: copy files repo -> repo
+def task_import(t, rep):
+    """args: {"repo": "wowfa", "ref": "<sha|branch>", "map": [{"from": path, "to": path, "dir": false}]}
+    Byte-exact copy (fonts, textures, Lua). dir=true copies every file directly inside the folder.
+    A missing source fails the task; the report lists every copied file with its blob sha."""
+    a = t["args"]
+    src = os.path.join(WORK, "import_src")
+    pats = sorted(set("/" + m["from"].strip("/") + ("/" if m.get("dir") else "") for m in a["map"]))
+    sha = sparse_fetch(a["repo"], a["ref"], pats, src)
+    rep.h("Import")
+    rep.add("- source: %s@%s" % (a["repo"], sha))
+    rows, paths = [], []
+    for m in a["map"]:
+        s = os.path.join(src, m["from"].strip("/"))
+        d = os.path.join(ROOT, m["to"].strip("/"))
+        pairs = []
+        if m.get("dir"):
+            if not os.path.isdir(s):
+                raise ValueError("missing folder %s" % m["from"])
+            for fn in sorted(os.listdir(s)):
+                if os.path.isfile(os.path.join(s, fn)):
+                    pairs.append((os.path.join(s, fn), os.path.join(d, fn)))
+        else:
+            if not os.path.isfile(s):
+                raise ValueError("missing file %s" % m["from"])
+            pairs.append((s, d))
+        for fs, fd in pairs:
+            os.makedirs(os.path.dirname(fd), exist_ok=True)
+            shutil.copyfile(fs, fd)
+            rel = os.path.relpath(fd, ROOT)
+            blob = git("hash-object", fd, capture=True).stdout.strip()
+            rows.append((rel, os.path.getsize(fd), blob))
+            paths.append(rel)
+    rep.table(rows, ["file", "bytes", "blob sha"])
+    rep.ok("%d files copied byte-exact" % len(rows))
+    return paths
+
+
 def task_release(t, rep):
     """Build from main and create a DRAFT pre-release in pvwvuow/wowfarsi-addon. Never publishes:
     the owner presses Publish."""
@@ -279,7 +317,7 @@ def task_release(t, rep):
     return []
 
 
-HANDLERS = {"migrate": task_migrate, "fix": task_fix, "release": task_release}
+HANDLERS = {"migrate": task_migrate, "fix": task_fix, "import": task_import, "release": task_release}
 
 
 # ------------------------------------------------------------------ runner

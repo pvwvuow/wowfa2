@@ -13,8 +13,8 @@
 "98248":{"h":"b05c5e87","t":"{{it:Shipping Label}}","obj":"{{it:Shipping Label}} را به یکی از افراد مرکز بازرگانیِ تدارکات و پشتیبانی در {{zn:Durotar}}، نزدیک دوراهی در {{zn:Barrens}}، برسان.","o":["{{it:Shipping Label}} را به یکی از افراد مرکز بازرگانیِ تدارکات و پشتیبانی در {{zn:Durotar}}، نزدیک دوراهی در {{zn:Barrens}}، برسان."]},
 "98251":{"h":"558306d3","t":"دیگر برنمی‌گردند","obj":"۶ {{npc:Shadowhorn Stag}} و ۶ خرس {{zn:Ashenvale}} را بکش و شمال‌غربی {{qs:Fallen Sky Lake|دریاچهٔ آسمان‌فروافتاده}} نزد {{npc:Va'xug Firefure}} برگرد.","o":["۶ {{npc:Shadowhorn Stag}} و ۶ خرس {{zn:Ashenvale}} را بکش و شمال‌غربی {{qs:Fallen Sky Lake|دریاچهٔ آسمان‌فروافتاده}} نزد {{npc:Va'xug Firefure}} برگرد."]},
 "98252":{"h":"952cee45","t":"راهی به خلأ","obj":"راه بازگشت به جادهٔ اصلی {{zn:Ashenvale}} را به {{npc:Eye of Kilrogg}} وکسوگ نشان بده.","o":["راه بازگشت به جادهٔ اصلی {{zn:Ashenvale}} را به {{npc:Eye of Kilrogg}} وکسوگ نشان بده."]},
-"98282":{"h":"ce802ef5","t":"خطرهای کیمیاگری","obj":"یک {{it:Unruptured Stalker Gland}} را از صخرهٔ تلگن برای {{npc:Caitlin Grassman}} در بندر منتیل جمع‌آوری کن.","o":["یک {{it:Unruptured Stalker Gland}} را از صخرهٔ تلگن برای {{npc:Caitlin Grassman}} در بندر منتیل جمع‌آوری کن."]},
-"98283":{"h":"b3166676","t":"قتل‌عام","obj":"{{it:Carnage's Head}} را به {{npc:Rethiel the Greenwarden}} در کمربند سبز برسان.","o":["{{it:Carnage's Head}} را به {{npc:Rethiel the Greenwarden}} در کمربند سبز برسان."]},
+"98282":{"h":"ce802ef5","t":"خطرهای کیمیاگری","obj":"یک {{it:Unruptured Stalker Gland}} را از {{zn:Thelgen Rock|صخرهٔ تلگن}} برای {{npc:Caitlin Grassman}} در بندر منتیل جمع‌آوری کن.","o":["یک {{it:Unruptured Stalker Gland}} را از صخرهٔ تلگن برای {{npc:Caitlin Grassman}} در بندر منتیل جمع‌آوری کن."]},
+"98283":{"h":"b3166676","t":"قتل‌عام","obj":"{{it:Carnage's Head}} را به {{npc:Rethiel the Greenwarden}} در {{zn:Green Belt|کمربند سبز}} برسان.","o":["{{it:Carnage's Head}} را به {{npc:Rethiel the Greenwarden}} در کمربند سبز برسان."]},
 "98284":{"h":"dc14452f","t":"مبانی اردو ۱۰۱: افسون‌گری"},
 "98285":{"h":"ef7c97fb","t":"مبانی اردو ۱۰۱: مهندسی"},
 "98286":{"h":"dc14452f","t":"مبانی اردو ۱۰۱: افسون‌گری"},
@@ -22,7 +22,7 @@
 "98291":{"h":"3487e66f","t":"مرگ بر اژدهادهان","obj":"برای {{npc:Howin Kindfeather}}، ۸ غارتگر اژدهادهان، ۵ پیوندزن روح اژدهادهان و ۳ نفوذی اژدهادهان را در پناهگاه اژدهادهان بکش.","o":["برای {{npc:Howin Kindfeather}}، ۸ غارتگر اژدهادهان، ۵ پیوندزن روح اژدهادهان و ۳ نفوذی اژدهادهان را در پناهگاه اژدهادهان بکش."]},
 "98293":{"h":"e24d404d","t":"خلع‌سلاح اجباری","obj":"۳۰ {{it:Dragonmaw Armaments}} در پناهگاه اژدهادهان جمع کن و سپس آن‌ها را به {{npc:Captain Stoutfist}} در دژ منتیل ببر.","o":["۳۰ {{it:Dragonmaw Armaments}} در پناهگاه اژدهادهان جمع کن و سپس آن‌ها را به {{npc:Captain Stoutfist}} در دژ منتیل ببر."]},
 "98294":{"h":"7bf2e188","t":"خلع سلاح اجباری؟ (اندکی پس از برداشتن {{it:Dragonmaw Armaments}} فعال می‌شود)"},
-"98297":{"h":"b7a8132a","t":"پایان دادن به چرخه","obj":"برای {{npc:Howin Kindfeather}}، اژدهازادهای رام‌شده را در دروازه‌های اژدهادهان بکش.","o":["برای {{npc:Howin Kindfeather}}، اژدهازادهای رام‌شده را در دروازه‌های اژدهادهان بکش."]},
+"98297":{"h":"b7a8132a","t":"پایان دادن به چرخه","obj":"برای {{npc:Howin Kindfeather}}، اژدهازادهای رام‌شده را در {{zn:Dragonmaw Gates|دروازه‌های اژدهادهان}} بکش.","o":["برای {{npc:Howin Kindfeather}}، اژدهازادهای رام‌شده را در دروازه‌های اژدهادهان بکش."]},
 "98298":{"h":"709f9801","t":"{{qs:Arugal's Folly|حماقت آروگال}}"},
 "98299":{"h":"5c9eb54b","t":"جلوی گسترش را بگیر"}
 }

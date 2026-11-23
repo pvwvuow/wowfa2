@@ -1,0 +1,28 @@
+{
+ "id": "0040-rc11fix",
+ "kind": "edit",
+ "onto": "task/0038-rc11",
+ "why": "rc11 CI: F.ColIds does not exist (the share import builds the colour ids itself); the tracker objective test assumed locked NPC names",
+ "args": {
+  "ops": [
+   {
+    "file": "addon/WoWFA/Room.lua",
+    "old": "local SHARE_SEC = { { \"b\", \"spellbook\" }, { \"a\", \"talents\" } }\n",
+    "new": "local SHARE_SEC = { { \"b\", \"spellbook\" }, { \"a\", \"talents\" } }\n\n-- the colour ids of a family, in the order of the panel choice (Text.lua COL_PALETTE)\nlocal function share_ids(fam)\n    local ids = { \"off\" }\n    for _, id in ipairs((F.T and F.T.COL_PALETTE) or {}) do\n        ids[#ids + 1] = id\n    end\n    if fam == \"cls\" then\n        ids[#ids + 1] = \"class\"\n    end\n    return ids\nend\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Room.lua",
+    "old": "        local ids = F.ColIds and F.ColIds(SHARE_COL[k]) or {}\n",
+    "new": "        local ids = share_ids(SHARE_COL[k])\n",
+    "count": 1
+   },
+   {
+    "file": "tests/run.lua",
+    "old": "check(\"tracker objective keeps the EN name (npc names locked)\", type(l2) == \"string\" and l2:find(\"Kobold Vermin\", 1, true) ~= nil, l2)",
+    "new": "check(\"tracker objective: the NPC name is Persian now (rc11 unlocked the npc names)\", type(l2) == \"string\" and l2:find(\"Kobold Vermin\", 1, true) == nil, l2)",
+    "count": 1
+   }
+  ]
+ }
+}

@@ -1,0 +1,6 @@
+{
+ "id": "0012-spells",
+ "kind": "spells",
+ "why": "owner rc2 test: many spellbook spells and talents show no Persian. Import the site's 9 class files (fill-only, gate-checked); re-run this kind after every site/game update",
+ "args": {"wow_ref": "main"}
+}

@@ -1,0 +1,57 @@
+{
+ "id": "0024-rc7",
+ "kind": "edit",
+ "why": "rc6 miss list: list lines (armor/languages) as ui rows, stale misses from older builds dropped, rc7 version",
+ "args": {
+  "ops": [
+   {
+    "file": "addon/WoWFA/Modules/Spells.lua",
+    "old": "local function spell_tip(modId, tt, data)\n",
+    "new": "-- rc7 (rc6 miss list): a tooltip line that is a LIST (\"You are proficient in the\n-- use of the following armor types:\" + one word per line, the languages a race\n-- speaks) differs per class and race, so no single template can hold it. The\n-- header and every word are rows of the ui table (\"l:\" + lowercase English);\n-- the list is shown only when ALL of its parts are known, else it stays English\n-- and the normal miss log shows it.\nlocal function list_fa(text)\n    if not string.find(text, \"[\\r\\n]\") then\n        return nil\n    end\n    local ui = F.D.ui\n    if type(ui) ~= \"table\" then\n        return nil\n    end\n    local parts = {}\n    for ln in string.gmatch(text, \"[^\\r\\n]+\") do\n        ln = string.gsub(ln, \"^%s+\", \"\")\n        ln = string.gsub(ln, \"%s+$\", \"\")\n        if ln ~= \"\" then\n            parts[#parts + 1] = ln\n        end\n    end\n    if #parts < 2 then\n        return nil\n    end\n    local out = {}\n    for i = 1, #parts do\n        local fa = ui[\"l:\" .. string.lower(parts[i])]\n        if type(fa) ~= \"string\" then\n            return nil\n        end\n        out[#out + 1] = fa\n    end\n    return out\nend\n\nlocal function spell_tip(modId, tt, data)\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Spells.lua",
+    "old": "            local key, nums = T.NumKey(text)\n            local fa = tpl[key]\n            if not fa then\n",
+    "new": "            local lst = list_fa(text)\n            local key, nums = T.NumKey(text)\n            local fa = (not lst) and tpl[key] or nil\n            if not fa and not lst then\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Spells.lua",
+    "old": "            if fa then\n                found[#found + 1] = T.Fill(fa, nums)\n            elseif #text > 30 then",
+    "new": "            if lst then\n                for _, s in ipairs(lst) do\n                    found[#found + 1] = s\n                end\n            elseif fa then\n                found[#found + 1] = T.Fill(fa, nums)\n            elseif #text > 30 then",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Core.lua",
+    "old": "function F:ClearMiss()\n",
+    "new": "-- rc7: a miss list written by an OLDER build of the addon is stale (the rc6 list\n-- still held our own rc3-rc5 output): a new addon version starts a fresh list.\nfunction F:MissFresh()\n    local db = F.db\n    if db and db.missV ~= F.VERSION then\n        db.miss, db.missN, db.missV = {}, 0, F.VERSION\n    end\nend\n\nfunction F:ClearMiss()\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Core.lua",
+    "old": "    if type(db.miss) ~= \"table\" then\n        db.miss, db.missN = {}, 0\n    end\n    local id = tostring(kind)",
+    "new": "    F:MissFresh()\n    if type(db.miss) ~= \"table\" then\n        db.miss, db.missN = {}, 0\n    end\n    local id = tostring(kind)",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Panel.lua",
+    "old": "    if health.missList then\n        local list = {}\n",
+    "new": "    if health.missList then\n        F:MissFresh()\n        local list = {}\n",
+    "count": 1
+   },
+   {
+    "file": "policy.json",
+    "old": "\"version\": \"1.0.0-rc6\"",
+    "new": "\"version\": \"1.0.0-rc7\"",
+    "count": 1
+   },
+   {
+    "file": "tests/run.lua",
+    "old": "-- ------------------------------------------------------------------ tracker\n",
+    "new": "-- ------------------------------------------------------------------ rc7: list lines + stale misses\nlocal okRc7, errRc7 = pcall(function()\n    local ui = F.D.ui\n    local had = {}\n    local rows = {\n        [\"l:zz test header:\"] = \"\u0647\u062f\u0631 \u0622\u0632\u0645\u0627\u06cc\u0634\u06cc:\",\n        [\"l:zzcloth\"] = \"\u067e\u0627\u0631\u0686\u0647\u200c\u0627\u06cc\",\n        [\"l:zzleather\"] = \"\u0686\u0631\u0645\u06cc\",\n    }\n    for k, v in pairs(rows) do\n        had[k] = ui[k]\n        ui[k] = v\n    end\n    F:ClearMiss()\n    GameTooltip:Hide()\n    GameTooltip:ClearLines()\n    GameTooltip:AddLine(skey)\n    GameTooltip:AddLine(\"Zz test header:\\r\\nZzCloth\\r\\nZzUnknownWord\")\n    RunTip(\"Spell\", GameTooltip, nil)\n    local base = #GameTooltip:TipLines()\n    check(\"a list with an unknown word stays English (no list lines added)\", base >= 2 and base <= 3, base)\n    GameTooltip:Hide()\n    GameTooltip:ClearLines()\n    GameTooltip:AddLine(skey)\n    GameTooltip:AddLine(\"Zz test header:\\r\\nZzCloth\\r\\nZzLeather\")\n    RunTip(\"Spell\", GameTooltip, nil)\n    local ls = GameTooltip:TipLines()\n    check(\"a known list line gets Persian header + 2 words\", #ls == base + 3 and non_ascii(ls[#ls]) and non_ascii(ls[#ls - 2]),\n        #ls .. \" vs base \" .. base .. \" / \" .. table.concat(ls, \" / \"))\n    for k in pairs(rows) do\n        ui[k] = had[k]\n    end\n    check(\"ui table ships the rc7 list words\", type(ui[\"l:you are fluent in the following languages:\"]) == \"string\"\n        and type(ui[\"l:cloth\"]) == \"string\" and type(ui[\"l:common\"]) == \"string\")\n    -- stale misses: a list from an older addon build is dropped, the current one is kept\n    F.db.miss = { [\"tpl:old\"] = { k = \"tpl\", t = \"old\", n = 1 } }\n    F.db.missN, F.db.missV = 1, \"0.0.0-old\"\n    F:MissFresh()\n    check(\"an older build's miss list is dropped\", F.db.missN == 0 and next(F.db.miss) == nil, F.db.missN)\n    F:Miss(\"zone\", \"zz fresh\", \"Zz Fresh\")\n    F:MissFresh()\n    check(\"the current build's misses are kept\", F.db.missN == 1, F.db.missN)\n    F:ClearMiss()\nend)\ncheck(\"rc7 tests ran\", okRc7, errRc7)\n-- ------------------------------------------------------------------ tracker\n",
+    "count": 1
+   }
+  ]
+ }
+}

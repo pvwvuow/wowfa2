@@ -1,0 +1,7 @@
+{
+"once protected, the target cannot be made invulnerable by divine shield, divine protection or blessing of protection again for # min":"پس از محافظت، تا {0} دقیقه نمی‌توان با {{tm:Divine Shield|سپر الهی}}، {{sp:Divine Protection}} یا {{tm:Blessing|برکت}} حفاظت دوباره هدف را آسیب‌ناپذیر کرد.",
+"only one judgement per paladin can be active at any one time":"از هر {{cls:Paladin}} هم‌زمان فقط یک اثر {{sp:Judgement}} می‌تواند فعال باشد.",
+"only one seal can be active on the paladin at any one time":"{{cls:the Paladin}} هم‌زمان فقط می‌تواند یک مهر فعال داشته باشد.",
+"only usable on enemies that have #% or less health":"فقط می‌توان آن را علیه دشمنانی به‌کار برد که {0}% یا کمتر {{tm:health|سلامتی}} دارند.",
+"only works against humanoids":"فقط روی {{npc:Humanoids|انسان‌نماها}} اثر دارد."
+}

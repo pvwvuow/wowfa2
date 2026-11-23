@@ -1,0 +1,9 @@
+{
+"95111":{"h":"bb4cab0a","t":"استعدادی دست‌کم‌گرفته‌شده"},
+"95125":{"h":"713aafa5","t":"{{it:Ott's Masterwork}}"},
+"95126":{"h":"6d76466b","t":"{{it:Moonsilver Blade}}"},
+"95140":{"h":"befb741a","t":"چشمِ آتش کهنه"},
+"95161":{"h":"1e892461","t":"یادت باشد دوستت دارم","obj":"{{it:Blood-Stained Letter}} را به اوت فل‌وود در {{zn:Duskwood}} برسان.\n* {{it:Blood-Stained Letter}} (داده می‌شود)","det":"اگر دنبال جرمی هارت‌ویور می‌گردی، بهترین کار این است که با مادرخواندهٔ تازه‌اش، اوت فل‌وود، در {{zn:Duskwood}} صحبت کنی. زن مهربانی است. احتمالاً برای کارش یک جفت دست دیگر لازم دارد، اما از ماندن در یتیم‌خانه بهتر است.\nاگر جرمی کوچولو را دیدی، حتماً به او بگو همه‌مان به یادش هستیم، باشد؟","pro":"بله؟ چه لازم داری؟","o":["{{it:Blood-Stained Letter}} را به اوت فل‌وود در {{zn:Duskwood}} برسان.","* {{it:Blood-Stained Letter}} (داده می‌شود)"]},
+"95189":{"h":"6fe116c1","t":"{{it:Crest of Lordaeron|نشان لردائرون}}","obj":"{{it:Crest of Lordaeron|نشان لردائرون}} را در {{zn:Stormwind City}} به {{npc:Lady Dena Kennedy}} برگردان.\n*{{it:Crest of Lordaeron|نشان لردائرون}} (مورد) (داده‌شده)","pro":"به نگارخانه خوش آمدی. آزادانه تماشا کن.","o":["{{it:Crest of Lordaeron|نشان لردائرون}} را در {{zn:Stormwind City}} به {{npc:Lady Dena Kennedy}} برگردان.","*{{it:Crest of Lordaeron|نشان لردائرون}} (مورد) (داده‌شده)"]},
+"95195":{"h":"3682de99","t":"{{it:Bloodied Insignia}}","obj":"۱۰ نشان خونین جمع کن و آن‌ها را به {{npc:General Marcus Jonathan}} در {{zn:Stormwind City}} برسان.\n* {{it:Bloodied Insignia}} (ویرانه‌های لردائرون) (آماده است) (۱۰)","pro":"به‌نظر می‌رسد بار سنگینی بر دوش داری، $N. چه شده؟","o":["۱۰ نشان خونین جمع کن و آن‌ها را به {{npc:General Marcus Jonathan}} در {{zn:Stormwind City}} برسان.","* {{it:Bloodied Insignia}} (ویرانه‌های لردائرون) (آماده است) (۱۰)"]}
+}

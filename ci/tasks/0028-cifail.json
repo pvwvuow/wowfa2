@@ -1,0 +1,16 @@
+{
+ "id": "0028-cifail",
+ "kind": "edit",
+ "onto": "task/0027-rc8",
+ "why": "the CI report showed only the last 40 Lua test lines: every FAIL line is listed first now",
+ "args": {
+  "ops": [
+   {
+    "file": "tools/ci.py",
+    "old": "        tail = (p.stdout + p.stderr).strip().splitlines()[-40:]\n",
+    "new": "        alllines = (p.stdout + p.stderr).strip().splitlines()\n        tail = [ln for ln in alllines if ln.startswith(\"FAIL\")][:30] + alllines[-14:]\n",
+    "count": 1
+   }
+  ]
+ }
+}

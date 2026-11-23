@@ -1,0 +1,28 @@
+{
+ "id": "0029-rc8fix",
+ "kind": "edit",
+ "onto": "task/0027-rc8",
+ "why": "rc8 CI: the in-place name line changed the Once key (a second pass added lines again); tests no longer count wrapped Persian lines",
+ "args": {
+  "ops": [
+   {
+    "file": "addon/WoWFA/Modules/Spells.lua",
+    "old": "    name = plain(name)\n    if not T.Once(tt, \"s\" .. name) then\n",
+    "new": "    name = plain(name)\n    -- rc8: line 1 already holds Persian = our own in-place rewrite (or a Persian game text)\n    if has_fa(name) then\n        return\n    end\n    if not T.Once(tt, \"s\" .. name) then\n",
+    "count": 1
+   },
+   {
+    "file": "tests/run.lua",
+    "old": "        #ls == 3 and non_ascii(ls[1]) and not ls[1]:find(skey, 1, true), #ls .. \" / \" .. table.concat(ls, \" / \"))",
+    "new": "        non_ascii(ls[1]) and not ls[1]:find(skey, 1, true) and ls[2] == live, #ls .. \" / \" .. table.concat(ls, \" / \"))",
+    "count": 1
+   },
+   {
+    "file": "tests/run.lua",
+    "old": "check(\"title 3: the English name stays, no Persian name\", #ls == 3 and ls[1] == skey,",
+    "new": "check(\"title 3: the English name stays, no Persian name\", ls[1] == skey and ls[2] == live and #ls > 2,",
+    "count": 1
+   }
+  ]
+ }
+}

@@ -98,7 +98,16 @@ local function refresh_health()
         local r = health.mods[id]
         local m = F.mods[id]
         local st = m and m.state or "off"
-        r.val:SetFa(L[STATE_L[st] or "st_off"] or tostring(st), 200)
+        local lbl = L[STATE_L[st] or "st_off"] or tostring(st)
+        -- rc4: the reason next to the state, so a warn / auto-off is never a
+        -- guess ("build" = the game is newer than the data, "miss" = most
+        -- texts did not match, xN = faults that tripped the breaker)
+        if m and m.why then
+            lbl = lbl .. " (" .. tostring(m.why) .. ")"
+        elseif m and st == "fault" then
+            lbl = lbl .. " (x" .. tostring(m.faults or 0) .. ")"
+        end
+        r.val:SetFa(lbl, 200)
         color(r.val, C[STATE_C[st] or "muted"])
     end
     local errs = F.db and F.db.errors or {}

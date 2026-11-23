@@ -1,6 +1,7 @@
 {
 "id": "0001-migrate",
 "kind": "migrate",
+"attempt": 2,
 "args": {
   "wowfa_quests_ref": "bb1f7a9ba8b43cefb5d8df87d870231f3197cd11",
   "wowfa_tpl_ref": "63d4fa8b875780ecb2f5dbb17ec300390015444b",

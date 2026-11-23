@@ -1,0 +1,100 @@
+{
+ "id": "0007-port",
+ "kind": "edit",
+ "onto": "task/0006-import",
+ "why": "adapt the v0 runtime to wowfa2 data: title hash instead of EN title, zones unlocked, schema 2, TOC, all-Lua luac, runtime tests on the mock",
+ "args": {
+  "ops": [
+   {
+    "file": "addon/WoWFA/Core.lua",
+    "old": "F.SCHEMA = 1\n",
+    "new": "F.SCHEMA = 2 -- wowfa2 data (tools/wfa/build.py: Meta schema 2, quest field 1 = title hash)\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Core.lua",
+    "old": "F.RELEASE_LOCK = { items = true, npc = true, dungeons = true,\n                   namesItem = true, namesNpc = true }",
+    "new": "-- wowfa2: \"dungeons\" is the ONLY zone-name module (arrival text, minimap, map\n-- labels), so locking it hid every zone name although zones ship in v1.0.\n-- The lock now holds exactly the not-shipped surfaces.\nF.RELEASE_LOCK = { items = true, npc = true,\n                   namesItem = true, namesNpc = true }",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Core.lua",
+    "old": "local function vparts(v)\n",
+    "new": "-- djb2 over the bytes of T.NameKey(title), mod 2^32, as 8 lowercase hex chars.\n-- Mirrors tools/wfa/core.py title_hash: the data stores this hash instead of\n-- the English quest title. h * 33 + byte stays below 2^38 (exact in doubles);\n-- the hex is built by hand because %x on a 32-bit client int would overflow.\nlocal HEX = \"0123456789abcdef\"\nfunction F.TitleHash(title)\n    if type(title) ~= \"string\" or title == \"\" or not F.T or not F.T.NameKey then\n        return \"\"\n    end\n    local s = F.T.NameKey(title)\n    if s == \"\" then\n        return \"\"\n    end\n    local h = 5381\n    for i = 1, #s do\n        h = (h * 33 + string.byte(s, i)) % 4294967296\n    end\n    local out = \"\"\n    for _ = 1, 8 do\n        local d = h % 16\n        out = string.sub(HEX, d + 1, d + 1) .. out\n        h = (h - d) / 16\n    end\n    return out\nend\n\nlocal function vparts(v)\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Quests.lua",
+    "old": "return { en = p[1] or \"\", t = p[2] or \"\", obj = p[3] or \"\"",
+    "new": "return { h = p[1] or \"\", t = p[2] or \"\", obj = p[3] or \"\"",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Quests.lua",
+    "old": "    local title = (entry.t ~= \"\" and entry.t) or (entry.en ~= \"\" and entry.en) or \"?\"\n    if not F.Room.On(\"namesQuest\") and entry.en ~= \"\" then -- 51-B\n        title = entry.en\n    end",
+    "new": "    -- wowfa2: the data carries no English title any more (only its hash); the\n    -- English fallback is the live client title the source handed in\n    local en = (pane and F.Usable(pane.enTitle) and type(pane.enTitle) == \"string\") and pane.enTitle or \"\"\n    local title = (entry.t ~= \"\" and entry.t) or (en ~= \"\" and en) or \"?\"\n    if not F.Room.On(\"namesQuest\") and en ~= \"\" then -- 51-B\n        title = en\n    end",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Quests.lua",
+    "old": "    local stale = F.Usable(enTitle) and entry.en ~= \"\" and simple(enTitle) ~= \"\" and simple(enTitle) ~= simple(entry.en)",
+    "new": "    -- wowfa2: stale = the live title hashes differently from the title the\n    -- translation was made for (F.TitleHash mirrors the build's title_hash)\n    local stale = F.Usable(enTitle) and type(enTitle) == \"string\" and enTitle ~= \"\" and entry.h ~= \"\"\n        and F.TitleHash(enTitle) ~= entry.h",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Tracker.lua",
+    "old": "return { en = p[1] or \"\", t = p[2] or \"\" }",
+    "new": "return { h = p[1] or \"\", t = p[2] or \"\" }",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Tracker.lua",
+    "old": "            local en = F.Split(row, SEP)\n            en = (type(en[1]) == \"string\" and en[1]) or \"\"\n            local k = simple(en)\n            if k ~= \"\" and not staticTitle[k] then",
+    "new": "            -- wowfa2: field 1 is the title hash (F.TitleHash), not the EN title\n            local p = F.Split(row, SEP)\n            local k = (type(p[1]) == \"string\" and p[1]) or \"\"\n            if k ~= \"\" and not staticTitle[k] then",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Tracker.lua",
+    "old": "    local st = static_titles()\n    if st[k] then\n        return st[k], bare ~= txt\n    end",
+    "new": "    local st = static_titles()\n    local hk = F.TitleHash(bare)\n    if hk ~= \"\" and st[hk] then\n        return st[hk], bare ~= txt\n    end",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Tracker.lua",
+    "old": "local function name_fa(fam, en)\n    local names = F.D.names\n    if fam == \"npc\" then\n        return names.npc and names.npc[T.NameKey(en)]\n    elseif fam == \"it\" then\n        return names.itn and names.itn[T.NameKey(en)]\n    elseif fam == \"ob\" then\n        return names.obj and names.obj[T.NameKey(en)]\n    end\n    return nil\nend",
+    "new": "local function name_fa(fam, en)\n    local names = F.D.names or {}\n    local tbl\n    if fam == \"npc\" then\n        tbl = names.npc\n    elseif fam == \"it\" then\n        tbl = names.itn\n    elseif fam == \"ob\" then\n        tbl = names.obj\n    else\n        return nil\n    end\n    -- wowfa2: v1.0 ships no npc / item / object name tables (locked kinds), so\n    -- the English name rides in the marker: the line still gets the Persian\n    -- verb and the live counts, exactly what the v0 lock showed in game\n    return (tbl and tbl[T.NameKey(en)]) or en\nend",
+    "count": 1
+   },
+   {
+    "file": "tools/wfa/build.py",
+    "old": "        toc_in = os.path.join(addon_src, \"WoWFA.toc.in\")\n        if os.path.exists(toc_in):\n            with open(toc_in, encoding=\"utf-8\") as f:\n                toc = f.read()\n            toc = toc.replace(\"@VERSION@\", policy[\"version\"]).replace(\"@INTERFACE@\", str(policy[\"interface\"]))\n            _write(os.path.join(dst, \"WoWFA.toc\"), toc)",
+    "new": "        for fn in sorted(os.listdir(addon_src)):\n            if not fn.endswith(\".toc.in\"):\n                continue\n            with open(os.path.join(addon_src, fn), encoding=\"utf-8\") as f:\n                toc = f.read()\n            toc = toc.replace(\"@VERSION@\", policy[\"version\"]).replace(\"@INTERFACE@\", str(policy[\"interface\"]))\n            _write(os.path.join(dst, fn[:-3]), toc)",
+    "count": 1
+   },
+   {
+    "file": "tools/wfa/build.py",
+    "old": "    meta = [HEAD, \"D.meta = { schema = 2, version = %s, build = %s, counts = {\\n\"\n            % (lua_str(policy[\"version\"]), lua_str(policy[\"game_build\"]))]",
+    "new": "    build_num = int(str(policy[\"game_build\"]).split(\".\")[-1])\n    meta = [HEAD, \"D.meta = { schema = 2, version = %s, build = %s, buildNum = %d, counts = {\\n\"\n            % (lua_str(policy[\"version\"]), lua_str(policy[\"game_build\"]), build_num)]",
+    "count": 1
+   },
+   {
+    "file": "tools/ci.py",
+    "old": "    data = os.path.join(OUT, \"dist\", \"WoWFA\", \"Data\")\n    for fn in sorted(os.listdir(data)):\n        p = subprocess.run([\"luac5.1\" if LUA == \"lua5.1\" else \"luac\", \"-p\", os.path.join(data, fn)],\n                           capture_output=True, text=True)\n        if p.returncode:\n            rep.fail(\"luac %s: %s\" % (fn, p.stderr.strip()[:300]))",
+    "new": "    dist = os.path.join(OUT, \"dist\", \"WoWFA\")\n    nlua = 0\n    for base, _, files in os.walk(dist):\n        for fn in sorted(files):\n            if not fn.endswith(\".lua\"):\n                continue\n            nlua += 1\n            full = os.path.join(base, fn)\n            p = subprocess.run([\"luac5.1\" if LUA == \"lua5.1\" else \"luac\", \"-p\", full], capture_output=True, text=True)\n            if p.returncode:\n                rep.fail(\"luac %s: %s\" % (os.path.relpath(full, dist), p.stderr.strip()[:300]))\n    rep.add(\"- luac -p: %d Lua files\" % nlua)",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/WoWFA_Forever.toc.in",
+    "write": "## Interface: @INTERFACE@\n## Title: WoWFA |cfff0c75e(Persian)|r\n## Notes: Persian translation for WoW Forever: quests, quest tracker, zone names, spells and talents. wowfarsi.ir\n## Author: WoWFarsi\n## Version: @VERSION@\n## AllowLoadGameType: forever\n## ExcludeLoadGameType: standard, classic\n## SavedVariables: WoWFA_FDB\n## IconTexture: Interface\\AddOns\\WoWFA\\Media\\icon\n## AddonCompartmentFunc: WoWFA_F_Compartment\n## AddonCompartmentFuncOnEnter: WoWFA_F_CompartmentEnter\n## AddonCompartmentFuncOnLeave: WoWFA_F_CompartmentLeave\n## X-Website: https://wowfarsi.ir\n## X-Credits: Data from ForeverDB.net\n\nShape.lua\nLocale.lua\nCore.lua\nText.lua\nRoom.lua\nUI.lua\nData\\Meta.lua\nData\\Names.lua\nData\\Tpl.lua\nData\\Quests.lua\nData\\Strings.lua\nModules\\Quests.lua\nModules\\Zones.lua\nModules\\Tracker.lua\nModules\\Spells.lua\nMinimap.lua\n"
+   },
+   {
+    "file": "tests/lua/scenario_v0.lua",
+    "delete": true
+   },
+   {
+    "file": "tests/run.lua",
+    "write": "-- WoWFA v1 runtime tests: the built addon (out/dist/WoWFA) on the WoW mock, under\n-- lua5.1 (WoW's Lua). Run by tools/ci.py from the repo root: lua5.1 tests/run.lua <dist>\n-- Every check names WHAT broke; any failure exits 1 and turns CI red.\nlocal ROOT = arg[1] or \"out/dist/WoWFA\"\nWOWFA_TEST_UNLOCK = false -- test the REAL release lock, never the mock's dev unlock\ndofile(\"tests/lua/wow_mock.lua\")\n\nlocal passes, fails = 0, 0\nlocal function check(name, cond, detail)\n    if cond then\n        passes = passes + 1\n        print(\"ok   \" .. name)\n    else\n        fails = fails + 1\n        print(\"FAIL \" .. name .. (detail ~= nil and (\": \" .. tostring(detail)) or \"\"))\n    end\nend\nlocal function non_ascii(s)\n    return type(s) == \"string\" and s:find(\"[\\128-\\255]\") ~= nil\nend\n\n-- ---------------------------------------------------------------- load the TOC\nlocal toc = ROOT .. \"/WoWFA_Forever.toc\"\nlocal fh = io.open(toc, \"r\")\ncheck(\"toc exists\", fh ~= nil, toc)\nif not fh then\n    os.exit(1)\nend\nlocal nfiles = 0\nfor line in fh:lines() do\n    line = line:gsub(\"\\r$\", \"\")\n    if line ~= \"\" and not line:find(\"^##\") then\n        local p = ROOT .. \"/\" .. line:gsub(\"\\\\\", \"/\")\n        local f, err = loadfile(p)\n        check(\"load \" .. line, f ~= nil, err)\n        if f then\n            local ok, e = pcall(f, \"WoWFA\", {})\n            check(\"run \" .. line, ok, e)\n            nfiles = nfiles + 1\n        end\n    end\nend\nfh:close()\nlocal F = WoWFAF\ncheck(\"addon table\", type(F) == \"table\")\nif type(F) ~= \"table\" then\n    os.exit(1)\nend\n\nFireEvent(\"ADDON_LOADED\", \"WoWFA\")\nFireEvent(\"PLAYER_LOGIN\")\nFireEvent(\"PLAYER_ENTERING_WORLD\")\nRunTimers()\n\nlocal D = WoWFA_FData\ncheck(\"data state ok\", F.dataState == \"ok\", F.dataState)\nlocal parts = {}\nfor _, m in ipairs(F.order) do\n    parts[#parts + 1] = m.id .. \"=\" .. tostring(m.state) .. (m.why and (\"(\" .. tostring(m.why) .. \")\") or \"\")\nend\nprint(\"states: \" .. table.concat(parts, \" \"))\nfor _, id in ipairs({ \"quests\", \"dungeons\", \"tracker\", \"spellbook\", \"talents\" }) do\n    local m = F.mods[id]\n    check(\"module \" .. id .. \" active\", m and m.active, m and m.state)\nend\ncheck(\"errors logged at boot\", #(WoWFA_FDB.errors or {}) == 0, WoWFA_FDB.errors and WoWFA_FDB.errors[1] and WoWFA_FDB.errors[1].e)\n\n-- --------------------------------------------------------- title hash parity\ncheck(\"TitleHash = build title_hash (The Defias Brotherhood)\", F.TitleHash(\"The Defias Brotherhood\") == \"01b5bd11\", F.TitleHash(\"The Defias Brotherhood\"))\ncheck(\"TitleHash = build title_hash (Hogger)\", F.TitleHash(\"Hogger\") == \"028a64c1\", F.TitleHash(\"Hogger\"))\ncheck(\"TitleHash = build title_hash (spaces + article)\", F.TitleHash(\"  The   Missing  Diplomat \") == \"a93669f9\", F.TitleHash(\"  The   Missing  Diplomat \"))\n\n-- ------------------------------------------------------------------- quests\nlocal qid, qhash\nfor id, raw in pairs(D.quests) do\n    local p = F.Split(raw, \"\\031\")\n    if p[2] ~= \"\" and p[4] ~= \"\" and p[1] ~= \"\" then\n        if not qid or id < qid then\n            qid, qhash = id, p[1]\n        end\n    end\nend\ncheck(\"a quest with title + details\", qid ~= nil)\nMOCK.questID, MOCK.title = qid, \"Some Unrelated Title\"\nQuestFrame:Show()\nFireEvent(\"QUEST_DETAIL\")\nRunTimers()\nlocal P = WoWFAF_QuestPane\ncheck(\"quest pane shown\", P and P:IsShown())\ncheck(\"quest pane title is Persian\", P and non_ascii(P.title:GetText()), P and P.title:GetText())\ncheck(\"quest pane body is Persian\", P and non_ascii(P.sec[1].b:GetText()))\ncheck(\"stale banner on a different live title\", P and P.banner:IsShown())\nQuestFrame:Hide()\nRunTimers()\ncheck(\"pane hides with the quest frame\", P and not P:IsShown())\n\n-- --------------------------------------------------------------- zone names\nlocal zkey\nfor k in pairs(D.names.zone) do\n    if not zkey or k < zkey then\n        zkey = k\n    end\nend\ncheck(\"zone names shipped\", zkey ~= nil)\nMinimapZoneText:SetText(zkey)\ncheck(\"minimap zone text in Persian\", non_ascii(MinimapZoneText:GetText()), MinimapZoneText:GetText())\ncheck(\"minimap zone text uses the Persian font\", (MinimapZoneText._font or \"\"):find(\"Vazirmatn\") ~= nil, MinimapZoneText._font)\nMinimapZoneText:SetText(\"Zzz Unknown Place\")\ncheck(\"unknown zone stays English\", MinimapZoneText:GetText() == \"Zzz Unknown Place\", MinimapZoneText:GetText())\n\n-- ------------------------------------------------------------ spell tooltip\nlocal tkey\nfor k in pairs(D.tpl) do\n    -- plain integer slots only: \"#.#\" / \"#,#\" would read back as ONE live number\n    if k:find(\"#\") and not k:find(\"[%$%(%)]\") and not k:find(\"#[%.,]\") and not k:find(\"[%.,]#\")\n        and (not tkey or k < tkey) then\n        tkey = k\n    end\nend\nlocal skey\nfor k in pairs(D.names.spell) do\n    if not skey or k < skey then\n        skey = k\n    end\nend\ncheck(\"templates + spell names shipped\", tkey ~= nil and skey ~= nil)\nlocal live = tkey:gsub(\"#\", \"7\")\nGameTooltip:ClearLines()\nGameTooltip:AddLine(skey)\nGameTooltip:AddLine(live)\nRunTip(\"Spell\", GameTooltip, nil)\nlocal lines = GameTooltip:TipLines()\nlocal anyFa = false\nfor _, l in ipairs(lines) do\n    if non_ascii(l) then\n        anyFa = true\n    end\nend\ncheck(\"spell tooltip gets Persian (\" .. tkey:sub(1, 40) .. \")\", anyFa, table.concat(lines, \" / \"))\n\n-- ------------------------------------------------------------------ tracker\nfunction GetNumQuestLogEntries() return #MOCK.logList end -- the mock lacks it\nMOCK.logList = { { title = \"Live Title Of The Quest\", id = qid } }\nMOCK_SetWatchLines({ \"Live Title Of The Quest\", \" - Kobold Vermin slain: 3/10\" })\nQuestWatch_Update()\nlocal l1, l2 = QuestWatchLine1:GetText(), QuestWatchLine2:GetText()\ncheck(\"tracker title in Persian\", non_ascii(l1), l1)\ncheck(\"tracker objective keeps the EN name (npc names locked)\", type(l2) == \"string\" and l2:find(\"Kobold Vermin\", 1, true) ~= nil, l2)\ncheck(\"tracker objective rewritten (Persian verb + counts)\", non_ascii(l2), l2)\n\n-- ------------------------------------------------------------- lock + slash\ncheck(\"items module not installed (locked)\", not (F.mods.items and F.mods.items.active))\nlocal ok = pcall(SlashCmdList.WOWFAF, \"status\")\ncheck(\"/wowfa status\", ok)\ncheck(\"no runtime errors logged\", #(WoWFA_FDB.errors or {}) == 0, WoWFA_FDB.errors and WoWFA_FDB.errors[1] and WoWFA_FDB.errors[1].e)\n\nprint(string.format(\"%d passed, %d failed (%d files loaded)\", passes, fails, nfiles))\nos.exit(fails == 0 and 0 or 1)\n"
+   }
+  ]
+ }
+}

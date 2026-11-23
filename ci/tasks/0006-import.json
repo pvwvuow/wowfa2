@@ -1,0 +1,26 @@
+{
+ "id": "0006-import",
+ "kind": "import",
+ "why": "port, not rewrite: the v0 runtime carries months of in-game fixes. Copy byte-exact, then trim and adapt in follow-up commits on this branch",
+ "args": {
+  "repo": "wowfa",
+  "ref": "bb1f7a9ba8b43cefb5d8df87d870231f3197cd11",
+  "map": [
+   {"from": "addon/WoWFA/Shape.lua", "to": "addon/WoWFA/Shape.lua"},
+   {"from": "addon/WoWFA/Fonts", "to": "addon/WoWFA/Fonts", "dir": true},
+   {"from": "addon/WoWFA/Media", "to": "addon/WoWFA/Media", "dir": true},
+   {"from": "addon/WoWFA/Forever/Locale.lua", "to": "addon/WoWFA/Locale.lua"},
+   {"from": "addon/WoWFA/Forever/Core.lua", "to": "addon/WoWFA/Core.lua"},
+   {"from": "addon/WoWFA/Forever/Text.lua", "to": "addon/WoWFA/Text.lua"},
+   {"from": "addon/WoWFA/Forever/Room.lua", "to": "addon/WoWFA/Room.lua"},
+   {"from": "addon/WoWFA/Forever/UI.lua", "to": "addon/WoWFA/UI.lua"},
+   {"from": "addon/WoWFA/Forever/Minimap.lua", "to": "addon/WoWFA/Minimap.lua"},
+   {"from": "addon/WoWFA/Forever/Modules/Quests.lua", "to": "addon/WoWFA/Modules/Quests.lua"},
+   {"from": "addon/WoWFA/Forever/Modules/Tracker.lua", "to": "addon/WoWFA/Modules/Tracker.lua"},
+   {"from": "addon/WoWFA/Forever/Modules/Spells.lua", "to": "addon/WoWFA/Modules/Spells.lua"},
+   {"from": "addon/WoWFA/Forever/Modules/Dungeons.lua", "to": "addon/WoWFA/Modules/Zones.lua"},
+   {"from": "tests/forever/wow_mock.lua", "to": "tests/lua/wow_mock.lua"},
+   {"from": "tests/forever/scenario.lua", "to": "tests/lua/scenario_v0.lua"}
+  ]
+ }
+}

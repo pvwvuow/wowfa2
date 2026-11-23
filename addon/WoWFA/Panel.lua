@@ -1,7 +1,9 @@
--- WoWFA v1 - the settings panel: ONE scrolling page (RTL), built on first open.
--- wowfa2 replaces the old 95 KB multi-tab panel with the switches v1.0 ships:
---   master switch, room preset, the shipped name/text switches, the shipped
---   modules, display options, status (versions, module states, errors), about.
+-- WoWFA v1 - the settings panel v2 (rc8): a side menu (RIGHT, the RTL side) and
+-- one page per section: General, Quests, Quest tracker, Map and zones, Spellbook,
+-- Talents, Status, About. Each page is its own scroll page, built once on the
+-- first open. Spellbook and Talents carry a per-section «name» and «description»
+-- display (Persian only / Persian + English below / English) that either follows
+-- General or is the section's own (F.Disp / F.DispSet in Room.lua).
 -- Rules: no Persian literal in this file (every string lives in Locale.lua);
 -- every Persian string goes through the shaper (UI.Text / SetFa); plain
 -- (insecure) frames only, so it opens in combat; a build error is logged and
@@ -12,18 +14,23 @@ local L = F.L
 local UI = F.UI
 local C = F.C
 
-local W, H = 520, 600         -- the window
-local PW = W - 44             -- the scroll page width
+local W, H = 700, 600         -- the window
+local NAVW = 164              -- the side menu
+local PW = 486                -- the scroll page width
 local panel, page, rows, health
-local sections = {}           -- page id -> scroll offset
+local pages, navbtns, active = {}, {}, nil
 local SHIPPED = { "quests", "tracker", "dungeons", "spellbook", "talents" }
 local ROOM_KEYS = { "namesZone", "namesSpell", "namesClass", "namesQuest", "terms", "questText", "npcSay", "faDigits" }
+local SECTIONS = { "general", "quests", "tracker", "map", "spellbook", "talents", "health", "about" }
+-- the ids of the one-page panel still work (F.OpenPanel("health") from the toast, the tests)
+local ALIAS = { room = "general", mods = "general", display = "general", home = "general", welcome = "general" }
 local STATE_L = { ok = "st_ok", warn = "st_warn", off = "st_off", master = "st_master", nodata = "st_nodata",
     schema = "st_schema", noapi = "st_noapi", update = "st_update", fault = "st_fault", locked = "st_off" }
 local STATE_C = { ok = "green", warn = "orange", update = "orange", fault = "red", noapi = "red", schema = "red", nodata = "red" }
 
 F.PANEL_SHIPPED = SHIPPED
 F.PANEL_ROOM_KEYS = ROOM_KEYS
+F.PANEL_SECTIONS = SECTIONS
 
 local function room_label(key)
     for _, group in pairs(L.ROOM_ROWS or {}) do
@@ -51,12 +58,32 @@ local function place(f, h, gap)
     return f
 end
 
-local function header(id, text)
+local function begin_page(id)
+    local sf = UI.ScrollPage(panel, PW, H - 76)
+    sf:SetPoint("TOPLEFT", panel, "TOPLEFT", 14, -64)
+    sf:Hide()
+    pages[id] = sf
+    page, y = sf, -6
+end
+
+local function end_page()
+    page.child:SetHeight(-y + 10)
+end
+
+local function header(text)
     y = y - 10
-    sections[id] = -y
     local hd = UI.Header(page.child, text, PW - 16)
     place(hd, 28, 6)
     return hd
+end
+
+local function note(text)
+    local f = CreateFrame("Frame", nil, page.child)
+    f:SetSize(PW - 16, 40)
+    f.text = UI.Text(f, 12, C.muted)
+    f.text:SetPoint("TOPRIGHT", f, "TOPRIGHT", -4, 0)
+    f.text:SetFa(text, PW - 30)
+    return place(f, 40, 2)
 end
 
 -- [Persian label ......... value]  value = Latin (versions) or Persian (states)
@@ -86,6 +113,21 @@ local function preset_index()
     return #F.Room.PRESET_IDS + 1 -- custom
 end
 
+local function state_of(id)
+    local m = F.mods[id]
+    local st = m and m.state or "off"
+    local lbl = L[STATE_L[st] or "st_off"] or tostring(st)
+    -- rc4: the reason next to the state, so a warn / auto-off is never a
+    -- guess ("build" = the game is newer than the data, "miss" = most
+    -- texts did not match, xN = faults that tripped the breaker)
+    if m and m.why then
+        lbl = lbl .. " (" .. tostring(m.why) .. ")"
+    elseif m and st == "fault" then
+        lbl = lbl .. " (x" .. tostring(m.faults or 0) .. ")"
+    end
+    return lbl, C[STATE_C[st] or "muted"]
+end
+
 -- ------------------------------------------------------------------ refresh
 local function refresh_health()
     if not health then
@@ -95,20 +137,15 @@ local function refresh_health()
     health.client.val:SetText(tostring(F.clientVersion or "?") .. "." .. tostring(F.clientBuildText or "?"))
     health.data.val:SetText(tostring(F.dataBuildText or "-"))
     for _, id in ipairs(SHIPPED) do
+        local lbl, col = state_of(id)
         local r = health.mods[id]
-        local m = F.mods[id]
-        local st = m and m.state or "off"
-        local lbl = L[STATE_L[st] or "st_off"] or tostring(st)
-        -- rc4: the reason next to the state, so a warn / auto-off is never a
-        -- guess ("build" = the game is newer than the data, "miss" = most
-        -- texts did not match, xN = faults that tripped the breaker)
-        if m and m.why then
-            lbl = lbl .. " (" .. tostring(m.why) .. ")"
-        elseif m and st == "fault" then
-            lbl = lbl .. " (x" .. tostring(m.faults or 0) .. ")"
-        end
         r.val:SetFa(lbl, 200)
-        color(r.val, C[STATE_C[st] or "muted"])
+        color(r.val, col)
+        local s = panel.modState and panel.modState[id]
+        if s then
+            s.val:SetFa(lbl, 200)
+            color(s.val, col)
+        end
     end
     local errs = F.db and F.db.errors or {}
     if #errs == 0 then
@@ -135,9 +172,9 @@ local function refresh_health()
             list[#list + 1] = e
         end
         table.sort(list, function(a, b)
-            local x, y = tonumber(a.n) or 0, tonumber(b.n) or 0
-            if x ~= y then
-                return x > y
+            local x, y2 = tonumber(a.n) or 0, tonumber(b.n) or 0
+            if x ~= y2 then
+                return x > y2
             end
             return tostring(a.t) < tostring(b.t)
         end)
@@ -167,6 +204,82 @@ local function refresh()
     refresh_health()
 end
 F.PanelRefresh = refresh
+
+-- ------------------------------------------------------------------ pages
+local function select_page(id)
+    id = ALIAS[id] or id
+    if not pages[id] then
+        id = "general"
+    end
+    for pid, sf in pairs(pages) do
+        if pid ~= id then
+            sf:Hide()
+        end
+    end
+    local sf = pages[id]
+    sf:Show()
+    sf:ScrollTo(0)
+    active = id
+    for nid, b in pairs(navbtns) do
+        local on = nid == id
+        local c = on and C.gold or C.muted
+        b.label:SetTextColor(c[1], c[2], c[3])
+        if b.mark then
+            b.mark:SetShown(on)
+        end
+    end
+    F.After(0, function()
+        if sf.Fit then
+            sf:Fit()
+        end
+        sf:UpdateBar()
+    end)
+end
+
+-- ------------------------------------------------------------------ row builders
+local function room_toggle(k, nostore)
+    local t = UI.Toggle(page.child, PW - 16, room_label(k), L.ROOM_EX and L.ROOM_EX[k],
+        function() return F.Room.On(k) end,
+        function(v) F.Room.Set(k, v) end)
+    t.dimOnMaster = true
+    if not nostore then
+        panel.room[k] = t
+    end
+    return place(t, L.ROOM_EX and L.ROOM_EX[k] and 50 or 32, 2)
+end
+
+local function mod_toggle(id)
+    local t = UI.Toggle(page.child, PW - 16, L["m_" .. id] or id, L["m_" .. id .. "_d"],
+        function() return F.db.mods[id] and true or false end,
+        function(v) F:SetModule(id, v) end)
+    t.dimOnMaster = true
+    panel.mods[id] = place(t, L["m_" .. id .. "_d"] and 50 or 32, 2)
+    panel.modState[id] = pair_row(L.h_state, false)
+end
+
+local function opt_toggle(key, label, signal)
+    return place(UI.Toggle(page.child, PW - 16, label, nil,
+        function() return F.db[key] and true or false end,
+        function(v)
+            F.db[key] = v and true or false
+            if signal then
+                F:Fire("options", key)
+            end
+        end), 32, 2)
+end
+
+-- the per-section name / description display: follows General until «custom» is on
+local function disp_section(sec)
+    panel.dispCustom[sec] = place(UI.Toggle(page.child, PW - 16, L.d_sep, L.d_sep_d,
+        function() return F.DispCustom(sec) end,
+        function(v) F.DispSetCustom(sec, v) end), 50, 2)
+    panel.dispTitle[sec] = place(UI.Choice(page.child, PW - 16, L.d_title, nil, L.opt_title,
+        function() return F.Disp(sec, "title") end,
+        function(v) F.DispSet(sec, "title", v) end), 32, 2)
+    panel.dispDesc[sec] = place(UI.Choice(page.child, PW - 16, L.d_desc, nil, L.opt_desc,
+        function() return F.Disp(sec, "desc") end,
+        function(v) F.DispSet(sec, "desc", v) end), 32, 2)
+end
 
 -- ------------------------------------------------------------------ build
 local function build()
@@ -211,22 +324,39 @@ local function build()
     local line = UI.Line(panel, false, 0.5)
     line:SetPoint("TOPLEFT", panel, "TOPLEFT", 12, -58)
     line:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -12, -58)
+    local vline = UI.Line(panel, true, 0.35)
+    vline:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -(NAVW + 18), -64)
+    vline:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -(NAVW + 18), 14)
 
-    page = UI.ScrollPage(panel, PW, H - 76)
-    page:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -14, -64)
-    panel.page = page
-    rows, y = {}, -6
+    -- the side menu
+    panel.nav = navbtns
+    for i, id in ipairs(SECTIONS) do
+        local b = UI.Button(panel, L["sec_" .. id], NAVW - 8, 30, function()
+            select_page(id)
+        end)
+        b:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -14, -68 - (i - 1) * 36)
+        local mark = UI.Tex(b, "OVERLAY", "diamond")
+        mark:SetSize(8, 8)
+        mark:SetPoint("RIGHT", b, "RIGHT", -4, 0)
+        mark:SetVertexColor(C.gold[1], C.gold[2], C.gold[3], 0.9)
+        mark:Hide()
+        b.mark = mark
+        navbtns[id] = b
+    end
 
-    -- master
+    rows = {}
+    panel.room, panel.mods, panel.modState = {}, {}, {}
+    panel.dispCustom, panel.dispTitle, panel.dispDesc = {}, {}, {}
+
+    -- ===================================================== General
+    begin_page("general")
     panel.master = place(UI.Toggle(page.child, PW - 16, L.master, L.master_d,
         function() return F.db.enabled end,
         function(v)
             F:SetEnabled(v)
             F.Chat(F.db.enabled and L.en.on or L.en.off)
         end), 50, 6)
-
-    -- what translates: the room preset + the shipped switches
-    header("room", L.tab_room)
+    header(L.tab_room)
     local labels = {}
     for i, id in ipairs(F.Room.PRESET_IDS) do
         labels[i] = F.Room.PRESET_LBL[id]
@@ -250,28 +380,18 @@ local function build()
     end
     pre.dimOnMaster = true
     panel.preset = place(pre, 50, 4)
-    panel.room = {}
-    for _, k in ipairs(ROOM_KEYS) do
-        local t = UI.Toggle(page.child, PW - 16, room_label(k), L.ROOM_EX and L.ROOM_EX[k],
-            function() return F.Room.On(k) end,
-            function(v) F.Room.Set(k, v) end)
-        t.dimOnMaster = true
-        panel.room[k] = place(t, L.ROOM_EX and L.ROOM_EX[k] and 50 or 32, 2)
-    end
-
-    -- modules
-    header("mods", L.tab_mods)
-    panel.mods = {}
-    for _, id in ipairs(SHIPPED) do
-        local t = UI.Toggle(page.child, PW - 16, L["m_" .. id] or id, L["m_" .. id .. "_d"],
-            function() return F.db.mods[id] and true or false end,
-            function(v) F:SetModule(id, v) end)
-        t.dimOnMaster = true
-        panel.mods[id] = place(t, L["m_" .. id .. "_d"] and 50 or 32, 2)
-    end
-
-    -- display
-    header("display", L.tab_display)
+    header(L.g_names)
+    room_toggle("namesClass")
+    room_toggle("terms")
+    room_toggle("faDigits")
+    header(L.g_defaults)
+    panel.dispTitleAll = place(UI.Choice(page.child, PW - 16, L.d_title, nil, L.opt_title,
+        function() return F.Disp("*", "title") end,
+        function(v) F.DispSetDefault("title", v) end), 32, 2)
+    panel.dispDescAll = place(UI.Choice(page.child, PW - 16, L.d_desc, nil, L.opt_desc,
+        function() return F.Disp("*", "desc") end,
+        function(v) F.DispSetDefault("desc", v) end), 32, 2)
+    header(L.tab_display)
     panel.fontSize = place(UI.Slider(page.child, PW - 16, L.d_size, 9, 20, 1,
         function() return F.db.fontSize end,
         function(v)
@@ -292,30 +412,6 @@ local function build()
                 panel:SetScale(v)
             end
         end), 30, 4)
-    panel.dock = place(UI.Choice(page.child, PW - 16, L.d_dock, nil, L.opt_dock,
-        function() return F.db.questDock end,
-        function(v)
-            F.db.questDock = v
-            F:Fire("options", "questDock")
-        end), 32, 2)
-    -- the world-map zone label (Modules/Zones.lua map_mode): 1 fa / 2 fa + en / 3 off
-    panel.zoneMap = place(UI.Choice(page.child, PW - 16, L.d_map, nil, L.opt_map,
-        function() return F.db.zoneMap or 2 end,
-        function(v)
-            F.db.zoneMap = v
-            F:Fire("options", "zoneMap")
-        end), 32, 2)
-    local function opt_toggle(key, label, signal)
-        return place(UI.Toggle(page.child, PW - 16, label, nil,
-            function() return F.db[key] and true or false end,
-            function(v)
-                F.db[key] = v and true or false
-                if signal then
-                    F:Fire("options", key)
-                end
-            end), 32, 2)
-    end
-    panel.questAuto = opt_toggle("questAuto", L.d_qauto, true)
     panel.minimap = place(UI.Toggle(page.child, PW - 16, L.d_minimap, nil,
         function() return not F.db.minimap.hide end,
         function(v)
@@ -330,9 +426,71 @@ local function build()
             F.db.onUpdate = v
             F:Refresh()
         end), 32, 2)
+    end_page()
 
-    -- status
-    header("health", L.tab_health)
+    -- ===================================================== Quests
+    begin_page("quests")
+    mod_toggle("quests")
+    header(L.sec_quests)
+    room_toggle("namesQuest")
+    room_toggle("questText")
+    room_toggle("npcSay")
+    panel.dock = place(UI.Choice(page.child, PW - 16, L.d_dock, nil, L.opt_dock,
+        function() return F.db.questDock end,
+        function(v)
+            F.db.questDock = v
+            F:Fire("options", "questDock")
+        end), 32, 2)
+    panel.questAuto = opt_toggle("questAuto", L.d_qauto, true)
+    end_page()
+
+    -- ===================================================== Quest tracker
+    begin_page("tracker")
+    mod_toggle("tracker")
+    note(L.n_tracker)
+    end_page()
+
+    -- ===================================================== Map and zones
+    begin_page("map")
+    mod_toggle("dungeons")
+    header(L.sec_map)
+    room_toggle("namesZone")
+    -- the world-map zone label (Modules/Zones.lua map_mode): 1 fa / 2 fa + en / 3 off
+    panel.zoneMap = place(UI.Choice(page.child, PW - 16, L.d_map, nil, L.opt_map,
+        function() return F.db.zoneMap or 2 end,
+        function(v)
+            F.db.zoneMap = v
+            F:Fire("options", "zoneMap")
+        end), 32, 2)
+    end_page()
+
+    -- ===================================================== Spellbook
+    begin_page("spellbook")
+    mod_toggle("spellbook")
+    header(L.sec_spellbook)
+    room_toggle("namesSpell")
+    if room_label("textDesc") ~= "textDesc" then
+        room_toggle("textDesc")
+    end
+    disp_section("spellbook")
+    note(L.n_disp)
+    end_page()
+
+    -- ===================================================== Talents
+    begin_page("talents")
+    mod_toggle("talents")
+    header(L.sec_talents)
+    room_toggle("namesSpell", true)
+    if room_label("textDesc") ~= "textDesc" then
+        room_toggle("textDesc", true)
+    end
+    disp_section("talents")
+    note(L.n_disp)
+    end_page()
+
+    -- ===================================================== Status
+    begin_page("health")
+    header(L.tab_health)
     health = { mods = {} }
     panel.health = health
     health.addon = pair_row(L.h_addon, true)
@@ -447,9 +605,11 @@ local function build()
     end)
     panel.missClear:SetPoint("RIGHT", mbt, "RIGHT", -4, 0)
     place(mbt, 30, 6)
+    end_page()
 
-    -- about
-    header("about", L.tab_about)
+    -- ===================================================== About
+    begin_page("about")
+    header(L.tab_about)
     local ab = CreateFrame("Frame", nil, page.child)
     ab:SetSize(PW - 16, 40)
     ab.text = UI.Text(ab, 12, C.muted)
@@ -486,17 +646,22 @@ local function build()
         end
     end)
     place(resetRow, 30, 8)
+    end_page()
 
-    page.child:SetHeight(-y + 10)
+    panel.page = pages.general
     panel:SetScript("OnShow", function()
         refresh()
+        local sf = pages[active or "general"]
         F.After(0, function()
-            if page.Fit then
-                page:Fit()
+            if sf and sf.Fit then
+                sf:Fit()
             end
-            page:UpdateBar()
+            if sf then
+                sf:UpdateBar()
+            end
         end)
     end)
+    select_page("general")
 end
 
 local function ensure()
@@ -513,21 +678,22 @@ local function ensure()
         if panel then
             panel:Hide()
         end
-        panel = nil
+        panel, pages, navbtns, active = nil, {}, {}, nil
         return false
     end
     return true
 end
 
--- page: nil / "home" = top; "health" / "display" / "room" / "mods" / "about"
--- ("welcome" from the old panel opens the top)
+-- page: nil = the section that was open last (General the first time); a section id
+-- (general / quests / tracker / map / spellbook / talents / health / about) or one
+-- of the old one-page ids (room / mods / display = General)
 function F.OpenPanel(pageId)
     if not ensure() then
         return
     end
     panel:Show()
+    select_page(pageId or active or "general")
     refresh()
-    page:ScrollTo(sections[pageId] or 0)
 end
 
 function F.TogglePanel()
@@ -542,7 +708,11 @@ function F.PanelFrame()
     return panel
 end
 
-for _, sig in ipairs({ "state", "room", "errors", "minimap", "miss" }) do
+function F.PanelPage()
+    return active
+end
+
+for _, sig in ipairs({ "state", "room", "errors", "minimap", "miss", "disp" }) do
     F:Listen(sig, function()
         if panel and panel:IsShown() then
             refresh()

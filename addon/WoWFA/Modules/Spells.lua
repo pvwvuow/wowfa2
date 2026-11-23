@@ -105,6 +105,60 @@ local function list_fa(text)
     return out
 end
 
+-- rc8 (settings v2): the font string of tooltip line i (matched by its text, so a
+-- tooltip whose rows are not 1:1 with the data lines still finds the right one)
+local function line_fs(tt, i, expect)
+    local name = tt.GetName and tt:GetName()
+    if not name or type(expect) ~= "string" then
+        return nil
+    end
+    local want = plain(expect)
+    local function try(k)
+        local fs = _G[name .. "TextLeft" .. k]
+        if fs and fs.GetText then
+            local ok, t = pcall(fs.GetText, fs)
+            if ok and F.Usable(t) and type(t) == "string" and plain(t) == want then
+                return fs
+            end
+        end
+        return nil
+    end
+    local fs = try(i)
+    if fs then
+        return fs
+    end
+    local n = (tt.NumLines and tt:NumLines()) or 0
+    for k = 1, n do
+        fs = try(k)
+        if fs then
+            return fs
+        end
+    end
+    return nil
+end
+
+-- rc8: which settings section this tooltip belongs to: the frame that is open
+-- (the Forever PlayerSpellsFrame holds the spellbook AND the talents), else the module
+local function section_of(modId)
+    local ok, r = pcall(function()
+        local f = _G.PlayerSpellsFrame
+        if f then
+            local tf, sf = f.TalentsFrame, f.SpellBookFrame
+            if tf and tf.IsShown and tf:IsShown() then
+                return "talents"
+            end
+            if sf and sf.IsShown and sf:IsShown() then
+                return "spellbook"
+            end
+        end
+        return nil
+    end)
+    if ok and r then
+        return r
+    end
+    return modId == "talents" and "talents" or "spellbook"
+end
+
 local function spell_tip(modId, tt, data)
     if tt and tt.wfaScan then
         return -- the /wowfa dump scanner tooltip: we export English, never translate it
@@ -128,7 +182,7 @@ local function spell_tip(modId, tt, data)
     if faName == nil and not string.find(name, "^%d") and not has_fa(name) then
         F:Miss("spell", T.NameKey(name), name) -- rc3 update watch (Core F:Miss)
     end
-    local found = {}
+    local found, srcOf = {}, {}
     for i = 2, #lines do
         local text = lines[i]
         if text ~= "" and #text > 8 and not has_fa(text) then
@@ -144,9 +198,11 @@ local function spell_tip(modId, tt, data)
             if lst then
                 for _, s in ipairs(lst) do
                     found[#found + 1] = s
+                    srcOf[#found] = i
                 end
             elseif fa then
                 found[#found + 1] = T.Fill(fa, nums)
+                srcOf[#found] = i
             elseif #text > 30 then
                 -- rc4: description-sized lines only (cost / range / cast header
                 -- rows are short; they belong to the in-place settings v2 work)
@@ -157,16 +213,58 @@ local function spell_tip(modId, tt, data)
     F:Track(modId, faName ~= nil or #found > 0)
     -- lane-b16: the sp family switch off = the English name stays on the
     -- spell/talent tooltip. A hit still counts (the data matches the game).
-    local showName = faName ~= nil and F.Room.On("namesSpell") -- 51-B
+    -- rc8: the section's own (or General's) display of the name and the description
+    local sec = section_of(modId)
+    local tmode = F.Disp and F.Disp(sec, "title") or 2
+    local dmode = F.Disp and F.Disp(sec, "desc") or 2
+    local showName = faName ~= nil and F.Room.On("namesSpell") and tmode ~= 3 -- 51-B
     -- Brain review: the descriptions are the room's «توضیحات و افکت‌ها» (they
     -- used to ride no switch at all, so «کاملاً انگلیسی» still showed Persian)
-    local showDesc = #found > 0 and F.Room.On("textDesc")
+    local showDesc = #found > 0 and F.Room.On("textDesc") and dmode ~= 3
     if showName then
-        T.TipLine(tt, faName, C.gold)
+        local done = false
+        if tmode == 1 or tmode == 2 then
+            -- in place: line 1 becomes the Persian name (+ the English under it)
+            local fs = line_fs(tt, 1, lines[1])
+            if fs then
+                local shown = faName
+                if tmode == 2 then
+                    shown = faName .. "\n" .. name
+                end
+                done = pcall(T.TipSet, tt, fs, shown, nil, "Left")
+            end
+        end
+        if not done then
+            T.TipLine(tt, faName, C.gold)
+        end
     end
     if showDesc then
-        for _, fa in ipairs(found) do
-            T.TipLine(tt, T.Prepare(fa), DESC)
+        if dmode == 1 then
+            -- in place: the Persian text replaces the English line it translates
+            local order, byLine = {}, {}
+            for k, fa in ipairs(found) do
+                local i = srcOf[k] or 0
+                if not byLine[i] then
+                    byLine[i] = {}
+                    order[#order + 1] = i
+                end
+                byLine[i][#byLine[i] + 1] = T.Prepare(fa)
+            end
+            for _, i in ipairs(order) do
+                local txt = table.concat(byLine[i], "\n")
+                local fs = i > 0 and line_fs(tt, i, lines[i]) or nil
+                local ok = false
+                if fs then
+                    ok = pcall(T.TipSet, tt, fs, txt, nil, "Left")
+                end
+                if not ok then
+                    T.TipLine(tt, txt, DESC)
+                end
+            end
+        else
+            for _, fa in ipairs(found) do
+                T.TipLine(tt, T.Prepare(fa), DESC)
+            end
         end
     end
     T.Done(tt)

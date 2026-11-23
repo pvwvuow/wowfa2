@@ -21,7 +21,7 @@ local panel, page, rows, health
 local pages, navbtns, active = {}, {}, nil
 local SHIPPED = { "quests", "tracker", "dungeons", "spellbook", "talents" }
 local ROOM_KEYS = { "namesZone", "namesSpell", "namesClass", "namesQuest", "terms", "questText", "npcSay", "faDigits" }
-local SECTIONS = { "general", "quests", "tracker", "map", "spellbook", "talents", "health", "about" }
+local SECTIONS = { "general", "quests", "tracker", "map", "spellbook", "talents", "colors", "health", "about" }
 -- the ids of the one-page panel still work (F.OpenPanel("health") from the toast, the tests)
 local ALIAS = { room = "general", mods = "general", display = "general", home = "general", welcome = "general" }
 local STATE_L = { ok = "st_ok", warn = "st_warn", off = "st_off", master = "st_master", nodata = "st_nodata",
@@ -486,6 +486,34 @@ local function build()
     end
     disp_section("talents")
     note(L.n_disp)
+    end_page()
+
+    -- ===================================================== Colours
+    begin_page("colors")
+    panel.colOn = place(UI.Toggle(page.child, PW - 16, L.col_on, L.col_on_d,
+        function() return F.db.col and F.db.col.on and true or false end,
+        function(v) F.ColSetOn(v) end), 50, 6)
+    header(L.col_hdr)
+    panel.col = {}
+    for _, fam in ipairs(F.T.COL_FAMS) do
+        local row = UI.Choice(page.child, PW - 16, L["col_" .. fam], nil, F.ColLabels(fam),
+            function() return F.ColIndex(fam) end,
+            function(v) F.ColSet(fam, v) end)
+        local base = row.Update
+        row.Update = function(self)
+            base(self)
+            local hex = F.ColHex(fam)
+            if hex then
+                self.val:SetTextColor(tonumber(string.sub(hex, 1, 2), 16) / 255,
+                    tonumber(string.sub(hex, 3, 4), 16) / 255, tonumber(string.sub(hex, 5, 6), 16) / 255)
+            else
+                self.val:SetTextColor(C.muted[1], C.muted[2], C.muted[3])
+            end
+        end
+        row:Update()
+        panel.col[fam] = place(row, 32, 2)
+    end
+    note(L.col_note)
     end_page()
 
     -- ===================================================== Status

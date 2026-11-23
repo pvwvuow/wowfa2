@@ -36,6 +36,7 @@ def run(args, rep):
     min_len = int(args.get("min_len", 4))
     apply = bool(args.get("apply"))
     stop = set(args.get("stop") or [])
+    stop_keys = set(args.get("stop_keys") or [])
     max_single = int(args.get("max_single", 80))
     sample_n = int(args.get("sample", 12))
 
@@ -52,7 +53,7 @@ def run(args, rep):
     for kind in kinds:
         for key, fa in store.names[kind].items():
             fa = (fa or "").strip()
-            if len(fa) < min_len or re.search(r"[A-Za-z0-9{}|]", fa):
+            if len(fa) < min_len or re.search(r"[A-Za-z0-9{}|]", fa) or key in stop_keys:
                 continue
             cand.setdefault(fa, set()).add((FAM[kind], key))
     ambiguous = sorted(fa for fa, s in cand.items() if len(s) > 1)
@@ -65,6 +66,9 @@ def run(args, rep):
     alt = "|".join(re.escape(x) for x in sorted(names, key=lambda s: (-len(s), s)))
     rx = re.compile("(?<![%sA-Za-z0-9])(?:%s)(?![%sA-Za-z0-9])" % (PERS, alt, PERS))
 
+    # a name that also shows up as a plural ("... ها") is a common noun (spider, boar), not a name
+    rx_pl = re.compile("(?<![%sA-Za-z0-9])(%s)(?=\u200c?(?:\u0647\u0627|\u0647\u0627\u06cc)(?![%s]))" % (PERS, alt, PERS))
+    plural = collections.Counter()
     hits = collections.Counter()
     where = collections.defaultdict(set)
     ctx = []
@@ -91,9 +95,19 @@ def run(args, rep):
             if t:
                 each_seg(t, lambda s, q=qid: (count_seg(s, q), s)[1])
 
-    suspicious = {fa for fa, n in hits.items() if " " not in fa and n > max_single}
+    for qid, rec in store.quests.items():
+        for f in FIELDS:
+            t = rec.get(f)
+            if t:
+                each_seg(t, lambda s: (plural.update(m.group(1) for m in rx_pl.finditer(s)), s)[1])
+    # zones are always names; an NPC is skipped when it is also used as a plural, or is a
+    # single word seen more than max_single times (a common noun)
+    suspicious = set()
+    for fa, n in hits.items():
+        if names[fa][0] == "npc" and (plural.get(fa) or (" " not in fa and n > max_single)):
+            suspicious.add(fa)
     rep.h("Plain names found in quest text")
-    rep.ok("%d different names, %d hits in %d quests; %d single-word names above %d hits are treated as common words"
+    rep.ok("%d different names, %d hits in %d quests; %d NPC names skipped as common nouns (plural use or above %d hits)"
            % (len(hits), sum(hits.values()), len(set().union(*where.values())) if where else 0,
               len(suspicious), max_single))
     rows = []

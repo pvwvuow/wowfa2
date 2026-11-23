@@ -19,9 +19,9 @@ local NAVW = 164              -- the side menu
 local PW = 486                -- the scroll page width
 local panel, page, rows, health
 local pages, navbtns, active = {}, {}, nil
-local SHIPPED = { "quests", "tracker", "dungeons", "spellbook", "talents" }
-local ROOM_KEYS = { "namesZone", "namesSpell", "namesClass", "namesQuest", "terms", "questText", "npcSay", "faDigits" }
-local SECTIONS = { "general", "quests", "tracker", "map", "spellbook", "talents", "colors", "health", "about" }
+local SHIPPED = { "quests", "tracker", "dungeons", "npc", "spellbook", "talents" }
+local ROOM_KEYS = { "namesZone", "namesSpell", "namesClass", "namesQuest", "terms", "questText", "npcSay", "faDigits", "namesNpc" }
+local SECTIONS = { "general", "quests", "tracker", "map", "npc", "spellbook", "talents", "colors", "share", "health", "about" }
 -- the ids of the one-page panel still work (F.OpenPanel("health") from the toast, the tests)
 local ALIAS = { room = "general", mods = "general", display = "general", home = "general", welcome = "general" }
 local STATE_L = { ok = "st_ok", warn = "st_warn", off = "st_off", master = "st_master", nodata = "st_nodata",
@@ -202,6 +202,9 @@ local function refresh()
         end
     end
     refresh_health()
+    if panel.shareBox and F.Room.ShareExport then
+        panel.shareBox:SetFixed(F.Room.ShareExport())
+    end
 end
 F.PanelRefresh = refresh
 
@@ -279,6 +282,40 @@ local function disp_section(sec)
     panel.dispDesc[sec] = place(UI.Choice(page.child, PW - 16, L.d_desc, nil, L.opt_desc,
         function() return F.Disp(sec, "desc") end,
         function(v) F.DispSet(sec, "desc", v) end), 32, 2)
+end
+
+-- a one-line code box: read-only (the text can only be selected and copied) or editable
+local function code_box(parent, editable)
+    UI.Glass(parent, 0.6)
+    local eb = CreateFrame("EditBox", nil, parent)
+    eb:SetMultiLine(false)
+    eb:SetAutoFocus(false)
+    eb:SetMaxLetters(0)
+    eb:SetFont(F.FONT, 11, "")
+    eb:SetTextColor(C.text[1], C.text[2], C.text[3])
+    eb:SetSize(PW - 30, 22)
+    eb:SetPoint("TOPLEFT", parent, "TOPLEFT", 6, -2)
+    eb:SetScript("OnEscapePressed", function(self)
+        self:ClearFocus()
+    end)
+    eb:SetScript("OnEditFocusGained", function(self)
+        self:HighlightText()
+    end)
+    if not editable then
+        eb.wfaFixed = ""
+        eb:SetScript("OnTextChanged", function(self, user)
+            if user then
+                self:SetText(self.wfaFixed or "")
+                self:HighlightText()
+            end
+        end)
+        eb.SetFixed = function(self, s)
+            self.wfaFixed = s or ""
+            self:SetText(self.wfaFixed)
+            self:SetCursorPosition(0)
+        end
+    end
+    return eb
 end
 
 -- ------------------------------------------------------------------ build
@@ -464,6 +501,21 @@ local function build()
         end), 32, 2)
     end_page()
 
+    -- ===================================================== NPC names
+    begin_page("npc")
+    mod_toggle("npc")
+    header(L.sec_npc)
+    room_toggle("namesNpc")
+    -- F.db.npcName: 1 Persian / 2 Persian + English under it / 3 English (Modules/Npc.lua)
+    panel.npcName = place(UI.Choice(page.child, PW - 16, L.d_npcname, nil, L.opt_npc,
+        function() return F.NpcMode and F.NpcMode() or 1 end,
+        function(v)
+            F.db.npcName = v
+            F:Fire("npcname")
+        end), 32, 2)
+    note(L.n_npc)
+    end_page()
+
     -- ===================================================== Spellbook
     begin_page("spellbook")
     mod_toggle("spellbook")
@@ -514,6 +566,40 @@ local function build()
         panel.col[fam] = place(row, 32, 2)
     end
     note(L.col_note)
+    end_page()
+
+    -- ===================================================== Share
+    begin_page("share")
+    header(L.sh_mine)
+    note(L.sh_mine_d)
+    local c1 = CreateFrame("Frame", nil, page.child)
+    c1:SetSize(PW - 16, 26)
+    panel.shareBox = code_box(c1, false)
+    place(c1, 26, 8)
+    header(L.sh_use)
+    note(L.sh_use_d)
+    local c2 = CreateFrame("Frame", nil, page.child)
+    c2:SetSize(PW - 16, 26)
+    panel.shareIn = code_box(c2, true)
+    place(c2, 26, 6)
+    local ab = CreateFrame("Frame", nil, page.child)
+    ab:SetSize(PW - 16, 30)
+    panel.shareApply = UI.Button(ab, L.sh_apply, 150, 26, function()
+        local txt = panel.shareIn:GetText() or ""
+        local ok, why = F.Room.ShareImport(txt)
+        panel.shareMsg:SetFa(ok and L.sh_ok or tostring(why), PW - 30)
+        if ok then
+            refresh()
+        end
+    end)
+    panel.shareApply:SetPoint("RIGHT", ab, "RIGHT", -4, 0)
+    place(ab, 30, 4)
+    local mf = CreateFrame("Frame", nil, page.child)
+    mf:SetSize(PW - 16, 30)
+    panel.shareMsg = UI.Text(mf, 12, C.goldLight)
+    panel.shareMsg:SetPoint("TOPRIGHT", mf, "TOPRIGHT", -4, 0)
+    panel.shareMsg:SetFa(" ", PW - 30)
+    place(mf, 30, 2)
     end_page()
 
     -- ===================================================== Status

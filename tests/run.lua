@@ -408,6 +408,70 @@ local okRc9, errRc9 = pcall(function()
     GameTooltip:Hide()
 end)
 check("rc9 tests ran", okRc9, errRc9)
+-- ------------------------------------------------------------------ rc11: NPC names, share codes
+local okRc11, errRc11 = pcall(function()
+    local savedCode = F.Room.Encode()
+    local oldDisp, oldCol, oldNpc = F.db.disp, F.db.col, F.db.npcName
+    F.Room.Apply("fa")
+    -- the npc family is no longer locked and its names ship
+    check("namesNpc is no longer release-locked", F.RELEASE_LOCK.namesNpc == nil and F.RELEASE_LOCK.npc == nil)
+    check("the npc module is registered", F.mods.npc ~= nil)
+    local k, v = next(F.D.names.npc or {})
+    check("npc names ship", k ~= nil and v ~= nil)
+    if k then
+        F.db.npcName = nil
+        check("an NPC name resolves to Persian", F.NpcLookup(k) == v, tostring(F.NpcLookup(k)))
+        F.db.npcName = 3
+        check("npcName 3 = English: no lookup", F.NpcLookup(k) == nil)
+        F.db.npcName = 1
+        F.Room.Set("namesNpc", false)
+        check("the namesNpc switch off = English", F.NpcLookup(k) == nil)
+        F.Room.Set("namesNpc", true)
+    end
+    -- the share code: a round trip of a customised setup
+    F.Room.Set("namesZone", false)
+    F.DispSetDefault("title", 3)
+    F.DispSet("talents", "desc", 1)
+    F.db.npcName = 2
+    F.db.col = { on = true, zn = "red", cls = "off" }
+    local code = F.Room.ShareExport()
+    check("the share code has the WFP1 shape", string.find(code, "^WFP1%-[%w%.]+%-%w%w%w$") ~= nil, code)
+    F.Room.Set("namesZone", true)
+    F.DispSetDefault("title", 1)
+    F.DispSetCustom("talents", false)
+    F.db.npcName = 1
+    F.db.col = nil
+    local ok, why = F.Room.ShareImport(code)
+    check("the share code imports", ok == true, tostring(why))
+    check("the room bits come back", not F.Room.On("namesZone"))
+    check("the display defaults come back", F.Disp("*", "title") == 3 and F.Disp("talents", "desc") == 1)
+    check("the npc display comes back", F.NpcMode() == 2)
+    check("the colours come back", F.db.col and F.db.col.on == true and F.db.col.zn == "red" and F.db.col.cls == "off")
+    local bad = string.gsub(code, "^(WFP1%-s)(%w)", function(a, b)
+        return a .. (b == "z" and "y" or "z")
+    end)
+    local okb = F.Room.ShareImport(bad)
+    check("a changed code is refused", okb == nil)
+    check("a site WF4 code is still accepted", F.Room.ShareImport(F.Room.Encode()) == true)
+    check("an empty code is refused", F.Room.ShareImport("  ") == nil)
+    -- the panel: the NPC and Share sections
+    F.OpenPanel("npc")
+    check("the panel opens the NPC section", F.PanelPage() == "npc")
+    local PF = F.PanelFrame()
+    check("the NPC section has its display choice", PF.npcName ~= nil)
+    Click(PF.npcName)
+    check("the NPC display choice cycles", F.NpcMode() == 3, F.NpcMode())
+    F.OpenPanel("share")
+    RunTimers()
+    check("the share box shows my code", PF.shareBox.wfaFixed and string.find(PF.shareBox.wfaFixed, "^WFP1%-") ~= nil)
+    PF.shareIn:SetText("garbage")
+    Click(PF.shareApply)
+    check("the share page refuses a garbage code", F.Disp("*", "title") == 3)
+    PF:Hide()
+    F.db.disp, F.db.col, F.db.npcName = oldDisp, oldCol, oldNpc
+    F.Room.Decode(savedCode)
+end)
+check("rc11 tests ran", okRc11, errRc11)
 -- ------------------------------------------------------------------ tracker
 function GetNumQuestLogEntries() return #MOCK.logList end -- the mock lacks it
 MOCK.logList = { { title = "Live Title Of The Quest", id = qid } }

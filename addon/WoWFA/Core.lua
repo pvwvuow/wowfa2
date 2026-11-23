@@ -283,8 +283,8 @@ local SURF_ROOM = {
 -- wowfa2: "dungeons" is the ONLY zone-name module (arrival text, minimap, map
 -- labels), so locking it hid every zone name although zones ship in v1.0.
 -- The lock now holds exactly the not-shipped surfaces.
-F.RELEASE_LOCK = { items = true, npc = true,
-                   namesItem = true, namesNpc = true }
+F.RELEASE_LOCK = { items = true,
+                   namesItem = true }
 F.RELEASE_LABEL = "v1.0"
 F.RELEASE_UNLOCK = {} -- session only; never written to the db
 

@@ -1,0 +1,81 @@
+{
+ "id": "0015-rc4",
+ "kind": "edit",
+ "why": "rc4 from the owner's rc3 miss list: zone self-feedback (x1755), she/he templates, plain-tooltip fallback for the Forever talent frame, state reasons on the status page",
+ "args": {
+  "ops": [
+   {
+    "file": "addon/WoWFA/Modules/Spells.lua",
+    "old": "local function spell_tip(modId, tt, data)\n",
+    "new": "-- rc4 (the owner's miss list: \"If the hunter takes damage, she will be dazed\"):\n-- the client fills the $g he/she choice with the PLAYER's gender while the data\n-- was keyed from the male text. On a miss, retry the key with the male words.\nlocal function gender_alts(key)\n    if not string.find(key, \"%f[%a]she%f[%A]\") and not string.find(key, \"%f[%a]her\") then\n        return nil\n    end\n    local k = string.gsub(key, \"%f[%a]she%f[%A]\", \"he\")\n    k = string.gsub(k, \"%f[%a]herself%f[%A]\", \"himself\")\n    local his = string.gsub(k, \"%f[%a]her%f[%A]\", \"his\")\n    local him = string.gsub(k, \"%f[%a]her%f[%A]\", \"him\")\n    return { his, him }\nend\n\nlocal function spell_tip(modId, tt, data)\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Spells.lua",
+    "old": "    if faName == nil then\n        F:Miss(\"spell\", T.NameKey(name), name) -- rc3 update watch (Core F:Miss)\n    end\n",
+    "new": "    -- rc4: a line 1 that starts with a digit is a cost row (\"107 Mana\"), never a name\n    if faName == nil and not string.find(name, \"^%d\") then\n        F:Miss(\"spell\", T.NameKey(name), name) -- rc3 update watch (Core F:Miss)\n    end\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Spells.lua",
+    "old": "            local fa = tpl[key]\n            if fa then\n                found[#found + 1] = T.Fill(fa, nums)\n            else\n                F:Miss(\"tpl\", key, plain(text), name)\n            end\n",
+    "new": "            local fa = tpl[key]\n            if not fa then\n                local alts = gender_alts(key)\n                if alts then\n                    fa = tpl[alts[1]] or tpl[alts[2]]\n                end\n            end\n            if fa then\n                found[#found + 1] = T.Fill(fa, nums)\n            elseif #text > 30 then\n                -- rc4: description-sized lines only (cost / range / cast header\n                -- rows are short; they belong to the in-place settings v2 work)\n                F:Miss(\"tpl\", key, plain(text), name)\n            end\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Spells.lua",
+    "old": "F:RegisterModule(TL)\n",
+    "new": "F:RegisterModule(TL)\n\n-- --------------------------------------------- rc4: tooltips with no spell data\n-- The owner's rc3 test: the Forever talent frame (Primary / Secondary, Apply\n-- Changes) shows plain GameTooltip text with no Spell tooltip data, so no\n-- post-call fires (Ferocity stayed English and never reached the miss list).\n-- Fallback: on GameTooltip show, when line 1 is a KNOWN spell/talent name and\n-- the tooltip is not an item or a unit, run the same spell_tip. T.Once (same\n-- \"s\"..name key) keeps a tooltip the post-call already did from getting the\n-- Persian twice. Unknown names under a talent/spell frame are logged (kind\n-- \"tip\", with the owner frame path) so the next build can hook that frame.\nlocal function owner_path(tt)\n    local ok, path = pcall(function()\n        local parts = {}\n        local f = tt.GetOwner and tt:GetOwner()\n        local n = 0\n        while f and n < 6 do\n            local nm = f.GetName and f:GetName()\n            if type(nm) == \"string\" and F.Usable(nm) then\n                parts[#parts + 1] = nm\n            end\n            f = f.GetParent and f:GetParent()\n            n = n + 1\n        end\n        return table.concat(parts, \"<\")\n    end)\n    return (ok and type(path) == \"string\") and path or \"\"\nend\n\nlocal function is_item_or_unit(tt)\n    local ok, r = pcall(function()\n        if tt.GetItem then\n            local _, link = tt:GetItem()\n            if link then\n                return true\n            end\n        end\n        if tt.GetUnit then\n            local _, unit = tt:GetUnit()\n            if unit then\n                return true\n            end\n        end\n        return false\n    end)\n    return (not ok) or r\nend\n\nlocal function plain_tip(tt)\n    if not tt or (tt.IsForbidden and tt:IsForbidden()) then\n        return\n    end\n    local mod = (F:Active(\"spellbook\") and \"spellbook\") or (F:Active(\"talents\") and \"talents\") or nil\n    if not mod then\n        return\n    end\n    local tname = tt.GetName and tt:GetName()\n    local fs = tname and _G[tname .. \"TextLeft1\"]\n    local first = fs and fs:GetText()\n    if not F.Usable(first) or type(first) ~= \"string\" or first == \"\" then\n        return\n    end\n    first = plain(first)\n    local names = F.D.names and F.D.names.spell or {}\n    if names[T.NameKey(first)] == nil then\n        local path = owner_path(tt)\n        local low = string.lower(path)\n        if string.find(low, \"talent\") or string.find(low, \"spell\") then\n            F:Miss(\"tip\", path .. \"|\" .. T.NameKey(first), first, path)\n        end\n        return\n    end\n    if is_item_or_unit(tt) then\n        return\n    end\n    spell_tip(mod, tt, nil)\nend\n\nif GameTooltip and GameTooltip.HookScript then\n    GameTooltip:HookScript(\"OnShow\", function(tt)\n        local ok, err = pcall(plain_tip, tt)\n        if not ok then\n            F:LogError(\"spellbook\", err)\n        end\n    end)\nend\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "local writing = {}  -- fs -> true while WE are inside SetText (re-entry flag)\n",
+    "new": "local shapeMemo = {} -- rc4: Persian zone text -> shaped string (per display mode)\nlocal writing = {}  -- fs -> true while WE are inside SetText (re-entry flag)\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "    local shown = T.ShapeLine(T.Digits(faText), T.Mode())\n",
+    "new": "    -- rc4: the map label is re-set by the client every frame: shape once per text\n    local mkey = faText .. \"\\1\" .. tostring(T.Mode()) .. tostring(F.Room.On(\"faDigits\"))\n    local shown = shapeMemo[mkey]\n    if not shown then\n        shown = T.ShapeLine(T.Digits(faText), T.Mode())\n        shapeMemo[mkey] = shown\n    end\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "    if not hookable(fs) then\n        return\n    end\n    -- the hooks are raw (not F:Wrap)",
+    "new": "    if not hookable(fs) then\n        return\n    end\n    -- rc4 (the owner's miss list: \"<Persian> / Eastern Kingdoms\" x1755): our OWN\n    -- SetText re-enters this hook; never look our Persian output up as a zone\n    if writing[fs] then\n        return\n    end\n    -- the hooks are raw (not F:Wrap)",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "    if v == nil and not string.find(name, \"%d\") then",
+    "new": "    if v == nil and not string.find(name, \"%d\") and not string.find(name, \"[\\216-\\219\\239]\") then",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Panel.lua",
+    "old": "        r.val:SetFa(L[STATE_L[st] or \"st_off\"] or tostring(st), 200)\n",
+    "new": "        local lbl = L[STATE_L[st] or \"st_off\"] or tostring(st)\n        -- rc4: the reason next to the state, so a warn / auto-off is never a\n        -- guess (\"build\" = the game is newer than the data, \"miss\" = most\n        -- texts did not match, xN = faults that tripped the breaker)\n        if m and m.why then\n            lbl = lbl .. \" (\" .. tostring(m.why) .. \")\"\n        elseif m and st == \"fault\" then\n            lbl = lbl .. \" (x\" .. tostring(m.faults or 0) .. \")\"\n        end\n        r.val:SetFa(lbl, 200)\n",
+    "count": 1
+   },
+   {
+    "file": "policy.json",
+    "old": "\"version\": \"1.0.0-rc3\"",
+    "new": "\"version\": \"1.0.0-rc4\"",
+    "count": 1
+   },
+   {
+    "file": "tests/run.lua",
+    "old": "check(\"unknown zone stays English\", MinimapZoneText:GetText() == \"Zzz Unknown Place\", MinimapZoneText:GetText())\n",
+    "new": "check(\"unknown zone stays English\", MinimapZoneText:GetText() == \"Zzz Unknown Place\", MinimapZoneText:GetText())\n-- rc4: our own Persian write must never come back as a zone miss\nF:ClearMiss()\nlocal zk1 = next(D.names.zone)\nMinimapZoneText:SetText(zk1)\nlocal selfMiss = 0\nfor id, e in pairs(F.db.miss or {}) do\n    if e.k == \"zone\" then\n        selfMiss = selfMiss + 1\n    end\nend\ncheck(\"own Persian write is not logged as a zone miss\", selfMiss == 0, selfMiss)\n",
+    "count": 1
+   },
+   {
+    "file": "tests/run.lua",
+    "old": "check(\"spell tooltip gets Persian (\" .. tkey:sub(1, 40) .. \")\", anyFa, table.concat(lines, \" / \"))\n",
+    "new": "check(\"spell tooltip gets Persian (\" .. tkey:sub(1, 40) .. \")\", anyFa, table.concat(lines, \" / \"))\n-- rc4: the client writes \"she\" for a female character; the data is keyed \"he\"\nD.tpl[\"zz test he will be dazed for # sec\"] = \"{0} \u062b\u0627\u0646\u06cc\u0647 \u06af\u06cc\u062c\"\nGameTooltip:ClearLines()\nGameTooltip:AddLine(skey)\nGameTooltip:AddLine(\"Zz test she will be dizzy for 4 sec.\")\nRunTip(\"Spell\", GameTooltip, nil)\nlocal nCtl = #GameTooltip:TipLines() -- control: no template for this line\nGameTooltip:ClearLines()\nGameTooltip:AddLine(skey)\nGameTooltip:AddLine(\"Zz test she will be dazed for 4 sec.\")\nRunTip(\"Spell\", GameTooltip, nil)\nlocal nG = #GameTooltip:TipLines()\ncheck(\"female-text tooltip matches the male-keyed template\", nG == nCtl + 1, nG .. \" vs control \" .. nCtl)\nD.tpl[\"zz test he will be dazed for # sec\"] = nil\n-- rc4: a plain GameTooltip (no Spell data: the Forever talent frame) translates too\nGameTooltip:Hide()\nGameTooltip:ClearLines()\nGameTooltip:AddLine(skey)\nGameTooltip:AddLine(live)\nGameTooltip:Show()\nlocal pl = GameTooltip:TipLines()\nlocal plFa = false\nfor _, l in ipairs(pl) do\n    if non_ascii(l) then\n        plFa = true\n    end\nend\ncheck(\"plain talent-style tooltip gets Persian (OnShow fallback)\", plFa, table.concat(pl, \" / \"))\nlocal nP = #pl\nRunTip(\"Spell\", GameTooltip, nil)\ncheck(\"the post-call after the fallback adds nothing twice\", #GameTooltip:TipLines() == nP,\n    #GameTooltip:TipLines() .. \" vs \" .. nP)\n",
+    "count": 1
+   }
+  ]
+ }
+}

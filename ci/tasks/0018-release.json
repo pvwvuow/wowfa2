@@ -1,0 +1,8 @@
+{
+ "id": "0018-release",
+ "kind": "release",
+ "why": "rc4 for the owner's in-game test (phase 0 fixes from the rc3 miss list)",
+ "args": {
+  "notes": "WoWFA Forever 1.0.0-rc4 (test build, built by wowfa2 CI).\n\nFixes from the rc3 miss list: talent tooltips without spell data (the Forever talent frame) now translate, female-character spell texts match, general / racial / profession spells (Attack, Dodge, Parry, Shadowmeld, Elune's Light, First Aid, Fishing...) have Persian, the zone label no longer re-reads its own Persian, and /wowfa > Status shows the reason next to each state.\n\nData from ForeverDB.net"
+ }
+}

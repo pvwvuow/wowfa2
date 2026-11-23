@@ -1,0 +1,65 @@
+{
+ "id": "0002-fix",
+ "kind": "fix",
+ "onto": "task/0001-migrate",
+ "why": "banned spelling, literal <name>/<class>/<race> the game never substitutes, show the broken drain-life marker",
+ "args": {
+  "ops": [
+   {
+    "op": "replace",
+    "table": "*",
+    "old": "\u0627\u0633\u067e\u06cc\u0644",
+    "new": "\u0627\u0633\u067e\u0644"
+   },
+   {
+    "op": "find",
+    "table": "*",
+    "text": "<name>"
+   },
+   {
+    "op": "find",
+    "table": "*",
+    "text": "<Name>"
+   },
+   {
+    "op": "find",
+    "table": "*",
+    "text": "<class>"
+   },
+   {
+    "op": "find",
+    "table": "*",
+    "text": "<race>"
+   },
+   {
+    "op": "replace",
+    "table": "quests",
+    "old": "<name>",
+    "new": "$N"
+   },
+   {
+    "op": "replace",
+    "table": "quests",
+    "old": "<Name>",
+    "new": "$N"
+   },
+   {
+    "op": "replace",
+    "table": "quests",
+    "old": "<class>",
+    "new": "$C"
+   },
+   {
+    "op": "replace",
+    "table": "quests",
+    "old": "<race>",
+    "new": "$R"
+   },
+   {
+    "op": "show",
+    "table": "tpl",
+    "key_prefix": "increases the damage done or health drained by your drain li"
+   }
+  ]
+ }
+}

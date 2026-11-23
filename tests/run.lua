@@ -205,6 +205,34 @@ do
     check("NumKey parity with the Python twin (" .. n .. " vectors)", n >= 10 and bad == 0, bad)
 end
 
+-- ------------------------------------------------------------------ miss recorder (rc3 update watch)
+local okMiss, errMiss = pcall(function()
+    F:ClearMiss()
+    check("miss log starts empty", F.db.missN == 0, F.db.missN)
+    F:Miss("tpl", "a totally unknown line #", "A totally unknown line 5.", "Test Spell")
+    F:Miss("tpl", "a totally unknown line #", "A totally unknown line 6.", "Test Spell")
+    local e = F.db.miss["tpl:a totally unknown line #"]
+    check("miss kept once, counted twice", e ~= nil and e.n == 2 and F.db.missN == 1, e and e.n)
+    F.OpenPanel("health")
+    RunTimers()
+    local PF = F.PanelFrame()
+    local box = PF and PF.health and PF.health.missList
+    local txt = box and box:GetText() or ""
+    check("status page lists the misses", txt:find("misses=1", 1, true) ~= nil and txt:find("A totally unknown line 5.", 1, true) ~= nil, txt)
+    F:Miss("zone", "some new zone", "Some New Zone|x")
+    txt = box and box:GetText() or ""
+    check("a new miss shows while the panel is open (pipe escaped)", txt:find("misses=2", 1, true) ~= nil and txt:find("Some New Zone!x", 1, true) ~= nil, txt)
+    for i = 1, F.MISS_CAP + 20 do
+        F:Miss("zone", "zone " .. i, "Zone " .. i)
+    end
+    check("miss log is capped", F.db.missN == F.MISS_CAP, F.db.missN)
+    Click(PF.missClear)
+    check("clear empties the miss log", F.db.missN == 0 and next(F.db.miss) == nil, F.db.missN)
+    check("box shows the empty log", (box:GetText() or ""):find("misses=0", 1, true) ~= nil, box:GetText())
+    F.TogglePanel()
+end)
+check("miss recorder tests ran", okMiss, errMiss)
+
 -- -------------------------------------------------------------------- panel
 -- the settings panel end to end on the mock: open/close paths, every kind of
 -- row (master, room switch, preset cycle, module, option), status + errors,

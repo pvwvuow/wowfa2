@@ -63,6 +63,9 @@ local function spell_tip(modId, tt, data)
     local names = F.D.names and F.D.names.spell or {}
     local tpl = F.D.tpl or {}
     local faName = names[T.NameKey(name)] -- lane-28 §A3: NameKey on both sides
+    if faName == nil then
+        F:Miss("spell", T.NameKey(name), name) -- rc3 update watch (Core F:Miss)
+    end
     local found = {}
     for i = 2, #lines do
         local text = lines[i]
@@ -71,6 +74,8 @@ local function spell_tip(modId, tt, data)
             local fa = tpl[key]
             if fa then
                 found[#found + 1] = T.Fill(fa, nums)
+            else
+                F:Miss("tpl", key, plain(text), name)
             end
         end
     end

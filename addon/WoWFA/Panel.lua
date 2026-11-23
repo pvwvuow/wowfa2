@@ -116,6 +116,31 @@ local function refresh_health()
         end
         health.errList:SetFixed(table.concat(out, "\n"))
     end
+    -- rc3 update watch: the misses as ONE line (a single-line box never grows
+    -- over the rows below; Ctrl+C copies all of it). Entries: kind :: text ::
+    -- spell/context :: xCount, most seen first
+    if health.missList then
+        local list = {}
+        for _, e in pairs(F.db and type(F.db.miss) == "table" and F.db.miss or {}) do
+            list[#list + 1] = e
+        end
+        table.sort(list, function(a, b)
+            local x, y = tonumber(a.n) or 0, tonumber(b.n) or 0
+            if x ~= y then
+                return x > y
+            end
+            return tostring(a.t) < tostring(b.t)
+        end)
+        local out = { string.format("WoWFA %s b%s misses=%d", tostring(F.VERSION), tostring(F.clientBuildText or "?"), #list) }
+        for i = 1, #list do
+            local e = list[i]
+            local t = string.gsub(tostring(e.t or ""), "|", "!")
+            t = string.gsub(t, "[\r\n]+", " / ")
+            out[#out + 1] = string.format("%s :: %s :: %s :: x%d", tostring(e.k), t, tostring(e.c or ""), tonumber(e.n) or 1)
+        end
+        health.missList:SetFixed(table.concat(out, " ;; "))
+        health.missHead:SetFa(string.format(L.h_miss_n, #list), PW - 30)
+    end
 end
 
 local function refresh()
@@ -366,6 +391,52 @@ local function build()
     end
     health.errList = eb
     place(el, 90, 4)
+    -- rc3 update watch: what the live game showed that the data could not
+    -- translate (Core F:Miss). One read-only line; click = select all.
+    local mh = CreateFrame("Frame", nil, page.child)
+    mh:SetSize(PW - 16, 40)
+    health.missHead = UI.Text(mh, 12, C.muted)
+    health.missHead:SetPoint("TOPRIGHT", mh, "TOPRIGHT", -4, 0)
+    health.missHead:SetFa(string.format(L.h_miss_n, 0), PW - 30)
+    place(mh, 40, 2)
+    local ml = CreateFrame("Frame", nil, page.child)
+    ml:SetSize(PW - 16, 24)
+    local mb = CreateFrame("EditBox", nil, ml)
+    mb:SetMultiLine(false)
+    mb:SetAutoFocus(false)
+    mb:SetMaxLetters(0)
+    mb:SetFont(F.FONT, 10, "")
+    mb:SetTextColor(C.muted[1], C.muted[2], C.muted[3])
+    mb:SetSize(PW - 24, 22)
+    mb:SetPoint("TOPLEFT", ml, "TOPLEFT", 4, 0)
+    mb.wfaFixed = ""
+    mb:SetScript("OnEscapePressed", function(self)
+        self:ClearFocus()
+    end)
+    mb:SetScript("OnEditFocusGained", function(self)
+        self:HighlightText()
+    end)
+    mb:SetScript("OnTextChanged", function(self, user)
+        if user then
+            self:SetText(self.wfaFixed or "")
+            self:HighlightText()
+        end
+    end)
+    mb.SetFixed = function(self, s)
+        self.wfaFixed = s or ""
+        self:SetText(self.wfaFixed)
+        self:SetCursorPosition(0)
+    end
+    health.missList = mb
+    place(ml, 24, 4)
+    local mbt = CreateFrame("Frame", nil, page.child)
+    mbt:SetSize(PW - 16, 30)
+    panel.missClear = UI.Button(mbt, L.btn_miss_clear, 150, 26, function()
+        F:ClearMiss()
+        refresh()
+    end)
+    panel.missClear:SetPoint("RIGHT", mbt, "RIGHT", -4, 0)
+    place(mbt, 30, 6)
 
     -- about
     header("about", L.tab_about)
@@ -461,7 +532,7 @@ function F.PanelFrame()
     return panel
 end
 
-for _, sig in ipairs({ "state", "room", "errors", "minimap" }) do
+for _, sig in ipairs({ "state", "room", "errors", "minimap", "miss" }) do
     F:Listen(sig, function()
         if panel and panel:IsShown() then
             refresh()

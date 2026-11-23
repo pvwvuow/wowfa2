@@ -307,13 +307,13 @@ local okRc8, errRc8 = pcall(function()
     F.db.disp = { title = 1, desc = 2 }
     local ls = tip()
     check("title 1: the English name is replaced in place by Persian",
-        #ls == 3 and non_ascii(ls[1]) and not ls[1]:find(skey, 1, true), #ls .. " / " .. table.concat(ls, " / "))
+        non_ascii(ls[1]) and not ls[1]:find(skey, 1, true) and ls[2] == live, #ls .. " / " .. table.concat(ls, " / "))
     F.db.disp = { title = 2, desc = 2 }
     ls = tip()
     check("title 2: Persian first, the English under it", non_ascii(ls[1]) and ls[1]:find(skey, 1, true) ~= nil, ls[1])
     F.db.disp = { title = 3, desc = 2 }
     ls = tip()
-    check("title 3: the English name stays, no Persian name", #ls == 3 and ls[1] == skey, #ls .. " / " .. table.concat(ls, " / "))
+    check("title 3: the English name stays, no Persian name", ls[1] == skey and ls[2] == live and #ls > 2, #ls .. " / " .. table.concat(ls, " / "))
     F.db.disp = { title = 3, desc = 1 }
     ls = tip()
     check("description 1: Persian replaces the English line", #ls == 2 and ls[1] == skey and non_ascii(ls[2]) and ls[2] ~= live,

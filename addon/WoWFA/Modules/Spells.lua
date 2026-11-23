@@ -172,6 +172,10 @@ local function spell_tip(modId, tt, data)
         return
     end
     name = plain(name)
+    -- rc8: line 1 already holds Persian = our own in-place rewrite (or a Persian game text)
+    if has_fa(name) then
+        return
+    end
     if not T.Once(tt, "s" .. name) then
         return
     end

@@ -1,0 +1,16 @@
+{
+ "id": "0041-mark1",
+ "kind": "script",
+ "why": "the owner: names in the quest texts are not marked, so they are neither coloured nor hoverable; mark every plain NPC and zone name",
+ "args": {
+  "module": "mark_quests",
+  "args": {
+   "kinds": ["zone", "npc"],
+   "min_len": 4,
+   "apply": true,
+   "max_single": 60,
+   "sample": 20,
+   "stop_keys": ["cleft", "den", "legendary", "sepulcher", "talar", "aman", "scald", "beast", "phantasm", "slave", "lady", "torn", "broken one", "rotted one", "aeolynn", "priest", "buzzard", "boar", "spider", "raptor", "murloc", "bear", "wolf", "guard", "hunter", "spirit", "shadow", "ghost"]
+  }
+ }
+}

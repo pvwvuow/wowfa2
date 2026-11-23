@@ -1,0 +1,8 @@
+{
+ "id": "0014-release",
+ "kind": "release",
+ "why": "rc3 for the owner's in-game test: map label option, 29 talent tree names, +60 spell templates, update watch",
+ "args": {
+  "notes": "WoWFA Forever 1.0.0-rc3 (test build, built by wowfa2 CI).\n\nNew since rc2: world-map zone names (Persian / Persian + English / off, in /wowfa > Display), all 27 talent tree names, +60 spell and talent texts, and the update watch: every text the live game shows that has no Persian yet is listed on /wowfa > Status (copy it and send it in).\n\nShips: quest texts, quest tracker, zone names, spells, talents, settings panel (/wowfa).\nNot yet: items, NPC names.\n\nData from ForeverDB.net"
+ }
+}

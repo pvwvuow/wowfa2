@@ -1,0 +1,17 @@
+{
+ "id": "0021-find",
+ "kind": "fix",
+ "why": "read-only: where do English fragments inside Persian spell templates come from (rc4 miss list, hunter pet abilities)",
+ "args": {
+  "ops": [
+   {"op": "find", "table": "tpl", "text": "critical strike chance"},
+   {"op": "find", "table": "tpl", "text": "movement speed"},
+   {"op": "find", "table": "tpl", "text": "weapon damage"},
+   {"op": "find", "table": "tpl", "text": "Arcane Shot"},
+   {"op": "find", "table": "tpl", "text": "Immobilizes"},
+   {"op": "find", "table": "tpl", "text": "counterattack"},
+   {"op": "find", "table": "tpl", "text": "Summon Hawk"},
+   {"op": "find", "table": "tpl", "text": "Strider Kick"}
+  ]
+ }
+}

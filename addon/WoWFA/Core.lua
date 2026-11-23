@@ -532,6 +532,7 @@ function F:Miss(kind, key, sample, ctx)
     if not db or type(key) ~= "string" or key == "" then
         return
     end
+    F:MissFresh()
     if type(db.miss) ~= "table" then
         db.miss, db.missN = {}, 0
     end
@@ -548,6 +549,15 @@ function F:Miss(kind, key, sample, ctx)
         c = ctx and string.sub(tostring(ctx), 1, 80) or nil, n = 1, b = F.clientBuild or 0 }
     db.missN = (tonumber(db.missN) or 0) + 1
     F:Fire("miss")
+end
+
+-- rc7: a miss list written by an OLDER build of the addon is stale (the rc6 list
+-- still held our own rc3-rc5 output): a new addon version starts a fresh list.
+function F:MissFresh()
+    local db = F.db
+    if db and db.missV ~= F.VERSION then
+        db.miss, db.missN, db.missV = {}, 0, F.VERSION
+    end
 end
 
 function F:ClearMiss()

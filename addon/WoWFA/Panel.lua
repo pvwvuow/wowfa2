@@ -129,6 +129,7 @@ local function refresh_health()
     -- over the rows below; Ctrl+C copies all of it). Entries: kind :: text ::
     -- spell/context :: xCount, most seen first
     if health.missList then
+        F:MissFresh()
         local list = {}
         for _, e in pairs(F.db and type(F.db.miss) == "table" and F.db.miss or {}) do
             list[#list + 1] = e

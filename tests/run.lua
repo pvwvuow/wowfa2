@@ -148,6 +148,39 @@ check("tracker title in Persian", non_ascii(l1), l1)
 check("tracker objective keeps the EN name (npc names locked)", type(l2) == "string" and l2:find("Kobold Vermin", 1, true) ~= nil, l2)
 check("tracker objective rewritten (Persian verb + counts)", non_ascii(l2), l2)
 
+-- ------------------------------------------------------------------ world map label (zoneMap)
+local okMap, errMap = pcall(function()
+    local zk = next(F.D.names.zone)
+    local wmf = CreateFrame("Frame", "WorldMapFrame", UIParent)
+    WorldMapFrame = wmf
+    local lab = CreateFrame("Frame", nil, wmf)
+    lab.Name = lab:CreateFontString(nil, "OVERLAY")
+    lab.Description = lab:CreateFontString(nil, "OVERLAY")
+    wmf.dataProviders = { [{ Label = lab }] = true }
+    FireEvent("ADDON_LOADED", "Blizzard_WorldMap")
+    F.db.zoneMap = nil
+    lab.Name:SetText(zk)
+    local t2 = lab.Name:GetText() or ""
+    check("map label default: Persian, English under it",
+        t2:find("\n", 1, true) ~= nil and t2:sub(-#zk) == zk and non_ascii(t2), t2)
+    F.db.zoneMap = 1
+    F:Fire("options", "zoneMap")
+    check("map option change puts the English back", lab.Name:GetText() == zk, lab.Name:GetText())
+    lab.Name:SetText(zk)
+    local t1 = lab.Name:GetText() or ""
+    check("map label mode 1: Persian only", non_ascii(t1) and not t1:find("\n", 1, true) and not t1:find(zk, 1, true), t1)
+    F.db.zoneMap = 3
+    F:Fire("options", "zoneMap")
+    lab.Name:SetText(zk)
+    check("map label mode 3: English untouched", lab.Name:GetText() == zk, lab.Name:GetText())
+    F.db.zoneMap = 2
+    F:Fire("options", "zoneMap")
+    lab.Name:SetText("Not A Real Zone Name")
+    check("map label: unknown zone stays English", lab.Name:GetText() == "Not A Real Zone Name", lab.Name:GetText())
+    F.db.zoneMap = nil
+end)
+check("map label tests ran", okMap, errMap)
+
 -- -------------------------------------------------------------------- panel
 -- the settings panel end to end on the mock: open/close paths, every kind of
 -- row (master, room switch, preset cycle, module, option), status + errors,

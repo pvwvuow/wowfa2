@@ -41,6 +41,17 @@ end
 -- with a re-entry flag, render Persian with our font at the ORIGINAL size (the
 -- client keeps its own colour - SetText never touches it) and restore the
 -- original font + English on switch off / module off / an unknown name.
+-- zoneMap (the owner, rc2): how the WORLD-MAP zone label shows.
+-- 1 = Persian only (replaces the English), 2 = Persian with the client's English
+-- under it (default), 3 = off (the English stays untouched)
+local function map_mode()
+    local v = F.db and F.db.zoneMap
+    if v ~= 1 and v ~= 3 then
+        v = 2
+    end
+    return v
+end
+
 local writing = {}  -- fs -> true while WE are inside SetText (re-entry flag)
 local original = {} -- fs -> { font, size, flags, text } of the state to restore
 
@@ -48,7 +59,7 @@ local function hookable(fs)
     return fs and type(fs) == "table" and fs.SetText and fs.GetFont
 end
 
-local function apply_inplace(fs, faText, enText)
+local function apply_inplace(fs, faText, enText, kind)
     if writing[fs] then
         return
     end
@@ -62,7 +73,13 @@ local function apply_inplace(fs, faText, enText)
     original[fs].text = enText
     fs:SetFont(F.FONT, (original[fs].size or T.Size()), "")
     -- Brain review #136-1: the player's CURRENT display mode, never a hardcoded 3
-    fs:SetText(T.ShapeLine(T.Digits(faText), T.Mode()))
+    local shown = T.ShapeLine(T.Digits(faText), T.Mode())
+    -- zoneMap 2: ONE font string, two lines (Persian, then the English), so the
+    -- label's own description line keeps anchoring below it (no overlap)
+    if kind == "map" and map_mode() == 2 and type(enText) == "string" and enText ~= "" then
+        shown = shown .. "\n" .. enText
+    end
+    fs:SetText(shown)
     writing[fs] = nil
 end
 
@@ -123,7 +140,7 @@ local function on_inplace(fs, enText, kind)
         return
     elseif kind == "arrival" and not F.Room.On("namesZone") then
         return
-    elseif kind == "map" and not F.Room.On("namesZone") then
+    elseif kind == "map" and (not F.Room.On("namesZone") or map_mode() == 3) then
         return
     end
     -- zoneToast 1-3 own the arrival toast in their own way; only 4 = in place
@@ -135,7 +152,7 @@ local function on_inplace(fs, enText, kind)
     end
     local faText = enText ~= "" and fa(enText) or nil
     if faText then
-        apply_inplace(fs, faText, enText)
+        apply_inplace(fs, faText, enText, kind)
     else
         font_only_restore(fs)
     end
@@ -149,6 +166,35 @@ local function hook_inplace(fs, kind)
     hooksecurefunc(fs, "SetText", function(self, text)
         on_inplace(self, text, kind)
     end)
+end
+
+-- the world-map hover label. Old-style clients have the WorldMapFrameAreaLabel
+-- globals; the modern map (Classic-era UI) draws it through an area-label data
+-- provider whose frame carries .Name / .Description font strings. The map is
+-- load-on-demand: this runs at install, on Blizzard_WorldMap load and on every
+-- map open (hook_inplace is idempotent per font string).
+local function hook_map()
+    hook_inplace(WorldMapFrameAreaLabel, "map")
+    hook_inplace(WorldMapFrameAreaDescription, "map")
+    local wm = WorldMapFrame
+    if type(wm) ~= "table" then
+        return
+    end
+    if not wm.wfaMapHooked and wm.HookScript then
+        wm.wfaMapHooked = true
+        wm:HookScript("OnShow", function()
+            pcall(hook_map)
+        end)
+    end
+    local dps = wm.dataProviders
+    if type(dps) == "table" then
+        for dp in pairs(dps) do
+            local lb = type(dp) == "table" and dp.Label
+            if type(lb) == "table" then
+                hook_inplace(lb.Name, "map")
+            end
+        end
+    end
 end
 
 -- Brain 64 (the owner: "the Persian zone title fades out on its own timer, make
@@ -337,8 +383,18 @@ function M.install()
     end
     -- world map: hover label + map title when the frames exist (probe from
     -- lane 27; a 1.60.1 client without them just no-ops). Combat-guarded.
-    hook_inplace(WorldMapFrameAreaLabel, "map")
-    hook_inplace(WorldMapFrameAreaDescription, "map")
+    hook_map()
+    F:On("ADDON_LOADED", "dungeons", function(a, b)
+        if a == "Blizzard_WorldMap" or b == "Blizzard_WorldMap" then
+            hook_map()
+        end
+    end)
+    -- a new zoneMap choice: put the English back now, the next hover re-applies
+    F:Listen("options", function(a, b)
+        if a == "zoneMap" or b == "zoneMap" then
+            restore_all()
+        end
+    end)
     -- any switch change may have turned us off: restore everything, the next
     -- client SetText re-applies what is still allowed
     F:Listen("names", restore_all)

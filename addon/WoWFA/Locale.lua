@@ -320,6 +320,8 @@ L.q_progress = "در جریان"
 L.q_complete = "پایان"
 L.zone_dungeon = "دانجن"
 L.zone_raid = "ریید"
+L.d_map = "اسم مناطق روی نقشهٔ بزرگ"
+L.opt_map = { "فقط فارسی (جای انگلیسی)", "فارسی، انگلیسی زیرش", "ترجمه نشه (انگلیسی)" }
 
 L.class = {
     WARRIOR = "جنگاور", PALADIN = "پالادین", HUNTER = "شکارچی", ROGUE = "راهزن", PRIEST = "روحانی",

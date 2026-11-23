@@ -263,6 +263,13 @@ local function build()
             F.db.questDock = v
             F:Fire("options", "questDock")
         end), 32, 2)
+    -- the world-map zone label (Modules/Zones.lua map_mode): 1 fa / 2 fa + en / 3 off
+    panel.zoneMap = place(UI.Choice(page.child, PW - 16, L.d_map, nil, L.opt_map,
+        function() return F.db.zoneMap or 2 end,
+        function(v)
+            F.db.zoneMap = v
+            F:Fire("options", "zoneMap")
+        end), 32, 2)
     local function opt_toggle(key, label, signal)
         return place(UI.Toggle(page.child, PW - 16, label, nil,
             function() return F.db[key] and true or false end,

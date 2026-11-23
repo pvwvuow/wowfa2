@@ -5,7 +5,7 @@
 ## Version: @VERSION@
 ## AllowLoadGameType: forever
 ## ExcludeLoadGameType: standard, classic
-## SavedVariables: WoWFA_FDB
+## SavedVariables: WoWFA_FDB, WoWFA_Dump
 ## IconTexture: Interface\AddOns\WoWFA\Media\icon
 ## AddonCompartmentFunc: WoWFA_F_Compartment
 ## AddonCompartmentFuncOnEnter: WoWFA_F_CompartmentEnter
@@ -29,4 +29,5 @@ Modules\Zones.lua
 Modules\Tracker.lua
 Modules\Spells.lua
 Panel.lua
+Dump.lua
 Minimap.lua

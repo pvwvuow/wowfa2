@@ -101,12 +101,18 @@ def lua_tests(rep):
         if os.environ.get("CI"):
             rep.fail("lua missing on CI")
         return
-    data = os.path.join(OUT, "dist", "WoWFA", "Data")
-    for fn in sorted(os.listdir(data)):
-        p = subprocess.run(["luac5.1" if LUA == "lua5.1" else "luac", "-p", os.path.join(data, fn)],
-                           capture_output=True, text=True)
-        if p.returncode:
-            rep.fail("luac %s: %s" % (fn, p.stderr.strip()[:300]))
+    dist = os.path.join(OUT, "dist", "WoWFA")
+    nlua = 0
+    for base, _, files in os.walk(dist):
+        for fn in sorted(files):
+            if not fn.endswith(".lua"):
+                continue
+            nlua += 1
+            full = os.path.join(base, fn)
+            p = subprocess.run(["luac5.1" if LUA == "lua5.1" else "luac", "-p", full], capture_output=True, text=True)
+            if p.returncode:
+                rep.fail("luac %s: %s" % (os.path.relpath(full, dist), p.stderr.strip()[:300]))
+    rep.add("- luac -p: %d Lua files" % nlua)
     tdir = os.path.join(ROOT, "tests")
     runner = os.path.join(tdir, "run.lua")
     if os.path.exists(runner) and os.path.isdir(os.path.join(OUT, "dist", "WoWFA")):

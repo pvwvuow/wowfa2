@@ -1,0 +1,31 @@
+## Interface: @INTERFACE@
+## Title: WoWFA |cfff0c75e(Persian)|r
+## Notes: Persian translation for WoW Forever: quests, quest tracker, zone names, spells and talents. wowfarsi.ir
+## Author: WoWFarsi
+## Version: @VERSION@
+## AllowLoadGameType: forever
+## ExcludeLoadGameType: standard, classic
+## SavedVariables: WoWFA_FDB
+## IconTexture: Interface\AddOns\WoWFA\Media\icon
+## AddonCompartmentFunc: WoWFA_F_Compartment
+## AddonCompartmentFuncOnEnter: WoWFA_F_CompartmentEnter
+## AddonCompartmentFuncOnLeave: WoWFA_F_CompartmentLeave
+## X-Website: https://wowfarsi.ir
+## X-Credits: Data from ForeverDB.net
+
+Shape.lua
+Locale.lua
+Core.lua
+Text.lua
+Room.lua
+UI.lua
+Data\Meta.lua
+Data\Names.lua
+Data\Tpl.lua
+Data\Quests.lua
+Data\Strings.lua
+Modules\Quests.lua
+Modules\Zones.lua
+Modules\Tracker.lua
+Modules\Spells.lua
+Minimap.lua

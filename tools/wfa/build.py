@@ -60,8 +60,9 @@ def emit_data(store, policy, out_dir):
     s.append("}\n")
     _write(os.path.join(out_dir, "Strings.lua"), "".join(s))
     # Meta.lua last: the counts of what was really written
-    meta = [HEAD, "D.meta = { schema = 2, version = %s, build = %s, counts = {\n"
-            % (lua_str(policy["version"]), lua_str(policy["game_build"]))]
+    build_num = int(str(policy["game_build"]).split(".")[-1])
+    meta = [HEAD, "D.meta = { schema = 2, version = %s, build = %s, buildNum = %d, counts = {\n"
+            % (lua_str(policy["version"]), lua_str(policy["game_build"]), build_num)]
     for k in sorted(counts):
         meta.append("[%s]=%d,\n" % (lua_str(k), counts[k]))
     meta.append("} }\n")
@@ -78,12 +79,13 @@ def build(store, policy):
     notes = []
     if os.path.isdir(addon_src):
         shutil.copytree(addon_src, dst, ignore=shutil.ignore_patterns("*.in", ".*"))
-        toc_in = os.path.join(addon_src, "WoWFA.toc.in")
-        if os.path.exists(toc_in):
-            with open(toc_in, encoding="utf-8") as f:
+        for fn in sorted(os.listdir(addon_src)):
+            if not fn.endswith(".toc.in"):
+                continue
+            with open(os.path.join(addon_src, fn), encoding="utf-8") as f:
                 toc = f.read()
             toc = toc.replace("@VERSION@", policy["version"]).replace("@INTERFACE@", str(policy["interface"]))
-            _write(os.path.join(dst, "WoWFA.toc"), toc)
+            _write(os.path.join(dst, fn[:-3]), toc)
     else:
         notes.append("addon/WoWFA not present yet: data-only build")
     counts = emit_data(store, policy, os.path.join(dst, "Data"))

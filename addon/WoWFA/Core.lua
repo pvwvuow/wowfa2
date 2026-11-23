@@ -520,6 +520,43 @@ function F:Track(modId, hit, stale)
     end
 end
 
+-- rc3 update watch (the owner: "the game and the data will keep updating,
+-- always watch for it"): every lookup that MISSES (a spell name, a tooltip
+-- line, a zone the data has no Persian for) is remembered once, with a hit
+-- counter, in the saved variables (capped). The status page shows the list in
+-- a copy box; the next data update translates exactly what the live game
+-- shows. The addon never sends it anywhere.
+F.MISS_CAP = 400
+function F:Miss(kind, key, sample, ctx)
+    local db = F.db
+    if not db or type(key) ~= "string" or key == "" then
+        return
+    end
+    if type(db.miss) ~= "table" then
+        db.miss, db.missN = {}, 0
+    end
+    local id = tostring(kind) .. ":" .. key
+    local e = db.miss[id]
+    if e then
+        e.n = (tonumber(e.n) or 1) + 1
+        return
+    end
+    if (tonumber(db.missN) or 0) >= F.MISS_CAP then
+        return
+    end
+    db.miss[id] = { k = tostring(kind), t = string.sub(tostring(sample or key), 1, 300),
+        c = ctx and string.sub(tostring(ctx), 1, 80) or nil, n = 1, b = F.clientBuild or 0 }
+    db.missN = (tonumber(db.missN) or 0) + 1
+    F:Fire("miss")
+end
+
+function F:ClearMiss()
+    if F.db then
+        F.db.miss, F.db.missN = {}, 0
+        F:Fire("miss")
+    end
+end
+
 local function check_data()
     local D = WoWFA_FData
     F.D = type(D) == "table" and D or {}

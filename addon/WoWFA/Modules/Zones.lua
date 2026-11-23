@@ -32,7 +32,13 @@ local function fa(name)
     end
     -- lane-28 §A3: the shared name-key normalisation (the export side keys the
     -- same way), so "The Barrens" resolves even when the client adds the article
-    return F.D.names.zone[T.NameKey(name)]
+    local v = F.D.names.zone[T.NameKey(name)]
+    -- rc3 update watch: a zone the data does not know (a label with digits is
+    -- a level range / description line, never a zone name)
+    if v == nil and not string.find(name, "%d") then
+        F:Miss("zone", T.NameKey(name), name)
+    end
+    return v
 end
 
 -- ------------------------------------------------- in-place zone text (lane-28 §B)

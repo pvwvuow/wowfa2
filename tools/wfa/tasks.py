@@ -177,6 +177,7 @@ def task_fix(t, rep):
     """ops (all literal, no regex):
       {"op":"replace","table":T,"key"|"key_prefix":..,"old":..,"new":..,"count":N}  N = expected hits
       {"op":"set","table":T,"key":K,"value":V,"expect_old":X?,"create":false}
+      {"op":"delete","table":T,"key":K}           remove one row (lower the floor in policy.json too)
       {"op":"find","table":T,"text":S}            report every hit (max 80)
       {"op":"show","table":T,"key"|"key_prefix":..}  report full values (max 20)
     A wrong count / missing key / unexpected old value fails the task and nothing is committed."""
@@ -217,6 +218,17 @@ def task_fix(t, rep):
                 continue
             rep.ok("#%d set %s[%r]: %r -> %r" % (i, tn, k, tab.get(k), op["value"]))
             tab[k] = op["value"]
+        elif kind == "delete":
+            tn, tab = tabs[0]
+            k = op["key"]
+            if tn == "quests":
+                k = int(k)
+            if k not in tab:
+                ok = False
+                rep.fail("#%d delete %s[%r]: key missing" % (i, tn, k))
+                continue
+            rep.ok("#%d delete %s[%r] (was %r)" % (i, tn, k, tab[k]))
+            del tab[k]
         elif kind == "find":
             n = 0
             for tn, tab in tabs:

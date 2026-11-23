@@ -1,0 +1,69 @@
+{
+ "id": "0010-map",
+ "kind": "edit",
+ "why": "owner rc2 ask: world-map zone names in Persian with a 3-way option (fa only / fa + English under / off); hook the modern area-label provider too",
+ "args": {
+  "ops": [
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "local writing = {}  -- fs -> true while WE are inside SetText (re-entry flag)\n",
+    "new": "-- zoneMap (the owner, rc2): how the WORLD-MAP zone label shows.\n-- 1 = Persian only (replaces the English), 2 = Persian with the client's English\n-- under it (default), 3 = off (the English stays untouched)\nlocal function map_mode()\n    local v = F.db and F.db.zoneMap\n    if v ~= 1 and v ~= 3 then\n        v = 2\n    end\n    return v\nend\n\nlocal writing = {}  -- fs -> true while WE are inside SetText (re-entry flag)\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "local function apply_inplace(fs, faText, enText)\n",
+    "new": "local function apply_inplace(fs, faText, enText, kind)\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "    fs:SetText(T.ShapeLine(T.Digits(faText), T.Mode()))\n    writing[fs] = nil\nend\n",
+    "new": "    local shown = T.ShapeLine(T.Digits(faText), T.Mode())\n    -- zoneMap 2: ONE font string, two lines (Persian, then the English), so the\n    -- label's own description line keeps anchoring below it (no overlap)\n    if kind == \"map\" and map_mode() == 2 and type(enText) == \"string\" and enText ~= \"\" then\n        shown = shown .. \"\\n\" .. enText\n    end\n    fs:SetText(shown)\n    writing[fs] = nil\nend\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "    elseif kind == \"map\" and not F.Room.On(\"namesZone\") then\n        return\n    end\n",
+    "new": "    elseif kind == \"map\" and (not F.Room.On(\"namesZone\") or map_mode() == 3) then\n        return\n    end\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "        apply_inplace(fs, faText, enText)\n",
+    "new": "        apply_inplace(fs, faText, enText, kind)\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "    hook_inplace(WorldMapFrameAreaLabel, \"map\")\n    hook_inplace(WorldMapFrameAreaDescription, \"map\")\n",
+    "new": "    hook_map()\n    F:On(\"ADDON_LOADED\", \"dungeons\", function(a, b)\n        if a == \"Blizzard_WorldMap\" or b == \"Blizzard_WorldMap\" then\n            hook_map()\n        end\n    end)\n    -- a new zoneMap choice: put the English back now, the next hover re-applies\n    F:Listen(\"options\", function(a, b)\n        if a == \"zoneMap\" or b == \"zoneMap\" then\n            restore_all()\n        end\n    end)\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "local function hook_inplace(fs, kind)\n    if not hookable(fs) or fs.wfaHooked then\n        return\n    end\n    fs.wfaHooked = true\n    hooksecurefunc(fs, \"SetText\", function(self, text)\n        on_inplace(self, text, kind)\n    end)\nend\n",
+    "new": "local function hook_inplace(fs, kind)\n    if not hookable(fs) or fs.wfaHooked then\n        return\n    end\n    fs.wfaHooked = true\n    hooksecurefunc(fs, \"SetText\", function(self, text)\n        on_inplace(self, text, kind)\n    end)\nend\n\n-- the world-map hover label. Old-style clients have the WorldMapFrameAreaLabel\n-- globals; the modern map (Classic-era UI) draws it through an area-label data\n-- provider whose frame carries .Name / .Description font strings. The map is\n-- load-on-demand: this runs at install, on Blizzard_WorldMap load and on every\n-- map open (hook_inplace is idempotent per font string).\nlocal function hook_map()\n    hook_inplace(WorldMapFrameAreaLabel, \"map\")\n    hook_inplace(WorldMapFrameAreaDescription, \"map\")\n    local wm = WorldMapFrame\n    if type(wm) ~= \"table\" then\n        return\n    end\n    if not wm.wfaMapHooked and wm.HookScript then\n        wm.wfaMapHooked = true\n        wm:HookScript(\"OnShow\", function()\n            pcall(hook_map)\n        end)\n    end\n    local dps = wm.dataProviders\n    if type(dps) == \"table\" then\n        for dp in pairs(dps) do\n            local lb = type(dp) == \"table\" and dp.Label\n            if type(lb) == \"table\" then\n                hook_inplace(lb.Name, \"map\")\n            end\n        end\n    end\nend\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Locale.lua",
+    "old": "L.zone_raid = \"\u0631\u06cc\u06cc\u062f\"\n",
+    "new": "L.zone_raid = \"\u0631\u06cc\u06cc\u062f\"\nL.d_map = \"\u0627\u0633\u0645 \u0645\u0646\u0627\u0637\u0642 \u0631\u0648\u06cc \u0646\u0642\u0634\u0647\u0654 \u0628\u0632\u0631\u06af\"\nL.opt_map = { \"\u0641\u0642\u0637 \u0641\u0627\u0631\u0633\u06cc (\u062c\u0627\u06cc \u0627\u0646\u06af\u0644\u06cc\u0633\u06cc)\", \"\u0641\u0627\u0631\u0633\u06cc\u060c \u0627\u0646\u06af\u0644\u06cc\u0633\u06cc \u0632\u06cc\u0631\u0634\", \"\u062a\u0631\u062c\u0645\u0647 \u0646\u0634\u0647 (\u0627\u0646\u06af\u0644\u06cc\u0633\u06cc)\" }\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Panel.lua",
+    "old": "            F:Fire(\"options\", \"questDock\")\n        end), 32, 2)\n",
+    "new": "            F:Fire(\"options\", \"questDock\")\n        end), 32, 2)\n    -- the world-map zone label (Modules/Zones.lua map_mode): 1 fa / 2 fa + en / 3 off\n    panel.zoneMap = place(UI.Choice(page.child, PW - 16, L.d_map, nil, L.opt_map,\n        function() return F.db.zoneMap or 2 end,\n        function(v)\n            F.db.zoneMap = v\n            F:Fire(\"options\", \"zoneMap\")\n        end), 32, 2)\n",
+    "count": 1
+   },
+   {
+    "file": "tests/run.lua",
+    "old": "-- -------------------------------------------------------------------- panel\n",
+    "new": "-- ------------------------------------------------------------------ world map label (zoneMap)\nlocal okMap, errMap = pcall(function()\n    local zk = next(F.D.names.zone)\n    local wmf = CreateFrame(\"Frame\", \"WorldMapFrame\", UIParent)\n    WorldMapFrame = wmf\n    local lab = CreateFrame(\"Frame\", nil, wmf)\n    lab.Name = lab:CreateFontString(nil, \"OVERLAY\")\n    lab.Description = lab:CreateFontString(nil, \"OVERLAY\")\n    wmf.dataProviders = { [{ Label = lab }] = true }\n    FireEvent(\"ADDON_LOADED\", \"Blizzard_WorldMap\")\n    F.db.zoneMap = nil\n    lab.Name:SetText(zk)\n    local t2 = lab.Name:GetText() or \"\"\n    check(\"map label default: Persian, English under it\",\n        t2:find(\"\\n\", 1, true) ~= nil and t2:sub(-#zk) == zk and non_ascii(t2), t2)\n    F.db.zoneMap = 1\n    F:Fire(\"options\", \"zoneMap\")\n    check(\"map option change puts the English back\", lab.Name:GetText() == zk, lab.Name:GetText())\n    lab.Name:SetText(zk)\n    local t1 = lab.Name:GetText() or \"\"\n    check(\"map label mode 1: Persian only\", non_ascii(t1) and not t1:find(\"\\n\", 1, true) and not t1:find(zk, 1, true), t1)\n    F.db.zoneMap = 3\n    F:Fire(\"options\", \"zoneMap\")\n    lab.Name:SetText(zk)\n    check(\"map label mode 3: English untouched\", lab.Name:GetText() == zk, lab.Name:GetText())\n    F.db.zoneMap = 2\n    F:Fire(\"options\", \"zoneMap\")\n    lab.Name:SetText(\"Not A Real Zone Name\")\n    check(\"map label: unknown zone stays English\", lab.Name:GetText() == \"Not A Real Zone Name\", lab.Name:GetText())\n    F.db.zoneMap = nil\nend)\ncheck(\"map label tests ran\", okMap, errMap)\n\n-- -------------------------------------------------------------------- panel\n",
+    "count": 1
+   }
+  ]
+ }
+}

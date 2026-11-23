@@ -1,0 +1,8 @@
+{
+ "id": "0026-release",
+ "kind": "release",
+ "why": "rc7 for the owner's in-game test: list lines (armor/languages), Quickness/Wisp, fresh miss list per build",
+ "args": {
+  "notes": "WoWFA Forever 1.0.0-rc7 (test build, built by wowfa2 CI).\n\nNew: armor / language / proficiency list lines in Persian, Quickness, Wisp Spirit, Call Bird of Prey, General tab. The miss list now starts fresh on every addon version (old entries from earlier builds are dropped).\n\nTip: for Persian spell names and terms choose the preset 'fully Persian' in /wowfa. If you ran /wowfa dump, run /wowfa dump clear and /reload (the export file is several MB).\n\nData from ForeverDB.net"
+ }
+}

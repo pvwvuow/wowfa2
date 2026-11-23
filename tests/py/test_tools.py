@@ -79,6 +79,55 @@ def test_migrate_and_verify():
     assert st["quests_same"] == 1 and st["tpl_same"] == 1
 
 
+def test_num_key_vectors():
+    """tests/numkey_vectors.txt is shared with tests/run.lua: both sides must key identically."""
+    from wfa.core import num_key
+    path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "numkey_vectors.txt")
+    n = 0
+    for line in open(path, encoding="utf-8"):
+        if line.startswith("#") or not line.strip():
+            continue
+        en, key, nums = line.rstrip("\n").split("\t")
+        k, ns = num_key(en.replace("\\n", "\n"))
+        assert (k, ";".join(ns)) == (key, nums), (en, k, ns)
+        n += 1
+    assert n >= 10
+
+
+def test_spells_import():
+    from wfa.spells import import_classes
+    s = Store()
+    s.names["spell"]["volley"] = "\u0631\u06af\u0628\u0627\u0631"
+    s.names["spell"]["charge"] = "\u06cc\u0648\u0631\u0634"
+    s.tpl["kept #"] = "x {0}"
+    w = {"build": "b", "tabs": [{"n": "Arms", "fa": "\u0633\u0644\u0627\u062d"}],
+         "spells": [{"n": "Charge", "fa": "OTHER",
+                     "d": "Charge an enemy, generate 15 Rage, and Stun it for 1 sec.",
+                     "dFa": "\u0628\u0647 {{sp:Charge|\u06cc\u0648\u0631\u0634}} 15 \u062e\u0634\u0645 \u0648 1 \u062b\u0627\u0646\u06cc\u0647",
+                     "reqs": ["Requires Battle Stance"], "reqsFa": ["\u0646\u06cc\u0627\u0632"]}],
+         "trees": [{"n": "Arms", "fa": "\u0633\u0644\u0627\u062d", "tiers": [[
+             {"n": "Spearing Strike", "fa": "\u0646\u06cc\u0632\u0647",
+              "d": "Deals 75% weapon damage, 75% more to Giants.", "dFa": "40% \u0648 80%"},
+             {"n": "Flurry", "fa": "\u0631\u06af\u0628\u0627\u0631"},
+             {"n": "Twin", "fa": "\u062f\u0648", "d": "Gives 2% and 2% more.", "dFa": "2% \u0648 2%"},
+             {"n": "Swap", "fa": "\u062c\u0627", "d": "Hits for 5 then 5 over 9 sec.", "dFa": "9 \u062b\u0627\u0646\u06cc\u0647 5 \u0648 5"},
+             {"n": "Latin", "fa": "\u0644", "d": "Grants 3 armor.", "dFa": "3 armor"},
+             {"n": "Kept", "fa": "\u06a9", "d": "Kept 4.", "dFa": "y 4"}]]}]}
+    r = import_classes(s, {"warrior": w}, banned=[])
+    key = "charge an enemy, generate # rage, and stun it for # sec"
+    assert s.tpl[key] == "\u0628\u0647 {{sp:Charge}} {0} \u062e\u0634\u0645 \u0648 {1} \u062b\u0627\u0646\u06cc\u0647", s.tpl[key]
+    assert s.tpl["requires battle stance"] == "\u0646\u06cc\u0627\u0632"
+    assert s.names["spell"]["charge"] == "\u06cc\u0648\u0631\u0634"          # fill-only: the table wins
+    assert any("Charge" in c for c in r["conflict"])
+    assert "flurry" not in s.names["spell"] and r["pair_reject"]             # name_pairs guard
+    assert any(x["w"].endswith("Spearing Strike (talent)") for x in r["num_mismatch"])
+    assert s.tpl["gives #% and #% more"] == "{0}% \u0648 {1}%"                 # equal values, same order: ok
+    assert "hits for # then # over # sec" not in s.tpl                        # equal values reordered: ambiguous
+    assert "grants # armor" not in s.tpl and r["gate_reject"]                 # latin_in_fa guard
+    assert s.tpl["kept #"] == "x {0}"                                         # existing template untouched
+    assert s.names["tree"]["arms"] == "\u0633\u0644\u0627\u062d"
+
+
 if __name__ == "__main__":
     n = 0
     for k, f in sorted(globals().items()):

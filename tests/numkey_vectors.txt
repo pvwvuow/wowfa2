@@ -1,0 +1,14 @@
+# EN live line (\n written as \\n) <TAB> expected T.NumKey key <TAB> numbers joined by ;
+Charge an enemy, generate 15 Rage, and Stun it for 1 sec. Cannot be used in combat.	charge an enemy, generate # rage, and stun it for # sec. cannot be used in combat	15;1
+Reduces the cooldown of your Shield Wall ability by 5.5 min.	reduces the cooldown of your shield wall ability by # min	5.5
+|cffffffffDeals 1,308 damage over 21 seconds.|r	deals # damage over # sec	1308;21
+Heals 1,308,000 health over 3 minutes.	heals # health over # min	1308000;3
+Increases your Parry chance by 1%.	increases your parry chance by #%	1
+Rank 3/5	rank #/#	3;5
+Version 1.2.3 of the 4th rule.	version #.# of the #th rule	1.2;3;4
+Costs 10 Mana and lasts 30 sec.	costs # mana and lasts # sec	10;30
+|TInterface\Icons\spell_holy_heal:16|t Restores 50 mana.	restores # mana	50
+Your attacks ignore\n 3% of your target's armor.\n\n Sword: 1% chance	your attacks ignore #% of your target's armor. sword: #% chance	3;1
+Deals 12,34 damage.	deals #,# damage	12;34
+  Ends with a space and dot 5. 	ends with a space and dot #	5
+Cooldown: 1.5 sec	cooldown: # sec	1.5

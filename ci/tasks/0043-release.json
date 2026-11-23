@@ -1,0 +1,8 @@
+{
+ "id": "0043-release",
+ "kind": "release",
+ "why": "rc11: NPC names, full map zone names, share codes, 940 marked names in quests",
+ "args": {
+  "notes": "WoWFA Forever 1.0.0-rc11 (test build, built by wowfa2 CI).\n\nNew: NPC names (tooltip, nameplates, target frame) in Persian / Persian with English under it / English, set in the new NPC page.\nNew: every zone name written on the world map (not just the two big continents) is translated, following the map option.\nNew: Share page: copy your whole custom setup as a code, or paste somebody else's code to use it.\nData: 940 more NPC and zone names are now marked inside quest texts, so the colours pick them up.\n\nIncludes rc7 to rc10.\n\nData from ForeverDB.net"
+ }
+}

@@ -1,0 +1,22 @@
+{
+ "id": "0005-fix",
+ "kind": "fix",
+ "onto": "task/0001-migrate",
+ "why": "the ${$m#*#} row is a raw DB formula the live tooltip never shows (dead + broken marker); a42 Cold Blood = khunsardi collided with Composure, which means poise",
+ "args": {
+  "ops": [
+   {
+    "op": "delete",
+    "table": "tpl",
+    "key": "increases the damage done or health drained by your drain life, drain soul, and wrack spells by $s#% per each of your corruption, siphon life, and bane of agony effects active on the target, up to a maximum increase of ${$m#*#}%."
+   },
+   {
+    "op": "set",
+    "table": "names.spell",
+    "key": "composure",
+    "expect_old": "\u062e\u0648\u0646\u0633\u0631\u062f\u06cc",
+    "value": "\u0645\u062a\u0627\u0646\u062a"
+   }
+  ]
+ }
+}

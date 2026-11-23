@@ -1,0 +1,15 @@
+{
+ "id": "0037-markscan",
+ "kind": "script",
+ "why": "report only: which plain NPC / zone names the quest texts hold, and which would be skipped as common words",
+ "args": {
+  "module": "mark_quests",
+  "args": {
+   "kinds": ["npc", "zone"],
+   "min_len": 4,
+   "apply": false,
+   "max_single": 60,
+   "sample": 25
+  }
+ }
+}

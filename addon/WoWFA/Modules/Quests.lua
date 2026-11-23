@@ -527,12 +527,24 @@ function M.install()
             end
         end)
     end)
-    local throttle = 0
+    local throttle, pending = 0, false
     F:On("QUEST_LOG_UPDATE", "quests", function()
         local now = GetTime()
         if now - throttle > 0.3 and log_frame() then
             throttle = now
             on_log()
+        elseif not pending and log_frame() then
+            -- rc9: an update inside the throttle used to be dropped for good, so a quick
+            -- second click on the map quest log kept showing the first quest's text:
+            -- run once more when the window is over
+            pending = true
+            F.After(0.35, function()
+                pending = false
+                if log_frame() then
+                    throttle = GetTime()
+                    on_log()
+                end
+            end)
         end
     end)
     local wrapped = F:Wrap("quests", on_log)
@@ -540,6 +552,23 @@ function M.install()
         if type(_G[fn]) == "function" then
             hooksecurefunc(fn, wrapped)
         end
+    end
+    -- rc9: the modern map quest log selects a quest through C_QuestLog.SetSelectedQuest /
+    -- QuestMapFrame_ShowQuestDetails (none of the old functions run): re-read the
+    -- selection right after the click AND once more a moment later (the selection
+    -- settles a frame after the call)
+    local after_select = F:Wrap("quests", function()
+        F.After(0, wrapped)
+        F.After(0.2, wrapped)
+    end)
+    for _, fn in ipairs({ "QuestMapFrame_ShowQuestDetails", "QuestMapFrame_OpenToQuestDetails",
+        "QuestMapLogTitleButton_OnClick" }) do
+        if type(_G[fn]) == "function" then
+            pcall(hooksecurefunc, fn, after_select)
+        end
+    end
+    if type(C_QuestLog) == "table" and type(C_QuestLog.SetSelectedQuest) == "function" then
+        pcall(hooksecurefunc, C_QuestLog, "SetSelectedQuest", after_select)
     end
     -- inbox/29 B: the pane and the button LIVE on the quest frames - show
     -- re-anchors, hide removes everything (pane + button + X latch), a drag

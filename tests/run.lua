@@ -353,6 +353,54 @@ local okRc8, errRc8 = pcall(function()
     PF:Hide()
 end)
 check("rc8 tests ran", okRc8, errRc8)
+-- ------------------------------------------------------------------ rc9: colours + no duplicate tooltip lines
+local okRc9, errRc9 = pcall(function()
+    local T = F.T
+    local m = "x {{zn:Elwynn|ZZ}} y {{cls:Rogue|RR}} z {{sp:Frostbolt|SS}}"
+    local oldMode, oldCol = F.db.mode, F.db.col
+    local savedCode = F.Room.Encode()
+    F.Room.Apply("fa")
+    F.db.mode = 1
+    F.db.col = nil
+    check("colours are off until switched on", T.Markers(m) == "x ZZ y RR z SS", T.Markers(m))
+    F.db.col = { on = true }
+    local out = T.Markers(m)
+    check("zone gets the default green", out:find("|cff4cd964ZZ|r", 1, true) ~= nil, out)
+    check("a class gets its official colour", out:find("|cfffff569RR|r", 1, true) ~= nil, out)
+    check("a spell gets the default blue", out:find("|cff5ac8faSS|r", 1, true) ~= nil, out)
+    F.db.col = { on = true, zn = "off", sp = "red" }
+    out = T.Markers(m)
+    check("a family set to off stays plain, another takes its own colour",
+        out:find("x ZZ y", 1, true) ~= nil and out:find("|cffff6b6bSS|r", 1, true) ~= nil, out)
+    F.db.mode = 3
+    check("no colour codes in display mode 3", T.Markers(m):find("|c", 1, true) == nil)
+    F.db.mode = 1
+    F.Room.Set("namesZone", false)
+    F.db.col = { on = true }
+    check("a family that is off shows English, uncoloured", T.Markers(m):find("x Elwynn y", 1, true) ~= nil, T.Markers(m))
+    F.Room.Set("namesZone", true)
+
+    F.OpenPanel("colors")
+    local PF = F.PanelFrame()
+    check("colours page opens", F.PanelPage() == "colors", F.PanelPage())
+    F.db.col = nil
+    Click(PF.col.zn)
+    check("a colour choice cycles and is saved", F.db.col and F.db.col.zn == "blue", F.db.col and F.db.col.zn)
+    Click(PF.colOn)
+    check("the colour switch turns on", F.db.col.on == true)
+    F.db.col, F.db.mode = oldCol, oldMode
+    F.Room.Decode(savedCode)
+    PF:Hide()
+
+    GameTooltip:Hide()
+    GameTooltip:ClearLines()
+    T.TipLine(GameTooltip, "A fairly long description line for the tooltip", F.C.text)
+    local n1 = GameTooltip:NumLines()
+    T.TipLine(GameTooltip, "A fairly long description line for the tooltip", F.C.text)
+    check("the same long line is not added twice", GameTooltip:NumLines() == n1, n1 .. " vs " .. GameTooltip:NumLines())
+    GameTooltip:Hide()
+end)
+check("rc9 tests ran", okRc9, errRc9)
 -- ------------------------------------------------------------------ tracker
 function GetNumQuestLogEntries() return #MOCK.logList end -- the mock lacks it
 MOCK.logList = { { title = "Live Title Of The Quest", id = qid } }

@@ -40,6 +40,105 @@ function T.Digits(s, force)
     end))
 end
 
+-- rc9: colours per name family (zone / spell / NPC / class / item / term / object).
+-- F.db.col = { on = true, zn = "green", cls = "class", ... }; no entry = the default
+-- below, "off" = no colour, "class" (cls only) = the official class colour.
+-- Colour codes only ride on text in display modes 1 and 2: mode 3 reorders the
+-- characters itself and a hex code inside would be reversed with them.
+T.COL_PALETTE = { "green", "blue", "gold", "orange", "red", "purple", "cyan", "pink", "white" }
+T.COL_HEX = { green = "4cd964", blue = "5ac8fa", gold = "ffd24a", orange = "ff9f43", red = "ff6b6b",
+    purple = "c58cff", cyan = "3de3d0", pink = "ff8fc7", white = "ffffff" }
+T.COL_DEFAULT = { zn = "green", sp = "blue", npc = "orange", cls = "class" }
+T.COL_FAMS = { "zn", "sp", "npc", "cls", "it", "tm", "ob" }
+local CLASS_HEX = { warrior = "c79c6e", paladin = "f58cba", hunter = "abd473", rogue = "fff569",
+    priest = "ffffff", shaman = "0070de", mage = "69ccf0", warlock = "9482c9", druid = "ff7d0a",
+    ["death knight"] = "c41f3b", monk = "00ff96", ["demon hunter"] = "a330c9", evoker = "33937f" }
+
+function T.ColorOf(fam, en)
+    local c = F.db and F.db.col
+    if type(c) ~= "table" or not c.on or T.Mode() == 3 then
+        return nil
+    end
+    local id = c[fam]
+    if id == nil then
+        id = T.COL_DEFAULT[fam]
+    end
+    if id == "class" then
+        if fam ~= "cls" then
+            return nil
+        end
+        local l = string.lower(tostring(en or ""))
+        return CLASS_HEX[l] or CLASS_HEX[(string.gsub(l, "s$", ""))]
+    end
+    return T.COL_HEX[id]
+end
+
+local function col_ids(fam)
+    local ids = { "off" }
+    for _, id in ipairs(T.COL_PALETTE) do
+        ids[#ids + 1] = id
+    end
+    if fam == "cls" then
+        ids[#ids + 1] = "class"
+    end
+    return ids
+end
+
+local function col_db()
+    if not F.db then
+        return {}
+    end
+    if type(F.db.col) ~= "table" then
+        F.db.col = {}
+    end
+    return F.db.col
+end
+
+local function col_refresh()
+    if T.RefreshAll then
+        T.RefreshAll()
+    end
+    F:Fire("names")
+    F:Fire("disp")
+end
+
+function F.ColLabels(fam)
+    local out = {}
+    for i, id in ipairs(col_ids(fam)) do
+        out[i] = (L.col_id and L.col_id[id]) or id
+    end
+    return out
+end
+
+function F.ColId(fam)
+    return col_db()[fam] or T.COL_DEFAULT[fam] or "off"
+end
+
+function F.ColIndex(fam)
+    local id = F.ColId(fam)
+    for i, x in ipairs(col_ids(fam)) do
+        if x == id then
+            return i
+        end
+    end
+    return 1
+end
+
+function F.ColHex(fam) -- the colour of the choice itself (the class choice previews gold)
+    local id = F.ColId(fam)
+    return T.COL_HEX[id] or (id == "class" and "ffd24a") or nil
+end
+
+function F.ColSet(fam, idx)
+    col_db()[fam] = col_ids(fam)[idx] or "off"
+    col_refresh()
+end
+
+function F.ColSetOn(v)
+    col_db().on = v and true or false
+    col_refresh()
+end
+
 -- {{fam:English|Persian}} -> Persian, or English when that family is off
 -- Brain 59: the set names have their own switch (namesSet) - the owner: "the
 -- item names and the set names must be separate"
@@ -72,6 +171,10 @@ function T.Markers(s, owner)
                     return hit
                 end
             end
+        end
+        local hex = (fa ~= "") and T.ColorOf(fam, en) or nil
+        if hex then
+            return "|cff" .. hex .. fa .. "|r"
         end
         return fa
     end)
@@ -472,6 +575,7 @@ local function restore(tt)
     tt.wfaSeen = nil
     tt.wfaKey = nil
     tt.wfaOurs = nil -- Brain 59: the post-layout re-wrap records (T.TipRecheck)
+    tt.wfaAdded = nil -- rc9: the lines TipLine added
 end
 
 local function hook_tooltip(tt)
@@ -525,6 +629,19 @@ function T.TipLine(tt, text, color, wrapWidth)
     -- lane-b12: tooltips keep size*22 as the width, but with the same 94%
     -- safety margin so the shaped lines never come out wider than the line
     local wrap = (wrapWidth or (size * 22)) * 0.94
+    -- rc9: the same long line is never added twice to one tooltip content (the
+    -- owner saw talent descriptions twice in Persian); reset when the tooltip clears
+    local seen = tt.wfaAdded
+    if not seen then
+        seen = {}
+        tt.wfaAdded = seen
+    end
+    if #text >= 14 then
+        if seen[text] then
+            return
+        end
+        seen[text] = true
+    end
     for _, ln in ipairs(T.Lines(text, wrap, size, mode)) do
         tt:AddLine(ln, color[1], color[2], color[3], mode ~= 3)
         style(tt, "Left")

@@ -181,6 +181,30 @@ local okMap, errMap = pcall(function()
 end)
 check("map label tests ran", okMap, errMap)
 
+-- ------------------------------------------------------------------ NumKey parity (tests/numkey_vectors.txt, shared with tests/py)
+do
+    local n, bad = 0, 0
+    local fh = io.open("tests/numkey_vectors.txt", "r")
+    if fh then
+        for line in fh:lines() do
+            if line ~= "" and string.sub(line, 1, 1) ~= "#" then
+                local en, key, nums = string.match(line, "^([^\t]*)\t([^\t]*)\t([^\t]*)$")
+                if en then
+                    en = string.gsub(en, "\\n", "\n")
+                    local k, ns = F.T.NumKey(en)
+                    n = n + 1
+                    if k ~= key or table.concat(ns, ";") ~= nums then
+                        bad = bad + 1
+                        print("  numkey: " .. en .. " -> " .. k .. " | " .. table.concat(ns, ";") .. " (want " .. key .. " | " .. nums .. ")")
+                    end
+                end
+            end
+        end
+        fh:close()
+    end
+    check("NumKey parity with the Python twin (" .. n .. " vectors)", n >= 10 and bad == 0, bad)
+end
+
 -- -------------------------------------------------------------------- panel
 -- the settings panel end to end on the mock: open/close paths, every kind of
 -- row (master, room switch, preset cycle, module, option), status + errors,

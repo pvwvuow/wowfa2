@@ -3,7 +3,7 @@ runners (this replaces the old Z build host). Each task ends as a PR on branch t
 body is the report, so the result is always readable and nothing lands on main unreviewed.
 
 ci/tasks/<id>.json = {"id": "<id>", "kind": "<kind>", "args": {...}}
-kinds: migrate, fix, import, edit, release (see the handlers below). Unknown kinds fail loudly.
+kinds: migrate, fix, import, edit, spells, release (see the handlers below). Unknown kinds fail loudly.
 Optional "onto": "<branch>" runs on that branch and pushes back to it (its PR gets a comment)."""
 import base64
 import json
@@ -351,6 +351,71 @@ def task_edit(t, rep):
     return sorted(changed)
 
 
+# ------------------------------------------------------------------ spells: site class files -> data
+def task_spells(t, rep):
+    """args: {"wow_ref": "main"}. Spell + talent names, tree names and description templates from
+    wow/data/forever/db/<class>.json (see tools/wfa/spells.py). Re-run it after every site/game update:
+    fill-only, every new row pre-checked against the gates, floors raised to the new counts, and the
+    rows it could not take are written to ci/results/<id>-todo.json (the translation worklist)."""
+    from ci import lint_into
+    from .spells import CLASSES, import_classes
+    from .store import Store
+    a = t.get("args", {})
+    src = os.path.join(WORK, "spells_src")
+    sha = sparse_fetch("wow", a.get("wow_ref", "main"), ["/data/forever/db/%s.json" % c for c in CLASSES], src)
+    classes = {}
+    for c in CLASSES:
+        p = os.path.join(src, "data", "forever", "db", c + ".json")
+        if not os.path.isfile(p):
+            raise ValueError("missing class file %s.json in wow@%s" % (c, sha))
+        classes[c] = read_json(p)
+    pol_path = os.path.join(ROOT, "policy.json")
+    pol = read_json(pol_path)
+    store = Store.load()
+    before = {"names.spell": len(store.names["spell"]), "names.tree": len(store.names["tree"]), "tpl": len(store.tpl)}
+    r = import_classes(store, classes)
+    rep.h("Source")
+    rep.add("- wow@%s" % sha)
+    game = pol.get("game_build", "?")
+    for c, b in sorted(r["builds"].items()):
+        if b != game:
+            rep.add("- note: %s.json is from build %s, the game is %s: a reworded tooltip simply will not "
+                    "match (the addon's miss watch reports it), nothing wrong is shown" % (c, b, game))
+    rep.h("Added (fill-only)")
+    after = {"names.spell": len(store.names["spell"]), "names.tree": len(store.names["tree"]), "tpl": len(store.tpl)}
+    rep.table([(k, before[k], after[k], after[k] - before[k]) for k in sorted(before)], ["table", "before", "after", "added"])
+    rep.table([(c, v["spell"], v["tree"], v["tpl"]) for c, v in sorted(r["per_class"].items())],
+              ["class", "names", "trees", "templates"])
+    rep.add("- already identical: %s" % json.dumps(r["same"]))
+    def det(title, items):
+        rep.add("<details><summary>%s (%d)</summary>\n\n%s\n\n</details>" %
+                (title, len(items), "\n".join("- " + x for x in items[:60])))
+    rep.h("Not taken (worklist)")
+    rep.add("- numbers differ between EN and Persian (needs a translator): %d" % len(r["num_mismatch"]))
+    det("number mismatch", ["%s: %s" % (x["w"], x["en"][:100]) for x in r["num_mismatch"]])
+    det("table already has another Persian (table kept)", r["conflict"])
+    det("would add a second English for one Persian (name_pairs ratchet)", r["pair_reject"])
+    det("failed a data gate", r["gate_reject"])
+    todo = os.path.join(ROOT, "ci", "results", t["id"] + "-todo.json")
+    os.makedirs(os.path.dirname(todo), exist_ok=True)
+    with open(todo, "w", encoding="utf-8") as fh:
+        json.dump({"source": "wow@" + sha, "num_mismatch": r["num_mismatch"], "conflict": r["conflict"],
+                   "pair_reject": r["pair_reject"], "gate_reject": r["gate_reject"]},
+                  fh, ensure_ascii=False, indent=1)
+        fh.write("\n")
+    store.save()
+    floors = pol.setdefault("floors", {})
+    for k, v in after.items():
+        if floors.get(k, 0) < v:
+            floors[k] = v
+    with open(pol_path, "w", encoding="utf-8") as fh:
+        json.dump(pol, fh, ensure_ascii=False, indent=1)
+        fh.write("\n")
+    rep.add("- floors raised to the new counts: %s" % json.dumps({k: floors[k] for k in after}))
+    lint_into(rep, store, pol)
+    return ["data", "policy.json", os.path.relpath(todo, ROOT)]
+
+
 def task_release(t, rep):
     """Build from main and create a DRAFT pre-release in pvwvuow/wowfarsi-addon. Never publishes:
     the owner presses Publish."""
@@ -371,7 +436,7 @@ def task_release(t, rep):
     return []
 
 
-HANDLERS = {"migrate": task_migrate, "fix": task_fix, "import": task_import, "edit": task_edit, "release": task_release}
+HANDLERS = {"migrate": task_migrate, "fix": task_fix, "import": task_import, "edit": task_edit, "spells": task_spells, "release": task_release}
 
 
 # ------------------------------------------------------------------ runner

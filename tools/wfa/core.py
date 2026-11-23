@@ -37,6 +37,45 @@ def title_hash(title):
     return "%08x" % h
 
 
+_UNI_SPACES = re.compile("[\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]")
+_ASCII_LOWER = {i: i + 32 for i in range(65, 91)}
+
+
+def num_key(s):
+    """Byte-for-byte twin of the addon's T.NumKey (Text.lua): the template key of a live tooltip
+    line + its numbers in order. Lua patterns are ASCII-only (%d, %s, lower), so this is too."""
+    s = re.sub(r"\|c[0-9A-Fa-f]{8}", "", s)
+    s = s.replace("|r", "")
+    s = re.sub(r"\|T.*?\|t", "", s, flags=re.S)
+    s = re.sub(r"\|H.*?\|h", "", s, flags=re.S)
+    s = s.replace("|h", "")
+    s = _UNI_SPACES.sub(" ", s)
+    while re.search(r"[0-9],[0-9]{3}", s):
+        s = re.sub(r"([0-9]),([0-9]{3})", r"\1\2", s)
+    nums, out, pos = [], [], 0
+    for m in re.finditer(r"[0-9]+", s):
+        if m.start() < pos:
+            continue
+        a, b = m.start(), m.end()
+        if s[b:b + 1] == "." and s[b + 1:b + 2].isdigit() and s[b + 1:b + 2] in "0123456789":
+            b = re.match(r"[0-9]+", s[b + 1:]).end() + b + 1
+        out.append(s[pos:a])
+        out.append("#")
+        nums.append(s[a:b])
+        pos = b
+    out.append(s[pos:])
+    key = "".join(out).translate(_ASCII_LOWER)
+    key = key.replace(" seconds", " sec").replace(" minutes", " min")
+    key = re.sub(r"[ \t\n\v\f\r]+", " ", key)
+    if key.startswith(" "):
+        key = key[1:]
+    if key.endswith(" "):
+        key = key[:-1]
+    if key.endswith("."):
+        key = key[:-1]
+    return key, nums
+
+
 def shard_letter(key):
     c = key[:1]
     return c if ("a" <= c <= "z") else "_"

@@ -62,6 +62,9 @@ local function gender_alts(key)
 end
 
 local function spell_tip(modId, tt, data)
+    if tt and tt.wfaScan then
+        return -- the /wowfa dump scanner tooltip: we export English, never translate it
+    end
     if not tt or (tt.IsForbidden and tt:IsForbidden()) then
         return
     end

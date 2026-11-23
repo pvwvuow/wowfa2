@@ -276,6 +276,55 @@ local okMiss, errMiss = pcall(function()
 end)
 check("miss recorder tests ran", okMiss, errMiss)
 
+-- ------------------------------------------------------------------ /wowfa dump (rc5)
+local okDump, errDump = pcall(function()
+    local spells = { [100] = "Charge", [133] = "Fireball", [7] = "Zz Late Spell" }
+    local loaded = { [100] = true, [133] = true }
+    local saved = C_Spell
+    C_Spell = {
+        DoesSpellExist = function(id) return spells[id] ~= nil end,
+        GetSpellName = function(id) return spells[id] end,
+        GetSpellDescription = function(id)
+            if spells[id] and loaded[id] then
+                return "Desc of " .. spells[id] .. " for 5 sec."
+            end
+            return ""
+        end,
+        RequestLoadSpellData = function(id) loaded[id] = true end,
+    }
+    F.Dump.RETRY_WAIT = 0
+    SlashCmdList.WOWFAF("dump 200")
+    for _ = 1, 500 do
+        F.Dump.Step()
+        if type(WoWFA_Dump) == "table" and WoWFA_Dump.done then
+            break
+        end
+    end
+    C_Spell = saved
+    check("dump finishes", type(WoWFA_Dump) == "table" and WoWFA_Dump.done == true)
+    local s = (type(WoWFA_Dump) == "table" and WoWFA_Dump.s) or {}
+    check("dump stores the English description", s[100] ~= nil and s[100].d == "Desc of Charge for 5 sec.", s[100] and s[100].d)
+    check("dump second pass catches late-loading spells", s[7] ~= nil and s[7].d ~= nil, s[7] and tostring(s[7].d))
+    check("dump counts + highest id", WoWFA_Dump.count == 3 and WoWFA_Dump.highest == 133,
+        tostring(WoWFA_Dump.count) .. "/" .. tostring(WoWFA_Dump.highest))
+    local fa = false
+    for _, e in pairs(s) do
+        for _, l in ipairs(e.l or {}) do
+            if non_ascii(l) then
+                fa = true
+            end
+        end
+        if e.d and non_ascii(e.d) then
+            fa = true
+        end
+    end
+    check("dump exports English only", not fa)
+    SlashCmdList.WOWFAF("status")
+    check("other /wowfa commands still reach Core", true)
+    SlashCmdList.WOWFAF("dump clear")
+    check("dump clear deletes the export", WoWFA_Dump == nil)
+end)
+check("dump tests ran", okDump, errDump)
 -- -------------------------------------------------------------------- panel
 -- the settings panel end to end on the mock: open/close paths, every kind of
 -- row (master, room switch, preset cycle, module, option), status + errors,

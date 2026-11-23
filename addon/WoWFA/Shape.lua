@@ -6,6 +6,9 @@
 --   2. optionally reorder runs per line (M.line): RTL runs character-reversed,
 --      Latin/digit/number runs kept left-to-right. Only needed when the game
 --      client does NOT run its own bidi pass (see Core.lua modes).
+-- rc10: M.line also carries colour codes (|cffRRGGBB ... |r) through the
+-- reordering: every character keeps its colour while it is reshaped and moved,
+-- and the codes are written again around the final visual runs.
 -- Input is logical UTF-8 Persian text.
 
 local M = {}
@@ -18,13 +21,13 @@ local DJ = 2 -- dual-joining (connects both ways)
 -- (<isolated>/<final>/<initial>/<medial> -> base letter).
 local F = {}
 local function d(letter, form) -- dual-joining: iso/fin/ini/med consecutive
-        F[letter] = { DJ, form, form + 1, form + 2, form + 3 }
+    F[letter] = { DJ, form, form + 1, form + 2, form + 3 }
 end
 local function r(letter, form) -- right-joining: iso/fin consecutive
-        F[letter] = { RJ, form, form + 1 }
+    F[letter] = { RJ, form, form + 1 }
 end
 local function hj(letter, form) -- hamza: never joins, single form
-        F[letter] = { RJ, form, form }
+    F[letter] = { RJ, form, form }
 end
 
 hj(0x0621, 0xFE80) -- hamza (does not join)
@@ -75,262 +78,357 @@ d(0x06AD, 0xFBD3) -- ng
 local HAMZA = 0x0621
 local LAM = 0x0644
 local LAM_ALEF = { -- lam + alef variant -> ligature (iso, fin)
-        [0x0622] = { 0xFEF5, 0xFEF6 },
-        [0x0623] = { 0xFEF7, 0xFEF8 },
-        [0x0625] = { 0xFEF9, 0xFEFA },
-        [0x0627] = { 0xFEFB, 0xFEFC },
+    [0x0622] = { 0xFEF5, 0xFEF6 },
+    [0x0623] = { 0xFEF7, 0xFEF8 },
+    [0x0625] = { 0xFEF9, 0xFEFA },
+    [0x0627] = { 0xFEFB, 0xFEFC },
 }
 
 local ZWNJ = 0x200C
 
 local function is_mark(cp) -- combining marks: transparent, never join
-        return (cp >= 0x064B and cp <= 0x065F) or cp == 0x0670 or (cp >= 0x06D6 and cp <= 0x06DC)
+    return (cp >= 0x064B and cp <= 0x065F) or cp == 0x0670 or (cp >= 0x06D6 and cp <= 0x06DC)
 end
 
 local function is_arabic(cp)
-        return (cp >= 0x0600 and cp <= 0x06FF) or (cp >= 0xFB50 and cp <= 0xFDFF) or (cp >= 0xFE70 and cp <= 0xFEFF)
+    return (cp >= 0x0600 and cp <= 0x06FF) or (cp >= 0xFB50 and cp <= 0xFDFF) or (cp >= 0xFE70 and cp <= 0xFEFF)
 end
 
 local function is_alnum(cp) -- Latin letters and digits (ASCII + Persian/Arabic-Indic digits)
-        return cp ~= nil
-                and ((cp >= 0x41 and cp <= 0x5A) or (cp >= 0x61 and cp <= 0x7A) or (cp >= 0x30 and cp <= 0x39)
-                or (cp >= 0x6F0 and cp <= 0x6F9) or (cp >= 0x660 and cp <= 0x669))
+    return cp ~= nil
+        and ((cp >= 0x41 and cp <= 0x5A) or (cp >= 0x61 and cp <= 0x7A) or (cp >= 0x30 and cp <= 0x39)
+        or (cp >= 0x6F0 and cp <= 0x6F9) or (cp >= 0x660 and cp <= 0x669))
 end
 
 -- glue characters that belong to a number / token ONLY when they sit inside it
 local GLUE_MID = { [0x2E] = true, [0x2F] = true, [0x2D] = true, [0x5F] = true, [0x3A] = true, [0x27] = true, [0x26] = true }
 
 local function decode(s)
-        local cps = {}
-        local i = 1
-        local n = #s
-        while i <= n do
-                local b = string.byte(s, i)
-                local cp, step
-                if b < 0x80 then
-                        cp, step = b, 1
-                elseif b < 0xE0 then
-                        cp, step = (b - 0xC0) * 64 + (string.byte(s, i + 1) or 0) - 0x80, 2
-                elseif b < 0xF0 then
-                        cp, step = (b - 0xE0) * 4096 + ((string.byte(s, i + 1) or 0) - 0x80) * 64 + (string.byte(s, i + 2) or 0) - 0x80, 3
-                else
-                        cp, step = (b - 0xF0) * 262144 + ((string.byte(s, i + 1) or 0) - 0x80) * 4096 + ((string.byte(s, i + 2) or 0) - 0x80) * 64 + (string.byte(s, i + 3) or 0) - 0x80, 4
-                end
-                cps[#cps + 1] = cp
-                i = i + step
+    local cps = {}
+    local i = 1
+    local n = #s
+    while i <= n do
+        local b = string.byte(s, i)
+        local cp, step
+        if b < 0x80 then
+            cp, step = b, 1
+        elseif b < 0xE0 then
+            cp, step = (b - 0xC0) * 64 + (string.byte(s, i + 1) or 0) - 0x80, 2
+        elseif b < 0xF0 then
+            cp, step = (b - 0xE0) * 4096 + ((string.byte(s, i + 1) or 0) - 0x80) * 64 + (string.byte(s, i + 2) or 0) - 0x80, 3
+        else
+            cp, step = (b - 0xF0) * 262144 + ((string.byte(s, i + 1) or 0) - 0x80) * 4096 + ((string.byte(s, i + 2) or 0) - 0x80) * 64 + (string.byte(s, i + 3) or 0) - 0x80, 4
         end
-        return cps
+        cps[#cps + 1] = cp
+        i = i + step
+    end
+    return cps
 end
 
 local function encode(cp)
-        if cp < 0x80 then
-                return string.char(cp)
-        end
-        if cp < 0x800 then
-                return string.char(0xC0 + math.floor(cp / 64), 0x80 + cp % 64)
-        end
-        if cp < 0x10000 then
-                return string.char(0xE0 + math.floor(cp / 4096), 0x80 + math.floor(cp / 64) % 64, 0x80 + cp % 64)
-        end
-        return string.char(0xF0 + math.floor(cp / 262144), 0x80 + math.floor(cp / 4096) % 64, 0x80 + math.floor(cp / 64) % 64, 0x80 + cp % 64)
+    if cp < 0x80 then
+        return string.char(cp)
+    end
+    if cp < 0x800 then
+        return string.char(0xC0 + math.floor(cp / 64), 0x80 + cp % 64)
+    end
+    if cp < 0x10000 then
+        return string.char(0xE0 + math.floor(cp / 4096), 0x80 + math.floor(cp / 64) % 64, 0x80 + cp % 64)
+    end
+    return string.char(0xF0 + math.floor(cp / 262144), 0x80 + math.floor(cp / 4096) % 64, 0x80 + math.floor(cp / 64) % 64, 0x80 + cp % 64)
 end
 
 -- ---------------------------------------------------------------- reshaping
-function M.reshape(cps)
-        local n = #cps
-        local out = {}
-        local i = 1
-        while i <= n do
-                local cp = cps[i]
-                if cp == ZWNJ then
-                        i = i + 1 -- breaks joining, renders nothing
-                elseif is_mark(cp) then
-                        out[#out + 1] = cp
-                        i = i + 1
-                else
-                        local f = F[cp]
-                        if not f then
-                                out[#out + 1] = cp
-                                i = i + 1
-                        else
-                                -- previous join: skip combining marks only, STOP at ZWNJ
-                                local prev_ok = false
-                                local j = i - 1
-                                while j >= 1 and is_mark(cps[j]) do
-                                        j = j - 1
-                                end
-                                if j >= 1 and cps[j] ~= ZWNJ then
-                                        local pf = F[cps[j]]
-                                        prev_ok = pf ~= nil and pf[1] == DJ
-                                end
-                                -- next letter: skip combining marks only, ZWNJ blocks
-                                local k = i + 1
-                                while k <= n and is_mark(cps[k]) do
-                                        k = k + 1
-                                end
-                                local next_cp = (k <= n and cps[k] ~= ZWNJ) and cps[k] or nil
-                                local lam = (cp == LAM and next_cp and LAM_ALEF[next_cp]) or nil
-                                if lam then
-                                        out[#out + 1] = prev_ok and lam[2] or lam[1]
-                                        i = k + 1 -- consume lam + alef
-                                else
-                                        local form
-                                        if f[1] == DJ then
-                                                local next_joins = next_cp ~= nil and next_cp ~= HAMZA and F[next_cp] ~= nil
-                                                if prev_ok and next_joins then
-                                                        form = f[5] -- medial
-                                                elseif prev_ok then
-                                                        form = f[3] -- final
-                                                elseif next_joins then
-                                                        form = f[4] -- initial
-                                                else
-                                                        form = f[2] -- isolated
-                                                end
-                                        else
-                                                form = prev_ok and f[3] or f[2]
-                                        end
-                                        out[#out + 1] = form
-                                        i = i + 1
-                                end
-                        end
+-- cols (optional) = one colour id per input codepoint; the second result is the
+-- colour id per OUTPUT codepoint (a lam-alef ligature keeps the lam's colour).
+function M.reshape(cps, cols)
+    local n = #cps
+    local out = {}
+    local oc = cols and {} or nil
+    local i = 1
+    while i <= n do
+        local cp = cps[i]
+        if cp == ZWNJ then
+            i = i + 1 -- breaks joining, renders nothing
+        elseif is_mark(cp) then
+            out[#out + 1] = cp
+            if oc then
+                oc[#out] = cols[i]
+            end
+            i = i + 1
+        else
+            local f = F[cp]
+            if not f then
+                out[#out + 1] = cp
+                if oc then
+                    oc[#out] = cols[i]
                 end
+                i = i + 1
+            else
+                -- previous join: skip combining marks only, STOP at ZWNJ
+                local prev_ok = false
+                local j = i - 1
+                while j >= 1 and is_mark(cps[j]) do
+                    j = j - 1
+                end
+                if j >= 1 and cps[j] ~= ZWNJ then
+                    local pf = F[cps[j]]
+                    prev_ok = pf ~= nil and pf[1] == DJ
+                end
+                -- next letter: skip combining marks only, ZWNJ blocks
+                local k = i + 1
+                while k <= n and is_mark(cps[k]) do
+                    k = k + 1
+                end
+                local next_cp = (k <= n and cps[k] ~= ZWNJ) and cps[k] or nil
+                local lam = (cp == LAM and next_cp and LAM_ALEF[next_cp]) or nil
+                if lam then
+                    out[#out + 1] = prev_ok and lam[2] or lam[1]
+                    if oc then
+                        oc[#out] = cols[i]
+                    end
+                    i = k + 1 -- consume lam + alef
+                else
+                    local form
+                    if f[1] == DJ then
+                        local next_joins = next_cp ~= nil and next_cp ~= HAMZA and F[next_cp] ~= nil
+                        if prev_ok and next_joins then
+                            form = f[5] -- medial
+                        elseif prev_ok then
+                            form = f[3] -- final
+                        elseif next_joins then
+                            form = f[4] -- initial
+                        else
+                            form = f[2] -- isolated
+                        end
+                    else
+                        form = prev_ok and f[3] or f[2]
+                    end
+                    out[#out + 1] = form
+                    if oc then
+                        oc[#out] = cols[i]
+                    end
+                    i = i + 1
+                end
+            end
         end
-        return out
+    end
+    return out, oc
 end
 
 local function to_string(cps)
-        local out = {}
-        for i = 1, #cps do
-                out[i] = encode(cps[i])
-        end
-        return table.concat(out)
+    local out = {}
+    for i = 1, #cps do
+        out[i] = encode(cps[i])
+    end
+    return table.concat(out)
 end
 
 -- logical text -> logical text with presentation forms (no reordering)
 function M.shape_only(text)
-        return to_string(M.reshape(decode(text)))
+    return to_string((M.reshape(decode(text))))
 end
 
 -- ------------------------------------------------------------------- bidi
 local MIRROR = { ["("] = ")", [")"] = "(", ["["] = "]", ["]"] = "[", ["{"] = "}", ["}"] = "{", ["<"] = ">", [">"] = "<" }
 
 local function classify(cps, idx)
-        local cp = cps[idx]
-        if is_alnum(cp) then
-                return "L"
-        end
-        if is_arabic(cp) then
-                return "R"
-        end
-        local p, nx = cps[idx - 1], cps[idx + 1]
-        if cp == 0x24 then -- $token prefix
-                return is_alnum(nx) and "L" or "N"
-        elseif cp == 0x25 then -- 16%
-                return is_alnum(p) and "L" or "N"
-        elseif cp == 0x2B or (cp == 0x2D and not is_alnum(p)) then -- +10, -10, Mythic+
-                if is_alnum(nx) or (is_alnum(p) and not is_alnum(nx)) then
-                        return "L"
-                end
-                return "N"
-        elseif GLUE_MID[cp] then -- 3.5  12:30  Zul'Aman  5-10
-                return (is_alnum(p) and is_alnum(nx)) and "L" or "N"
+    local cp = cps[idx]
+    if is_alnum(cp) then
+        return "L"
+    end
+    if is_arabic(cp) then
+        return "R"
+    end
+    local p, nx = cps[idx - 1], cps[idx + 1]
+    if cp == 0x24 then -- $token prefix
+        return is_alnum(nx) and "L" or "N"
+    elseif cp == 0x25 then -- 16%
+        return is_alnum(p) and "L" or "N"
+    elseif cp == 0x2B or (cp == 0x2D and not is_alnum(p)) then -- +10, -10, Mythic+
+        if is_alnum(nx) or (is_alnum(p) and not is_alnum(nx)) then
+            return "L"
         end
         return "N"
+    elseif GLUE_MID[cp] then -- 3.5  12:30  Zul'Aman  5-10
+        return (is_alnum(p) and is_alnum(nx)) and "L" or "N"
+    end
+    return "N"
 end
 
-function M.bidi(cps)
-        local runs = {}
-        local cur, kind = {}, nil
-        local function flush()
-                if #cur > 0 then
-                        runs[#runs + 1] = { kind = kind, cps = cur }
-                end
+-- cols (optional) = one colour id per codepoint. Without it the result is the
+-- visual string; with it the result is the list of visual characters and the
+-- list of their colour ids.
+function M.bidi(cps, cols)
+    local runs = {}
+    local cur, curc, kind = {}, {}, nil
+    local function flush()
+        if #cur > 0 then
+            runs[#runs + 1] = { kind = kind, cps = cur, cols = curc }
         end
-        for idx, cp in ipairs(cps) do
-                local k = classify(cps, idx)
-                if k ~= kind then
-                        flush()
-                        cur, kind = {}, k
-                end
-                cur[#cur + 1] = cp
+    end
+    for idx, cp in ipairs(cps) do
+        local k = classify(cps, idx)
+        if k ~= kind then
+            flush()
+            cur, curc, kind = {}, {}, k
         end
-        flush()
+        cur[#cur + 1] = cp
+        curc[#curc + 1] = cols and cols[idx] or 0
+    end
+    flush()
 
-        -- neutrals: UAX#9 N1/N2 - a whole neutral run SEQUENCE takes the
-        -- direction of the strong types at its two edges (L..L -> L, R..R ->
-        -- R, mixed -> base RTL). lane-b16: resolving per-run made "Thieves'"
-        -- detach (its ' looked at an unresolved neighbour) and multi-word
-        -- names lose their words.
-        local i = 1
-        while i <= #runs do
-                if runs[i].kind == "N" then
-                        local j = i
-                        while j <= #runs and runs[j].kind == "N" do
-                                j = j + 1
-                        end
-                        local left = (i > 1 and runs[i - 1].kind) or "R"
-                        local right = (j <= #runs and runs[j].kind) or "R"
-                        local k = (left == right) and left or "R"
-                        for x = i, j - 1 do
-                                runs[x].kind = k
-                        end
-                        i = j
-                else
-                        i = i + 1
-                end
+    -- neutrals: UAX#9 N1/N2 - a whole neutral run SEQUENCE takes the
+    -- direction of the strong types at its two edges (L..L -> L, R..R ->
+    -- R, mixed -> base RTL). lane-b16: resolving per-run made "Thieves'"
+    -- detach (its ' looked at an unresolved neighbour) and multi-word
+    -- names lose their words.
+    local i = 1
+    while i <= #runs do
+        if runs[i].kind == "N" then
+            local j = i
+            while j <= #runs and runs[j].kind == "N" do
+                j = j + 1
+            end
+            local left = (i > 1 and runs[i - 1].kind) or "R"
+            local right = (j <= #runs and runs[j].kind) or "R"
+            local k = (left == right) and left or "R"
+            for x = i, j - 1 do
+                runs[x].kind = k
+            end
+            i = j
+        else
+            i = i + 1
         end
+    end
 
-        -- lane-b16: merge adjacent same-kind runs. Runs are emitted
-        -- last-to-first, so two adjacent L runs ("Dreadmaul", "Rock") would
-        -- SWAP places ("Rock Dreadmaul") - an English name with spaces, dots
-        -- or apostrophes must be ONE run to stay left-to-right inside the
-        -- RTL line.
-        local merged = {}
-        for _, run in ipairs(runs) do
-                local last = merged[#merged]
-                if last and last.kind == run.kind then
-                        for _, cp in ipairs(run.cps) do
-                                last.cps[#last.cps + 1] = cp
-                        end
-                else
-                        merged[#merged + 1] = run
-                end
+    -- lane-b16: merge adjacent same-kind runs. Runs are emitted
+    -- last-to-first, so two adjacent L runs ("Dreadmaul", "Rock") would
+    -- SWAP places ("Rock Dreadmaul") - an English name with spaces, dots
+    -- or apostrophes must be ONE run to stay left-to-right inside the
+    -- RTL line.
+    local merged = {}
+    for _, run in ipairs(runs) do
+        local last = merged[#merged]
+        if last and last.kind == run.kind then
+            for x, cp in ipairs(run.cps) do
+                last.cps[#last.cps + 1] = cp
+                last.cols[#last.cols + 1] = run.cols[x]
+            end
+        else
+            merged[#merged + 1] = run
         end
-        runs = merged
+    end
+    runs = merged
 
-        -- emit runs last-to-first: visual order for an RTL line
-        local out = {}
-        for i = #runs, 1, -1 do
-                local run = runs[i]
-                if run.kind == "R" then
-                        local clusters, ci = {}, 1
-                        while ci <= #run.cps do
-                                local cl = { run.cps[ci] }
-                                ci = ci + 1
-                                while ci <= #run.cps and is_mark(run.cps[ci]) do
-                                        cl[#cl + 1] = run.cps[ci]
-                                        ci = ci + 1
-                                end
-                                clusters[#clusters + 1] = cl
-                        end
-                        for k = #clusters, 1, -1 do
-                                for _, cp in ipairs(clusters[k]) do
-                                        local ch = encode(cp)
-                                        out[#out + 1] = (#ch == 1 and MIRROR[ch]) or ch
-                                end
-                        end
-                else
-                        for _, cp in ipairs(run.cps) do
-                                out[#out + 1] = encode(cp)
-                        end
+    -- emit runs last-to-first: visual order for an RTL line
+    local out, outc = {}, {}
+    for ri = #runs, 1, -1 do
+        local run = runs[ri]
+        if run.kind == "R" then
+            local clusters, ci = {}, 1
+            while ci <= #run.cps do
+                local cl = { cps = { run.cps[ci] }, cols = { run.cols[ci] } }
+                ci = ci + 1
+                while ci <= #run.cps and is_mark(run.cps[ci]) do
+                    cl.cps[#cl.cps + 1] = run.cps[ci]
+                    cl.cols[#cl.cols + 1] = run.cols[ci]
+                    ci = ci + 1
                 end
+                clusters[#clusters + 1] = cl
+            end
+            for k = #clusters, 1, -1 do
+                local cl = clusters[k]
+                for x, cp in ipairs(cl.cps) do
+                    local ch = encode(cp)
+                    out[#out + 1] = (#ch == 1 and MIRROR[ch]) or ch
+                    outc[#outc + 1] = cl.cols[x]
+                end
+            end
+        else
+            for x, cp in ipairs(run.cps) do
+                out[#out + 1] = encode(cp)
+                outc[#outc + 1] = run.cols[x]
+            end
         end
-        return table.concat(out)
+    end
+    if cols then
+        return out, outc
+    end
+    return table.concat(out)
+end
+
+-- rc10: take the colour codes out of a codepoint list: the plain codepoints, one
+-- colour id per codepoint (0 = none) and the list of the hex strings the ids mean
+local function parse_colors(cps)
+    local out, cols, hexes, idx_of = {}, {}, {}, {}
+    local cur = 0
+    local i, n = 1, #cps
+    while i <= n do
+        local cp = cps[i]
+        local hex = nil
+        if cp == 0x7C and cps[i + 1] == 0x63 and i + 9 <= n then
+            local parts = {}
+            for j = i + 2, i + 9 do
+                local dg = cps[j]
+                if dg and ((dg >= 0x30 and dg <= 0x39) or (dg >= 0x41 and dg <= 0x46) or (dg >= 0x61 and dg <= 0x66)) then
+                    parts[#parts + 1] = string.char(dg)
+                else
+                    parts = nil
+                    break
+                end
+            end
+            if parts then
+                hex = table.concat(parts)
+            end
+        end
+        if hex then
+            local id = idx_of[hex]
+            if not id then
+                hexes[#hexes + 1] = hex
+                id = #hexes
+                idx_of[hex] = id
+            end
+            cur = id
+            i = i + 10
+        elseif cp == 0x7C and cps[i + 1] == 0x72 then
+            cur = 0
+            i = i + 2
+        else
+            out[#out + 1] = cp
+            cols[#cols + 1] = cur
+            i = i + 1
+        end
+    end
+    return out, cols, hexes
 end
 
 -- shape + reorder one line (call after wrapping and after numbers are filled)
 function M.line(text)
-        return M.bidi(M.reshape(decode(text)))
+    if not string.find(text, "|c%x%x%x%x%x%x%x%x") then
+        return M.bidi((M.reshape(decode(text))))
+    end
+    local cps, cols, hexes = parse_colors(decode(text))
+    local rcps, rcols = M.reshape(cps, cols)
+    local out, outc = M.bidi(rcps, rcols)
+    local res, cur = {}, 0
+    for i, ch in ipairs(out) do
+        local c = outc[i] or 0
+        if c ~= cur then
+            if cur ~= 0 then
+                res[#res + 1] = "|r"
+            end
+            if c ~= 0 then
+                res[#res + 1] = "|c" .. hexes[c]
+            end
+            cur = c
+        end
+        res[#res + 1] = ch
+    end
+    if cur ~= 0 then
+        res[#res + 1] = "|r"
+    end
+    return table.concat(res)
 end
 
 WoWFA_Shape = M

@@ -373,7 +373,14 @@ local okRc9, errRc9 = pcall(function()
     check("a family set to off stays plain, another takes its own colour",
         out:find("x ZZ y", 1, true) ~= nil and out:find("|cffff6b6bSS|r", 1, true) ~= nil, out)
     F.db.mode = 3
-    check("no colour codes in display mode 3", T.Markers(m):find("|c", 1, true) == nil)
+    local l3 = T.Lines("x |cff4cd964ZZ|r y", 400, 12, 3)
+    check("display mode 3 keeps a colour through its own reordering",
+        #l3 == 1 and l3[1]:find("|cff4cd964", 1, true) ~= nil and l3[1]:find("|r", 1, true) ~= nil, l3[1])
+    local lf = T.Lines("|cff4cd964\216\167\216\168|r y", 400, 12, 3)
+    check("a coloured Persian word stays one coloured block in mode 3",
+        lf[1]:find("|cff4cd964[^|]+|r") ~= nil and lf[1]:sub(1, 1) == "y", lf[1])
+    local lw = T.Lines("|cff4cd964aa bb|r cc", 400, 12, 3)
+    check("a colour span over two words ends before the plain word", lw[1]:find("|cff4cd964aa bb|r cc", 1, true) ~= nil, lw[1])
     F.db.mode = 1
     F.Room.Set("namesZone", false)
     F.db.col = { on = true }

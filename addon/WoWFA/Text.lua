@@ -43,8 +43,9 @@ end
 -- rc9: colours per name family (zone / spell / NPC / class / item / term / object).
 -- F.db.col = { on = true, zn = "green", cls = "class", ... }; no entry = the default
 -- below, "off" = no colour, "class" (cls only) = the official class colour.
--- Colour codes only ride on text in display modes 1 and 2: mode 3 reorders the
--- characters itself and a hex code inside would be reversed with them.
+-- Colour codes ride on every display mode: mode 3 carries them through its own
+-- reordering (Shape.line keeps one colour per character; T.Lines re-opens a span
+-- that a line break cut).
 T.COL_PALETTE = { "green", "blue", "gold", "orange", "red", "purple", "cyan", "pink", "white" }
 T.COL_HEX = { green = "4cd964", blue = "5ac8fa", gold = "ffd24a", orange = "ff9f43", red = "ff6b6b",
     purple = "c58cff", cyan = "3de3d0", pink = "ff8fc7", white = "ffffff" }
@@ -56,7 +57,7 @@ local CLASS_HEX = { warrior = "c79c6e", paladin = "f58cba", hunter = "abd473", r
 
 function T.ColorOf(fam, en)
     local c = F.db and F.db.col
-    if type(c) ~= "table" or not c.on or T.Mode() == 3 then
+    if type(c) ~= "table" or not c.on then
         return nil
     end
     local id = c[fam]
@@ -447,6 +448,38 @@ function T.Wrap(text, maxWidth, size, target)
     return lines
 end
 
+-- rc10: a colour span cut by a line break is closed on its line and opened again
+-- on the next one (every line is its own font string line, the client forgets
+-- the colour at a line end)
+local function carry_colors(lines)
+    local cur
+    for i, ln in ipairs(lines) do
+        if cur and ln ~= "" then
+            ln = cur .. ln
+            lines[i] = ln
+        end
+        local p = 1
+        while true do
+            local a = string.find(ln, "|[cr]", p)
+            if not a then
+                break
+            end
+            if string.sub(ln, a, a + 1) == "|c" then
+                local code = string.match(ln, "^|c%x%x%x%x%x%x%x%x", a)
+                if code then
+                    cur = code
+                    p = a + 10
+                else
+                    p = a + 2
+                end
+            else
+                cur = nil
+                p = a + 2
+            end
+        end
+    end
+end
+
 -- display lines for a text block in the current (or a forced) mode
 function T.Lines(text, width, size, mode, target)
     mode = mode or T.Mode()
@@ -454,7 +487,9 @@ function T.Lines(text, width, size, mode, target)
     text = T.Clean(text)
     local out = {}
     if mode == 3 then
-        for _, ln in ipairs(T.Wrap(text, width or 260, size, target)) do
+        local wrapped = T.Wrap(text, width or 260, size, target)
+        carry_colors(wrapped)
+        for _, ln in ipairs(wrapped) do
             out[#out + 1] = (ln == "") and " " or Shape.line(ln)
         end
     else

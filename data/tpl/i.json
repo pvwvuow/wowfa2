@@ -234,6 +234,7 @@
 "increases your critical strike chance while in bear form, dire bear form, or cat form by #%":"{{tm:critical strike chance|شانس ضربهٔ بحرانی}} تو را در شکل خرس، {{sp:dire bear form}} یا شکل گربه {0}% {{tm:increases|افزایش می‌دهد}}.",
 "increases your critical strike chance with all attacks and poisons by #%":"{{tm:critical strike chance|شانس ضربهٔ بحرانی}} تو با همهٔ حمله‌ها و زهرها را {0}% {{tm:increases|افزایش می‌دهد}}.",
 "increases your critical strike chance with all attacks by #%":"{{tm:critical strike chance|شانس ضربهٔ بحرانی}} تو با همهٔ حمله‌ها را {0}% {{tm:increases|افزایش می‌دهد}}.",
+"increases your critical strike chance with all spells and attacks by #% for # sec":"شانس ضربهٔ بحرانی تو را با همهٔ اسپل‌ها و حمله‌ها به مدت {1} ثانیه {0}% افزایش می‌دهد.",
 "increases your critical strike chance with spells and melee attacks by #%":"{{tm:critical strike chance|شانس ضربهٔ بحرانیِ}} {{tm:spells|اسپل‌ها}} و {{tm:melee attacks|حمله‌های نزدیک‌زن}} را {0}% افزایش می‌دهد.",
 "increases your damage with wands by #%":"{{tm:Damage|آسیب}} تو با {{tm:Wands|واند}} را {0}% {{tm:increases|افزایش می‌دهد}}.",
 "increases your defense skill by #":"{{tm:Defense skill|مهارت دفاع}} تو را {0} {{tm:increases|افزایش می‌دهد}}.",

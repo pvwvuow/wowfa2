@@ -1,5 +1,5 @@
 {
- "version": "1.0.0-rc10",
+ "version": "1.0.0-rc11",
  "interface": 16001,
  "game_build": "1.60.1.70959",
  "ship": {
@@ -14,7 +14,9 @@
    "class",
    "spell",
    "tree",
-   "zone"
+   "zone",
+   "npc",
+   "boss"
   ]
  },
  "floors": {

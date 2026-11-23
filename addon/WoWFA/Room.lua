@@ -620,6 +620,167 @@ function F.DispSetCustom(sec, on)
     F:Fire("disp")
 end
 
+-- ------------------------------------------------------------ rc11: share a whole setup
+-- WFP1-<tokens>-<check>: everything the user customised as one short code that
+-- others can paste into their own panel (the site's WF4 code only holds the 15
+-- name / text bits; a WF4 code is still accepted by ShareImport).
+-- The tokens are separated by "."; the first character is the key, the rest the value:
+--   s = the 15 site bits (base36)   g = the game bits (base36)   p = faPlace (1 / 2)
+--   t / e = General title / description display (1-3)
+--   b / a = the spellbook / talents section: custom 0|1, title, description (3 digits)
+--   n = the NPC name display (1-3)   c = colours on (0|1)
+--   u v w x y q r = the colour index of zn / sp / npc / cls / it / tm / ob
+local SHARE_COL = { u = "zn", v = "sp", w = "npc", x = "cls", y = "it", q = "tm", r = "ob" }
+local SHARE_COL_ORDER = { "u", "v", "w", "x", "y", "q", "r" }
+local SHARE_SEC = { { "b", "spellbook" }, { "a", "talents" } }
+
+-- the colour ids of a family, in the order of the panel choice (Text.lua COL_PALETTE)
+local function share_ids(fam)
+    local ids = { "off" }
+    for _, id in ipairs((F.T and F.T.COL_PALETTE) or {}) do
+        ids[#ids + 1] = id
+    end
+    if fam == "cls" then
+        ids[#ids + 1] = "class"
+    end
+    return ids
+end
+
+local function share_check(s)
+    local a = 0
+    for i = 1, #s do
+        a = (a + string.byte(s, i) * (i % 89 + 1)) % 46656
+    end
+    local out = b36num(a)
+    while #out < 3 do
+        out = "0" .. out
+    end
+    return out
+end
+
+local function raw_on(k)
+    local v = db().d[k]
+    if v == nil then
+        v = (Room.GAME_DEFAULT[k] ~= false)
+    end
+    return v ~= false
+end
+
+local function bits_of(keys)
+    local n = 0
+    for i, k in ipairs(keys) do
+        if raw_on(k) then
+            n = n + 2 ^ (i - 1)
+        end
+    end
+    return n
+end
+
+function Room.ShareExport()
+    local d = db().d
+    local t = {}
+    t[#t + 1] = "s" .. b36num(bits_of(Room.SITE_KEYS))
+    t[#t + 1] = "g" .. b36num(bits_of(Room.GAME_KEYS))
+    t[#t + 1] = "p" .. tostring(d.faPlace == 2 and 2 or 1)
+    t[#t + 1] = "t" .. tostring(F.Disp("*", "title"))
+    t[#t + 1] = "e" .. tostring(F.Disp("*", "desc"))
+    for _, e in ipairs(SHARE_SEC) do
+        t[#t + 1] = e[1] .. (F.DispCustom(e[2]) and "1" or "0") .. tostring(F.Disp(e[2], "title")) .. tostring(F.Disp(e[2], "desc"))
+    end
+    t[#t + 1] = "n" .. tostring(F.NpcMode and F.NpcMode() or 1)
+    local col = type(F.db.col) == "table" and F.db.col or {}
+    t[#t + 1] = "c" .. (col.on and "1" or "0")
+    for _, k in ipairs(SHARE_COL_ORDER) do
+        t[#t + 1] = k .. tostring(F.ColIndex and F.ColIndex(SHARE_COL[k]) or 1)
+    end
+    local payload = table.concat(t, ".")
+    return "WFP1-" .. payload .. "-" .. share_check(payload)
+end
+
+-- returns true + the mode, or nil + a Persian reason
+function Room.ShareImport(code)
+    if type(code) ~= "string" then
+        return nil, "کد خالی است"
+    end
+    code = string.gsub(code, "%s+", "")
+    if code == "" then
+        return nil, "کد خالی است"
+    end
+    if string.lower(string.sub(code, 1, 4)) == "wf4-" then
+        return Room.Decode(code)
+    end
+    local payload, cc = string.match(code, "^[Ww][Ff][Pp]1%-([%w%.]+)%-(%w%w%w)$")
+    if not payload then
+        return nil, "این کد شکل کد تنظیمات (WFP1) نیست"
+    end
+    if share_check(payload) ~= string.lower(cc) then
+        return nil, "رقم کنترل کد درست نیست؛ یک حرف جا افتاده یا عوض شده"
+    end
+    local vals = {}
+    for tok in string.gmatch(payload, "[^%.]+") do
+        vals[string.sub(tok, 1, 1)] = string.sub(tok, 2)
+    end
+    local function num36(s)
+        if s == nil or s == "" then
+            return nil
+        end
+        local n = 0
+        for i = 1, #s do
+            local v = B36I[string.sub(s, i, i)]
+            if v == nil then
+                return nil
+            end
+            n = n * 36 + v
+        end
+        return n
+    end
+    local s, g = num36(vals.s), num36(vals.g)
+    if not s or not g then
+        return nil, "کد ناقص است"
+    end
+    local r = db()
+    local d = {}
+    for i, k in ipairs(Room.SITE_KEYS) do
+        d[k] = (floor(s / 2 ^ (i - 1)) % 2) == 1
+    end
+    for i, k in ipairs(Room.GAME_KEYS) do
+        d[k] = (floor(g / 2 ^ (i - 1)) % 2) == 1
+    end
+    d.faPlace = (vals.p == "2") and 2 or 1
+    r.d = d
+    r.m = mode_of(d)
+    local dd = disp_db()
+    dd.title = mode3(vals.t) or 2
+    dd.desc = mode3(vals.e) or 2
+    dd.sec = {}
+    for _, e in ipairs(SHARE_SEC) do
+        local v = vals[e[1]]
+        if v and #v == 3 then
+            dd.sec[e[2]] = { custom = string.sub(v, 1, 1) == "1", title = mode3(string.sub(v, 2, 2)) or 2,
+                desc = mode3(string.sub(v, 3, 3)) or 2 }
+        end
+    end
+    local n = tonumber(vals.n)
+    if n == 1 or n == 2 or n == 3 then
+        F.db.npcName = n
+    end
+    if type(F.db.col) ~= "table" then
+        F.db.col = {}
+    end
+    F.db.col.on = vals.c == "1"
+    for _, k in ipairs(SHARE_COL_ORDER) do
+        local idx = tonumber(vals[k])
+        local ids = share_ids(SHARE_COL[k])
+        if idx and ids[idx] then
+            F.db.col[SHARE_COL[k]] = ids[idx]
+        end
+    end
+    Room.Changed()
+    F:Fire("disp")
+    F:Fire("npcname")
+    return true, r.m
+end
+
 -- ------------------------------------------------------------ boot
 Room.Boot = function()
     T = F.T or T

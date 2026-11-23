@@ -20,7 +20,7 @@ function M.api()
     return GetRealZoneText ~= nil and GetSubZoneText ~= nil
 end
 
-local function fa(name)
+local function fa(name, quiet)
     if not F.Usable(name) or type(name) ~= "string" or name == "" then
         return nil
     end
@@ -35,7 +35,7 @@ local function fa(name)
     local v = F.D.names.zone[T.NameKey(name)]
     -- rc3 update watch: a zone the data does not know (a label with digits is
     -- a level range / description line, never a zone name)
-    if v == nil and not string.find(name, "%d") and not string.find(name, "[\216-\219\239]") then
+    if v == nil and not quiet and not string.find(name, "%d") and not string.find(name, "[\216-\219\239]") then
         F:Miss("zone", T.NameKey(name), name)
     end
     return v
@@ -158,17 +158,17 @@ local function on_inplace(fs, enText, kind)
         return
     elseif kind == "arrival" and not F.Room.On("namesZone") then
         return
-    elseif kind == "map" and (not F.Room.On("namesZone") or map_mode() == 3) then
+    elseif (kind == "map" or kind == "maplabel") and (not F.Room.On("namesZone") or map_mode() == 3) then
         return
     end
     -- zoneToast 1-3 own the arrival toast in their own way; only 4 = in place
     if kind == "arrival" and (not F.db or F.db.zoneToast ~= 4) then
         return
     end
-    if kind == "map" and InCombatLockdown and InCombatLockdown() then
+    if (kind == "map" or kind == "maplabel") and InCombatLockdown and InCombatLockdown() then
         return -- never touch the world map in combat (lane-28 §B)
     end
-    local faText = enText ~= "" and fa(enText) or nil
+    local faText = enText ~= "" and fa(enText, kind == "maplabel") or nil
     if faText then
         apply_inplace(fs, faText, enText, kind)
     else
@@ -213,6 +213,73 @@ local function hook_map()
             end
         end
     end
+    -- rc11: every other font string under the map (title, navigation bar, the
+    -- zone headers of the quest log, the pin labels), now and when the map changes
+    if M.scan_map then
+        M.scan_map()
+        F.After(0.4, M.scan_map)
+        if wm.OnMapChanged and not wm.wfaMapChanged and type(hooksecurefunc) == "function" then
+            wm.wfaMapChanged = true
+            pcall(hooksecurefunc, wm, "OnMapChanged", function()
+                F.After(0.25, M.scan_map)
+            end)
+        end
+        if C_Timer and C_Timer.NewTicker and not M.ticker then
+            M.ticker = C_Timer.NewTicker(2, function()
+                if wm.IsShown and wm:IsShown() then
+                    M.scan_map()
+                end
+            end)
+        end
+    end
+end
+
+-- rc11 (the owner: "the zone names on the map: only the two continents work"):
+-- every font string under the world map (the title, the navigation bar, the zone
+-- headers of the quest log, the pin labels) gets the same in-place SetText hook;
+-- the walk repeats whenever the map changes because the map builds its pins
+-- lazily. A font string whose text is no zone name is left alone (and never
+-- logged as a miss).
+local function walk_map(frame, depth, budget)
+    if budget.n <= 0 or depth > 10 then
+        return
+    end
+    budget.n = budget.n - 1
+    local okr, regions = pcall(function()
+        return { frame:GetRegions() }
+    end)
+    if okr then
+        for _, r in ipairs(regions) do
+            if type(r) == "table" and r.GetObjectType and r.SetText and r.GetText then
+                local okt, ot = pcall(r.GetObjectType, r)
+                if okt and ot == "FontString" then
+                    hook_inplace(r, "maplabel")
+                    local okx, txt = pcall(r.GetText, r)
+                    if okx and F.Usable(txt) and type(txt) == "string" and txt ~= "" then
+                        on_inplace(r, txt, "maplabel")
+                    end
+                end
+            end
+        end
+    end
+    local okc, kids = pcall(function()
+        return { frame:GetChildren() }
+    end)
+    if okc then
+        for _, k in ipairs(kids) do
+            if type(k) == "table" and k.GetRegions then
+                walk_map(k, depth + 1, budget)
+            end
+        end
+    end
+end
+
+function M.scan_map()
+    local wm = WorldMapFrame
+    if type(wm) ~= "table" or not M.active or not F.Room.On("namesZone") then
+        return
+    end
+    pcall(walk_map, wm, 0, { n = 1500 })
 end
 
 -- Brain 64 (the owner: "the Persian zone title fades out on its own timer, make

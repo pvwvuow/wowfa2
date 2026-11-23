@@ -636,12 +636,15 @@ function T.TipLine(tt, text, color, wrapWidth)
         seen = {}
         tt.wfaAdded = seen
     end
-    for _, ln in ipairs(T.Lines(text, wrap, size, mode)) do
-        if #ln < 14 or not seen[ln] then
-            seen[ln] = true
-            tt:AddLine(ln, color[1], color[2], color[3], mode ~= 3)
-            style(tt, "Left")
+    if #text >= 14 then
+        if seen[text] then
+            return
         end
+        seen[text] = true
+    end
+    for _, ln in ipairs(T.Lines(text, wrap, size, mode)) do
+        tt:AddLine(ln, color[1], color[2], color[3], mode ~= 3)
+        style(tt, "Left")
     end
 end
 

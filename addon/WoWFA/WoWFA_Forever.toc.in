@@ -28,4 +28,5 @@ Modules\Quests.lua
 Modules\Zones.lua
 Modules\Tracker.lua
 Modules\Spells.lua
+Panel.lua
 Minimap.lua

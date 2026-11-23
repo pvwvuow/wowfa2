@@ -148,6 +148,101 @@ check("tracker title in Persian", non_ascii(l1), l1)
 check("tracker objective keeps the EN name (npc names locked)", type(l2) == "string" and l2:find("Kobold Vermin", 1, true) ~= nil, l2)
 check("tracker objective rewritten (Persian verb + counts)", non_ascii(l2), l2)
 
+-- -------------------------------------------------------------------- panel
+-- the settings panel end to end on the mock: open/close paths, every kind of
+-- row (master, room switch, preset cycle, module, option), status + errors,
+-- the two-click reset. Run inside pcall: a crash is ONE named failure.
+local function panel_suite()
+    check("panel API", type(F.OpenPanel) == "function" and type(F.TogglePanel) == "function")
+    F.OpenPanel()
+    RunTimers()
+    local PF = F.PanelFrame and F.PanelFrame()
+    check("panel built + shown", PF and PF:IsShown())
+    if not PF then
+        return
+    end
+    local esc = false
+    for _, n in ipairs(UISpecialFrames) do
+        if n == "WoWFAF_Panel" then
+            esc = true
+        end
+    end
+    check("panel closes on Esc (UISpecialFrames)", esc)
+    check("panel subtitle is shaped Persian", non_ascii(PF.subtitle:GetText()), PF.subtitle:GetText())
+    F.TogglePanel()
+    check("toggle hides", not PF:IsShown())
+    Click(WoWFAF_MinimapButton, "LeftButton")
+    check("minimap click opens", PF:IsShown())
+    Click(WoWFAF_MinimapButton, "LeftButton")
+    check("minimap click closes", not PF:IsShown())
+    SlashCmdList.WOWFAF("")
+    check("/wowfa opens", PF:IsShown())
+    F.OpenPanel("health")
+    check("open on the status section", PF:IsShown())
+
+    Click(PF.master)
+    check("master off from the panel", F.db.enabled == false and not F.mods.quests.active, F.mods.quests.state)
+    Click(PF.master)
+    check("master back on", F.db.enabled == true and F.mods.quests.active, F.mods.quests.state)
+
+    Click(PF.mods.tracker)
+    check("tracker off from the panel", F.db.mods.tracker == false and not F.mods.tracker.active)
+    Click(PF.mods.tracker)
+    check("tracker back on", F.db.mods.tracker == true and F.mods.tracker.active, F.mods.tracker.state)
+    for _, id in ipairs(F.PANEL_SHIPPED) do
+        check("panel lists shipped module " .. id, PF.mods[id] ~= nil and not F.RELEASE_LOCK[id])
+    end
+
+    local was = F.Room.On("namesZone")
+    Click(PF.room.namesZone)
+    check("zone-name switch flips the room", F.Room.On("namesZone") ~= was)
+    Click(PF.room.namesZone)
+    check("zone-name switch back", F.Room.On("namesZone") == was)
+
+    local seen, okp = {}, true
+    for _ = 1, 6 do
+        Click(PF.preset)
+        local m = F.Room.Mode()
+        seen[#seen + 1] = m
+        if not F.Room.PRESETS[m] then
+            okp = false
+        end
+    end
+    check("preset cycle lands on real presets only", okp, table.concat(seen, ","))
+    check("preset label is shaped Persian", non_ascii(PF.preset.val:GetText()), PF.preset.val:GetText())
+    F.Room.Apply("fa")
+
+    Click(PF.minimap)
+    check("minimap button hidden from the panel", F.db.minimap.hide == true and not WoWFAF_MinimapButton:IsShown())
+    Click(PF.minimap)
+    check("minimap button back", F.db.minimap.hide == false and WoWFAF_MinimapButton:IsShown())
+    local dock = F.db.questDock
+    Click(PF.dock)
+    check("quest dock cycles", F.db.questDock == dock % 3 + 1, F.db.questDock)
+    F.db.questDock = dock
+
+    F.PanelRefresh()
+    local qs = PF.health.mods.quests.val:GetText()
+    check("status: module state in Persian", non_ascii(qs), qs)
+    check("status: data build shown", PF.health.data.val:GetText() == tostring(F.dataBuildText), PF.health.data.val:GetText())
+    F:LogError("paneltest", "boom|x")
+    local el = PF.health.errList:GetText() or ""
+    check("status: errors listed (pipe escaped)", el:find("boom||x", 1, true) ~= nil, el)
+    Click(PF.clear)
+    check("status: clear empties the log", #F.db.errors == 0 and (PF.health.errList:GetText() or "") == "")
+
+    F.db.toast = false
+    Click(PF.reset)
+    check("reset: the first click only arms", F.db.toast == false)
+    Click(PF.reset)
+    check("reset: the second click resets", F.db.toast == true and F.db.enabled == true)
+    check("reset: modules still active", F.mods.quests.active and F.mods.dungeons.active, F.mods.quests.state)
+    F.TogglePanel()
+    check("panel closed at the end", not PF:IsShown())
+end
+local okPanel, errPanel = pcall(panel_suite)
+check("panel suite ran without a crash", okPanel, errPanel)
+
 -- ------------------------------------------------------------- lock + slash
 check("items module not installed (locked)", not (F.mods.items and F.mods.items.active))
 local ok = pcall(SlashCmdList.WOWFAF, "status")

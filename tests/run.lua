@@ -479,7 +479,7 @@ MOCK_SetWatchLines({ "Live Title Of The Quest", " - Kobold Vermin slain: 3/10" }
 QuestWatch_Update()
 local l1, l2 = QuestWatchLine1:GetText(), QuestWatchLine2:GetText()
 check("tracker title in Persian", non_ascii(l1), l1)
-check("tracker objective keeps the EN name (npc names locked)", type(l2) == "string" and l2:find("Kobold Vermin", 1, true) ~= nil, l2)
+check("tracker objective: the NPC name is Persian now (rc11 unlocked the npc names)", type(l2) == "string" and l2:find("Kobold Vermin", 1, true) == nil, l2)
 check("tracker objective rewritten (Persian verb + counts)", non_ascii(l2), l2)
 
 -- ------------------------------------------------------------------ world map label (zoneMap)

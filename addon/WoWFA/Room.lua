@@ -634,6 +634,18 @@ local SHARE_COL = { u = "zn", v = "sp", w = "npc", x = "cls", y = "it", q = "tm"
 local SHARE_COL_ORDER = { "u", "v", "w", "x", "y", "q", "r" }
 local SHARE_SEC = { { "b", "spellbook" }, { "a", "talents" } }
 
+-- the colour ids of a family, in the order of the panel choice (Text.lua COL_PALETTE)
+local function share_ids(fam)
+    local ids = { "off" }
+    for _, id in ipairs((F.T and F.T.COL_PALETTE) or {}) do
+        ids[#ids + 1] = id
+    end
+    if fam == "cls" then
+        ids[#ids + 1] = "class"
+    end
+    return ids
+end
+
 local function share_check(s)
     local a = 0
     for i = 1, #s do
@@ -758,7 +770,7 @@ function Room.ShareImport(code)
     F.db.col.on = vals.c == "1"
     for _, k in ipairs(SHARE_COL_ORDER) do
         local idx = tonumber(vals[k])
-        local ids = F.ColIds and F.ColIds(SHARE_COL[k]) or {}
+        local ids = share_ids(SHARE_COL[k])
         if idx and ids[idx] then
             F.db.col[SHARE_COL[k]] = ids[idx]
         end

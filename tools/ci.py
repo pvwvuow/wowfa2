@@ -117,7 +117,8 @@ def lua_tests(rep):
     runner = os.path.join(tdir, "run.lua")
     if os.path.exists(runner) and os.path.isdir(os.path.join(OUT, "dist", "WoWFA")):
         p = subprocess.run([LUA, runner, os.path.join(OUT, "dist", "WoWFA")], capture_output=True, text=True, cwd=ROOT)
-        tail = (p.stdout + p.stderr).strip().splitlines()[-40:]
+        alllines = (p.stdout + p.stderr).strip().splitlines()
+        tail = [ln for ln in alllines if ln.startswith("FAIL")][:30] + alllines[-14:]
         if p.returncode:
             rep.fail("tests/run.lua exit %d" % p.returncode)
         else:

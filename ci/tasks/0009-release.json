@@ -1,0 +1,8 @@
+{
+ "id": "0009-release",
+ "kind": "release",
+ "why": "first wowfa2 build for the owner's in-game test (G9)",
+ "args": {
+  "notes": "WoWFA Forever 1.0.0-rc2 (test build, built by wowfa2 CI).\n\nShips: quest texts, quest tracker, zone names, spells, talents, new settings panel (/wowfa).\nNot yet: items, NPC names.\n\nData from ForeverDB.net"
+ }
+}

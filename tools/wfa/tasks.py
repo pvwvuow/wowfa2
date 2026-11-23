@@ -436,7 +436,19 @@ def task_release(t, rep):
     return []
 
 
-HANDLERS = {"migrate": task_migrate, "fix": task_fix, "import": task_import, "edit": task_edit, "spells": task_spells, "release": task_release}
+def task_script(t, rep):
+    """args.module = tools/wfa/jobs/<module>.py with run(args, rep) -> the changed paths;
+    args.args is handed to it. One generic kind for every data job (marking, scans, reports)."""
+    import importlib.util
+    name = t["args"]["module"]
+    path = os.path.join(ROOT, "tools", "wfa", "jobs", name + ".py")
+    spec = importlib.util.spec_from_file_location("wfa_job_" + name, path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod.run(t["args"].get("args", {}), rep) or []
+
+
+HANDLERS = {"migrate": task_migrate, "fix": task_fix, "import": task_import, "edit": task_edit, "spells": task_spells, "release": task_release, "script": task_script}
 
 
 # ------------------------------------------------------------------ runner

@@ -537,6 +537,89 @@ function Room.ProfileDelete(name)
     return true
 end
 
+-- ------------------------------------------------------------ rc8: per-section display
+-- The NAME (title) and the DESCRIPTION of a spell / talent tooltip, per section:
+--   title: 1 = Persian only (replaces the English), 2 = Persian + English below, 3 = English
+--   desc : 1 = Persian replaces the English line, 2 = Persian below it, 3 = off (English)
+-- F.db.disp = { title = 2, desc = 2, sec = { spellbook = { custom = true, title = 1, desc = 2 } } }
+-- A section follows the General value until its own «custom» switch is on.
+local function disp_db()
+    local fdb = F.db
+    if type(fdb) ~= "table" then
+        return {}
+    end
+    if type(fdb.disp) ~= "table" then
+        fdb.disp = {}
+    end
+    return fdb.disp
+end
+
+local function mode3(v)
+    v = tonumber(v)
+    if v == 1 or v == 2 or v == 3 then
+        return v
+    end
+    return nil
+end
+
+function F.Disp(sec, what) -- what = "title" | "desc"; sec = "spellbook" | "talents" | "*" (General)
+    local d = disp_db()
+    local s = type(d.sec) == "table" and d.sec[sec] or nil
+    if type(s) == "table" and s.custom then
+        local v = mode3(s[what])
+        if v then
+            return v
+        end
+    end
+    return mode3(d[what]) or 2
+end
+
+function F.DispCustom(sec)
+    local d = disp_db()
+    local s = type(d.sec) == "table" and d.sec[sec] or nil
+    return type(s) == "table" and s.custom == true
+end
+
+function F.DispSetDefault(what, v)
+    local d = disp_db()
+    d[what] = mode3(v) or 2
+    F:Fire("disp")
+end
+
+local function own(sec)
+    local d = disp_db()
+    if type(d.sec) ~= "table" then
+        d.sec = {}
+    end
+    local s = d.sec[sec]
+    if type(s) ~= "table" then
+        -- a new own setting starts from what the section shows right now
+        s = { title = F.Disp(sec, "title"), desc = F.Disp(sec, "desc") }
+        d.sec[sec] = s
+    end
+    return s
+end
+
+function F.DispSet(sec, what, v)
+    local s = own(sec)
+    s.custom = true
+    s[what] = mode3(v) or 2
+    F:Fire("disp")
+end
+
+function F.DispSetCustom(sec, on)
+    if on then
+        own(sec).custom = true
+    else
+        local d = disp_db()
+        local s = type(d.sec) == "table" and d.sec[sec] or nil
+        if type(s) == "table" then
+            s.custom = false
+        end
+    end
+    F:Fire("disp")
+end
+
 -- ------------------------------------------------------------ boot
 Room.Boot = function()
     T = F.T or T

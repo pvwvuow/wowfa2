@@ -283,6 +283,76 @@ local okRc7, errRc7 = pcall(function()
     F:ClearMiss()
 end)
 check("rc7 tests ran", okRc7, errRc7)
+-- ------------------------------------------------------------------ rc8: settings v2
+local okRc8, errRc8 = pcall(function()
+    F.db.disp = nil
+    check("title default = Persian + English below (2)", F.Disp("spellbook", "title") == 2, F.Disp("spellbook", "title"))
+    check("description default = Persian below (2)", F.Disp("talents", "desc") == 2, F.Disp("talents", "desc"))
+    F.DispSetDefault("title", 1)
+    check("a section follows the General default", F.Disp("spellbook", "title") == 1 and F.Disp("talents", "title") == 1)
+    F.DispSet("talents", "title", 3)
+    check("a section override wins, for that section only",
+        F.Disp("talents", "title") == 3 and F.Disp("spellbook", "title") == 1 and F.DispCustom("talents"))
+    F.DispSetCustom("talents", false)
+    check("custom off = back to General", F.Disp("talents", "title") == 1 and not F.DispCustom("talents"))
+
+    local function tip()
+        GameTooltip:Hide()
+        GameTooltip:ClearLines()
+        GameTooltip:AddLine(skey)
+        GameTooltip:AddLine(live)
+        RunTip("Spell", GameTooltip, nil)
+        return GameTooltip:TipLines()
+    end
+    F.db.disp = { title = 1, desc = 2 }
+    local ls = tip()
+    check("title 1: the English name is replaced in place by Persian",
+        non_ascii(ls[1]) and not ls[1]:find(skey, 1, true) and ls[2] == live, #ls .. " / " .. table.concat(ls, " / "))
+    F.db.disp = { title = 2, desc = 2 }
+    ls = tip()
+    check("title 2: Persian first, the English under it", non_ascii(ls[1]) and ls[1]:find(skey, 1, true) ~= nil, ls[1])
+    F.db.disp = { title = 3, desc = 2 }
+    ls = tip()
+    check("title 3: the English name stays, no Persian name", ls[1] == skey and ls[2] == live and #ls > 2, #ls .. " / " .. table.concat(ls, " / "))
+    F.db.disp = { title = 3, desc = 1 }
+    ls = tip()
+    check("description 1: Persian replaces the English line", #ls == 2 and ls[1] == skey and non_ascii(ls[2]) and ls[2] ~= live,
+        #ls .. " / " .. table.concat(ls, " / "))
+    F.db.disp = { title = 3, desc = 3 }
+    ls = tip()
+    check("description 3: English only", #ls == 2 and ls[1] == skey and ls[2] == live, #ls .. " / " .. table.concat(ls, " / "))
+    F.db.disp = { title = 3, desc = 3, sec = { spellbook = { custom = true, title = 1, desc = 1 } } }
+    ls = tip()
+    check("a custom section shows its own display", #ls == 2 and non_ascii(ls[1]) and non_ascii(ls[2]), #ls .. " / " .. table.concat(ls, " / "))
+
+    F.db.disp = nil
+    F.OpenPanel("spellbook")
+    RunTimers()
+    local PF = F.PanelFrame()
+    check("panel opens on the asked section", F.PanelPage() == "spellbook", F.PanelPage())
+    F.OpenPanel("room")
+    check("old page ids map to General", F.PanelPage() == "general", F.PanelPage())
+    local allNav = true
+    for _, id in ipairs(F.PANEL_SECTIONS) do
+        if not (PF.nav and PF.nav[id]) then
+            allNav = false
+        end
+    end
+    check("every section has a side menu button", allNav)
+    Click(PF.nav.map)
+    check("the side menu switches the section", F.PanelPage() == "map", F.PanelPage())
+    Click(PF.dispTitle.spellbook)
+    check("a section's own title choice turns custom on",
+        F.DispCustom("spellbook") and F.Disp("spellbook", "title") == 3 and F.Disp("talents", "title") == 2,
+        F.Disp("spellbook", "title") .. "/" .. F.Disp("talents", "title"))
+    Click(PF.dispCustom.spellbook)
+    check("custom off: the section follows General again", not F.DispCustom("spellbook") and F.Disp("spellbook", "title") == 2)
+    Click(PF.dispTitleAll)
+    check("the General default drives the sections that are not custom", F.Disp("talents", "title") == 3, F.Disp("talents", "title"))
+    F.db.disp = nil
+    PF:Hide()
+end)
+check("rc8 tests ran", okRc8, errRc8)
 -- ------------------------------------------------------------------ tracker
 function GetNumQuestLogEntries() return #MOCK.logList end -- the mock lacks it
 MOCK.logList = { { title = "Live Title Of The Quest", id = qid } }

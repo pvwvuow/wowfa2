@@ -181,6 +181,63 @@ RunTip("Spell", GameTooltip, nil)
 check("the post-call after the fallback adds nothing twice", #GameTooltip:TipLines() == nP,
     #GameTooltip:TipLines() .. " vs " .. nP)
 
+-- ------------------------------------------------------------------ rc6: own Persian + spec tooltips
+local okRc6, errRc6 = pcall(function()
+    F:ClearMiss()
+    GameTooltip:Hide()
+    GameTooltip:ClearLines()
+    GameTooltip:AddLine("Zz Not A Known Spell")
+    GameTooltip:AddLine("این یک خط فارسی کاملاً بلند است که خودِ افزونه نوشته است")
+    RunTip("Spell", GameTooltip, nil)
+    local n = 0
+    for _, e in pairs(F.db.miss or {}) do
+        if e.k == "tpl" then
+            n = n + 1
+        end
+    end
+    check("own Persian line is never logged as a miss", n == 0, n)
+    GameTooltip:ClearLines()
+    GameTooltip:AddLine("Zz Not A Known Spell Two")
+    GameTooltip:AddLine("This is a long English description line that has no translation yet.")
+    RunTip("Spell", GameTooltip, nil)
+    n = 0
+    for _, e in pairs(F.db.miss or {}) do
+        if e.k == "tpl" then
+            n = n + 1
+        end
+    end
+    check("a real English miss is still logged", n == 1, n)
+
+    local tk
+    for k in pairs(D.names.tree or {}) do
+        if D.names.spell[k] == nil and (not tk or k < tk) then
+            tk = k
+        end
+    end
+    check("a tree name that is not also a spell name exists", tk ~= nil)
+    if tk then
+        local saved = GameTooltip.GetOwner
+        GameTooltip.GetOwner = function()
+            return { GetName = function() return "PlayerSpellsFrame" end }
+        end
+        GameTooltip:Hide()
+        GameTooltip:ClearLines()
+        GameTooltip:AddLine(tk)
+        GameTooltip:Show()
+        local ls = GameTooltip:TipLines()
+        check("spec tab tooltip gets the Persian tree name", #ls == 2 and non_ascii(ls[2]), table.concat(ls, " / "))
+        GameTooltip.GetOwner = function()
+            return { GetName = function() return "SomeOtherFrame" end }
+        end
+        GameTooltip:Hide()
+        GameTooltip:ClearLines()
+        GameTooltip:AddLine(tk)
+        GameTooltip:Show()
+        check("the same name outside spell/talent frames stays untouched", #GameTooltip:TipLines() == 1, #GameTooltip:TipLines())
+        GameTooltip.GetOwner = saved
+    end
+end)
+check("rc6 tests ran", okRc6, errRc6)
 -- ------------------------------------------------------------------ tracker
 function GetNumQuestLogEntries() return #MOCK.logList end -- the mock lacks it
 MOCK.logList = { { title = "Live Title Of The Quest", id = qid } }

@@ -47,6 +47,14 @@ local function plain(s)
     return s
 end
 
+-- rc6 (rc4 miss list: 27 of 34 "misses" were our OWN Persian read back as a new
+-- line): any line that already holds Arabic-script text is never matched and
+-- never logged. UTF-8: U+0600-06FF = D8-DB xx, presentation forms = EF AD-BB xx.
+local function has_fa(s)
+    return type(s) == "string"
+        and (string.find(s, "[\216-\219]") ~= nil or string.find(s, "\239[\173-\187]") ~= nil)
+end
+
 -- rc4 (the owner's miss list: "If the hunter takes damage, she will be dazed"):
 -- the client fills the $g he/she choice with the PLAYER's gender while the data
 -- was keyed from the male text. On a miss, retry the key with the male words.
@@ -81,13 +89,13 @@ local function spell_tip(modId, tt, data)
     local tpl = F.D.tpl or {}
     local faName = names[T.NameKey(name)] -- lane-28 §A3: NameKey on both sides
     -- rc4: a line 1 that starts with a digit is a cost row ("107 Mana"), never a name
-    if faName == nil and not string.find(name, "^%d") then
+    if faName == nil and not string.find(name, "^%d") and not has_fa(name) then
         F:Miss("spell", T.NameKey(name), name) -- rc3 update watch (Core F:Miss)
     end
     local found = {}
     for i = 2, #lines do
         local text = lines[i]
-        if text ~= "" and #text > 8 then
+        if text ~= "" and #text > 8 and not has_fa(text) then
             local key, nums = T.NumKey(text)
             local fa = tpl[key]
             if not fa then
@@ -268,11 +276,26 @@ local function plain_tip(tt)
         return
     end
     first = plain(first)
+    if has_fa(first) then
+        return
+    end
     local names = F.D.names and F.D.names.spell or {}
     if names[T.NameKey(first)] == nil then
         local path = owner_path(tt)
         local low = string.lower(path)
-        if string.find(low, "talent") or string.find(low, "spell") then
+        local inFrame = string.find(low, "talent") or string.find(low, "spell")
+        -- rc6: a spec tab tooltip is just the tree name ("Survival", "Beast Mastery")
+        local trees = F.D.names and F.D.names.tree or {}
+        local faTree = inFrame and trees[T.NameKey(first)] or nil
+        if faTree and not is_item_or_unit(tt) then
+            if T.Once(tt, "t" .. T.NameKey(first)) and F.Room.On("namesSpell") then
+                T.TipLine(tt, faTree, C.gold)
+                T.Done(tt)
+                tt:Show()
+            end
+            return
+        end
+        if inFrame then
             F:Miss("tip", path .. "|" .. T.NameKey(first), first, path)
         end
         return

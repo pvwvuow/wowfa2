@@ -93,6 +93,7 @@
 "\"your prophecy crystal ball and blessed augin armor are in this backpack.\"":"«گوی بلورین پیشگویی تو و {{tm:armor|زره}} اوجینِ متبرک در این کوله‌پشتی هستند.»",
 "# charges":"{0} {{tm:charges|شارژ}}.",
 "# compartment backpack":"کوله‌پشتی {0} خانه‌ای",
+"# fire damage every # sec":"هر {1} ثانیه {0} {{tm:Fire damage|آسیب آتش}} وارد می‌کند.",
 "# grid backpack":"کوله‌پشتی {0} خانه‌ای",
 "# grid soul bag":"کیف جان {0} خانه‌ای",
 "# hr instead of # min":"مدت {0} ساعت به‌جای {1} دقیقه است.",

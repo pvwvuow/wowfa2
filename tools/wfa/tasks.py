@@ -3,7 +3,7 @@ runners (this replaces the old Z build host). Each task ends as a PR on branch t
 body is the report, so the result is always readable and nothing lands on main unreviewed.
 
 ci/tasks/<id>.json = {"id": "<id>", "kind": "<kind>", "args": {...}}
-kinds: migrate, fix, import, release (see the handlers below). Unknown kinds fail loudly.
+kinds: migrate, fix, import, edit, release (see the handlers below). Unknown kinds fail loudly.
 Optional "onto": "<branch>" runs on that branch and pushes back to it (its PR gets a comment)."""
 import base64
 import json
@@ -297,6 +297,60 @@ def task_import(t, rep):
     return paths
 
 
+# ------------------------------------------------------------------ edit: literal file edits
+def task_edit(t, rep):
+    """args.ops (applied in order, all-or-nothing, literal text only):
+      {"file": path, "old": s, "new": s, "count": 1}   count = exact expected occurrences
+      {"file": path, "write": content}                 create / overwrite the whole file
+      {"file": path, "delete": true}
+    Files are read and written as UTF-8 bytes unchanged otherwise (no newline translation)."""
+    ok, changed, deleted = True, {}, []
+    rep.h("Edits")
+    for i, op in enumerate(t["args"]["ops"], 1):
+        rel = op["file"].strip("/")
+        path = os.path.join(ROOT, rel)
+        if op.get("delete"):
+            if not os.path.isfile(path):
+                ok = False
+                rep.fail("#%d delete %s: no such file" % (i, rel))
+                continue
+            deleted.append(rel)
+            changed.pop(rel, None)
+            rep.ok("#%d delete %s" % (i, rel))
+            continue
+        if "write" in op:
+            changed[rel] = op["write"]
+            rep.ok("#%d write %s (%d chars)" % (i, rel, len(op["write"])))
+            continue
+        text = changed.get(rel)
+        if text is None:
+            if not os.path.isfile(path):
+                ok = False
+                rep.fail("#%d %s: no such file" % (i, rel))
+                continue
+            with open(path, encoding="utf-8", newline="") as f:
+                text = f.read()
+        n = text.count(op["old"])
+        want = op.get("count", 1)
+        if n != want:
+            ok = False
+            rep.fail("#%d %s: %d matches, expected %d: %r" % (i, rel, n, want, op["old"][:120]))
+            continue
+        changed[rel] = text.replace(op["old"], op["new"])
+        rep.ok("#%d %s: %d replaced" % (i, rel, n))
+    if not ok:
+        rep.fail("an edit did not match: nothing written")
+        return []
+    for rel, text in changed.items():
+        path = os.path.join(ROOT, rel)
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w", encoding="utf-8", newline="") as f:
+            f.write(text)
+    for rel in deleted:
+        git("rm", "-q", "--", rel)
+    return sorted(changed)
+
+
 def task_release(t, rep):
     """Build from main and create a DRAFT pre-release in pvwvuow/wowfarsi-addon. Never publishes:
     the owner presses Publish."""
@@ -317,7 +371,7 @@ def task_release(t, rep):
     return []
 
 
-HANDLERS = {"migrate": task_migrate, "fix": task_fix, "import": task_import, "release": task_release}
+HANDLERS = {"migrate": task_migrate, "fix": task_fix, "import": task_import, "edit": task_edit, "release": task_release}
 
 
 # ------------------------------------------------------------------ runner

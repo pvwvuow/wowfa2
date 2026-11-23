@@ -1,0 +1,3 @@
+{
+"killing a non-trivial target afflicted by your drain soul increases your mana regeneration by #% for # sec and allows #% of normal mana regeneration to continue while casting":"کشتن هدف قابل‌توجهی که {{sp:Drain Soul}} تو روی آن است، به مدت {1} ثانیه {{tm:Mana Regeneration|بازیابی مانا}} را {0}% بیشتر می‌کند و اجازه می‌دهد {2}% از {{tm:Mana Regeneration|بازیابی مانا}} عادی هنگام اسپل‌زدن ادامه پیدا کند."
+}

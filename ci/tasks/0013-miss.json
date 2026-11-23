@@ -1,0 +1,69 @@
+{
+ "id": "0013-miss",
+ "kind": "edit",
+ "why": "rc3: the data already has the site's spell/talent rows, so in-game gaps are live-text mismatches. Record every miss (spell name, tooltip line, zone) in the saved variables and show it in a copy box on the status page: the update watch for every future game patch",
+ "args": {
+  "ops": [
+   {
+    "file": "addon/WoWFA/Core.lua",
+    "old": "local function check_data()\n",
+    "new": "-- rc3 update watch (the owner: \"the game and the data will keep updating,\n-- always watch for it\"): every lookup that MISSES (a spell name, a tooltip\n-- line, a zone the data has no Persian for) is remembered once, with a hit\n-- counter, in the saved variables (capped). The status page shows the list in\n-- a copy box; the next data update translates exactly what the live game\n-- shows. The addon never sends it anywhere.\nF.MISS_CAP = 400\nfunction F:Miss(kind, key, sample, ctx)\n    local db = F.db\n    if not db or type(key) ~= \"string\" or key == \"\" then\n        return\n    end\n    if type(db.miss) ~= \"table\" then\n        db.miss, db.missN = {}, 0\n    end\n    local id = tostring(kind) .. \":\" .. key\n    local e = db.miss[id]\n    if e then\n        e.n = (tonumber(e.n) or 1) + 1\n        return\n    end\n    if (tonumber(db.missN) or 0) >= F.MISS_CAP then\n        return\n    end\n    db.miss[id] = { k = tostring(kind), t = string.sub(tostring(sample or key), 1, 300),\n        c = ctx and string.sub(tostring(ctx), 1, 80) or nil, n = 1, b = F.clientBuild or 0 }\n    db.missN = (tonumber(db.missN) or 0) + 1\n    F:Fire(\"miss\")\nend\n\nfunction F:ClearMiss()\n    if F.db then\n        F.db.miss, F.db.missN = {}, 0\n        F:Fire(\"miss\")\n    end\nend\n\nlocal function check_data()\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Spells.lua",
+    "old": "    local found = {}\n    for i = 2, #lines do\n",
+    "new": "    if faName == nil then\n        F:Miss(\"spell\", T.NameKey(name), name) -- rc3 update watch (Core F:Miss)\n    end\n    local found = {}\n    for i = 2, #lines do\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Spells.lua",
+    "old": "            if fa then\n                found[#found + 1] = T.Fill(fa, nums)\n            end\n",
+    "new": "            if fa then\n                found[#found + 1] = T.Fill(fa, nums)\n            else\n                F:Miss(\"tpl\", key, plain(text), name)\n            end\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "    return F.D.names.zone[T.NameKey(name)]\nend\n",
+    "new": "    local v = F.D.names.zone[T.NameKey(name)]\n    -- rc3 update watch: a zone the data does not know (a label with digits is\n    -- a level range / description line, never a zone name)\n    if v == nil and not string.find(name, \"%d\") then\n        F:Miss(\"zone\", T.NameKey(name), name)\n    end\n    return v\nend\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Locale.lua",
+    "old": "L.btn_select = ",
+    "new": "L.h_miss_n = \"\u0645\u062a\u0646\u200c\u0647\u0627\u06cc \u0628\u062f\u0648\u0646 \u062a\u0631\u062c\u0645\u0647 \u06a9\u0647 \u062f\u06cc\u062f\u06cc: %d\u061b \u0631\u0648\u06cc \u06a9\u0627\u062f\u0631 \u06a9\u0644\u06cc\u06a9 \u06a9\u0646\u060c Ctrl+C \u0648 \u0628\u0631\u0627\u0645 \u0628\u0641\u0631\u0633\u062a\"\nL.btn_miss_clear = \"\u067e\u0627\u06a9 \u06a9\u0631\u062f\u0646 \u0641\u0647\u0631\u0633\u062a\"\nL.btn_select = ",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Panel.lua",
+    "old": "        health.errList:SetFixed(table.concat(out, \"\\n\"))\n    end\nend\n",
+    "new": "        health.errList:SetFixed(table.concat(out, \"\\n\"))\n    end\n    -- rc3 update watch: the misses as ONE line (a single-line box never grows\n    -- over the rows below; Ctrl+C copies all of it). Entries: kind :: text ::\n    -- spell/context :: xCount, most seen first\n    if health.missList then\n        local list = {}\n        for _, e in pairs(F.db and type(F.db.miss) == \"table\" and F.db.miss or {}) do\n            list[#list + 1] = e\n        end\n        table.sort(list, function(a, b)\n            local x, y = tonumber(a.n) or 0, tonumber(b.n) or 0\n            if x ~= y then\n                return x > y\n            end\n            return tostring(a.t) < tostring(b.t)\n        end)\n        local out = { string.format(\"WoWFA %s b%s misses=%d\", tostring(F.VERSION), tostring(F.clientBuildText or \"?\"), #list) }\n        for i = 1, #list do\n            local e = list[i]\n            local t = string.gsub(tostring(e.t or \"\"), \"|\", \"!\")\n            t = string.gsub(t, \"[\\r\\n]+\", \" / \")\n            out[#out + 1] = string.format(\"%s :: %s :: %s :: x%d\", tostring(e.k), t, tostring(e.c or \"\"), tonumber(e.n) or 1)\n        end\n        health.missList:SetFixed(table.concat(out, \" ;; \"))\n        health.missHead:SetFa(string.format(L.h_miss_n, #list), PW - 30)\n    end\nend\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Panel.lua",
+    "old": "    health.errList = eb\n    place(el, 90, 4)\n",
+    "new": "    health.errList = eb\n    place(el, 90, 4)\n    -- rc3 update watch: what the live game showed that the data could not\n    -- translate (Core F:Miss). One read-only line; click = select all.\n    local mh = CreateFrame(\"Frame\", nil, page.child)\n    mh:SetSize(PW - 16, 40)\n    health.missHead = UI.Text(mh, 12, C.muted)\n    health.missHead:SetPoint(\"TOPRIGHT\", mh, \"TOPRIGHT\", -4, 0)\n    health.missHead:SetFa(string.format(L.h_miss_n, 0), PW - 30)\n    place(mh, 40, 2)\n    local ml = CreateFrame(\"Frame\", nil, page.child)\n    ml:SetSize(PW - 16, 24)\n    local mb = CreateFrame(\"EditBox\", nil, ml)\n    mb:SetMultiLine(false)\n    mb:SetAutoFocus(false)\n    mb:SetMaxLetters(0)\n    mb:SetFont(F.FONT, 10, \"\")\n    mb:SetTextColor(C.muted[1], C.muted[2], C.muted[3])\n    mb:SetSize(PW - 24, 22)\n    mb:SetPoint(\"TOPLEFT\", ml, \"TOPLEFT\", 4, 0)\n    mb.wfaFixed = \"\"\n    mb:SetScript(\"OnEscapePressed\", function(self)\n        self:ClearFocus()\n    end)\n    mb:SetScript(\"OnEditFocusGained\", function(self)\n        self:HighlightText()\n    end)\n    mb:SetScript(\"OnTextChanged\", function(self, user)\n        if user then\n            self:SetText(self.wfaFixed or \"\")\n            self:HighlightText()\n        end\n    end)\n    mb.SetFixed = function(self, s)\n        self.wfaFixed = s or \"\"\n        self:SetText(self.wfaFixed)\n        self:SetCursorPosition(0)\n    end\n    health.missList = mb\n    place(ml, 24, 4)\n    local mbt = CreateFrame(\"Frame\", nil, page.child)\n    mbt:SetSize(PW - 16, 30)\n    panel.missClear = UI.Button(mbt, L.btn_miss_clear, 150, 26, function()\n        F:ClearMiss()\n        refresh()\n    end)\n    panel.missClear:SetPoint(\"RIGHT\", mbt, \"RIGHT\", -4, 0)\n    place(mbt, 30, 6)\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Panel.lua",
+    "old": "for _, sig in ipairs({ \"state\", \"room\", \"errors\", \"minimap\" }) do",
+    "new": "for _, sig in ipairs({ \"state\", \"room\", \"errors\", \"minimap\", \"miss\" }) do",
+    "count": 1
+   },
+   {
+    "file": "policy.json",
+    "old": "\"version\": \"1.0.0-rc2\"",
+    "new": "\"version\": \"1.0.0-rc3\"",
+    "count": 1
+   },
+   {
+    "file": "tests/run.lua",
+    "old": "-- -------------------------------------------------------------------- panel\n",
+    "new": "-- ------------------------------------------------------------------ miss recorder (rc3 update watch)\nlocal okMiss, errMiss = pcall(function()\n    F:ClearMiss()\n    check(\"miss log starts empty\", F.db.missN == 0, F.db.missN)\n    F:Miss(\"tpl\", \"a totally unknown line #\", \"A totally unknown line 5.\", \"Test Spell\")\n    F:Miss(\"tpl\", \"a totally unknown line #\", \"A totally unknown line 6.\", \"Test Spell\")\n    local e = F.db.miss[\"tpl:a totally unknown line #\"]\n    check(\"miss kept once, counted twice\", e ~= nil and e.n == 2 and F.db.missN == 1, e and e.n)\n    F.OpenPanel(\"health\")\n    RunTimers()\n    local PF = F.PanelFrame()\n    local box = PF and PF.health and PF.health.missList\n    local txt = box and box:GetText() or \"\"\n    check(\"status page lists the misses\", txt:find(\"misses=1\", 1, true) ~= nil and txt:find(\"A totally unknown line 5.\", 1, true) ~= nil, txt)\n    F:Miss(\"zone\", \"some new zone\", \"Some New Zone|x\")\n    txt = box and box:GetText() or \"\"\n    check(\"a new miss shows while the panel is open (pipe escaped)\", txt:find(\"misses=2\", 1, true) ~= nil and txt:find(\"Some New Zone!x\", 1, true) ~= nil, txt)\n    for i = 1, F.MISS_CAP + 20 do\n        F:Miss(\"zone\", \"zone \" .. i, \"Zone \" .. i)\n    end\n    check(\"miss log is capped\", F.db.missN == F.MISS_CAP, F.db.missN)\n    Click(PF.missClear)\n    check(\"clear empties the miss log\", F.db.missN == 0 and next(F.db.miss) == nil, F.db.missN)\n    check(\"box shows the empty log\", (box:GetText() or \"\"):find(\"misses=0\", 1, true) ~= nil, box:GetText())\n    F.TogglePanel()\nend)\ncheck(\"miss recorder tests ran\", okMiss, errMiss)\n\n-- -------------------------------------------------------------------- panel\n",
+    "count": 1
+   }
+  ]
+ }
+}

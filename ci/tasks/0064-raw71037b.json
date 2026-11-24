@@ -1,0 +1,11 @@
+{
+ "id": "0064-raw71037b",
+ "kind": "script",
+ "why": "report only: the shape of the spell rows build 71037 added",
+ "args": {
+  "module": "raw_changes",
+  "args": {
+   "build": "1.60.1.71037"
+  }
+ }
+}

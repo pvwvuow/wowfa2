@@ -64,13 +64,17 @@ local function build()
     btn:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     btn:RegisterForDrag("LeftButton")
     btn:SetHighlightTexture("Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight")
+    -- The round MiniMap-TrackingBorder (53x53, anchored TOPLEFT) has its hole
+    -- centred at (17, -15) from the button's top-left corner, i.e. 1.5 px right
+    -- of and 0.5 px above the button centre. The disc and the icon must sit in
+    -- THAT hole, not on the frame centre, or the icon looks pushed off-centre.
     local bg = btn:CreateTexture(nil, "BACKGROUND")
     bg:SetSize(20, 20)
-    bg:SetPoint("CENTER")
+    bg:SetPoint("CENTER", btn, "TOPLEFT", 17, -15)
     bg:SetTexture("Interface\\Minimap\\UI-Minimap-Background")
     btn.icon = UI.Tex(btn, "ARTWORK", "icon")
     btn.icon:SetSize(18, 18)
-    btn.icon:SetPoint("CENTER", 0, 1)
+    btn.icon:SetPoint("CENTER", btn, "TOPLEFT", 17, -15)
     local border = btn:CreateTexture(nil, "OVERLAY")
     border:SetSize(53, 53)
     border:SetPoint("TOPLEFT")

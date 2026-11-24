@@ -1,0 +1,11 @@
+{
+ "id": "0065-derive",
+ "kind": "script",
+ "why": "report only: which spell descriptions changed in build 71037 and which of our templates need a new variant",
+ "args": {
+  "module": "raw_derive",
+  "args": {
+   "build": "1.60.1.71037"
+  }
+ }
+}

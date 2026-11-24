@@ -32,6 +32,7 @@ Modules\Spells.lua
 Modules\Walk.lua
 Modules\Npc.lua
 Modules\Alerts.lua
+Modules\Chat.lua
 Panel.lua
 Dump.lua
 Minimap.lua

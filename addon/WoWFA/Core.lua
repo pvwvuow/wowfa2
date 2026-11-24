@@ -867,6 +867,8 @@ SlashCmdList["WOWFAF"] = function(msg)
         F.Walk.Why() -- rc18: why a quest list line stays English
     elseif cmd == "status" then
         F.Chat(status_line())
+    elseif cmd == 'target' and F.TargetInfo then
+        F.TargetInfo()
     elseif cmd == "reset" then
         F:ResetDB()
         F.Chat(L.en.reset)

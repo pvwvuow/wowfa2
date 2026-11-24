@@ -58,12 +58,28 @@ local PRESETS = {
     en = { m = "en", d = ALL_OFF },
 }
 Room.PRESETS = PRESETS
+-- rc29: two more presets. story = quests, NPC names and talk, zones, classes;
+-- spells = spells and talents (names, descriptions, terms) only
+PRESETS.story = { m = 'story', d = { namesItem = false, namesSpell = false, namesClass = true,
+    namesNpc = true, namesZone = true, namesQuest = true, namesObj = true, terms = false,
+    textDesc = false, textStats = false, textReq = false, textBind = false, textDetail = false,
+    textFlavor = false, uiLabels = false } }
+PRESETS.spells = { m = 'spells', d = { namesItem = false, namesSpell = true, namesClass = true,
+    namesNpc = false, namesZone = false, namesQuest = false, namesObj = false, terms = true,
+    textDesc = true, textStats = false, textReq = false, textBind = false, textDetail = true,
+    textFlavor = false, uiLabels = true } }
 Room.PRESET_IDS = { "recommended", "fa", "stats", "en" }
 Room.PRESET_LBL = { recommended = "پیشنهادی", fa = "کاملاً فارسی", stats = "فقط آمار",
     en = "کاملاً انگلیسی", custom = "سفارشی" }
 Room.PRESET_DESC = { recommended = "اسمی انگلیسی می‌ماند؛ متن‌ها فارسی می‌شوند",
     fa = "هر چه ترجمه داشته باشد فارسی می‌شود", stats = "فقط آمار و نیازمندی‌ها فارسی",
     en = "همه‌چیز انگلیسی می‌ماند (مخصوص بازی)", custom = "ترکیب دلخواه تو — هر دسته جدا" }
+
+Room.PRESET_IDS = { 'recommended', 'fa', 'story', 'spells', 'stats', 'en' }
+Room.PRESET_LBL.story = F.L.pr_story or 'story'
+Room.PRESET_LBL.spells = F.L.pr_spells or 'spells'
+Room.PRESET_DESC.story = F.L.pr_story_d or ''
+Room.PRESET_DESC.spells = F.L.pr_spells_d or ''
 
 -- line role letter (the exporter ships it per line) -> the owning switch
 Room.ROLE_KEY = { d = "textDesc", s = "textStats", r = "textReq", b = "textBind",
@@ -212,6 +228,10 @@ function Room.Apply(m) -- a preset button
         r.d.questText, r.d.npcSay = false, false
     elseif m == "fa" then
         r.d.questText, r.d.npcSay = true, true
+    elseif m == 'story' then
+        r.d.questText, r.d.npcSay = true, true
+    elseif m == 'spells' then
+        r.d.questText, r.d.npcSay = false, false
     end
     -- Brain 59: the set names are a split of the item names - every preset
     -- sets them the way it sets the item names

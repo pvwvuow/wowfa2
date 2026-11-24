@@ -471,6 +471,13 @@ local function build()
             F.db.alerts = v and true or false
             F:Fire("options", "alerts")
         end), 50, 2)
+    -- the system lines of the chat (Modules/Sysmsg.lua)
+    panel.sysmsg = place(UI.Toggle(page.child, PW - 16, L.sy_on, L.sy_on_d,
+        function() return F.db.sysmsg ~= false end,
+        function(v)
+            F.db.sysmsg = v and true or false
+            F:Fire('options', 'sysmsg')
+        end), 50, 2)
     -- Persian in the game chat (Modules/Chat.lua)
     panel.chatFa = place(UI.Toggle(page.child, PW - 16, L.ch_on, L.ch_on_d,
         function() return F.db.chatFa ~= false end,

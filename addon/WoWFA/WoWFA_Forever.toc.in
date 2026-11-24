@@ -16,6 +16,7 @@
 Shape.lua
 Locale.lua
 Locale_Alerts.lua
+Locale_Sys.lua
 Core.lua
 Text.lua
 Room.lua
@@ -36,6 +37,8 @@ Modules\Chat.lua
 Modules\Font.lua
 Modules\Bubbles.lua
 Modules\Taxi.lua
+Modules\Sysmsg.lua
+Modules\Tools.lua
 Panel.lua
 Dump.lua
 Minimap.lua

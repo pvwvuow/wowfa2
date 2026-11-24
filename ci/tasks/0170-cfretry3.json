@@ -1,0 +1,1 @@
+{"id":"0170-cfretry3","kind":"script","why":"publish 1.0.0-beta.2 again on the current main so the newest CurseForge workflow runs","args":{"module":"cf_retry","args":{"tag":"forever-v1.0.0-beta.2","retag":true}}}

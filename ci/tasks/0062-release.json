@@ -1,0 +1,8 @@
+{
+ "id": "0062-release",
+ "kind": "release",
+ "why": "rc14: quest log and spellbook in the modern UI, map label with level range",
+ "args": {
+  "notes": "WoWFA Forever 1.0.0-rc14 (test build, built by wowfa2 CI).\n\nNew: the modern quest log list and the objective tracker: quest titles (the [level] tag stays) and the 'N/M ... slain' lines are Persian.\nNew: the spellbook: spell names, 'Rank N' and the tree titles are Persian (follows the spell-name switch and the spellbook title setting).\nFix: the map hover label with a level range ('Wetlands (20-30)') is translated.\nFix: zone names on buttons (the breadcrumb above the map) no longer turn into empty boxes: the font is put back whenever the game changes it.\nSpells and talents complete at build 70959 (rc13).\n\nIncludes rc7 to rc13.\n\nData from ForeverDB.net"
+ }
+}

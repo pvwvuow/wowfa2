@@ -273,7 +273,7 @@ local function spell_tip(modId, tt, data)
                 local fs = i > 0 and line_fs(tt, i, lines[i]) or nil
                 local ok = false
                 if fs then
-                    ok = pcall(T.TipSet, tt, fs, txt, tip_w(tt), "Left")
+                    ok = pcall(T.TipSet, tt, fs, txt, nil, "Left")
                 end
                 if not ok then
                     T.TipLine(tt, txt, DESC)

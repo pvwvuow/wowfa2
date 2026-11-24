@@ -478,6 +478,12 @@ local function build()
             F.db.chatFa = v and true or false
             F:Fire("options", "chatFa")
         end), 50, 2)
+    panel.fontAll = place(UI.Toggle(page.child, PW - 16, L.fa_on, L.fa_on_d,
+        function() return F.db.fontAll == true end,
+        function(v)
+            F.db.fontAll = v and true or false
+            F:Fire("options", "fontAll")
+        end), 50, 2)
     panel.chatScale = place(UI.Slider(page.child, PW - 16, L.ch_size, 60, 120, 5,
         function() return F.db.chatScale or 90 end,
         function(v)

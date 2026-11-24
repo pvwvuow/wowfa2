@@ -1,0 +1,15 @@
+{
+ "id": "0077-marktpl2",
+ "kind": "script",
+ "why": "second pass after the 0076 re-check: the remaining plain names that are real names (school words, generic verbs, items and the word 'spell' stay plain)",
+ "args": {
+  "module": "mark_tpl",
+  "args": {
+   "terms": true,
+   "kinds": ["class", "zone", "spell", "tree"],
+   "apply": true,
+   "sample": 10,
+   "only": ["sp:Garrote", "sp:Tranquility", "sp:Water Elemental", "sp:Aspect of the Hawk", "sp:Mutilate", "cls:Warrior", "cls:Retribution", "zn:Darnassus", "zn:Tanaris", "tm:silence"]
+  }
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "id": "0048-retag",
+ "kind": "script",
+ "why": "spell names written as term / npc markers become spell markers; list the short markers that would leak English",
+ "args": {
+  "module": "retag_tpl",
+  "args": {
+   "apply": true,
+   "top": 60
+  }
+ }
+}

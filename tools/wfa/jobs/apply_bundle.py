@@ -5,7 +5,8 @@ bundle = {"npc": {key: new}, "zone": {key: new}, "tpl": {key: [old, new]}, "spel
   whose EN is that very key; no plain-text rewriting).
   tpl: a row is changed only when the current value still equals `old` (anything else is listed, not touched).
 
-args: url (https), sha256, max_bytes (4000000)
+args: url (https), sha256, max_bytes (4000000),
+      skip_contains {table: [text, ...]}: rows whose key contains one of the texts are dropped before applying
 """
 import hashlib
 import importlib.util
@@ -52,6 +53,14 @@ def run(args, rep):
         return []
     rep.ok("bundle read: %d bytes, sha256 %s, tables %s" % (
         len(body), got[:12], ", ".join("%s %d" % (k, len(v)) for k, v in sorted(bundle.items()))))
+    for table, texts in sorted((args.get("skip_contains") or {}).items()):
+        rows = bundle.get(table) or {}
+        drop = [k for k in rows if any(t in k for t in texts)]
+        for k in drop:
+            del rows[k]
+        rep.ok("%s: %d rows dropped by skip_contains %s" % (table, len(drop), texts))
+        if drop:
+            rep.add("dropped: " + "; ".join(sorted(drop)[:60]))
     mod = _load("apply_npc_fixes")
     tmp = pathlib.Path(tempfile.mkdtemp())
     for table in ("npc", "zone", "spell"):

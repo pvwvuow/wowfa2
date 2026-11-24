@@ -1,0 +1,6447 @@
+{
+ "missing": [
+  [
+   94887,
+   47,
+   "Saving Marshal Ryan",
+   "Riverglades",
+   true
+  ],
+  [
+   94892,
+   47,
+   "Dying Wish",
+   "Riverglades",
+   true
+  ],
+  [
+   94893,
+   47,
+   "Delivering Closure",
+   "Riverglades",
+   true
+  ],
+  [
+   97530,
+   47,
+   "Dunemaul Dues",
+   "Tanaris",
+   true
+  ],
+  [
+   94890,
+   46,
+   "Bring Me His Head",
+   "Riverglades",
+   true
+  ],
+  [
+   94891,
+   46,
+   "News to Farholde",
+   "Riverglades",
+   true
+  ],
+  [
+   96770,
+   46,
+   "The Witch Doctor's Head",
+   "Zul'Farrak",
+   true
+  ],
+  [
+   93226,
+   45,
+   "Buying Friendship: Magram",
+   "Desolace",
+   true
+  ],
+  [
+   93644,
+   45,
+   "Tattered Journal",
+   "Ironforge",
+   true
+  ],
+  [
+   94894,
+   45,
+   "The Twilight Threat",
+   "Riverglades",
+   true
+  ],
+  [
+   94982,
+   45,
+   "Eye of Mugg",
+   "Riverglades",
+   true
+  ],
+  [
+   95124,
+   45,
+   "Admiral Lamora",
+   "Riverglades",
+   true
+  ],
+  [
+   96771,
+   45,
+   "Vengeance of the Highborne",
+   "Krol'dok Stronghold",
+   true
+  ],
+  [
+   97536,
+   45,
+   "Gnomish Garbage",
+   "Tanaris",
+   true
+  ],
+  [
+   94886,
+   44,
+   "The Western Front",
+   "Riverglades",
+   true
+  ],
+  [
+   94888,
+   44,
+   "No Soldier Left Behind",
+   "Riverglades",
+   true
+  ],
+  [
+   94889,
+   44,
+   "Carving a Path",
+   "Riverglades",
+   true
+  ],
+  [
+   94907,
+   44,
+   "A Small Favor",
+   "Riverglades",
+   true
+  ],
+  [
+   94927,
+   44,
+   "Dunston Checks Out",
+   "Riverglades",
+   true
+  ],
+  [
+   94984,
+   44,
+   "Tome of Twilight",
+   "Riverglades",
+   true
+  ],
+  [
+   95122,
+   44,
+   "Unchecked Expansion",
+   "Riverglades",
+   true
+  ],
+  [
+   95123,
+   44,
+   "A Blast Ye Scurvy Dogs!",
+   "Riverglades",
+   true
+  ],
+  [
+   95165,
+   44,
+   "See Ya, Scallywags!",
+   "Riverglades",
+   true
+  ],
+  [
+   96126,
+   44,
+   "An Ogre's Captive",
+   "Riverglades",
+   true
+  ],
+  [
+   97386,
+   44,
+   "The Offense of Grom'gol",
+   "Stranglethorn Vale",
+   true
+  ],
+  [
+   95119,
+   43,
+   "Unfriendly Competition",
+   "Riverglades",
+   true
+  ],
+  [
+   95288,
+   43,
+   "Smuggler's Paradise",
+   "Riverglades",
+   true
+  ],
+  [
+   95385,
+   43,
+   "Torn Mystical Scroll",
+   "Stranglethorn Vale",
+   true
+  ],
+  [
+   96015,
+   43,
+   "A Miner Problem",
+   "Riverglades",
+   true
+  ],
+  [
+   96125,
+   43,
+   "In Need of Relief",
+   "Riverglades",
+   true
+  ],
+  [
+   94983,
+   42,
+   "Twilight Mementos",
+   "Riverglades",
+   true
+  ],
+  [
+   95120,
+   42,
+   "WANTED: Old Rot-Chum",
+   "Riverglades",
+   true
+  ],
+  [
+   95254,
+   42,
+   "WANTED: Trapclaw",
+   "Riverglades",
+   true
+  ],
+  [
+   95260,
+   42,
+   "Terrors From the Deep",
+   "Riverglades",
+   true
+  ],
+  [
+   95261,
+   42,
+   "It Takes Guts",
+   "Riverglades",
+   true
+  ],
+  [
+   95267,
+   42,
+   "The Monster Surfaces",
+   "Riverglades",
+   true
+  ],
+  [
+   95293,
+   42,
+   "Smuggler's Special",
+   "Riverglades",
+   true
+  ],
+  [
+   95792,
+   42,
+   "Clear 'em Out",
+   "Riverglades",
+   true
+  ],
+  [
+   95912,
+   42,
+   "WANTED: Blademaster Kaijo",
+   "Riverglades",
+   true
+  ],
+  [
+   95934,
+   42,
+   "Proof of Profit",
+   "Riverglades",
+   true
+  ],
+  [
+   95991,
+   42,
+   "WANTED: Ghostmaw",
+   "Riverglades",
+   true
+  ],
+  [
+   96085,
+   42,
+   "Upstream Contamination",
+   "Riverglades",
+   true
+  ],
+  [
+   97821,
+   42,
+   "Mirage Mirror",
+   "Badlands",
+   true
+  ],
+  [
+   98233,
+   42,
+   "Sword in the Slime",
+   "Dustwallow Marsh",
+   true
+  ],
+  [
+   94884,
+   41,
+   "An Unsettling Discovery",
+   "Riverglades",
+   true
+  ],
+  [
+   94980,
+   41,
+   "Krol'dok Moulding",
+   "Riverglades",
+   true
+  ],
+  [
+   94981,
+   41,
+   "Key Ingredients",
+   "Krol'dok Stronghold",
+   true
+  ],
+  [
+   95118,
+   41,
+   "Saltwater Savages",
+   "Riverglades",
+   true
+  ],
+  [
+   95219,
+   41,
+   "From Port to Port",
+   "Riverglades",
+   true
+  ],
+  [
+   95562,
+   41,
+   "Cut Off the Heads",
+   "Riverglades",
+   true
+  ],
+  [
+   95975,
+   41,
+   "Her World",
+   "Riverglades",
+   true
+  ],
+  [
+   95986,
+   41,
+   "King of the Wild Plains",
+   "Riverglades",
+   true
+  ],
+  [
+   96773,
+   41,
+   "The Coldbringer's Eye",
+   "Razorfen Downs",
+   true
+  ],
+  [
+   97196,
+   41,
+   "The Coldbringer's Eye",
+   "Mulgore",
+   true
+  ],
+  [
+   79229,
+   40,
+   "Highway Robbery",
+   "Desolace",
+   true
+  ],
+  [
+   79235,
+   40,
+   "On the Lam",
+   "Desolace",
+   true
+  ],
+  [
+   79236,
+   40,
+   "Cherry for Your Thoughts?",
+   "Stranglethorn Vale",
+   true
+  ],
+  [
+   79624,
+   40,
+   "Anyone Can Cook",
+   "Arathi Highlands",
+   true
+  ],
+  [
+   79677,
+   40,
+   "A Quick Grocery Run",
+   "Arathi Highlands",
+   true
+  ],
+  [
+   79678,
+   40,
+   "Taste Testing",
+   "Arathi Highlands",
+   true
+  ],
+  [
+   94679,
+   40,
+   "Snargl's Snout",
+   "Riverglades",
+   true
+  ],
+  [
+   94829,
+   40,
+   "What We Lost",
+   "Riverglades",
+   true
+  ],
+  [
+   94858,
+   40,
+   "All That's Left",
+   "Riverglades",
+   true
+  ],
+  [
+   94877,
+   40,
+   "Saving Sunnyglade",
+   "Riverglades",
+   true
+  ],
+  [
+   94879,
+   40,
+   "Scraps of Knowledge",
+   "Riverglades",
+   true
+  ],
+  [
+   94885,
+   40,
+   "Field Marshal's Log",
+   "Riverglades",
+   true
+  ],
+  [
+   94961,
+   40,
+   "Biting the Hand",
+   "Riverglades",
+   true
+  ],
+  [
+   94963,
+   40,
+   "Biting the Hand",
+   "Riverglades",
+   true
+  ],
+  [
+   95121,
+   40,
+   "A Taste of the Sea",
+   "Riverglades",
+   true
+  ],
+  [
+   95327,
+   40,
+   "All's Well That Ends Well",
+   "Riverglades",
+   true
+  ],
+  [
+   95384,
+   40,
+   "Partial Mystical Notes",
+   "Ironforge",
+   true
+  ],
+  [
+   95642,
+   40,
+   "Abominable Magics",
+   "Riverglades",
+   true
+  ],
+  [
+   95643,
+   40,
+   "Indiscriminate Purge",
+   "Riverglades",
+   true
+  ],
+  [
+   95770,
+   40,
+   "Locating the Lost City",
+   "Stranglethorn Vale",
+   true
+  ],
+  [
+   95775,
+   40,
+   "The Drowned City",
+   "Stranglethorn Vale",
+   true
+  ],
+  [
+   95786,
+   40,
+   "An Acquaintance in Southshore",
+   "Stranglethorn Vale",
+   true
+  ],
+  [
+   95787,
+   40,
+   "Take Two With Water",
+   "Hillsbrad Foothills",
+   true
+  ],
+  [
+   95788,
+   40,
+   "Magics of the Drowned City",
+   "Hillsbrad Foothills",
+   true
+  ],
+  [
+   95789,
+   40,
+   "Shady Saltseers",
+   "Stranglethorn Vale",
+   true
+  ],
+  [
+   95791,
+   40,
+   "The Saltseer Captain",
+   "Stranglethorn Vale",
+   true
+  ],
+  [
+   95798,
+   40,
+   "The Web of Magic",
+   "Hillsbrad Foothills",
+   true
+  ],
+  [
+   95799,
+   40,
+   "Findings for the Explorer's League",
+   "Hillsbrad Foothills",
+   true
+  ],
+  [
+   96067,
+   40,
+   "Rock 'em and Sock 'em",
+   "Riverglades",
+   true
+  ],
+  [
+   96078,
+   40,
+   "A Tale Spun Around the Fire",
+   "Stranglethorn Vale",
+   true
+  ],
+  [
+   96081,
+   40,
+   "Wound Dressings",
+   "Riverglades",
+   true
+  ],
+  [
+   96082,
+   40,
+   "Doctor's Orderly",
+   "Riverglades",
+   true
+  ],
+  [
+   96083,
+   40,
+   "Clerical Quarantine",
+   "Riverglades",
+   true
+  ],
+  [
+   96084,
+   40,
+   "Something's in the Water",
+   "Riverglades",
+   true
+  ],
+  [
+   97130,
+   40,
+   "Ancient Gurubashi Secrets",
+   "The Drowned City",
+   true
+  ],
+  [
+   97205,
+   40,
+   "Learning to Ride",
+   "Zephras Isle",
+   true
+  ],
+  [
+   97617,
+   40,
+   "Safety Checks",
+   "Badlands",
+   true
+  ],
+  [
+   97884,
+   40,
+   "Armory of Sunnyglade",
+   "Undercity",
+   true
+  ],
+  [
+   92867,
+   39,
+   "Ground to Keep",
+   "Arathi Highlands",
+   true
+  ],
+  [
+   94857,
+   39,
+   "If a Tree Falls, and No One Hears...",
+   "Riverglades",
+   true
+  ],
+  [
+   94861,
+   39,
+   "Helping Hands",
+   "Riverglades",
+   true
+  ],
+  [
+   94924,
+   39,
+   "Hunting the Hunters",
+   "Riverglades",
+   true
+  ],
+  [
+   94925,
+   39,
+   "A Fur Trade",
+   "Riverglades",
+   true
+  ],
+  [
+   94928,
+   39,
+   "A Few Furs for Friz",
+   "Riverglades",
+   true
+  ],
+  [
+   95064,
+   39,
+   "Preventative Measures",
+   "Riverglades",
+   true
+  ],
+  [
+   95066,
+   39,
+   "The Rog'mar Situation",
+   "Riverglades",
+   true
+  ],
+  [
+   95426,
+   39,
+   "Rog'mar Supplies",
+   "Riverglades",
+   true
+  ],
+  [
+   95984,
+   39,
+   "Song of the Strider",
+   "Riverglades",
+   true
+  ],
+  [
+   94613,
+   38,
+   "My Kingdom for a Horse",
+   "Riverglades",
+   true
+  ],
+  [
+   94614,
+   38,
+   "Freshwater Fiends",
+   "Riverglades",
+   true
+  ],
+  [
+   94615,
+   38,
+   "Foal Play",
+   "Riverglades",
+   true
+  ],
+  [
+   94617,
+   38,
+   "Coyote Huntin'",
+   "Riverglades",
+   true
+  ],
+  [
+   94618,
+   38,
+   "Wheeler's Fleeing Steeds",
+   "Riverglades",
+   true
+  ],
+  [
+   94678,
+   38,
+   "Gnoll Infestation",
+   "Riverglades",
+   true
+  ],
+  [
+   94841,
+   38,
+   "Lost Shipping Crate",
+   "Desolace",
+   true
+  ],
+  [
+   94842,
+   38,
+   "Unsavory Plant Food",
+   "Riverglades",
+   true
+  ],
+  [
+   94843,
+   38,
+   "From Seed to Sprout",
+   "Riverglades",
+   true
+  ],
+  [
+   94881,
+   38,
+   "Curious Trinkets",
+   "Riverglades",
+   true
+  ],
+  [
+   94895,
+   38,
+   "Lost Shipping Crate",
+   "Desolace",
+   true
+  ],
+  [
+   94923,
+   38,
+   "Hats Off",
+   "Riverglades",
+   true
+  ],
+  [
+   94930,
+   38,
+   "Lost Shipping Crate",
+   "Thousand Needles",
+   true
+  ],
+  [
+   94931,
+   38,
+   "Stolen Saws",
+   "Riverglades",
+   true
+  ],
+  [
+   94992,
+   38,
+   "Rescue Roundup",
+   "Riverglades",
+   true
+  ],
+  [
+   95141,
+   38,
+   "Report to Rog'mar",
+   "Stranglethorn Vale",
+   true
+  ],
+  [
+   95143,
+   38,
+   "Finding Tan'jani",
+   "Arathi Highlands",
+   true
+  ],
+  [
+   95144,
+   38,
+   "Overseas Delivery",
+   "Tanaris",
+   true
+  ],
+  [
+   95184,
+   38,
+   "The Sharpest of Blades",
+   "Riverglades",
+   true
+  ],
+  [
+   95329,
+   38,
+   "Out in the Field",
+   "Riverglades",
+   true
+  ],
+  [
+   95561,
+   38,
+   "Apple of My Eye",
+   "Riverglades",
+   true
+  ],
+  [
+   95603,
+   38,
+   "Bats in the Belfry",
+   "Riverglades",
+   true
+  ],
+  [
+   95613,
+   38,
+   "Keeping the Light On",
+   "Riverglades",
+   true
+  ],
+  [
+   95615,
+   38,
+   "In Memoriam",
+   "Riverglades",
+   true
+  ],
+  [
+   95776,
+   38,
+   "The Only Good Brinescale...",
+   "Stranglethorn Vale",
+   true
+  ],
+  [
+   95913,
+   38,
+   "Fit for a Princess",
+   "Riverglades",
+   true
+  ],
+  [
+   95943,
+   38,
+   "Foreman's Plight",
+   "Riverglades",
+   true
+  ],
+  [
+   95951,
+   38,
+   "Fetch 'n' Fletch",
+   "Riverglades",
+   true
+  ],
+  [
+   95957,
+   38,
+   "Drink Up!",
+   "Riverglades",
+   true
+  ],
+  [
+   95961,
+   38,
+   "Stepped Out",
+   "Riverglades",
+   true
+  ],
+  [
+   95982,
+   38,
+   "Not My Circus",
+   "Riverglades",
+   true
+  ],
+  [
+   95983,
+   38,
+   "A Feast for Buzzards",
+   "Riverglades",
+   true
+  ],
+  [
+   95988,
+   38,
+   "Goes Down Smooth",
+   "Riverglades",
+   true
+  ],
+  [
+   96009,
+   38,
+   "High Stakes",
+   "Riverglades",
+   true
+  ],
+  [
+   96063,
+   38,
+   "Gaseous Gold",
+   "Riverglades",
+   true
+  ],
+  [
+   97048,
+   38,
+   "Returning to Port",
+   "Stranglethorn Vale",
+   true
+  ],
+  [
+   97453,
+   38,
+   "Weed Whacked",
+   "Stranglethorn Vale",
+   true
+  ],
+  [
+   95147,
+   37,
+   "The Lost Scout",
+   "Riverglades",
+   true
+  ],
+  [
+   95148,
+   37,
+   "Southern Watch Gnoll Report",
+   "Riverglades",
+   true
+  ],
+  [
+   95156,
+   37,
+   "Stuff 'Em and Stick 'Em",
+   "Riverglades",
+   true
+  ],
+  [
+   95330,
+   37,
+   "Love Thy Neighbor",
+   "Riverglades",
+   true
+  ],
+  [
+   95773,
+   37,
+   "Enemies in the Water",
+   "Stranglethorn Vale",
+   true
+  ],
+  [
+   93443,
+   36,
+   "Lost Shipping Crate",
+   "Stranglethorn Vale",
+   true
+  ],
+  [
+   94999,
+   36,
+   "Eyes for the Watchman",
+   "Riverglades",
+   true
+  ],
+  [
+   95059,
+   36,
+   "Frazzlespark's Crate",
+   "Riverglades",
+   true
+  ],
+  [
+   92754,
+   35,
+   "A New Need for Shadow Protection",
+   "Desolace",
+   true
+  ],
+  [
+   97329,
+   35,
+   "Where's the Key?",
+   "Stranglethorn Vale",
+   true
+  ],
+  [
+   97331,
+   35,
+   "Zimmix's Great Escape",
+   "Stranglethorn Vale",
+   true
+  ],
+  [
+   78270,
+   null,
+   "Goblin Lockpicks",
+   "",
+   true
+  ],
+  [
+   80001,
+   null,
+   "Rekindle",
+   "",
+   true
+  ]
+ ],
+ "partial": [
+  [
+   2741,
+   60,
+   "The Super Egg-O-Matic",
+   "obj,det"
+  ],
+  [
+   5125,
+   60,
+   "Aurius' Reckoning",
+   "obj,det"
+  ],
+  [
+   5505,
+   60,
+   "The Key to Scholomance",
+   "obj,det"
+  ],
+  [
+   5511,
+   60,
+   "The Key to Scholomance",
+   "obj,det"
+  ],
+  [
+   5525,
+   60,
+   "Free Knot!",
+   "obj,det"
+  ],
+  [
+   5528,
+   60,
+   "The Gordok Taste Test",
+   "obj,det"
+  ],
+  [
+   7163,
+   60,
+   "Rise and Be Recognized",
+   "obj"
+  ],
+  [
+   7164,
+   60,
+   "Honored Amongst the Clan",
+   "obj"
+  ],
+  [
+   7165,
+   60,
+   "Earned Reverence",
+   "obj"
+  ],
+  [
+   7166,
+   60,
+   "Legendary Heroes",
+   "obj"
+  ],
+  [
+   7167,
+   60,
+   "The Eye of Command",
+   "obj"
+  ],
+  [
+   7168,
+   60,
+   "Rise and Be Recognized",
+   "obj"
+  ],
+  [
+   7169,
+   60,
+   "Honored Amongst the Guard",
+   "obj"
+  ],
+  [
+   7170,
+   60,
+   "Earned Reverence",
+   "obj"
+  ],
+  [
+   7171,
+   60,
+   "Legendary Heroes",
+   "obj"
+  ],
+  [
+   7172,
+   60,
+   "The Eye of Command",
+   "obj"
+  ],
+  [
+   7493,
+   60,
+   "The Journey Has Just Begun",
+   "obj,det"
+  ],
+  [
+   7497,
+   60,
+   "The Journey Has Just Begun",
+   "obj,det"
+  ],
+  [
+   7621,
+   60,
+   "A Warning",
+   "obj,det"
+  ],
+  [
+   7633,
+   60,
+   "An Introduction",
+   "obj,det"
+  ],
+  [
+   7652,
+   60,
+   "A Blue Light Bargain",
+   "obj,det"
+  ],
+  [
+   7653,
+   60,
+   "Imperial Plate Belt",
+   "obj,det"
+  ],
+  [
+   7654,
+   60,
+   "Imperial Plate Boots",
+   "obj,det"
+  ],
+  [
+   7655,
+   60,
+   "Imperial Plate Bracer",
+   "obj,det"
+  ],
+  [
+   7656,
+   60,
+   "Imperial Plate Chest",
+   "obj,det"
+  ],
+  [
+   7657,
+   60,
+   "Imperial Plate Helm",
+   "obj,det"
+  ],
+  [
+   7658,
+   60,
+   "Imperial Plate Leggings",
+   "obj,det"
+  ],
+  [
+   7659,
+   60,
+   "Imperial Plate Shoulders",
+   "obj,det"
+  ],
+  [
+   7791,
+   60,
+   "A Donation of Wool",
+   "obj,det"
+  ],
+  [
+   7792,
+   60,
+   "A Donation of Wool",
+   "obj,det"
+  ],
+  [
+   7793,
+   60,
+   "A Donation of Silk",
+   "obj,det"
+  ],
+  [
+   7794,
+   60,
+   "A Donation of Mageweave",
+   "obj,det"
+  ],
+  [
+   7795,
+   60,
+   "A Donation of Runecloth",
+   "obj,det"
+  ],
+  [
+   7798,
+   60,
+   "A Donation of Silk",
+   "obj,det"
+  ],
+  [
+   7799,
+   60,
+   "A Donation of Mageweave",
+   "obj,det"
+  ],
+  [
+   7800,
+   60,
+   "A Donation of Runecloth",
+   "obj,det"
+  ],
+  [
+   7802,
+   60,
+   "A Donation of Wool",
+   "obj,det"
+  ],
+  [
+   7803,
+   60,
+   "A Donation of Silk",
+   "obj,det"
+  ],
+  [
+   7804,
+   60,
+   "A Donation of Mageweave",
+   "obj,det"
+  ],
+  [
+   7805,
+   60,
+   "A Donation of Runecloth",
+   "obj,det"
+  ],
+  [
+   7807,
+   60,
+   "A Donation of Wool",
+   "obj,det"
+  ],
+  [
+   7808,
+   60,
+   "A Donation of Silk",
+   "obj,det"
+  ],
+  [
+   7809,
+   60,
+   "A Donation of Mageweave",
+   "obj,det"
+  ],
+  [
+   7811,
+   60,
+   "A Donation of Runecloth",
+   "obj,det"
+  ],
+  [
+   7813,
+   60,
+   "A Donation of Wool",
+   "obj,det"
+  ],
+  [
+   7814,
+   60,
+   "A Donation of Silk",
+   "obj,det"
+  ],
+  [
+   7817,
+   60,
+   "A Donation of Mageweave",
+   "obj,det"
+  ],
+  [
+   7818,
+   60,
+   "A Donation of Runecloth",
+   "obj,det"
+  ],
+  [
+   7820,
+   60,
+   "A Donation of Wool",
+   "obj,det"
+  ],
+  [
+   7821,
+   60,
+   "A Donation of Silk",
+   "obj,det"
+  ],
+  [
+   7822,
+   60,
+   "A Donation of Mageweave",
+   "obj,det"
+  ],
+  [
+   7823,
+   60,
+   "A Donation of Runecloth",
+   "obj,det"
+  ],
+  [
+   7824,
+   60,
+   "A Donation of Runecloth",
+   "obj,det"
+  ],
+  [
+   7826,
+   60,
+   "A Donation of Wool",
+   "obj,det"
+  ],
+  [
+   7827,
+   60,
+   "A Donation of Silk",
+   "obj,det"
+  ],
+  [
+   7831,
+   60,
+   "A Donation of Mageweave",
+   "obj,det"
+  ],
+  [
+   7833,
+   60,
+   "A Donation of Wool",
+   "obj,det"
+  ],
+  [
+   7834,
+   60,
+   "A Donation of Silk",
+   "obj,det"
+  ],
+  [
+   7835,
+   60,
+   "A Donation of Mageweave",
+   "obj,det"
+  ],
+  [
+   7836,
+   60,
+   "A Donation of Runecloth",
+   "obj,det"
+  ],
+  [
+   7865,
+   60,
+   "Sentinel Advanced Care Package",
+   "obj,det"
+  ],
+  [
+   7868,
+   60,
+   "Outrider Advanced Care Package",
+   "obj,det"
+  ],
+  [
+   7881,
+   60,
+   "Carnival Boots",
+   "obj,det"
+  ],
+  [
+   7894,
+   60,
+   "Copper Modulator",
+   "obj,det"
+  ],
+  [
+   7899,
+   60,
+   "Small Furry Paws",
+   "obj,det"
+  ],
+  [
+   8041,
+   60,
+   "Strength of Mount Mugamba",
+   "obj,det"
+  ],
+  [
+   8042,
+   60,
+   "Strength of Mount Mugamba",
+   "obj,det"
+  ],
+  [
+   8043,
+   60,
+   "Strength of Mount Mugamba",
+   "obj,det"
+  ],
+  [
+   8044,
+   60,
+   "The Rage of Mount Mugamba",
+   "obj,det"
+  ],
+  [
+   8045,
+   60,
+   "The Heathen's Brand",
+   "obj,det"
+  ],
+  [
+   8046,
+   60,
+   "The Heathen's Brand",
+   "obj,det"
+  ],
+  [
+   8047,
+   60,
+   "The Heathen's Brand",
+   "obj,det"
+  ],
+  [
+   8048,
+   60,
+   "The Hero's Brand",
+   "obj,det"
+  ],
+  [
+   8049,
+   60,
+   "The Eye of Zuldazar",
+   "obj,det"
+  ],
+  [
+   8050,
+   60,
+   "The Eye of Zuldazar",
+   "obj,det"
+  ],
+  [
+   8051,
+   60,
+   "The Eye of Zuldazar",
+   "obj,det"
+  ],
+  [
+   8052,
+   60,
+   "The All-Seeing Eye of Zuldazar",
+   "obj,det"
+  ],
+  [
+   8101,
+   60,
+   "The Pebble of Kajaro",
+   "obj,det"
+  ],
+  [
+   8102,
+   60,
+   "The Pebble of Kajaro",
+   "obj,det"
+  ],
+  [
+   8103,
+   60,
+   "The Pebble of Kajaro",
+   "obj,det"
+  ],
+  [
+   8104,
+   60,
+   "The Jewel of Kajaro",
+   "obj,det"
+  ],
+  [
+   8106,
+   60,
+   "Kezan's Taint",
+   "obj,det"
+  ],
+  [
+   8107,
+   60,
+   "Kezan's Taint",
+   "obj,det"
+  ],
+  [
+   8108,
+   60,
+   "Kezan's Taint",
+   "obj,det"
+  ],
+  [
+   8109,
+   60,
+   "Kezan's Unstoppable Taint",
+   "obj,det"
+  ],
+  [
+   8110,
+   60,
+   "Enchanted South Seas Kelp",
+   "obj,det"
+  ],
+  [
+   8111,
+   60,
+   "Enchanted South Seas Kelp",
+   "obj,det"
+  ],
+  [
+   8112,
+   60,
+   "Enchanted South Seas Kelp",
+   "obj,det"
+  ],
+  [
+   8113,
+   60,
+   "Pristine Enchanted South Seas Kelp",
+   "obj,det"
+  ],
+  [
+   8116,
+   60,
+   "Vision of Voodress",
+   "obj,det"
+  ],
+  [
+   8117,
+   60,
+   "Vision of Voodress",
+   "obj,det"
+  ],
+  [
+   8118,
+   60,
+   "Vision of Voodress",
+   "obj,det"
+  ],
+  [
+   8119,
+   60,
+   "The Unmarred Vision of Voodress",
+   "obj,det"
+  ],
+  [
+   8141,
+   60,
+   "Zandalarian Shadow Talisman",
+   "obj,det"
+  ],
+  [
+   8142,
+   60,
+   "Zandalarian Shadow Talisman",
+   "obj,det"
+  ],
+  [
+   8143,
+   60,
+   "Zandalarian Shadow Talisman",
+   "obj,det"
+  ],
+  [
+   8144,
+   60,
+   "Zandalarian Shadow Mastery Talisman",
+   "obj,det"
+  ],
+  [
+   8145,
+   60,
+   "The Maelstrom's Tendril",
+   "obj,det"
+  ],
+  [
+   8146,
+   60,
+   "The Maelstrom's Tendril",
+   "obj,det"
+  ],
+  [
+   8147,
+   60,
+   "The Maelstrom's Tendril",
+   "obj,det"
+  ],
+  [
+   8148,
+   60,
+   "The Maelstrom's Wrath",
+   "obj,det"
+  ],
+  [
+   8249,
+   60,
+   "Junkboxes Needed",
+   "obj,det"
+  ],
+  [
+   8262,
+   60,
+   "Arathor Advanced Care Package",
+   "obj,det"
+  ],
+  [
+   8265,
+   60,
+   "Defiler's Advanced Care Package",
+   "obj,det"
+  ],
+  [
+   8271,
+   60,
+   "Hero of the Stormpike",
+   "obj,det"
+  ],
+  [
+   8272,
+   60,
+   "Hero of the Frostwolf",
+   "obj,det"
+  ],
+  [
+   8316,
+   60,
+   "Armaments of War",
+   "obj,det"
+  ],
+  [
+   8376,
+   60,
+   "Armaments of War",
+   "obj,det"
+  ],
+  [
+   8377,
+   60,
+   "Armaments of War",
+   "obj,det"
+  ],
+  [
+   8378,
+   60,
+   "Armaments of War",
+   "obj,det"
+  ],
+  [
+   8379,
+   60,
+   "Armaments of War",
+   "obj,det"
+  ],
+  [
+   8380,
+   60,
+   "Armaments of War",
+   "obj,det"
+  ],
+  [
+   8381,
+   60,
+   "Armaments of War",
+   "obj,det"
+  ],
+  [
+   8382,
+   60,
+   "Armaments of War",
+   "obj,det"
+  ],
+  [
+   8555,
+   60,
+   "The Charge of the Dragonflights",
+   "obj,det"
+  ],
+  [
+   8576,
+   60,
+   "Translating the Ledger",
+   "obj,det"
+  ],
+  [
+   8579,
+   60,
+   "Mortal Champions",
+   "obj,det"
+  ],
+  [
+   8619,
+   60,
+   "Morndeep the Elder",
+   "obj,det"
+  ],
+  [
+   8635,
+   60,
+   "Splitrock the Elder",
+   "obj,det"
+  ],
+  [
+   8636,
+   60,
+   "Rumblerock the Elder",
+   "obj,det"
+  ],
+  [
+   8642,
+   60,
+   "Silvervein the Elder",
+   "obj,det"
+  ],
+  [
+   8643,
+   60,
+   "Highpeak the Elder",
+   "obj,det"
+  ],
+  [
+   8644,
+   60,
+   "Stonefort the Elder",
+   "obj,det"
+  ],
+  [
+   8645,
+   60,
+   "Obsidian the Elder",
+   "obj,det"
+  ],
+  [
+   8646,
+   60,
+   "Hammershout the Elder",
+   "obj,det"
+  ],
+  [
+   8647,
+   60,
+   "Bellowrage the Elder",
+   "obj,det"
+  ],
+  [
+   8648,
+   60,
+   "Darkcore the Elder",
+   "obj,det"
+  ],
+  [
+   8649,
+   60,
+   "Stormbrow the Elder",
+   "obj,det"
+  ],
+  [
+   8650,
+   60,
+   "Snowcrown the Elder",
+   "obj,det"
+  ],
+  [
+   8651,
+   60,
+   "Ironband the Elder",
+   "obj,det"
+  ],
+  [
+   8652,
+   60,
+   "Graveborn the Elder",
+   "obj,det"
+  ],
+  [
+   8653,
+   60,
+   "Goldwell the Elder",
+   "obj,det"
+  ],
+  [
+   8654,
+   60,
+   "Primestone the Elder",
+   "obj,det"
+  ],
+  [
+   8670,
+   60,
+   "Runetotem the Elder",
+   "obj,det"
+  ],
+  [
+   8671,
+   60,
+   "Ragetotem the Elder",
+   "obj,det"
+  ],
+  [
+   8672,
+   60,
+   "Stonespire the Elder",
+   "obj,det"
+  ],
+  [
+   8673,
+   60,
+   "Bloodhoof the Elder",
+   "obj,det"
+  ],
+  [
+   8674,
+   60,
+   "Winterhoof the Elder",
+   "obj,det"
+  ],
+  [
+   8675,
+   60,
+   "Skychaser the Elder",
+   "obj,det"
+  ],
+  [
+   8676,
+   60,
+   "Wildmane the Elder",
+   "obj,det"
+  ],
+  [
+   8677,
+   60,
+   "Darkhorn the Elder",
+   "obj,det"
+  ],
+  [
+   8678,
+   60,
+   "Proudhorn the Elder",
+   "obj,det"
+  ],
+  [
+   8679,
+   60,
+   "Grimtotem the Elder",
+   "obj,det"
+  ],
+  [
+   8680,
+   60,
+   "Windtotem the Elder",
+   "obj,det"
+  ],
+  [
+   8681,
+   60,
+   "Thunderhorn the Elder",
+   "obj,det"
+  ],
+  [
+   8682,
+   60,
+   "Skyseer the Elder",
+   "obj,det"
+  ],
+  [
+   8683,
+   60,
+   "Dawnstrider the Elder",
+   "obj,det"
+  ],
+  [
+   8684,
+   60,
+   "Dreamseer the Elder",
+   "obj,det"
+  ],
+  [
+   8685,
+   60,
+   "Mistwalker the Elder",
+   "obj,det"
+  ],
+  [
+   8686,
+   60,
+   "High Mountain the Elder",
+   "obj,det"
+  ],
+  [
+   8688,
+   60,
+   "Windrun the Elder",
+   "obj,det"
+  ],
+  [
+   8713,
+   60,
+   "Starsong the Elder",
+   "obj,det"
+  ],
+  [
+   8714,
+   60,
+   "Moonstrike the Elder",
+   "obj,det"
+  ],
+  [
+   8715,
+   60,
+   "Bladeleaf the Elder",
+   "obj,det"
+  ],
+  [
+   8716,
+   60,
+   "Starglade the Elder",
+   "obj,det"
+  ],
+  [
+   8717,
+   60,
+   "Moonwarden the Elder",
+   "obj,det"
+  ],
+  [
+   8718,
+   60,
+   "Bladeswift the Elder",
+   "obj,det"
+  ],
+  [
+   8719,
+   60,
+   "Bladesing the Elder",
+   "obj,det"
+  ],
+  [
+   8720,
+   60,
+   "Skygleam the Elder",
+   "obj,det"
+  ],
+  [
+   8721,
+   60,
+   "Starweave the Elder",
+   "obj,det"
+  ],
+  [
+   8722,
+   60,
+   "Meadowrun the Elder",
+   "obj,det"
+  ],
+  [
+   8723,
+   60,
+   "Nightwind the Elder",
+   "obj,det"
+  ],
+  [
+   8724,
+   60,
+   "Morningdew the Elder",
+   "obj,det"
+  ],
+  [
+   8725,
+   60,
+   "Riversong the Elder",
+   "obj,det"
+  ],
+  [
+   8726,
+   60,
+   "Brightspear the Elder",
+   "obj,det"
+  ],
+  [
+   8727,
+   60,
+   "Farwhisper the Elder",
+   "obj,det"
+  ],
+  [
+   8742,
+   60,
+   "The Might of Kalimdor",
+   "obj"
+  ],
+  [
+   8743,
+   60,
+   "Bang a Gong!",
+   "obj,det"
+  ],
+  [
+   8745,
+   60,
+   "Treasure of the Timeless One",
+   "obj,det"
+  ],
+  [
+   8747,
+   60,
+   "The Path of the Protector",
+   "obj,det"
+  ],
+  [
+   8748,
+   60,
+   "The Path of the Protector",
+   "obj,det"
+  ],
+  [
+   8749,
+   60,
+   "The Path of the Protector",
+   "obj,det"
+  ],
+  [
+   8750,
+   60,
+   "The Path of the Protector",
+   "obj,det"
+  ],
+  [
+   8751,
+   60,
+   "The Protector of Kalimdor",
+   "obj,det"
+  ],
+  [
+   8752,
+   60,
+   "The Path of the Conqueror",
+   "obj,det"
+  ],
+  [
+   8753,
+   60,
+   "The Path of the Conqueror",
+   "obj,det"
+  ],
+  [
+   8754,
+   60,
+   "The Path of the Conqueror",
+   "obj,det"
+  ],
+  [
+   8755,
+   60,
+   "The Path of the Conqueror",
+   "obj,det"
+  ],
+  [
+   8756,
+   60,
+   "The Qiraji Conqueror",
+   "obj,det"
+  ],
+  [
+   8757,
+   60,
+   "The Path of the Invoker",
+   "obj,det"
+  ],
+  [
+   8758,
+   60,
+   "The Path of the Invoker",
+   "obj,det"
+  ],
+  [
+   8759,
+   60,
+   "The Path of the Invoker",
+   "obj,det"
+  ],
+  [
+   8760,
+   60,
+   "The Path of the Invoker",
+   "obj,det"
+  ],
+  [
+   8761,
+   60,
+   "The Grand Invoker",
+   "obj,det"
+  ],
+  [
+   8798,
+   60,
+   "A Yeti of Your Own",
+   "obj,det"
+  ],
+  [
+   8862,
+   60,
+   "Elune's Candle",
+   "obj,det"
+  ],
+  [
+   8866,
+   60,
+   "Bronzebeard the Elder",
+   "obj,det"
+  ],
+  [
+   9029,
+   60,
+   "A Bubbling Cauldron",
+   "obj,det"
+  ],
+  [
+   94212,
+   60,
+   "Craftsman's Writ: Elixir of Wisdom",
+   "obj,det"
+  ],
+  [
+   94216,
+   60,
+   "Craftsman's Writ: Elixir of Lesser Agility",
+   "det"
+  ],
+  [
+   94217,
+   60,
+   "Craftsman's Writ: Lesser Troll's Blood Elixir",
+   "obj,det"
+  ],
+  [
+   94220,
+   60,
+   "Craftsman's Writ: Pearl-Handled Dagger",
+   "obj,det"
+  ],
+  [
+   94222,
+   60,
+   "Craftsman's Writ: Iridescent Hammer",
+   "obj,det"
+  ],
+  [
+   94223,
+   60,
+   "Craftsman's Writ: Silver Skeleton Key",
+   "obj,det"
+  ],
+  [
+   94226,
+   60,
+   "Craftsman's Writ: Green Iron Gauntlets",
+   "obj,det"
+  ],
+  [
+   94227,
+   60,
+   "Craftsman's Writ: Big Bronze Knife",
+   "obj,det"
+  ],
+  [
+   94234,
+   60,
+   "Craftsman's Writ: Shadow Goggles",
+   "obj,det"
+  ],
+  [
+   94237,
+   60,
+   "Craftsman's Writ: Crafted Solid Shot",
+   "obj,det"
+  ],
+  [
+   94238,
+   60,
+   "Craftsman's Writ: Heavy Leather Ball",
+   "obj,det"
+  ],
+  [
+   94241,
+   60,
+   "Craftsman's Writ: Dark Leather Tunic",
+   "obj,det"
+  ],
+  [
+   94243,
+   60,
+   "Craftsman's Writ: Heavy Quiver",
+   "obj,det"
+  ],
+  [
+   94244,
+   60,
+   "Craftsman's Writ: Dark Leather Shoulders",
+   "obj,det"
+  ],
+  [
+   94245,
+   60,
+   "Craftsman's Writ: Barbaric Gloves",
+   "obj,det"
+  ],
+  [
+   94246,
+   60,
+   "Craftsman's Writ: Red Whelp Gloves",
+   "obj,det"
+  ],
+  [
+   94254,
+   60,
+   "Craftsman's Writ: Greater Adept's Robe",
+   "obj,det"
+  ],
+  [
+   94256,
+   60,
+   "Craftsman's Writ: Frost Protection Potion",
+   "obj,det"
+  ],
+  [
+   94258,
+   60,
+   "Craftsman's Writ: Lesser Stoneshield Potion",
+   "obj,det"
+  ],
+  [
+   94269,
+   60,
+   "Craftsman's Writ: Inlaid Mithril Cylinder",
+   "obj,det"
+  ],
+  [
+   98247,
+   60,
+   "Shipping Label",
+   "obj,det"
+  ],
+  [
+   98248,
+   60,
+   "Shipping Label",
+   "det"
+  ],
+  [
+   5237,
+   58,
+   "Mission Accomplished!",
+   "obj,det"
+  ],
+  [
+   5238,
+   58,
+   "Mission Accomplished!",
+   "obj,det"
+  ],
+  [
+   1185,
+   57,
+   "Under the Chitin Was...",
+   "obj,det"
+  ],
+  [
+   3421,
+   55,
+   "Return Trip",
+   "obj,det"
+  ],
+  [
+   3503,
+   55,
+   "Meeting with the Master",
+   "obj,det"
+  ],
+  [
+   4083,
+   55,
+   "The Spectral Chalice",
+   "obj,det"
+  ],
+  [
+   4113,
+   55,
+   "Corrupted Songflower",
+   "obj,det"
+  ],
+  [
+   4115,
+   55,
+   "Corrupted Windblossom",
+   "obj,det"
+  ],
+  [
+   4221,
+   55,
+   "Corrupted Windblossom",
+   "obj,det"
+  ],
+  [
+   5058,
+   55,
+   "Mrs. Dalson's Diary",
+   "obj,det"
+  ],
+  [
+   5060,
+   55,
+   "Locked Away",
+   "obj,det"
+  ],
+  [
+   5401,
+   55,
+   "Argent Dawn Commission",
+   "obj,det"
+  ],
+  [
+   5405,
+   55,
+   "Argent Dawn Commission",
+   "obj,det"
+  ],
+  [
+   5503,
+   55,
+   "Argent Dawn Commission",
+   "obj,det"
+  ],
+  [
+   5882,
+   55,
+   "Salve via Hunting",
+   "obj,det"
+  ],
+  [
+   5883,
+   55,
+   "Salve via Mining",
+   "obj,det"
+  ],
+  [
+   5884,
+   55,
+   "Salve via Gathering",
+   "obj,det"
+  ],
+  [
+   5885,
+   55,
+   "Salve via Skinning",
+   "obj,det"
+  ],
+  [
+   5886,
+   55,
+   "Salve via Disenchanting",
+   "obj,det"
+  ],
+  [
+   5887,
+   55,
+   "Salve via Hunting",
+   "obj,det"
+  ],
+  [
+   5888,
+   55,
+   "Salve via Mining",
+   "obj,det"
+  ],
+  [
+   5889,
+   55,
+   "Salve via Gathering",
+   "obj,det"
+  ],
+  [
+   5890,
+   55,
+   "Salve via Skinning",
+   "obj,det"
+  ],
+  [
+   5891,
+   55,
+   "Salve via Disenchanting",
+   "obj,det"
+  ],
+  [
+   9272,
+   55,
+   "Dressing the Part",
+   "obj,det"
+  ],
+  [
+   4144,
+   53,
+   "Bloodpetal Sprouts",
+   "obj,det"
+  ],
+  [
+   4148,
+   53,
+   "Bloodpetal Zapper",
+   "obj,det"
+  ],
+  [
+   3483,
+   52,
+   "Signal for Pickup",
+   "obj,det"
+  ],
+  [
+   3570,
+   52,
+   "Seeping Corruption",
+   "obj,det"
+  ],
+  [
+   4041,
+   52,
+   "The Videre Elixir",
+   "obj,det"
+  ],
+  [
+   3721,
+   50,
+   "An OOX of Your Own",
+   "obj,det"
+  ],
+  [
+   8273,
+   47,
+   "Oran's Gratitude",
+   "obj,det"
+  ],
+  [
+   7541,
+   45,
+   "Service to the Horde",
+   "obj,det"
+  ],
+  [
+   2361,
+   44,
+   "Restoring the Necklace",
+   "obj,det"
+  ],
+  [
+   7864,
+   44,
+   "Sentinel Standard Care Package",
+   "obj,det"
+  ],
+  [
+   7867,
+   44,
+   "Outrider Standard Care Package",
+   "obj,det"
+  ],
+  [
+   8261,
+   44,
+   "Arathor Standard Care Package",
+   "obj,det"
+  ],
+  [
+   8264,
+   44,
+   "Defiler's Standard Care Package",
+   "obj,det"
+  ],
+  [
+   79358,
+   43,
+   "Storm, Earth, and Fire",
+   "obj,det"
+  ],
+  [
+   92844,
+   42,
+   "Mountain of Bones",
+   "obj,det"
+  ],
+  [
+   92847,
+   42,
+   "Corrupting Tears",
+   "obj,det"
+  ],
+  [
+   96222,
+   42,
+   "Khan Hratha",
+   "obj,det"
+  ],
+  [
+   1191,
+   41,
+   "Zamek's Distraction",
+   "obj,det"
+  ],
+  [
+   1792,
+   40,
+   "Whirlwind Weapon",
+   "obj,det"
+  ],
+  [
+   1958,
+   40,
+   "Celestial Power",
+   "obj,det"
+  ],
+  [
+   8769,
+   40,
+   "A Ticking Present",
+   "obj,det"
+  ],
+  [
+   78823,
+   40,
+   "Terror of the Desert Skies",
+   "obj,det"
+  ],
+  [
+   78830,
+   40,
+   "Terror of the Desert Skies",
+   "obj,det"
+  ],
+  [
+   79242,
+   40,
+   "No Honor Among Thieves",
+   "obj,det"
+  ],
+  [
+   79366,
+   40,
+   "Heed My Call",
+   "obj,det"
+  ],
+  [
+   92743,
+   40,
+   "A Conqueror's Crown",
+   "obj,det"
+  ],
+  [
+   92841,
+   40,
+   "Valley of Bones",
+   "obj,det"
+  ],
+  [
+   92846,
+   40,
+   "Outcast Necromancers",
+   "obj,det"
+  ],
+  [
+   93224,
+   40,
+   "Carved Centaur Totems",
+   "obj,det"
+  ],
+  [
+   93225,
+   40,
+   "Carved Centaur Totems",
+   "obj,det"
+  ],
+  [
+   95748,
+   40,
+   "The Gurubashi Legends of Old",
+   "obj,det"
+  ],
+  [
+   96016,
+   40,
+   "The Tempest's Weapons",
+   "obj,det"
+  ],
+  [
+   96135,
+   40,
+   "Heed My Call",
+   "obj,det"
+  ],
+  [
+   96774,
+   40,
+   "Ancient Gurubashi Idol",
+   "obj,det"
+  ],
+  [
+   98887,
+   39,
+   "Conflict at Darkspear Islands",
+   "obj,det"
+  ],
+  [
+   98895,
+   39,
+   "Darkspear Islands Clash",
+   "obj,det"
+  ],
+  [
+   98906,
+   39,
+   "The Battle for Darkspear Islands!",
+   "obj,det"
+  ],
+  [
+   96800,
+   38,
+   "Past Due",
+   "det"
+  ],
+  [
+   97047,
+   38,
+   "The Cook in the Cage",
+   "obj,det"
+  ],
+  [
+   1271,
+   37,
+   "Feast at the Blue Recluse",
+   "obj,det"
+  ],
+  [
+   1559,
+   37,
+   "Flash Bomb Recipe",
+   "obj,det"
+  ],
+  [
+   92519,
+   36,
+   "Ward Restocking",
+   "obj,det"
+  ],
+  [
+   95534,
+   36,
+   "Strahnbrad Mystery",
+   "obj,det"
+  ],
+  [
+   96781,
+   36,
+   "What's the Big Idea?",
+   "obj,det"
+  ],
+  [
+   96783,
+   36,
+   "A Way In",
+   "obj,det"
+  ],
+  [
+   96784,
+   36,
+   "Master of Disguise",
+   "obj,det"
+  ],
+  [
+   96785,
+   36,
+   "Ain't No Telling",
+   "obj,det"
+  ],
+  [
+   96786,
+   36,
+   "The Syndicate Sting",
+   "obj,det"
+  ],
+  [
+   97539,
+   36,
+   "Silky Sutures",
+   "obj,det"
+  ],
+  [
+   254,
+   35,
+   "Digging Through the Dirt",
+   "obj,det"
+  ],
+  [
+   93176,
+   35,
+   "My Little Friends",
+   "obj,det"
+  ],
+  [
+   97328,
+   35,
+   "Anything of Value",
+   "obj,det"
+  ],
+  [
+   7863,
+   34,
+   "Sentinel Basic Care Package",
+   "obj,det"
+  ],
+  [
+   7866,
+   34,
+   "Outrider Basic Care Package",
+   "obj,det"
+  ],
+  [
+   8260,
+   34,
+   "Arathor Basic Care Package",
+   "obj,det"
+  ],
+  [
+   8263,
+   34,
+   "Defiler's Basic Care Package",
+   "obj,det"
+  ],
+  [
+   93585,
+   34,
+   "This Light of Mine",
+   "obj,det"
+  ],
+  [
+   98297,
+   34,
+   "Stopping the Cycle",
+   "det"
+  ],
+  [
+   98300,
+   34,
+   "Word to Ironforge",
+   "obj,det"
+  ],
+  [
+   92707,
+   33,
+   "The Giant in the Den",
+   "obj,det"
+  ],
+  [
+   96264,
+   33,
+   "Elemental Aid",
+   "obj,det"
+  ],
+  [
+   97265,
+   33,
+   "Hate the Hatefury",
+   "obj,det"
+  ],
+  [
+   97284,
+   33,
+   "Vahlarriel's Vengeance",
+   "obj,det"
+  ],
+  [
+   98463,
+   33,
+   "Talk of the Town",
+   "obj,det"
+  ],
+  [
+   79974,
+   32,
+   "Wet Job",
+   "obj,det"
+  ],
+  [
+   79975,
+   32,
+   "Eagle's Fist",
+   "obj,det"
+  ],
+  [
+   79976,
+   32,
+   "This Must Be The Place",
+   "obj,det"
+  ],
+  [
+   86757,
+   32,
+   "Slowing the Orc Advance",
+   "det"
+  ],
+  [
+   98310,
+   32,
+   "Gleaning Our Future",
+   "det"
+  ],
+  [
+   98313,
+   32,
+   "For Further Study",
+   "det"
+  ],
+  [
+   88756,
+   31,
+   "Bring Back a Bang",
+   "det"
+  ],
+  [
+   95737,
+   31,
+   "Seeking Caitlin",
+   "obj,det"
+  ],
+  [
+   98216,
+   31,
+   "Understanding Our Present",
+   "det"
+  ],
+  [
+   98223,
+   31,
+   "Old Habits",
+   "det"
+  ],
+  [
+   247,
+   30,
+   "The Hunt Completed",
+   "obj,det"
+  ],
+  [
+   1706,
+   30,
+   "Grimand's Armor",
+   "obj,det"
+  ],
+  [
+   1709,
+   30,
+   "Klockmort's Creation",
+   "obj,det"
+  ],
+  [
+   1711,
+   30,
+   "Mathiel's Armor",
+   "obj,det"
+  ],
+  [
+   1843,
+   30,
+   "Brutal Gauntlets",
+   "obj,det"
+  ],
+  [
+   1845,
+   30,
+   "Brutal Helm",
+   "obj,det"
+  ],
+  [
+   1847,
+   30,
+   "Brutal Legguards",
+   "obj,det"
+  ],
+  [
+   1848,
+   30,
+   "Brutal Hauberk",
+   "obj,det"
+  ],
+  [
+   2952,
+   30,
+   "The Sparklematic 5200!",
+   "obj,det"
+  ],
+  [
+   2953,
+   30,
+   "More Sparklematic Action",
+   "obj,det"
+  ],
+  [
+   4603,
+   30,
+   "More Sparklematic Action",
+   "obj,det"
+  ],
+  [
+   4604,
+   30,
+   "More Sparklematic Action",
+   "obj,det"
+  ],
+  [
+   4605,
+   30,
+   "The Sparklematic 5200!",
+   "obj,det"
+  ],
+  [
+   4606,
+   30,
+   "The Sparklematic 5200!",
+   "obj,det"
+  ],
+  [
+   87491,
+   30,
+   "Spark of Freedom",
+   "obj,det"
+  ],
+  [
+   94789,
+   30,
+   "Call of Air",
+   "obj,det"
+  ],
+  [
+   96261,
+   30,
+   "The Broodmother",
+   "obj,det"
+  ],
+  [
+   96294,
+   30,
+   "A Darker Truth",
+   "obj,det"
+  ],
+  [
+   98069,
+   30,
+   "Stolen Freewind Supplies",
+   "obj,det"
+  ],
+  [
+   98070,
+   30,
+   "Stop the Screeching",
+   "obj,det"
+  ],
+  [
+   98219,
+   30,
+   "The Shamed Lieutenant",
+   "det"
+  ],
+  [
+   98283,
+   30,
+   "Carnage",
+   "det"
+  ],
+  [
+   98291,
+   30,
+   "Death to the Dragonmaw",
+   "det"
+  ],
+  [
+   98293,
+   30,
+   "Forced Disarmament",
+   "det"
+  ],
+  [
+   98417,
+   30,
+   "Vengeful Trail",
+   "det"
+  ],
+  [
+   98418,
+   30,
+   "Shared Fury",
+   "obj,det"
+  ],
+  [
+   96241,
+   29,
+   "Talkin' bout Toxins, Mon",
+   "obj,det"
+  ],
+  [
+   96259,
+   29,
+   "Defending the Dead",
+   "obj,det"
+  ],
+  [
+   96260,
+   29,
+   "Stronger than Steel",
+   "obj,det"
+  ],
+  [
+   98155,
+   29,
+   "Pristine Pesterhide Pelts",
+   "obj,det"
+  ],
+  [
+   98156,
+   29,
+   "Packaged Pristine Pelts",
+   "obj,det"
+  ],
+  [
+   98208,
+   29,
+   "Bloom of the Heavens",
+   "det"
+  ],
+  [
+   98209,
+   29,
+   "Bloom of the Heavens",
+   "det"
+  ],
+  [
+   98230,
+   29,
+   "This Land Was Their Land",
+   "det"
+  ],
+  [
+   98245,
+   29,
+   "Razormaw Needling",
+   "det"
+  ],
+  [
+   98246,
+   29,
+   "Trying Times",
+   "det"
+  ],
+  [
+   1782,
+   28,
+   "Furen's Armor",
+   "obj,det"
+  ],
+  [
+   96138,
+   28,
+   "Merrick's Bow",
+   "det"
+  ],
+  [
+   98221,
+   28,
+   "From the Ashes",
+   "det"
+  ],
+  [
+   6581,
+   27,
+   "Warsong Saw Blades",
+   "obj,det"
+  ],
+  [
+   65610,
+   27,
+   "Wish You Were Here",
+   "obj,det"
+  ],
+  [
+   98071,
+   27,
+   "Brewer's Trade",
+   "obj,det"
+  ],
+  [
+   98072,
+   27,
+   "Crocs of the Sky",
+   "det"
+  ],
+  [
+   1942,
+   26,
+   "Astral Knot Garment",
+   "obj,det"
+  ],
+  [
+   1946,
+   26,
+   "Nether-lace Garment",
+   "obj,det"
+  ],
+  [
+   79363,
+   26,
+   "Silvia's Sword",
+   "det"
+  ],
+  [
+   86576,
+   26,
+   "Bloodfury Trinkets",
+   "det"
+  ],
+  [
+   95140,
+   26,
+   "Old Fire-Eye",
+   "obj,det"
+  ],
+  [
+   97538,
+   26,
+   "Pigments for Paints",
+   "det"
+  ],
+  [
+   98027,
+   26,
+   "Gleaming Crescent Necklace",
+   "det"
+  ],
+  [
+   6546,
+   25,
+   "Warsong Outrider Update",
+   "obj,det"
+  ],
+  [
+   79362,
+   25,
+   "Grant's Shield",
+   "det"
+  ],
+  [
+   95036,
+   25,
+   "A Moon-Kissed Blade",
+   "obj,det"
+  ],
+  [
+   95042,
+   25,
+   "Seeking the Kor Gem",
+   "obj,det"
+  ],
+  [
+   95111,
+   25,
+   "An Underrated Talent",
+   "obj,det"
+  ],
+  [
+   95125,
+   25,
+   "Ott's Masterwork",
+   "obj,det"
+  ],
+  [
+   95126,
+   25,
+   "The Moonsilver Blade",
+   "obj,det"
+  ],
+  [
+   95999,
+   25,
+   "WANTED: Incinerator Gar'im",
+   "det"
+  ],
+  [
+   98094,
+   25,
+   "Scout Support",
+   "obj,det"
+  ],
+  [
+   98095,
+   25,
+   "Valuable Vantages",
+   "obj,det"
+  ],
+  [
+   98189,
+   25,
+   "Return the Statuette",
+   "det"
+  ],
+  [
+   79192,
+   24,
+   "Stepping Stones",
+   "obj,det"
+  ],
+  [
+   79980,
+   24,
+   "Scramble",
+   "obj,det"
+  ],
+  [
+   95034,
+   24,
+   "The Debt",
+   "obj,det"
+  ],
+  [
+   96137,
+   24,
+   "Ira's Dagger",
+   "det"
+  ],
+  [
+   96779,
+   24,
+   "Syndicate Sabotage",
+   "obj,det"
+  ],
+  [
+   78261,
+   23,
+   "The Horn of Xelthos",
+   "obj,det"
+  ],
+  [
+   94502,
+   23,
+   "Call of Water",
+   "obj,det"
+  ],
+  [
+   95883,
+   23,
+   "The Tortured Soul",
+   "det"
+  ],
+  [
+   95884,
+   23,
+   "The Offering Stone",
+   "det"
+  ],
+  [
+   95885,
+   23,
+   "The Offering of Blood",
+   "det"
+  ],
+  [
+   97250,
+   23,
+   "Wrongly Blamed, Justly Corrected",
+   "det"
+  ],
+  [
+   98093,
+   23,
+   "Field to Clear",
+   "det"
+  ],
+  [
+   98251,
+   23,
+   "Never Coming Back",
+   "det"
+  ],
+  [
+   98252,
+   23,
+   "A Void Path",
+   "det"
+  ],
+  [
+   79007,
+   22,
+   "... and that note you found",
+   "det"
+  ],
+  [
+   79008,
+   22,
+   "... and that note you found",
+   "obj,det"
+  ],
+  [
+   91858,
+   22,
+   "Diplomatic Incident",
+   "obj,det"
+  ],
+  [
+   91861,
+   22,
+   "Into Fenris Keep",
+   "obj,det"
+  ],
+  [
+   91862,
+   22,
+   "Lumina Windsinger",
+   "obj,det"
+  ],
+  [
+   92415,
+   22,
+   "Remember That I Love You",
+   "det"
+  ],
+  [
+   95189,
+   22,
+   "Crest of Lordaeron",
+   "det"
+  ],
+  [
+   95195,
+   22,
+   "Bloodied Insignia",
+   "det"
+  ],
+  [
+   95204,
+   22,
+   "Crest of Lordaeron",
+   "det"
+  ],
+  [
+   96139,
+   22,
+   "The Valor Family",
+   "det"
+  ],
+  [
+   96204,
+   22,
+   "The Windshaper's Wrath",
+   "obj,det"
+  ],
+  [
+   98197,
+   22,
+   "Spoils of War",
+   "det"
+  ],
+  [
+   98282,
+   22,
+   "Alchemical Hazards",
+   "det"
+  ],
+  [
+   6547,
+   21,
+   "Warsong Scout Update",
+   "obj,det"
+  ],
+  [
+   97003,
+   21,
+   "Chol'aruk the Ravener",
+   "det"
+  ],
+  [
+   97005,
+   21,
+   "Chol'aruk the Ravener",
+   "obj,det"
+  ],
+  [
+   98386,
+   21,
+   "Alther's Mill",
+   "obj,det"
+  ],
+  [
+   98387,
+   21,
+   "Blackrock Blockade",
+   "obj,det"
+  ],
+  [
+   98459,
+   21,
+   "A Lack of Virtue",
+   "obj,det"
+  ],
+  [
+   98461,
+   21,
+   "Unrequited Love",
+   "obj,det"
+  ],
+  [
+   889,
+   20,
+   "Spirit of the Wind",
+   "obj,det"
+  ],
+  [
+   972,
+   20,
+   "Water Sapta",
+   "obj,det"
+  ],
+  [
+   1793,
+   20,
+   "The Tome of Valor",
+   "obj,det"
+  ],
+  [
+   5042,
+   20,
+   "Agamaggan's Strength",
+   "obj,det"
+  ],
+  [
+   5043,
+   20,
+   "Agamaggan's Agility",
+   "obj,det"
+  ],
+  [
+   5044,
+   20,
+   "Wisdom of Agamaggan",
+   "obj,det"
+  ],
+  [
+   5045,
+   20,
+   "Rising Spirit",
+   "obj,det"
+  ],
+  [
+   5046,
+   20,
+   "Razorhide",
+   "obj,det"
+  ],
+  [
+   6383,
+   20,
+   "The Ashenvale Hunt",
+   "obj,det"
+  ],
+  [
+   8768,
+   20,
+   "A Gaily Wrapped Present",
+   "obj,det"
+  ],
+  [
+   65601,
+   20,
+   "Love Hurts",
+   "det"
+  ],
+  [
+   86614,
+   20,
+   "Silver of the Waves",
+   "obj,det"
+  ],
+  [
+   87760,
+   20,
+   "Holy Diver",
+   "obj,det"
+  ],
+  [
+   92706,
+   20,
+   "WANTED: Bruuz",
+   "det"
+  ],
+  [
+   94819,
+   20,
+   "Contingency Plan",
+   "obj,det"
+  ],
+  [
+   95774,
+   20,
+   "Her Name Is Olgra",
+   "det"
+  ],
+  [
+   98299,
+   20,
+   "Stop the Spread",
+   "obj,det"
+  ],
+  [
+   98340,
+   20,
+   "The Great Cat Spirit",
+   "obj,det"
+  ],
+  [
+   98341,
+   20,
+   "The Great Windborne Cat Spirit",
+   "obj,det"
+  ],
+  [
+   98342,
+   20,
+   "The Great Cat Spirit",
+   "obj,det"
+  ],
+  [
+   98393,
+   20,
+   "The Great Cat Spirit",
+   "obj,det"
+  ],
+  [
+   98394,
+   20,
+   "The Great Cat Spirit",
+   "obj,det"
+  ],
+  [
+   98396,
+   20,
+   "The Great Cat Spirit",
+   "obj,det"
+  ],
+  [
+   98404,
+   20,
+   "The Great Windborne Cat Spirit",
+   "obj,det"
+  ],
+  [
+   98405,
+   20,
+   "The Great Cat Spirit",
+   "obj,det"
+  ],
+  [
+   98731,
+   20,
+   "Blessings of the Great Cat Spirit",
+   "obj,det"
+  ],
+  [
+   98738,
+   20,
+   "Blessings of the Great Windborne Cat Spirit",
+   "obj,det"
+  ],
+  [
+   98739,
+   20,
+   "Blessings of the Great Cat Spirit",
+   "obj,det"
+  ],
+  [
+   6545,
+   19,
+   "Warsong Runner Update",
+   "obj,det"
+  ],
+  [
+   86613,
+   18,
+   "Excavation Tools",
+   "obj,det"
+  ],
+  [
+   97234,
+   18,
+   "Reading Room",
+   "obj,det"
+  ],
+  [
+   97237,
+   18,
+   "Shelf Picked",
+   "obj,det"
+  ],
+  [
+   86585,
+   17,
+   "Banner of the Fallen",
+   "obj,det"
+  ],
+  [
+   97894,
+   17,
+   "Business in Auberdine",
+   "obj,det"
+  ],
+  [
+   97914,
+   17,
+   "Expanding Horizons",
+   "obj,det"
+  ],
+  [
+   97926,
+   17,
+   "Making Do",
+   "obj,det"
+  ],
+  [
+   98407,
+   17,
+   "Show of Force",
+   "det"
+  ],
+  [
+   1941,
+   15,
+   "Manaweave Robe",
+   "obj,det"
+  ],
+  [
+   1962,
+   15,
+   "Spellfire Robes",
+   "obj,det"
+  ],
+  [
+   92909,
+   15,
+   "Harvesting the Harvesters",
+   "obj,det"
+  ],
+  [
+   92910,
+   15,
+   "Harvesting the Harvesters",
+   "obj,det"
+  ],
+  [
+   92911,
+   15,
+   "Harvesting the Harvesters",
+   "obj,det"
+  ],
+  [
+   926,
+   14,
+   "Flawed Power Stone",
+   "obj,det"
+  ],
+  [
+   94468,
+   14,
+   "Call of Fire",
+   "obj,det"
+  ],
+  [
+   97253,
+   14,
+   "Parts and Pieces",
+   "det"
+  ],
+  [
+   92741,
+   13,
+   "Unwelcome Visitors",
+   "obj,det"
+  ],
+  [
+   93090,
+   13,
+   "What Comes Next",
+   "obj,det"
+  ],
+  [
+   93159,
+   13,
+   "The Strange Hermit",
+   "det"
+  ],
+  [
+   93160,
+   13,
+   "The Forest's Bounty",
+   "det"
+  ],
+  [
+   93165,
+   13,
+   "Mercy Falls on Deaf Ears",
+   "det"
+  ],
+  [
+   93172,
+   13,
+   "Free the Hollows",
+   "det"
+  ],
+  [
+   93739,
+   13,
+   "Exploring the Horde",
+   "det"
+  ],
+  [
+   93963,
+   13,
+   "Exploring the Alliance",
+   "obj,det"
+  ],
+  [
+   95328,
+   13,
+   "Whispering Horror Residue",
+   "obj,det"
+  ],
+  [
+   95349,
+   13,
+   "The Earthen Ring",
+   "obj,det"
+  ],
+  [
+   95350,
+   13,
+   "Welcome to Azeroth",
+   "det"
+  ],
+  [
+   98024,
+   13,
+   "Journey to the Crossroads",
+   "det"
+  ],
+  [
+   98025,
+   13,
+   "WANTED: Jai'vhanel",
+   "det"
+  ],
+  [
+   1641,
+   12,
+   "The Tome of Divinity",
+   "obj,det"
+  ],
+  [
+   1790,
+   12,
+   "The Symbol of Life",
+   "obj,det"
+  ],
+  [
+   91746,
+   12,
+   "Elmpaw's Head",
+   "obj,det"
+  ],
+  [
+   92646,
+   12,
+   "Confront Lorthuna",
+   "obj,det"
+  ],
+  [
+   92708,
+   12,
+   "A Grand Adventure",
+   "det"
+  ],
+  [
+   92709,
+   12,
+   "A Grand Adventure",
+   "obj,det"
+  ],
+  [
+   93065,
+   12,
+   "Prepare for Battle",
+   "obj,det"
+  ],
+  [
+   93836,
+   12,
+   "The Fate of Zephras",
+   "obj,det"
+  ],
+  [
+   93958,
+   12,
+   "The Inner Sanctum",
+   "obj,det"
+  ],
+  [
+   94485,
+   12,
+   "Tears of the Lady",
+   "det"
+  ],
+  [
+   94489,
+   12,
+   "The Wounds of Betrayal",
+   "det"
+  ],
+  [
+   94490,
+   12,
+   "Ripped Missive",
+   "det"
+  ],
+  [
+   94491,
+   12,
+   "The Fate of the Den",
+   "det"
+  ],
+  [
+   95065,
+   12,
+   "Fishin' Time",
+   "obj,det"
+  ],
+  [
+   96877,
+   12,
+   "Halikor's Hoof",
+   "det"
+  ],
+  [
+   98392,
+   12,
+   "Darkness in the Glade",
+   "det"
+  ],
+  [
+   98398,
+   12,
+   "The Oracle Tree",
+   "det"
+  ],
+  [
+   98403,
+   12,
+   "Twisted Hatred",
+   "det"
+  ],
+  [
+   98427,
+   12,
+   "Ceasing Operations",
+   "obj,det"
+  ],
+  [
+   1822,
+   11,
+   "Heirloom Weapon",
+   "obj,det"
+  ],
+  [
+   76160,
+   11,
+   "Stalk With The Earthmother",
+   "obj,det"
+  ],
+  [
+   76240,
+   11,
+   "Stalk With The Earthmother",
+   "obj,det"
+  ],
+  [
+   91740,
+   11,
+   "Croaky's Head",
+   "det"
+  ],
+  [
+   92640,
+   11,
+   "Desperate Times",
+   "obj,det"
+  ],
+  [
+   92642,
+   11,
+   "Disrupting Logistics",
+   "obj,det"
+  ],
+  [
+   92643,
+   11,
+   "The Turncoat",
+   "obj,det"
+  ],
+  [
+   92644,
+   11,
+   "Unfortunate News",
+   "obj,det"
+  ],
+  [
+   92645,
+   11,
+   "Breaking the Breaker",
+   "obj,det"
+  ],
+  [
+   92840,
+   11,
+   "Catching Wind",
+   "det"
+  ],
+  [
+   92871,
+   11,
+   "In Service of Zephras",
+   "obj,det"
+  ],
+  [
+   92880,
+   11,
+   "Return to Valanaar",
+   "obj,det"
+  ],
+  [
+   92881,
+   11,
+   "The High Elder's Request",
+   "obj,det"
+  ],
+  [
+   93320,
+   11,
+   "Tower Defense",
+   "obj,det"
+  ],
+  [
+   93740,
+   11,
+   "Blood for Blood",
+   "obj,det"
+  ],
+  [
+   94484,
+   11,
+   "Unnerving Silence",
+   "det"
+  ],
+  [
+   94486,
+   11,
+   "Feathers for Binding",
+   "det"
+  ],
+  [
+   94487,
+   11,
+   "Unwanted and Unworthy",
+   "det"
+  ],
+  [
+   94488,
+   11,
+   "The Ties That Bind",
+   "det"
+  ],
+  [
+   94493,
+   11,
+   "A Sacrifice in Vain",
+   "obj,det"
+  ],
+  [
+   94568,
+   11,
+   "The Cult's True Plans",
+   "obj,det"
+  ],
+  [
+   94897,
+   11,
+   "The Fate of a Loved One",
+   "det"
+  ],
+  [
+   97281,
+   11,
+   "A Simmering Storm",
+   "det"
+  ],
+  [
+   98046,
+   11,
+   "Crown of the Earth",
+   "obj,det"
+  ],
+  [
+   98065,
+   11,
+   "Crown of the Earth",
+   "obj,det"
+  ],
+  [
+   98067,
+   11,
+   "Eyes of the Sentinels",
+   "det"
+  ],
+  [
+   98512,
+   11,
+   "Al'Aketh Assassins",
+   "obj,det"
+  ],
+  [
+   99051,
+   11,
+   "Threat from Below",
+   "det"
+  ],
+  [
+   99082,
+   11,
+   "The High Chieftain",
+   "obj,det"
+  ],
+  [
+   410,
+   10,
+   "The Dormant Shade",
+   "obj,det"
+  ],
+  [
+   431,
+   10,
+   "Candles of Beckoning",
+   "obj,det"
+  ],
+  [
+   1682,
+   10,
+   "Grey Iron Weapons",
+   "obj,det"
+  ],
+  [
+   1693,
+   10,
+   "Weapons of Elunite",
+   "obj,det"
+  ],
+  [
+   2399,
+   10,
+   "The Sprouted Fronds",
+   "obj,det"
+  ],
+  [
+   5627,
+   10,
+   "Stars of Elune",
+   "obj,det"
+  ],
+  [
+   8803,
+   10,
+   "A Festive Gift",
+   "obj,det"
+  ],
+  [
+   76156,
+   10,
+   "Stalk With The Earthmother",
+   "obj,det"
+  ],
+  [
+   86667,
+   10,
+   "Snowbound",
+   "obj,det"
+  ],
+  [
+   91724,
+   10,
+   "Delicate Instruments",
+   "obj,det"
+  ],
+  [
+   91725,
+   10,
+   "Stolen Enchanting Supplies",
+   "det"
+  ],
+  [
+   92727,
+   10,
+   "The Missing Scholar",
+   "obj,det"
+  ],
+  [
+   92849,
+   10,
+   "The Missing Scholar",
+   "det"
+  ],
+  [
+   92850,
+   10,
+   "The Missing Scholar",
+   "det"
+  ],
+  [
+   93791,
+   10,
+   "Speak with Belann",
+   "obj,det"
+  ],
+  [
+   93797,
+   10,
+   "Boughs in the Wind",
+   "obj,det"
+  ],
+  [
+   94006,
+   10,
+   "The Great Ursera Spirit",
+   "det"
+  ],
+  [
+   94007,
+   10,
+   "Taming the Beast",
+   "obj,det"
+  ],
+  [
+   94013,
+   10,
+   "Taming the Beast",
+   "det"
+  ],
+  [
+   94050,
+   10,
+   "Training the Beast",
+   "det"
+  ],
+  [
+   94449,
+   10,
+   "Call of Fire",
+   "obj,det"
+  ],
+  [
+   94638,
+   10,
+   "Strength and Mercy",
+   "det"
+  ],
+  [
+   94821,
+   10,
+   "Confounding Flash",
+   "obj,det"
+  ],
+  [
+   94911,
+   10,
+   "Child of Nature",
+   "obj,det"
+  ],
+  [
+   94913,
+   10,
+   "Moonglade",
+   "obj,det"
+  ],
+  [
+   94978,
+   10,
+   "Taming the Beast",
+   "det"
+  ],
+  [
+   94979,
+   10,
+   "Taming the Beast",
+   "det"
+  ],
+  [
+   95041,
+   10,
+   "Data Hoarders",
+   "det"
+  ],
+  [
+   95212,
+   10,
+   "Never Saddle on Quality",
+   "det"
+  ],
+  [
+   95213,
+   10,
+   "Stolen Blasting Powder",
+   "det"
+  ],
+  [
+   95214,
+   10,
+   "Stolen Blasting Powder",
+   "det"
+  ],
+  [
+   96874,
+   10,
+   "This Is Spinal Axe",
+   "det"
+  ],
+  [
+   96875,
+   10,
+   "Beasts of Thunder Ridge",
+   "obj,det"
+  ],
+  [
+   97282,
+   10,
+   "Stormy Potential",
+   "det"
+  ],
+  [
+   97485,
+   10,
+   "Traditions of the Bluff",
+   "obj,det"
+  ],
+  [
+   98391,
+   10,
+   "The Sisterhood of Elune",
+   "obj,det"
+  ],
+  [
+   98424,
+   10,
+   "Fizsprocket's Notes",
+   "obj,det"
+  ],
+  [
+   98435,
+   10,
+   "Thunderhorn's Report",
+   "obj,det"
+  ],
+  [
+   99050,
+   10,
+   "The Great Tree Provides",
+   "det"
+  ],
+  [
+   99053,
+   10,
+   "Escaping Ban'ethil",
+   "obj,det"
+  ],
+  [
+   99073,
+   10,
+   "Easing Suffering",
+   "obj,det"
+  ],
+  [
+   99260,
+   10,
+   "Fillion's Mission",
+   "det"
+  ],
+  [
+   92679,
+   9,
+   "Blood Tithe",
+   "det"
+  ],
+  [
+   92682,
+   9,
+   "Make Yourself Useful",
+   "det"
+  ],
+  [
+   92683,
+   9,
+   "Flutterfly Dust",
+   "det"
+  ],
+  [
+   92684,
+   9,
+   "Ornery Ornery Galestriders",
+   "det"
+  ],
+  [
+   92685,
+   9,
+   "The Hills Have Eyes",
+   "det"
+  ],
+  [
+   92693,
+   9,
+   "Standing Our Ground",
+   "obj,det"
+  ],
+  [
+   92698,
+   9,
+   "What Is My Purpose?",
+   "det"
+  ],
+  [
+   92699,
+   9,
+   "The Supreme Magister",
+   "obj,det"
+  ],
+  [
+   92700,
+   9,
+   "The Grand Skyseer",
+   "det"
+  ],
+  [
+   92701,
+   9,
+   "To Valanaar",
+   "obj,det"
+  ],
+  [
+   92703,
+   9,
+   "Deliver the News",
+   "obj,det"
+  ],
+  [
+   93317,
+   9,
+   "Crab Season",
+   "obj,det"
+  ],
+  [
+   93735,
+   9,
+   "The Broken Construct",
+   "det"
+  ],
+  [
+   93736,
+   9,
+   "Unwelcome Spirits",
+   "det"
+  ],
+  [
+   93737,
+   9,
+   "The Broken Construct",
+   "det"
+  ],
+  [
+   93738,
+   9,
+   "The Broken Construct",
+   "obj,det"
+  ],
+  [
+   93948,
+   9,
+   "Deliver the Signet",
+   "det"
+  ],
+  [
+   98326,
+   9,
+   "Frosthowl",
+   "det"
+  ],
+  [
+   99046,
+   9,
+   "The Lost Runner",
+   "obj,det"
+  ],
+  [
+   99047,
+   9,
+   "Not Dead Yet",
+   "det"
+  ],
+  [
+   99079,
+   9,
+   "Longwalker Malah",
+   "det"
+  ],
+  [
+   99080,
+   9,
+   "Drive Them Out",
+   "obj,det"
+  ],
+  [
+   99081,
+   9,
+   "Grim Tidings",
+   "obj,det"
+  ],
+  [
+   99101,
+   9,
+   "Our Ancient Enemy",
+   "obj,det"
+  ],
+  [
+   91723,
+   8,
+   "Delicate Instruments",
+   "det"
+  ],
+  [
+   92528,
+   8,
+   "Among the Faithful",
+   "det"
+  ],
+  [
+   92529,
+   8,
+   "Falaath Village",
+   "det"
+  ],
+  [
+   92550,
+   8,
+   "Havoc in the Highlands",
+   "det"
+  ],
+  [
+   92551,
+   8,
+   "Stolen Supplies",
+   "det"
+  ],
+  [
+   92579,
+   8,
+   "To Valanaar",
+   "det"
+  ],
+  [
+   93036,
+   8,
+   "Infiltrating the Cult",
+   "det"
+  ],
+  [
+   93926,
+   8,
+   "The Western Watch",
+   "det"
+  ],
+  [
+   93927,
+   8,
+   "A Last Request",
+   "det"
+  ],
+  [
+   93949,
+   8,
+   "Bugged",
+   "obj,det"
+  ],
+  [
+   98319,
+   8,
+   "Secure the Mountain",
+   "det"
+  ],
+  [
+   98322,
+   8,
+   "Secure the Mountain",
+   "det"
+  ],
+  [
+   98323,
+   8,
+   "Secure the Mountain",
+   "det"
+  ],
+  [
+   98430,
+   8,
+   "The Longwalkers",
+   "obj,det"
+  ],
+  [
+   99158,
+   8,
+   "Dawn in the Mountains",
+   "det"
+  ],
+  [
+   99159,
+   8,
+   "Finding Warmth",
+   "det"
+  ],
+  [
+   99160,
+   8,
+   "Rime's Wrath",
+   "det"
+  ],
+  [
+   99161,
+   8,
+   "Rime's Wrath",
+   "det"
+  ],
+  [
+   99162,
+   8,
+   "Treacherous Cold",
+   "det"
+  ],
+  [
+   308,
+   7,
+   "Distracting Jarven",
+   "obj,det"
+  ],
+  [
+   87288,
+   7,
+   "Soft Saber Pelts",
+   "obj,det"
+  ],
+  [
+   91732,
+   7,
+   "Good Steel",
+   "det"
+  ],
+  [
+   91751,
+   7,
+   "Rough Wolf Pelts",
+   "det"
+  ],
+  [
+   91753,
+   7,
+   "An Enchanting Lesson",
+   "obj,det"
+  ],
+  [
+   91777,
+   7,
+   "Rare Books",
+   "det"
+  ],
+  [
+   98321,
+   7,
+   "Flintfire's Shipment",
+   "det"
+  ],
+  [
+   99127,
+   7,
+   "A Net Disaster",
+   "det"
+  ],
+  [
+   99128,
+   7,
+   "Slimy Menace",
+   "det"
+  ],
+  [
+   99129,
+   7,
+   "A Man About a Murloc",
+   "det"
+  ],
+  [
+   99130,
+   7,
+   "An Enticing Offer",
+   "det"
+  ],
+  [
+   99131,
+   7,
+   "Baited for Success",
+   "det"
+  ],
+  [
+   99143,
+   7,
+   "Bottles and Baubles",
+   "det"
+  ],
+  [
+   99411,
+   7,
+   "Kyle's Gone Missing!",
+   "obj,det"
+  ],
+  [
+   9260,
+   6,
+   "Investigate the Scourge of Stormwind",
+   "obj,det"
+  ],
+  [
+   92514,
+   6,
+   "Welcome to Shen'dar Village",
+   "det"
+  ],
+  [
+   92595,
+   6,
+   "The Windshapers",
+   "det"
+  ],
+  [
+   92596,
+   6,
+   "The High Order",
+   "det"
+  ],
+  [
+   93461,
+   6,
+   "Welcome to Shen'dar Village",
+   "det"
+  ],
+  [
+   94413,
+   6,
+   "A Magical Affront",
+   "det"
+  ],
+  [
+   96045,
+   6,
+   "Camping 101: Alchemy",
+   "obj,det"
+  ],
+  [
+   96046,
+   6,
+   "Camping 101: Mining",
+   "obj,det"
+  ],
+  [
+   96047,
+   6,
+   "Camping 101: First Aid",
+   "obj,det"
+  ],
+  [
+   96050,
+   6,
+   "Camping 101: Fishing",
+   "obj,det"
+  ],
+  [
+   96055,
+   6,
+   "Camping 101: Herbalism",
+   "det"
+  ],
+  [
+   96056,
+   6,
+   "Camping 101: Skinning",
+   "det"
+  ],
+  [
+   96059,
+   6,
+   "Camping 101: Enchanting",
+   "obj,det"
+  ],
+  [
+   96101,
+   6,
+   "The Great Outdoors",
+   "det"
+  ],
+  [
+   96102,
+   6,
+   "Camping 101: Tailoring",
+   "obj,det"
+  ],
+  [
+   96604,
+   6,
+   "The Great Outdoors",
+   "det"
+  ],
+  [
+   96605,
+   6,
+   "The Great Outdoors",
+   "obj,det"
+  ],
+  [
+   96606,
+   6,
+   "The Great Outdoors",
+   "obj,det"
+  ],
+  [
+   96608,
+   6,
+   "The Great Outdoors",
+   "det"
+  ],
+  [
+   96626,
+   6,
+   "Camping 101: Cooking",
+   "det"
+  ],
+  [
+   96629,
+   6,
+   "Camping 101: Cooking",
+   "det"
+  ],
+  [
+   96634,
+   6,
+   "Camping 101: Cooking",
+   "obj,det"
+  ],
+  [
+   96646,
+   6,
+   "Camping 101: Cooking",
+   "det"
+  ],
+  [
+   96655,
+   6,
+   "Camping 101: Cooking",
+   "det"
+  ],
+  [
+   96661,
+   6,
+   "Camping 101: Cooking",
+   "obj,det"
+  ],
+  [
+   97277,
+   6,
+   "Grund and Gozwin",
+   "det"
+  ],
+  [
+   97900,
+   6,
+   "Camping 101: Blacksmithing",
+   "det"
+  ],
+  [
+   97901,
+   6,
+   "Camping 101: Enchanting",
+   "det"
+  ],
+  [
+   97903,
+   6,
+   "Camping 101: First Aid",
+   "obj,det"
+  ],
+  [
+   97904,
+   6,
+   "Camping 101: Fishing",
+   "obj,det"
+  ],
+  [
+   97905,
+   6,
+   "Camping 101: Herbalism",
+   "obj,det"
+  ],
+  [
+   97906,
+   6,
+   "Camping 101: Leatherworking",
+   "obj,det"
+  ],
+  [
+   97908,
+   6,
+   "Camping 101: Skinning",
+   "det"
+  ],
+  [
+   97915,
+   6,
+   "Camping 101: Alchemy",
+   "obj,det"
+  ],
+  [
+   97916,
+   6,
+   "Camping 101: Blacksmithing",
+   "det"
+  ],
+  [
+   97917,
+   6,
+   "Camping 101: Enchanting",
+   "obj,det"
+  ],
+  [
+   97918,
+   6,
+   "Camping 101: Engineering",
+   "obj,det"
+  ],
+  [
+   97919,
+   6,
+   "Camping 101: First Aid",
+   "obj,det"
+  ],
+  [
+   97920,
+   6,
+   "Camping 101: Fishing",
+   "det"
+  ],
+  [
+   97921,
+   6,
+   "Camping 101: Herbalism",
+   "obj,det"
+  ],
+  [
+   97922,
+   6,
+   "Camping 101: Leatherworking",
+   "det"
+  ],
+  [
+   97923,
+   6,
+   "Camping 101: Mining",
+   "det"
+  ],
+  [
+   97924,
+   6,
+   "Camping 101: Skinning",
+   "det"
+  ],
+  [
+   97925,
+   6,
+   "Camping 101: Tailoring",
+   "det"
+  ],
+  [
+   97931,
+   6,
+   "Camping 101: First Aid",
+   "obj,det"
+  ],
+  [
+   97932,
+   6,
+   "Camping 101: Fishing",
+   "obj,det"
+  ],
+  [
+   97933,
+   6,
+   "Camping 101: Herbalism",
+   "obj,det"
+  ],
+  [
+   97935,
+   6,
+   "Camping 101: Mining",
+   "obj,det"
+  ],
+  [
+   97936,
+   6,
+   "Camping 101: Skinning",
+   "obj,det"
+  ],
+  [
+   97938,
+   6,
+   "Camping 101: Alchemy",
+   "obj,det"
+  ],
+  [
+   97942,
+   6,
+   "Camping 101: First Aid",
+   "obj,det"
+  ],
+  [
+   97943,
+   6,
+   "Camping 101: Fishing",
+   "obj,det"
+  ],
+  [
+   97944,
+   6,
+   "Camping 101: Herbalism",
+   "obj,det"
+  ],
+  [
+   97949,
+   6,
+   "Camping 101: Skinning",
+   "obj,det"
+  ],
+  [
+   97952,
+   6,
+   "Camping 101: Blacksmithing",
+   "obj,det"
+  ],
+  [
+   97953,
+   6,
+   "Camping 101: Enchanting",
+   "obj,det"
+  ],
+  [
+   97955,
+   6,
+   "Camping 101: First Aid",
+   "obj,det"
+  ],
+  [
+   97956,
+   6,
+   "Camping 101: Fishing",
+   "obj,det"
+  ],
+  [
+   97957,
+   6,
+   "Camping 101: Herbalism",
+   "det"
+  ],
+  [
+   97959,
+   6,
+   "Camping 101: Mining",
+   "obj,det"
+  ],
+  [
+   97960,
+   6,
+   "Camping 101: Skinning",
+   "obj,det"
+  ],
+  [
+   97963,
+   6,
+   "Camping 101: Alchemy",
+   "det"
+  ],
+  [
+   97965,
+   6,
+   "Camping 101: First Aid",
+   "obj,det"
+  ],
+  [
+   97967,
+   6,
+   "Camping 101: Fishing",
+   "obj,det"
+  ],
+  [
+   97968,
+   6,
+   "Camping 101: Herbalism",
+   "det"
+  ],
+  [
+   97970,
+   6,
+   "Camping 101: Mining",
+   "obj,det"
+  ],
+  [
+   97971,
+   6,
+   "Camping 101: Skinning",
+   "obj,det"
+  ],
+  [
+   97973,
+   6,
+   "Camping 101: Tailoring",
+   "obj,det"
+  ],
+  [
+   98286,
+   6,
+   "Camping 101: Enchanting",
+   "obj,det"
+  ],
+  [
+   99108,
+   6,
+   "Sparring Match",
+   "det"
+  ],
+  [
+   96130,
+   5,
+   "Chakuyak",
+   "obj,det"
+  ],
+  [
+   97236,
+   5,
+   "Fang of Githyiss",
+   "obj,det"
+  ],
+  [
+   92466,
+   4,
+   "Call of Earth",
+   "obj,det"
+  ],
+  [
+   92467,
+   4,
+   "Call of Earth",
+   "obj,det"
+  ],
+  [
+   92468,
+   4,
+   "Call of Earth",
+   "obj,det"
+  ],
+  [
+   94373,
+   4,
+   "Call of Earth",
+   "obj,det"
+  ],
+  [
+   94374,
+   4,
+   "Call of Earth",
+   "obj,det"
+  ],
+  [
+   94375,
+   4,
+   "Call of Earth",
+   "obj,det"
+  ],
+  [
+   95805,
+   4,
+   "Grace of An'she and Mu'sha",
+   "obj,det"
+  ],
+  [
+   97977,
+   3,
+   "Nature's Call",
+   "obj,det"
+  ],
+  [
+   91741,
+   2,
+   "Nibbled-On Book",
+   "det"
+  ],
+  [
+   91743,
+   2,
+   "Rascally Rodents",
+   "det"
+  ],
+  [
+   97263,
+   2,
+   "Your Package Has Arrived",
+   "det"
+  ],
+  [
+   16,
+   1,
+   "Give Gerard a Drink",
+   "obj,det"
+  ],
+  [
+   403,
+   1,
+   "Guarded Thunderbrew Barrel",
+   "obj,det"
+  ],
+  [
+   5421,
+   1,
+   "Fish in a Bucket",
+   "obj,det"
+  ],
+  [
+   8744,
+   1,
+   "A Carefully Wrapped Present",
+   "obj,det"
+  ],
+  [
+   8767,
+   1,
+   "A Gently Shaken Gift",
+   "obj,det"
+  ],
+  [
+   8788,
+   1,
+   "A Gently Shaken Gift",
+   "obj,det"
+  ],
+  [
+   92479,
+   1,
+   "A Scribbled Letter",
+   "det"
+  ],
+  [
+   97583,
+   1,
+   "WRIGGLE.",
+   "obj,det"
+  ],
+  [
+   97979,
+   1,
+   "The Goddess Provides",
+   "obj,det"
+  ],
+  [
+   98574,
+   1,
+   "Hallowed Memorandum",
+   "det"
+  ],
+  [
+   98575,
+   1,
+   "Tainted Tablet",
+   "obj,det"
+  ],
+  [
+   98581,
+   1,
+   "Archaic Rune",
+   "obj,det"
+  ],
+  [
+   8193,
+   0,
+   "Master Angler",
+   "obj,det"
+  ],
+  [
+   78127,
+   null,
+   "The Dalaran Digest",
+   "obj,det"
+  ],
+  [
+   78142,
+   null,
+   "Bewitchments and Glamours",
+   "obj,det"
+  ],
+  [
+   78143,
+   null,
+   "Secrets of the Dreamers",
+   "obj,det"
+  ],
+  [
+   78145,
+   null,
+   "Arcanic Systems Manual",
+   "obj,det"
+  ],
+  [
+   78146,
+   null,
+   "Goaz Scrolls",
+   "obj,det"
+  ],
+  [
+   78147,
+   null,
+   "Crimes Against Anatomy",
+   "obj,det"
+  ],
+  [
+   78149,
+   null,
+   "Fury of the Land",
+   "obj,det"
+  ],
+  [
+   78307,
+   null,
+   "The Horn of Xelthos",
+   "obj,det"
+  ],
+  [
+   79091,
+   null,
+   "Archmage Antonidas: The Unabridged Autobiography",
+   "obj,det"
+  ],
+  [
+   79092,
+   null,
+   "Archmage Theocritus' Research Journal",
+   "obj,det"
+  ],
+  [
+   79093,
+   null,
+   "Rumi of Gnomeregan: The Collected Works",
+   "obj,det"
+  ],
+  [
+   79094,
+   null,
+   "The Lessons of Ta'zo",
+   "obj,det"
+  ],
+  [
+   79095,
+   null,
+   "The Apothecary's Metaphysical Primer",
+   "obj,det"
+  ],
+  [
+   79096,
+   null,
+   "Ataeric: On Arcane Curiosities",
+   "obj,det"
+  ],
+  [
+   79097,
+   null,
+   "Baxtan: On Destructive Magics",
+   "obj,det"
+  ],
+  [
+   79947,
+   null,
+   "Geomancy: The Stone-Cold Truth",
+   "obj,det"
+  ],
+  [
+   79950,
+   null,
+   "Demons and You",
+   "obj,det"
+  ],
+  [
+   79951,
+   null,
+   "Mummies: A Guide to the Unsavory Undead",
+   "obj,det"
+  ],
+  [
+   91899,
+   null,
+   "A Sealed Crate",
+   "obj,det"
+  ],
+  [
+   91900,
+   null,
+   "A Sealed Crate",
+   "obj,det"
+  ],
+  [
+   91901,
+   null,
+   "A Sealed Crate",
+   "obj,det"
+  ],
+  [
+   91904,
+   null,
+   "A Sealed Crate",
+   "obj,det"
+  ],
+  [
+   91905,
+   null,
+   "A Sealed Crate",
+   "obj,det"
+  ],
+  [
+   91906,
+   null,
+   "A Sealed Crate",
+   "obj,det"
+  ],
+  [
+   92811,
+   null,
+   "Economic Warfare",
+   "obj,det"
+  ],
+  [
+   92818,
+   null,
+   "Big, No, MASSIVE Iron Axes",
+   "obj,det"
+  ],
+  [
+   93459,
+   null,
+   "More Al'Aketh Ears",
+   "obj,det"
+  ],
+  [
+   94313,
+   null,
+   "Craftsman's Writ: White Bandit Mask",
+   "obj,det"
+  ],
+  [
+   94472,
+   null,
+   "Earth Sapta",
+   "obj,det"
+  ],
+  [
+   97286,
+   null,
+   "Research Access",
+   "obj,det"
+  ],
+  [
+   98372,
+   null,
+   "An Unfortunate End",
+   "obj,det"
+  ]
+ ],
+ "npc": [
+  {
+   "name": "\"Plucky\" Johnson",
+   "id": 6626,
+   "level": 60,
+   "zone": "Thousand Needles",
+   "quests": 1
+  },
+  {
+   "name": "Muggol Breezebeard",
+   "id": 257296,
+   "level": 60,
+   "zone": "Arathi Highlands",
+   "quests": 1
+  },
+  {
+   "name": "Abigail Lawson",
+   "id": 278088,
+   "level": 47,
+   "zone": "Stormwind City",
+   "quests": 1
+  },
+  {
+   "name": "Demar Brant",
+   "id": 257558,
+   "level": 47,
+   "zone": "Riverglades",
+   "quests": 15
+  },
+  {
+   "name": "Marshal Ryan",
+   "id": 257250,
+   "level": 47,
+   "zone": "Riverglades",
+   "quests": 2
+  },
+  {
+   "name": "Archmage Lan'dalock",
+   "id": 20735,
+   "level": 46,
+   "zone": "Alterac Mountains",
+   "quests": 4
+  },
+  {
+   "name": "Ashe Amberhall",
+   "id": 257591,
+   "level": 46,
+   "zone": "Riverglades",
+   "quests": 10
+  },
+  {
+   "name": "Sergeant Riftan",
+   "id": 258023,
+   "level": 46,
+   "zone": "Riverglades",
+   "quests": 12
+  },
+  {
+   "name": "Gorhak",
+   "id": 253139,
+   "level": 45,
+   "zone": "Desolace",
+   "quests": 2
+  },
+  {
+   "name": "Mordent Evenshade",
+   "id": 253471,
+   "level": 45,
+   "zone": "Shen'dralas",
+   "quests": 1
+  },
+  {
+   "name": "Ranath Nightstride",
+   "id": 268425,
+   "level": 45,
+   "zone": "Alterac Mountains",
+   "quests": 2
+  },
+  {
+   "name": "Wharfmaster Whizzbuzz",
+   "id": 259961,
+   "level": 45,
+   "zone": "Riverglades",
+   "quests": 13
+  },
+  {
+   "name": "Dunston Willis",
+   "id": 259057,
+   "level": 44,
+   "zone": "Riverglades",
+   "quests": 4
+  },
+  {
+   "name": "Watcher Cornelius",
+   "id": 259352,
+   "level": 44,
+   "zone": "Riverglades",
+   "quests": 18
+  },
+  {
+   "name": "Dudd Fizzlescroll",
+   "id": 260873,
+   "level": 43,
+   "zone": "Stranglethorn Vale",
+   "quests": 2
+  },
+  {
+   "name": "Friz Frazzlespark",
+   "id": 255897,
+   "level": 43,
+   "zone": "Riverglades",
+   "quests": 12
+  },
+  {
+   "name": "Veyric Thunderhame",
+   "id": 259023,
+   "level": 43,
+   "zone": "Arathi Highlands",
+   "quests": 8
+  },
+  {
+   "name": "Argo Brinewhistle",
+   "id": 260231,
+   "level": 42,
+   "zone": "Riverglades",
+   "quests": 5
+  },
+  {
+   "name": "Captain Bentcoin",
+   "id": 260390,
+   "level": 42,
+   "zone": "Riverglades",
+   "quests": 1
+  },
+  {
+   "name": "Ember Bladewhisper",
+   "id": 260080,
+   "level": 42,
+   "zone": "Riverglades",
+   "quests": 5
+  },
+  {
+   "name": "Fimbo Greasemitz",
+   "id": 259962,
+   "level": 42,
+   "zone": "Riverglades",
+   "quests": 3
+  },
+  {
+   "name": "Gelinda Coppergleam",
+   "id": 262399,
+   "level": 42,
+   "zone": "Riverglades",
+   "quests": 4
+  },
+  {
+   "name": "Guard Jameson",
+   "id": 271167,
+   "level": 42,
+   "zone": "Dustwallow Marsh",
+   "quests": 2
+  },
+  {
+   "name": "Orgrul",
+   "id": 253136,
+   "level": 42,
+   "zone": "Shen'dralas",
+   "quests": 7
+  },
+  {
+   "name": "Sister Rowland",
+   "id": 262031,
+   "level": 42,
+   "zone": "Riverglades",
+   "quests": 11
+  },
+  {
+   "name": "Umarak",
+   "id": 253066,
+   "level": 42,
+   "zone": "Desolace",
+   "quests": 2
+  },
+  {
+   "name": "Wheatley",
+   "id": 259859,
+   "level": 42,
+   "zone": "Riverglades",
+   "quests": 1
+  },
+  {
+   "name": "Alphonse Dumas",
+   "id": 259250,
+   "level": 41,
+   "zone": "Riverglades",
+   "quests": 3
+  },
+  {
+   "name": "Apprentice Claire",
+   "id": 256831,
+   "level": 41,
+   "zone": "Riverglades",
+   "quests": 7
+  },
+  {
+   "name": "Gray Dawnbright",
+   "id": 263120,
+   "level": 41,
+   "zone": "Riverglades",
+   "quests": 3
+  },
+  {
+   "name": "Sutara Plainstalker",
+   "id": 264078,
+   "level": 41,
+   "zone": "Mulgore",
+   "quests": 2
+  },
+  {
+   "name": "Tessa Dawnbright",
+   "id": 263089,
+   "level": 41,
+   "zone": "Riverglades",
+   "quests": 6
+  },
+  {
+   "name": "Abra Cadabra",
+   "id": 252019,
+   "level": 40,
+   "zone": "Alterac Mountains",
+   "quests": 1
+  },
+  {
+   "name": "Archmage Timear",
+   "id": 31439,
+   "level": 40,
+   "zone": "Alterac Mountains",
+   "quests": 2
+  },
+  {
+   "name": "Brother Lowley",
+   "id": 263613,
+   "level": 40,
+   "zone": "Riverglades",
+   "quests": 5
+  },
+  {
+   "name": "Cedric Dalton",
+   "id": 259353,
+   "level": 40,
+   "zone": "Riverglades",
+   "quests": 6
+  },
+  {
+   "name": "Dorgaron",
+   "id": 269577,
+   "level": 40,
+   "zone": "Badlands",
+   "quests": 2
+  },
+  {
+   "name": "Farmer Elbrim",
+   "id": 258697,
+   "level": 40,
+   "zone": "Riverglades",
+   "quests": 4
+  },
+  {
+   "name": "Fuzzle",
+   "id": 259158,
+   "level": 40,
+   "zone": "Riverglades",
+   "quests": 3
+  },
+  {
+   "name": "Genn Fairweather",
+   "id": 265756,
+   "level": 40,
+   "zone": "Zephras Isle",
+   "quests": 1
+  },
+  {
+   "name": "Mazu'kon",
+   "id": 264074,
+   "level": 40,
+   "zone": "Mulgore",
+   "quests": 4
+  },
+  {
+   "name": "Skonk",
+   "id": 217300,
+   "level": 40,
+   "zone": "Arathi Highlands",
+   "quests": 5
+  },
+  {
+   "name": "Sleebo Fizzlespout",
+   "id": 263367,
+   "level": 40,
+   "zone": "Riverglades",
+   "quests": 4
+  },
+  {
+   "name": "Tokal",
+   "id": 215643,
+   "level": 40,
+   "zone": "Stranglethorn Vale",
+   "quests": 4
+  },
+  {
+   "name": "Curly",
+   "id": 258935,
+   "level": 39,
+   "zone": "Riverglades",
+   "quests": 1
+  },
+  {
+   "name": "Groundskeeper Lomar",
+   "id": 219,
+   "level": 39,
+   "zone": "Arathi Highlands",
+   "quests": 1
+  },
+  {
+   "name": "Halligan Turner",
+   "id": 256438,
+   "level": 39,
+   "zone": "Riverglades",
+   "quests": 8
+  },
+  {
+   "name": "Hurley",
+   "id": 258963,
+   "level": 39,
+   "zone": "Riverglades",
+   "quests": 2
+  },
+  {
+   "name": "Logan Mar",
+   "id": 219,
+   "level": 39,
+   "zone": "Arathi Highlands",
+   "quests": 1
+  },
+  {
+   "name": "Benjy Wheeler",
+   "id": 258317,
+   "level": 38,
+   "zone": "Riverglades",
+   "quests": 9
+  },
+  {
+   "name": "Bertrand Ironbrow",
+   "id": 260070,
+   "level": 38,
+   "zone": "Riverglades",
+   "quests": 4
+  },
+  {
+   "name": "Captain Aransas",
+   "id": 218229,
+   "level": 38,
+   "zone": "Stranglethorn Vale",
+   "quests": 1
+  },
+  {
+   "name": "Gemmil",
+   "id": 269166,
+   "level": 38,
+   "zone": "Stranglethorn Vale",
+   "quests": 1
+  },
+  {
+   "name": "Innkeeper Zizplink",
+   "id": 255894,
+   "level": 38,
+   "zone": "Riverglades",
+   "quests": 3
+  },
+  {
+   "name": "Jasper Geartoggle",
+   "id": 260540,
+   "level": 38,
+   "zone": "Riverglades",
+   "quests": 2
+  },
+  {
+   "name": "Krom'rosh",
+   "id": 256418,
+   "level": 38,
+   "zone": "Riverglades",
+   "quests": 1
+  },
+  {
+   "name": "Lost Horse",
+   "id": 259254,
+   "level": 38,
+   "zone": "Riverglades",
+   "quests": 2
+  },
+  {
+   "name": "Picked Carcass",
+   "id": 263316,
+   "level": 38,
+   "zone": "Riverglades",
+   "quests": 1
+  },
+  {
+   "name": "Robbie Holmsby",
+   "id": 259049,
+   "level": 38,
+   "zone": "Riverglades",
+   "quests": 2
+  },
+  {
+   "name": "Tan'jani",
+   "id": 263190,
+   "level": 38,
+   "zone": "Riverglades",
+   "quests": 3
+  },
+  {
+   "name": "Wendel Mathers",
+   "id": 218230,
+   "level": 38,
+   "zone": "Stranglethorn Vale",
+   "quests": 3
+  },
+  {
+   "name": "Cassandra Wheeler",
+   "id": 259863,
+   "level": 37,
+   "zone": "Riverglades",
+   "quests": 1
+  },
+  {
+   "name": "Scout Bolain",
+   "id": 260026,
+   "level": 37,
+   "zone": "Riverglades",
+   "quests": 1
+  },
+  {
+   "name": "Anastasia Miller",
+   "id": 266847,
+   "level": 36,
+   "zone": "Arathi Highlands",
+   "quests": 4
+  },
+  {
+   "name": "Eleanor Holmsby",
+   "id": 259050,
+   "level": 36,
+   "zone": "Riverglades",
+   "quests": 1
+  },
+  {
+   "name": "Watcher Fredericks",
+   "id": 259051,
+   "level": 36,
+   "zone": "Riverglades",
+   "quests": 1
+  },
+  {
+   "name": "Amaryllis Webb",
+   "id": 217412,
+   "level": 35,
+   "zone": "Swamp of Sorrows",
+   "quests": 2
+  },
+  {
+   "name": "Mirda",
+   "id": 253097,
+   "level": 35,
+   "zone": "Desolace",
+   "quests": 1
+  },
+  {
+   "name": "Zimmix Sputterspark",
+   "id": 268992,
+   "level": 35,
+   "zone": "Stranglethorn Vale",
+   "quests": 3
+  },
+  {
+   "name": "Father Tuttle",
+   "id": 255597,
+   "level": 34,
+   "zone": "Swamp of Sorrows",
+   "quests": 1
+  },
+  {
+   "name": "Aka'rai",
+   "id": 268705,
+   "level": 33,
+   "zone": "Desolace",
+   "quests": 2
+  },
+  {
+   "name": "Emissary Jacques",
+   "id": 247264,
+   "level": 33,
+   "zone": "Hillsbrad Foothills",
+   "quests": 1
+  },
+  {
+   "name": "Tapoke \"Slim\" Jahn",
+   "id": 4962,
+   "level": 33,
+   "zone": "Wetlands",
+   "quests": 1
+  },
+  {
+   "name": "Muln Earthfury",
+   "id": 259118,
+   "level": 31,
+   "zone": "Mulgore",
+   "quests": 7
+  },
+  {
+   "name": "Captive Fire Elemental",
+   "id": 271481,
+   "level": 30,
+   "zone": "Wetlands",
+   "quests": 1
+  },
+  {
+   "name": "Yorn Grimtotem",
+   "id": 264072,
+   "level": 29,
+   "zone": "Mulgore",
+   "quests": 2
+  },
+  {
+   "name": "Lumina Windsinger",
+   "id": 248755,
+   "level": 26,
+   "zone": "Silverpine Forest",
+   "quests": 10
+  },
+  {
+   "name": "Deathstalker Masoj",
+   "id": 270438,
+   "level": 25,
+   "zone": "Hillsbrad Foothills",
+   "quests": 3
+  },
+  {
+   "name": "Trevan Rol",
+   "id": 248840,
+   "level": 25,
+   "zone": "Silverpine Forest",
+   "quests": 5
+  },
+  {
+   "name": "Ulric Frostveil",
+   "id": 259649,
+   "level": 25,
+   "zone": "Ashenvale",
+   "quests": 2
+  },
+  {
+   "name": "Norric Lochthane",
+   "id": 258043,
+   "level": 23,
+   "zone": "Loch Modan",
+   "quests": 2
+  },
+  {
+   "name": "Danitha Morr",
+   "id": 246378,
+   "level": 22,
+   "zone": "Tirisfal Glades",
+   "quests": 9
+  },
+  {
+   "name": "Deathguard Baldren",
+   "id": 259611,
+   "level": 22,
+   "zone": "Silverpine Forest",
+   "quests": 2
+  },
+  {
+   "name": "Bainham",
+   "id": 267309,
+   "level": 21,
+   "zone": "The Barrens",
+   "quests": 2
+  },
+  {
+   "name": "Tom \"Half-fish\" Wilson",
+   "id": 254078,
+   "level": 21,
+   "zone": "Hillsbrad Foothills",
+   "quests": 1
+  },
+  {
+   "name": "Avatar of Saeyleenan",
+   "id": 272054,
+   "level": 20,
+   "zone": "Moonglade",
+   "quests": 4
+  },
+  {
+   "name": "High Priestess Mims",
+   "id": 258785,
+   "level": 20,
+   "zone": "Ironforge",
+   "quests": 2
+  },
+  {
+   "name": "Roy Lewells",
+   "id": 268568,
+   "level": 18,
+   "zone": "Stormwind City",
+   "quests": 2
+  },
+  {
+   "name": "Mountaineer Ylva",
+   "id": 269153,
+   "level": 17,
+   "zone": "Loch Modan",
+   "quests": 1
+  },
+  {
+   "name": "Alba Fairmoon",
+   "id": 253092,
+   "level": 16,
+   "zone": "Westfall",
+   "quests": 9
+  },
+  {
+   "name": "Manifest Clerk Philmor",
+   "id": 268511,
+   "level": 15,
+   "zone": "Stormwind City",
+   "quests": 1
+  },
+  {
+   "name": "Ozwin Ironsprocket",
+   "id": 253395,
+   "level": 15,
+   "zone": "Westfall",
+   "quests": 5
+  },
+  {
+   "name": "Iaadaria Bitterwind",
+   "id": 253004,
+   "level": 13,
+   "zone": "Zephras Isle",
+   "quests": 1
+  },
+  {
+   "name": "Deathguard Billmuth",
+   "id": 257655,
+   "level": 12,
+   "zone": "Tirisfal Glades",
+   "quests": 4
+  },
+  {
+   "name": "Deathguard Falgan",
+   "id": 257663,
+   "level": 12,
+   "zone": "Tirisfal Glades",
+   "quests": 2
+  },
+  {
+   "name": "Ephram Barbaro",
+   "id": 259190,
+   "level": 12,
+   "zone": "Tirisfal Glades",
+   "quests": 2
+  },
+  {
+   "name": "Gilbert Gray",
+   "id": 267118,
+   "level": 12,
+   "zone": "Stormwind City",
+   "quests": 2
+  },
+  {
+   "name": "Glix Xizzix",
+   "id": 272526,
+   "level": 12,
+   "zone": "Undercity",
+   "quests": 1
+  },
+  {
+   "name": "Hilda the Breaker",
+   "id": 246389,
+   "level": 12,
+   "zone": "Tirisfal Glades",
+   "quests": 2
+  },
+  {
+   "name": "Hyusaa Quickbreeze",
+   "id": 253576,
+   "level": 12,
+   "zone": "Zephras Isle",
+   "quests": 2
+  },
+  {
+   "name": "Tanis Alderwood",
+   "id": 257648,
+   "level": 12,
+   "zone": "Undercity",
+   "quests": 4
+  },
+  {
+   "name": "Boarton Shadetotem",
+   "id": 205729,
+   "level": 11,
+   "zone": "Thunder Bluff",
+   "quests": 6
+  },
+  {
+   "name": "Breton Samuels",
+   "id": 246349,
+   "level": 11,
+   "zone": "Tirisfal Glades",
+   "quests": 4
+  },
+  {
+   "name": "Dead Cultist",
+   "id": 253372,
+   "level": 11,
+   "zone": "Zephras Isle",
+   "quests": 2
+  },
+  {
+   "name": "Fendaal Windstone",
+   "id": 273017,
+   "level": 11,
+   "zone": "Zephras Isle",
+   "quests": 2
+  },
+  {
+   "name": "Jorin Croge",
+   "id": 246393,
+   "level": 11,
+   "zone": "Tirisfal Glades",
+   "quests": 2
+  },
+  {
+   "name": "Merell Ross",
+   "id": 248277,
+   "level": 11,
+   "zone": "Elwynn Forest",
+   "quests": 1
+  },
+  {
+   "name": "Shari Stilwell",
+   "id": 246152,
+   "level": 11,
+   "zone": "Tirisfal Glades",
+   "quests": 3
+  },
+  {
+   "name": "Yorana Windyreed",
+   "id": 252378,
+   "level": 11,
+   "zone": "Zephras Isle",
+   "quests": 6
+  },
+  {
+   "name": "Belann Windwood",
+   "id": 256507,
+   "level": 10,
+   "zone": "Zephras Isle",
+   "quests": 3
+  },
+  {
+   "name": "Dondallion Whisperwind",
+   "id": 253204,
+   "level": 10,
+   "zone": "Zephras Isle",
+   "quests": 1
+  },
+  {
+   "name": "Elayaa Easewind",
+   "id": 254084,
+   "level": 10,
+   "zone": "Zephras Isle",
+   "quests": 1
+  },
+  {
+   "name": "Eylah Sunhorn",
+   "id": 269068,
+   "level": 10,
+   "zone": "Thunder Bluff",
+   "quests": 2
+  },
+  {
+   "name": "Grenhild Darktalon",
+   "id": 49808,
+   "level": 10,
+   "zone": "Loch Modan",
+   "quests": 1
+  },
+  {
+   "name": "Sentinel Lynessa Duskblossom",
+   "id": 275744,
+   "level": 10,
+   "zone": "Teldrassil",
+   "quests": 1
+  },
+  {
+   "name": "Malah Longwind",
+   "id": 275789,
+   "level": 9,
+   "zone": "Mulgore",
+   "quests": 2
+  },
+  {
+   "name": "Nyalah Brightfire",
+   "id": 257006,
+   "level": 9,
+   "zone": "Zephras Isle",
+   "quests": 2
+  },
+  {
+   "name": "Pal'juh",
+   "id": 275811,
+   "level": 8,
+   "zone": "Durotar",
+   "quests": 1
+  },
+  {
+   "name": "Perith Stormhoof",
+   "id": 272203,
+   "level": 8,
+   "zone": "Mulgore",
+   "quests": 1
+  },
+  {
+   "name": "Ahab Wheathoof",
+   "id": 277182,
+   "level": 7,
+   "zone": "Mulgore",
+   "quests": 2
+  },
+  {
+   "name": "Bareth Dawnstone",
+   "id": 275954,
+   "level": 7,
+   "zone": "Tirisfal Glades",
+   "quests": 1
+  },
+  {
+   "name": "Eleanor Shackleton",
+   "id": 265812,
+   "level": 7,
+   "zone": "Tirisfal Glades",
+   "quests": 12
+  },
+  {
+   "name": "Fenn Fairweather",
+   "id": 251992,
+   "level": 6,
+   "zone": "Zephras Isle",
+   "quests": 1
+  },
+  {
+   "name": "Halassa Fernbreeze",
+   "id": 257021,
+   "level": 6,
+   "zone": "Zephras Isle",
+   "quests": 1
+  },
+  {
+   "name": "Kaga Wildhoof",
+   "id": 265810,
+   "level": 6,
+   "zone": "Mulgore",
+   "quests": 8
+  },
+  {
+   "name": "Lyreena Duskblade",
+   "id": 265811,
+   "level": 6,
+   "zone": "Teldrassil",
+   "quests": 9
+  },
+  {
+   "name": "Mendalass Tattermend",
+   "id": 257024,
+   "level": 6,
+   "zone": "Zephras Isle",
+   "quests": 1
+  },
+  {
+   "name": "Messana Crestwind",
+   "id": 257022,
+   "level": 6,
+   "zone": "Zephras Isle",
+   "quests": 1
+  },
+  {
+   "name": "Naleeia Tattermend",
+   "id": 257018,
+   "level": 6,
+   "zone": "Zephras Isle",
+   "quests": 1
+  },
+  {
+   "name": "Nasalanna Windsinger",
+   "id": 257020,
+   "level": 6,
+   "zone": "Zephras Isle",
+   "quests": 1
+  },
+  {
+   "name": "William Pickman",
+   "id": 265944,
+   "level": 6,
+   "zone": "Tirisfal Glades",
+   "quests": 1
+  },
+  {
+   "name": "Teo Hammerstorm",
+   "id": 257446,
+   "level": 4,
+   "zone": "Dun Morogh",
+   "quests": 6
+  },
+  {
+   "name": "Windshaper Boro",
+   "id": 251374,
+   "level": 4,
+   "zone": "Zephras Isle",
+   "quests": 5
+  },
+  {
+   "name": "Blademaster Ren",
+   "id": 251964,
+   "level": 2,
+   "zone": "Zephras Isle",
+   "quests": 1
+  },
+  {
+   "name": "Xyton Silverwind",
+   "id": 251373,
+   "level": 2,
+   "zone": "Zephras Isle",
+   "quests": 1
+  },
+  {
+   "name": "Excitable Slime",
+   "id": 269452,
+   "level": 1,
+   "zone": "Undercity",
+   "quests": 2
+  },
+  {
+   "name": "Grolkar",
+   "id": 253163,
+   "level": 0,
+   "zone": "",
+   "quests": 1
+  }
+ ]
+}

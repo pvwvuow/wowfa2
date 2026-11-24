@@ -1,0 +1,1 @@
+{"id":"0164-publish","kind":"script","why":"the owner asked the bot to publish 1.0.0-beta.2 (CurseForge upload follows)","args":{"module":"publish_release","args":{"tag":"forever-v1.0.0-beta.2"}}}

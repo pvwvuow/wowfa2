@@ -1,0 +1,57 @@
+{
+ "id": "0072-rc16",
+ "kind": "edit",
+ "why": "rc16: map scan no longer puts the game font under our Persian (empty boxes), coloured level-range label, tracker works on the modern client (C_QuestLog), every marker family coloured",
+ "args": {
+  "ops": [
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "    fs:SetText(shown)\n    writing[fs] = nil\nend",
+    "new": "    fs:SetText(shown)\n    original[fs].shown = shown\n    writing[fs] = nil\nend",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "    if writing[fs] then\n        return\n    end\n    -- the hooks are raw (not F:Wrap)",
+    "new": "    if writing[fs] then\n        return\n    end\n    -- rc16 (the owner: the zone headers of the quest list flip between Persian, empty\n    -- boxes and English): the map scan read our OWN Persian back, found no zone of that\n    -- name and put the game font back under the Persian text = empty boxes. Persian text\n    -- is never English input: only its font is kept right.\n    if type(enText) == \"string\" and string.find(enText, \"[\\216-\\219]\") then\n        if original[fs] then\n            refont(fs)\n        end\n        return\n    end\n    -- the hooks are raw (not F:Wrap)",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "        local base, lv = string.match(name, \"^(.-)%s*(%(%s*%d+%s*%-%s*%d+%s*%))$\")",
+    "new": "        -- rc16 (the owner: \"Hillsbrad Foothills (20-30)\" still English): the client\n        -- colours the level range, so the colour codes go first\n        local plain = (string.gsub(name, \"|c%x%x%x%x%x%x%x%x\", \"\"))\n        plain = (string.gsub(plain, \"|r\", \"\"))\n        plain = string.match(plain, \"^%s*(.-)%s*$\") or plain\n        if plain ~= name then\n            local pv = F.D.names.zone[T.NameKey(plain)]\n            if pv then\n                return pv\n            end\n        end\n        local base, lv = string.match(plain, \"^(.-)%s*(%(%s*%d+[%s%-%d]*%))$\")",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Tracker.lua",
+    "old": "    return (QuestWatchFrame ~= nil or WatchFrame ~= nil or ObjectiveTrackerFrame ~= nil or QuestLogFrame ~= nil)\n        and GetQuestLogTitle ~= nil",
+    "new": "    -- rc16 (the owner: the tracker page said \"turned itself off\"): the modern client has\n    -- no GetQuestLogTitle (C_QuestLog.GetInfo instead) and its quest list sits under the map\n    local frames = QuestWatchFrame ~= nil or WatchFrame ~= nil or ObjectiveTrackerFrame ~= nil\n        or QuestLogFrame ~= nil or QuestMapFrame ~= nil or WorldMapFrame ~= nil or C_QuestLog ~= nil\n    return frames and (GetQuestLogTitle ~= nil or (C_QuestLog ~= nil and C_QuestLog.GetInfo ~= nil))",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Tracker.lua",
+    "old": "    titleIndex = {}\n    if GetNumQuestLogEntries and GetQuestLogTitle then",
+    "new": "    titleIndex = {}\n    if not GetQuestLogTitle and C_QuestLog and C_QuestLog.GetInfo and C_QuestLog.GetNumQuestLogEntries then\n        local okn, n = pcall(C_QuestLog.GetNumQuestLogEntries)\n        if not okn or not F.Usable(n) or type(n) ~= \"number\" then\n            n = 0\n        end\n        for i = 1, n do\n            local ok, info = pcall(C_QuestLog.GetInfo, i)\n            if ok and type(info) == \"table\" and not info.isHeader and F.Usable(info.questID)\n                and type(info.questID) == \"number\" and info.questID > 0 and F.Usable(info.title)\n                and type(info.title) == \"string\" and info.title ~= \"\" then\n                titleIndex[simple(info.title)] = info.questID\n            end\n        end\n        return\n    end\n    if GetNumQuestLogEntries and GetQuestLogTitle then",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Text.lua",
+    "old": "T.COL_DEFAULT = { zn = \"green\", sp = \"blue\", npc = \"orange\", cls = \"class\" }",
+    "new": "-- rc16 (the owner: classes and terms are not coloured): every family has a default colour\nT.COL_DEFAULT = { zn = \"green\", sp = \"blue\", npc = \"orange\", cls = \"class\", tm = \"cyan\", it = \"gold\", ob = \"purple\" }",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Text.lua",
+    "old": "        local l = string.lower(tostring(en or \"\"))\n        return CLASS_HEX[l] or CLASS_HEX[(string.gsub(l, \"s$\", \"\"))]",
+    "new": "        -- rc16: \"the hunter\", \"Hunter's\", \"Hunters\" find the class; a talent tree name\n        -- (Beast Mastery) has no class colour and gets gold - a cls name is never uncoloured\n        local l = T.NameKey(en)\n        l = (string.gsub(l, \"'s$\", \"\"))\n        return CLASS_HEX[l] or CLASS_HEX[(string.gsub(l, \"s$\", \"\"))] or T.COL_HEX.gold",
+    "count": 1
+   },
+   {
+    "file": "policy.json",
+    "old": "\"version\": \"1.0.0-rc15\"",
+    "new": "\"version\": \"1.0.0-rc16\"",
+    "count": 1
+   }
+  ]
+ }
+}

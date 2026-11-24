@@ -85,6 +85,9 @@ def run(args, rep):
         if fa in stop or fa in amb:
             continue
         names[fa] = sorted(s)[0]
+    only = set(args.get("only") or [])
+    if only:
+        names = {fa: v for fa, v in names.items() if "%s:%s" % v in only}
     rep.h("candidates")
     rep.ok("%d names, %d skipped as ambiguous (two families)" % (len(names), len(amb)))
     rep.add("ambiguous: " + " ".join(amb[:80]))

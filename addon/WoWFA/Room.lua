@@ -429,7 +429,7 @@ end
 -- switches (never the opt-in capture helper) and the display options. The
 -- SavedVariables are account-wide, so every character sees the same list.
 local PROFILE_OPTS = { "fontSize", "scale", "questDock", "questAuto", "zoneToast", "onUpdate", "toast", "share",
-    "listScale", "fontAllScale", "chatScale", "alertScale" }
+    "szList", "szGame", "chatScale", "alertScale" }
 Room.PROFILE_MAX = 10
 
 local function deep(v)
@@ -544,7 +544,8 @@ function Room.ProfileLoad(name)
     end
     F:Fire("options", "questDock")
     F:Fire("options", "questAuto")
-    F:Fire("options", "listScale")
+    F:Fire("options", "szList")
+    F:Fire("options", "szGame")
     F:Fire("options", "fontAll")
     F:Fire("options", "chatFa")
     F:Fire("options", "alertScale")

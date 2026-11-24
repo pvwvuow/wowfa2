@@ -194,8 +194,6 @@ local function remember(fs)
     if not o then
         o = { font = g.font, size = g.size, flags = g.flags, fobj = g.fobj, text = fs:GetText() }
         original[fs] = o
-    else
-        o.font, o.size, o.flags, o.fobj = g.font, g.size, g.flags, g.fobj
     end
     return o
 end
@@ -212,7 +210,7 @@ local function fs_of(b)
     return b
 end
 
-local function apply(fs, fa, prefix)
+local function apply(fs, fa, prefix, role)
     if not fs or not fs.SetFont or not fa or fa == "" then
         return
     end
@@ -220,7 +218,8 @@ local function apply(fs, fa, prefix)
     -- Brain review #136-3: the walker reads what the client JUST re-rendered -
     -- keep the restore text fresh so a switch-off never writes stale bytes
     o.text = fs.GetText and fs:GetText() or o.text
-    local sz = F.ListSize(o.size or T.Size())
+    o.role = role or o.role or "title" -- rc35: the size comes from the role only
+    local sz = F.SizeOf(o.role)
     fs:SetFont(F.FONT, sz, "")
     -- the player's CURRENT display mode (Brain review #136-1); colour kept -
     -- SetText never touches the vertex colour
@@ -363,7 +362,7 @@ local function render_objectives(list)
             local prefix = dash and (dash .. " ") or "" -- keep the classic " - "
             local status = status_fa(body)
             if status then
-                apply(e.fs, status, prefix)
+                apply(e.fs, status, prefix, 'obj')
             else
                 local fam, en, got, need = parse_obj_line(body)
                 local line
@@ -375,7 +374,7 @@ local function render_objectives(list)
                     line = line_from_qobj(e.qid, oidx)
                 end
                 if line then
-                    apply(e.fs, line, prefix)
+                    apply(e.fs, line, prefix, 'obj')
                 end
             end
         end
@@ -429,14 +428,14 @@ local function update_watch()
                         fa = fa .. " (" .. (L.tracker_complete or "تکمیل‌شده") .. ")"
                     end
                     if fa then
-                        apply(fs_of(fs), fa, prefix)
+                        apply(fs_of(fs), fa, prefix, 'title')
                     end
                 end
             else
                 local status = status_fa(body)
                 if status then
                     if F.Room.On("questText") then -- 51-B -- a status line belongs to the title surface
-                        apply(fs_of(fs), status, prefix)
+                        apply(fs_of(fs), status, prefix, 'obj')
                     end
                 else
                     local fam, en, got, need = parse_obj_line(body)
@@ -451,7 +450,7 @@ local function update_watch()
                         end
                     end
                     if line then
-                        apply(fs_of(fs), line, prefix)
+                        apply(fs_of(fs), line, prefix, 'obj')
                     end
                 end
             end
@@ -576,11 +575,11 @@ function M.install()
     end
     -- the size sliders: lines we already wrote take the new size right away
     F:Listen('options', function(key)
-        if key == 'fontSize' or key == 'listScale' then
+        if key == 'szList' then
             for fs, o in pairs(original) do
                 local okt, txt = pcall(fs.GetText, fs)
                 if okt and F.Usable(txt) and type(txt) == 'string' and string.find(txt, '[\216-\219\239]') then
-                    local sz = F.ListSize(o.size or T.Size())
+                    local sz = F.SizeOf(o.role or 'title')
                     pcall(fs.SetFont, fs, F.FONT, sz, '')
                     F.FitLine(fs, sz)
                 else

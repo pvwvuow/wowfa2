@@ -33,24 +33,36 @@ local NAMES = {
 }
 
 local SCALE = 0.92
--- rc34: the size of every font object is the game's size x 0.92 x (game text size
--- percent / 100, default 110 = the game's own size) - ONE slider (Sizes page), no
--- other slider multiplies in. The chat fonts keep 0.92 only: the chat has its own
--- size slider (Modules/Chat.lua).
+-- rc35: ONE slider for the game's own texts (Sizes page, F.db.szGame, 100 = the game's
+-- own size). It works with the Persian font switch ON (our font) and OFF (the game's
+-- font kept, only the size changes). The chat fonts never take it: the chat has its own
+-- slider (Modules/Chat.lua). Every size is computed from the SAVED ORIGINAL of the font
+-- object, never from what it shows now, so nothing can grow on a redraw.
 local KEEP = { ChatFontNormal = true, ChatFontSmall = true }
 
-local function factor(name)
-    if KEEP[name] then
-        return SCALE
-    end
+local function fa_on()
     local db = F.db
-    local pct = (db and tonumber(db.fontAllScale)) or 110
-    return SCALE * (pct / 100)
+    return db and db.enabled and db.fontAll == true and true or false
+end
+
+local function game_pct()
+    return (F.SizePct and F.SizePct("szGame", 100, 70, 160)) or 1
+end
+
+local function factor(name)
+    local f = fa_on() and SCALE or 1
+    if KEEP[name] then
+        return f
+    end
+    return f * game_pct()
 end
 
 local function on()
     local db = F.db
-    return db and db.enabled and db.fontAll == true and true or false
+    if not (db and db.enabled) then
+        return false
+    end
+    return fa_on() or math.abs(game_pct() - 1) > 0.001
 end
 
 local function apply()
@@ -67,7 +79,7 @@ local function apply()
                 end
                 local s = saved[name]
                 if s then
-                    pcall(fo.SetFont, fo, F.FONT, math.floor(math.max(6, math.min(48, s[2] * factor(name))) * 10 + 0.5) / 10, s[3] or "")
+                    pcall(fo.SetFont, fo, fa_on() and F.FONT or s[1], math.floor(math.max(6, math.min(48, s[2] * factor(name))) * 10 + 0.5) / 10, s[3] or "")
                 end
             elseif saved[name] then
                 local s = saved[name]

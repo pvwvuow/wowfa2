@@ -548,13 +548,13 @@ local function build()
         end), 30, 4)
     note(L.sz_own_d)
     header(L.sz_list_h)
-    panel.listScale = place(UI.Slider(page.child, PW - 16, L.ls_size, 70, 200, 5,
-        function() return F.db.listScale or 110 end,
+    panel.szList = place(UI.Slider(page.child, PW - 16, L.ls_size, 70, 200, 5,
+        function() return F.db.szList or 100 end,
         function(v)
             v = math.floor(v + 0.5)
-            if v ~= (F.db.listScale or 110) then
-                F.db.listScale = v
-                F:Fire('options', 'listScale')
+            if v ~= (F.db.szList or 100) then
+                F.db.szList = v
+                F:Fire('options', 'szList')
             end
         end), 30, 4)
     note(L.sz_list_d)
@@ -565,13 +565,13 @@ local function build()
             F.db.fontAll = v and true or false
             F:Fire("options", "fontAll")
         end), 50, 2)
-    panel.fontAllScale = place(UI.Slider(page.child, PW - 16, L.fa_size, 70, 160, 5,
-        function() return F.db.fontAllScale or 110 end,
+    panel.szGame = place(UI.Slider(page.child, PW - 16, L.fa_size, 70, 160, 5,
+        function() return F.db.szGame or 100 end,
         function(v)
             v = math.floor(v + 0.5)
-            if v ~= (F.db.fontAllScale or 110) then
-                F.db.fontAllScale = v
-                F:Fire("options", "fontAll")
+            if v ~= (F.db.szGame or 100) then
+                F.db.szGame = v
+                F:Fire("options", "szGame")
             end
         end), 30, 4)
     note(L.sz_all_d)

@@ -1,0 +1,8 @@
+{
+ "id": "0075-release",
+ "kind": "release",
+ "why": "rc16: empty boxes, level-range map label, tracker on the modern client, every name family coloured",
+ "args": {
+  "notes": "WoWFA Forever 1.0.0-rc16 (test build, built by wowfa2 CI).\n\nFix: zone headers in the quest list no longer flip between Persian, empty boxes and English (the map scan read our own Persian back and put the game font under it).\nFix: the world-map hover label with a level range ('Hillsbrad Foothills (20-30)') is Persian (the client colours the range).\nFix: the quest tracker no longer turns itself off on the modern client (it has no GetQuestLogTitle; C_QuestLog is used), so quest titles and objective lines in the quest list are Persian again.\nFix: every marked name is coloured: classes (also 'the hunter', 'Hunters', talent trees), game terms, items and objects got default colours.\nData: 123 more class / spell / term / zone names marked in spell and talent descriptions.\nIncludes rc7 to rc15.\n\nData from ForeverDB.net"
+ }
+}

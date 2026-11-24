@@ -1,0 +1,13 @@
+{
+ "id": "0076-tplcheck",
+ "kind": "script",
+ "why": "report only: after 0074, what plain names are still in the spell and talent texts",
+ "args": {
+  "module": "mark_tpl",
+  "args": {
+   "terms": true,
+   "apply": false,
+   "sample": 0
+  }
+ }
+}

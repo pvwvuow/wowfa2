@@ -1,0 +1,974 @@
+{
+ "build": "1.60.1.70959",
+ "descriptions": {
+  "druid": {
+   "increases damage done by your swipe ability by #% and reduces the chance enemies have to detect you while prowling as if you were # level higher": [
+    "Feral Instinct",
+    "Increases damage done by your Swipe ability by 10% and reduces the chance enemies have to detect you while Prowling as if you were 1 level higher.",
+    1
+   ],
+   "instantly convert ? mana into ? energy. shifting power's cost is reduced by effects that reduce the cost of shapeshifting": [
+    "Shifting Power",
+    "Instantly convert ? Mana into ? Energy. Shifting Power's cost is reduced by effects that reduce the cost of Shapeshifting.",
+    1
+   ]
+  },
+  "hunter": {
+   "command a hawk to dive-bomb your targeted enemy, dealing # (+#% of ranged attack power) physical damage and continuing its assault for # sec. only # hawks can be active at once. summon hawk shares its cooldown with arcane shot": [
+    "Summon Hawk",
+    "Command a hawk to dive-bomb your targeted enemy, dealing 32 (+5% of ranged attack power) Physical damage and continuing its assault for 18 sec. Only 2 hawks can be active at once. Summon Hawk shares its cooldown with Arcane Shot.",
+    1
+   ]
+  },
+  "mage": {
+   "gives your chill effects a #% chance to grant you the fingers of frost effect, which treats your next # spell cast as if the target were frozen. lasts # sec": [
+    "Fingers of Frost",
+    "Gives your Chill effects a 15% chance to grant you the Fingers of Frost effect, which treats your next 1 spell cast as if the target were Frozen. Lasts 15 sec.",
+    1
+   ],
+   "shield yourself, absorbing # (+#% of frost spell power) damage and increasing your frost damage by #% for # min. while shielded, your frost damage is increased by an additional #% and you do not lose casting time when you take damage": [
+    "Ice Barrier",
+    "Shield yourself, absorbing 431 (+10% of Frost spell power) damage and increasing your Frost damage by 15% for 1 min. While shielded, your Frost damage is increased by an additional 5% and you do not lose casting time when you take damage.",
+    1
+   ]
+  },
+  "paladin": {
+   "gives your damaging melee attacks a chance to reduce the target's attack power by # for # sec. (numbers at level #; they grow with your level.)": [
+    "Vindication",
+    "Gives your damaging melee attacks a chance to reduce the target's Attack Power by 67 for 30 sec. (Numbers at level 60; they grow with your level.)",
+    1
+   ],
+   "reduces the cast time of your turn undead spell by # sec, its cooldown by # sec, and allows it to affect demons": [
+    "Turn Evil",
+    "Reduces the cast time of your Turn Undead spell by 0.5 sec, its cooldown by 5 sec, and allows it to affect Demons.",
+    1
+   ],
+   "swear an oath to protect target ally for # min, increasing the healing of your holy light on them by up to #, your flash of light by up to #, and your holy shock by up to #. only one oath of light may be sworn by the paladin at any one time. (numbers at level #; they grow with your level.)": [
+    "Oath of Light",
+    "Swear an Oath to protect target ally for 5 min, increasing the healing of your Holy Light on them by up to 400, your Flash of Light by up to 115, and your Holy Shock by up to 230. Only one Oath of Light may be sworn by the Paladin at any one time. (Numbers at level 60; they grow with your level.)",
+    1
+   ]
+  },
+  "priest": {
+   "afflicts your target with shadow energy that causes all party members to be healed for #% of any shadow spell damage you deal for # sec. you receive #% increased healing on yourself from this effect": [
+    "Vampiric Embrace",
+    "Afflicts your target with Shadow energy that causes all party members to be healed for 10% of any Shadow spell damage you deal for 30 sec. You receive 100% increased healing on yourself from this effect.",
+    1
+   ],
+   "places a spell on the target that heals them for # (scales with bonus healing) the next time they take damage or receive non-periodic healing. when the heal occurs, prayer of mending jumps to a party or raid member within # yards. jumps up to # times and lasts # sec after each jump. this spell can only be placed on one target at a time per caster": [
+    "Prayer of Mending",
+    "Places a spell on the target that heals them for 172 (scales with bonus healing) the next time they take damage or receive non-periodic healing. When the heal occurs, Prayer of Mending jumps to a party or raid member within 20 yards. Jumps up to 5 times and lasts 30 sec after each jump. This spell can only be placed on one target at a time per caster.",
+    1
+   ],
+   "your non-periodic critical heals create a protective shield on the target, absorbing #% of the amount healed. shields up to # damage and lasts # sec. (numbers at level #; they grow with your level.)": [
+    "Divine Aegis",
+    "Your non-periodic critical heals create a protective shield on the target, absorbing 5% of the amount healed. Shields up to 1200 damage and lasts 12 sec. (Numbers at level 60; they grow with your level.)",
+    1
+   ]
+  },
+  "rogue": {
+   "finishing move that marks the target, storing a portion of the damage dealt by your attacks per combo point. garrote and rupture damage is stored at twice the rate. after # sec, the stored damage is dealt, up to a maximum increased by attack power and critical strike chance: # point : #% stored, # (scales with attack power and critical strike chance) damage cap # points: #% stored, # (scales with attack power and critical strike chance) damage cap # points: #% stored, # (scales with attack power and critical strike chance) damage cap # points: #% stored, # (scales with attack power and critical strike chance) damage cap # points: #% stored, # (scales with attack power and critical strike chance) damage cap": [
+    "Death Mark",
+    "Finishing move that marks the target, storing a portion of the damage dealt by your attacks per Combo Point. Garrote and Rupture damage is stored at twice the rate. After 6 sec, the stored damage is dealt, up to a maximum increased by Attack Power and Critical Strike chance: 1 point : 12% stored, 165 (scales with attack power and critical strike chance) damage cap 2 points: 24% stored, 267 (scales with attack power and critical strike chance) damage cap 3 points: 36% stored, 369 (scales with attack power and critical strike chance) damage cap 4 points: 48% stored, 471 (scales with attack power and critical strike chance) damage cap 5 points: 60% stored, 573 (scales with attack power and critical strike chance) damage cap",
+    1
+   ],
+   "gives you a #% chance to add a combo point to your target after dodging their attack or fully resisting one of their spells": [
+    "Setup",
+    "Gives you a 15% chance to add a Combo Point to your target after Dodging their attack or fully resisting one of their spells.",
+    1
+   ],
+   "gives your melee weapon attacks a benefit depending on the weapon. axe/sword: your successful melee attacks have a #% chance to trigger an extra attack on the target. dagger/fist: increases your critical strike chance by #%. mace: your attacks ignore #% of your target's armor": [
+    "Hack and Slash",
+    "Gives your melee weapon attacks a benefit depending on the weapon. Axe/Sword: Your successful melee attacks have a 1% chance to trigger an extra attack on the target. Dagger/Fist: Increases your critical strike chance by 1%. Mace: Your attacks ignore 3% of your target's armor.",
+    1
+   ],
+   "increases the energy cost reduction of your poised ability by #": [
+    "Composure",
+    "Increases the Energy cost reduction of your Poised ability by 5.",
+    1
+   ],
+   "increases the energy generated by your shank ability by # and reduces its cooldown by # sec": [
+    "Flash of Steel",
+    "Increases the Energy generated by your Shank ability by 3 and reduces its cooldown by 0.4 sec.",
+    1
+   ],
+   "increases your stealth detection as if you were # level higher and reduces your chance to be hit by spells and ranged attacks by #%": [
+    "Heightened Senses",
+    "Increases your Stealth detection as if you were 1 level higher and reduces your chance to be hit by spells and ranged attacks by 2%.",
+    1
+   ],
+   "reduces the chance enemies have to detect you while in stealth mode as if you were # level higher": [
+    "Master of Deception",
+    "Reduces the chance enemies have to detect you while in Stealth mode as if you were 1 level higher.",
+    1
+   ],
+   "reduces the energy cost of your expose armor ability by #, and refunds # combo point when cast with # combo points": [
+    "Improved Expose Armor",
+    "Reduces the Energy cost of your Expose Armor ability by 5, and refunds 1 Combo Point when cast with 5 Combo Points.",
+    1
+   ]
+  },
+  "shaman": {
+   "when you deal damage with a melee attack, you have a ?% chance (based on weapon speed) to reduce the cast time and mana cost of your next lightning bolt spell by #%. stacks up to # times. lasts # sec": [
+    "Maelstrom Weapon",
+    "When you deal damage with a melee attack, you have a ?% chance (based on weapon speed) to reduce the cast time and Mana cost of your next Lightning Bolt spell by 20%. Stacks up to 5 times. Lasts 30 sec.",
+    1
+   ]
+  },
+  "warlock": {
+   "tears the target apart from within for # sec, inflicting # shadow damage every # sec. while channeling, your siphon life, corruption, and bane of agony effects on the target deal their periodic damage #% faster. (numbers at level #; they grow with your level.)": [
+    "Wrack",
+    "Tears the target apart from within for 6 sec, inflicting 60.2 Shadow damage every 1 sec. While channeling, your Siphon Life, Corruption, and Bane of Agony effects on the target deal their periodic damage 100% faster. (Numbers at level 60; they grow with your level.)",
+    1
+   ],
+   "when activated, sacrifices your summoned demon to enhance the opposing aspect of your power, granting you an effect that lasts # hours. the effect is canceled if any demon is summoned. imp: increases your shadow damage by #%. voidwalker: restores #% of your total mana every # sec. succubus/incubus: increases your fire damage by #%. felhunter: restores #% of your total health every # sec": [
+    "Demonic Sacrifice",
+    "When activated, sacrifices your summoned Demon to enhance the opposing aspect of your power, granting you an effect that lasts 2 hours. The effect is canceled if any Demon is summoned. Imp: Increases your Shadow damage by 15%. Voidwalker: Restores 2% of your total Mana every 4 sec. Succubus/Incubus: Increases your Fire damage by 15%. Felhunter: Restores 3% of your total Health every 4 sec.",
+    1
+   ],
+   "your searing pain generates #% less threat and brands the target for # sec. your pet's next # attacks against the target deal # to # (scales with fire spell power and shadow spell power) fire or shadow damage based on the pet. if shadow damage is dealt, it has high threat. (numbers at level #; they grow with your level.)": [
+    "Demonic Brand",
+    "Your Searing Pain generates 17% less threat and brands the target for 10 sec. Your pet's next 2 attacks against the target deal 65 to 68 (scales with Fire spell power and Shadow spell power) Fire or Shadow damage based on the pet. If Shadow damage is dealt, it has high threat. (Numbers at level 60; they grow with your level.)",
+    1
+   ]
+  },
+  "warrior": {
+   "causes all enemies within ? yds to be dazed, reducing movement speed by #% for # sec": [
+    "Piercing Howl",
+    "Causes all enemies within ? yds to be Dazed, reducing movement speed by 50% for 6 sec.",
+    1
+   ]
+  }
+ },
+ "names": {
+  "druid": [
+   [
+    "Efflorescence",
+    "Restoration",
+    false
+   ],
+   [
+    "Enhanced Restoration",
+    "Restoration",
+    false
+   ],
+   [
+    "Lifebloom",
+    "Restoration",
+    false
+   ],
+   [
+    "Living Seed",
+    "Restoration",
+    false
+   ],
+   [
+    "Nourish",
+    "Restoration",
+    false
+   ],
+   [
+    "Skull Bash",
+    "Feral Combat",
+    false
+   ],
+   [
+    "Starfall",
+    "Balance",
+    false
+   ],
+   [
+    "Starsurge",
+    "Balance",
+    false
+   ],
+   [
+    "Sunfire",
+    "Balance",
+    false
+   ],
+   [
+    "Survival Instincts",
+    "Feral Combat",
+    false
+   ],
+   [
+    "Tiger's Fury",
+    "Feral Combat",
+    false
+   ],
+   [
+    "Poised",
+    "Feral Combat",
+    true
+   ],
+   [
+    "Pounce Bleed",
+    "Feral Combat",
+    false
+   ],
+   [
+    "Moonkin Aura",
+    "Balance",
+    false
+   ],
+   [
+    "Deeper Wilds",
+    "Restoration",
+    false
+   ]
+  ],
+  "hunter": [
+   [
+    "Aspect of the Viper",
+    "Beast Mastery",
+    false
+   ],
+   [
+    "Carve",
+    "Survival",
+    false
+   ],
+   [
+    "Chimera Shot",
+    "Marksmanship",
+    false
+   ],
+   [
+    "Chimera Shot - Scorpid",
+    "Marksmanship",
+    false
+   ],
+   [
+    "Chimera Shot - Serpent",
+    "Marksmanship",
+    false
+   ],
+   [
+    "Chimera Shot - Viper",
+    "Marksmanship",
+    false
+   ],
+   [
+    "Cobra Reflexes",
+    "Beast Training",
+    false
+   ],
+   [
+    "Cobra Slayer",
+    "Engraving",
+    false
+   ],
+   [
+    "Dismember",
+    "Beast Training",
+    true
+   ],
+   [
+    "Dust Cloud",
+    "Beast Training",
+    true
+   ],
+   [
+    "Flanking Strike",
+    "Survival",
+    false
+   ],
+   [
+    "Heart of the Lion",
+    "Survival",
+    false
+   ],
+   [
+    "Kill Command",
+    "Beast Mastery",
+    false
+   ],
+   [
+    "Lightning Breath",
+    "Beast Training",
+    false
+   ],
+   [
+    "Mine!",
+    "Beast Training",
+    true
+   ],
+   [
+    "Pinch",
+    "Beast Training",
+    true
+   ],
+   [
+    "Savage Rend",
+    "Beast Training",
+    true
+   ],
+   [
+    "Tendon Rip",
+    "Beast Training",
+    true
+   ],
+   [
+    "Web",
+    "Beast Training",
+    true
+   ],
+   [
+    "Demoralizing Screech",
+    "Beast Training",
+    false
+   ],
+   [
+    "Scorpid Poison",
+    "Beast Training",
+    false
+   ],
+   [
+    "Furious Howl",
+    "Beast Training",
+    false
+   ],
+   [
+    "Great Stamina",
+    "Beast Training",
+    false
+   ],
+   [
+    "Natural Armor",
+    "Beast Training",
+    false
+   ],
+   [
+    "Arcane Resistance",
+    "Beast Training",
+    false
+   ],
+   [
+    "Fire Resistance",
+    "Beast Training",
+    false
+   ],
+   [
+    "Frost Resistance",
+    "Beast Training",
+    false
+   ],
+   [
+    "Nature Resistance",
+    "Beast Training",
+    false
+   ],
+   [
+    "Shadow Resistance",
+    "Beast Training",
+    false
+   ],
+   [
+    "Shell Shield",
+    "Beast Training",
+    false
+   ],
+   [
+    "Trickster's Dance",
+    "Beast Training",
+    true
+   ],
+   [
+    "Dive",
+    "Beast Training",
+    false
+   ],
+   [
+    "Thunderstomp",
+    "Beast Training",
+    true
+   ],
+   [
+    "Enchanted Flare",
+    "Marksmanship",
+    false
+   ],
+   [
+    "Lava Breath",
+    "Beast Training",
+    false
+   ],
+   [
+    "Black Arrow",
+    "Marksmanship",
+    false
+   ],
+   [
+    "Aspect of the Falcon",
+    "Beast Mastery",
+    false
+   ],
+   [
+    "Harass",
+    "Beast Training",
+    false
+   ],
+   [
+    "Melee Specialization",
+    "Survival",
+    false
+   ],
+   [
+    "Readiness",
+    "Survival",
+    false
+   ]
+  ],
+  "mage": [
+   [
+    "Arcane Barrage",
+    "Arcane",
+    false
+   ],
+   [
+    "Arcane Surge",
+    "Arcane",
+    false
+   ],
+   [
+    "Balefire Bolt",
+    "Fire",
+    false
+   ],
+   [
+    "Chilled",
+    "Frost",
+    false
+   ],
+   [
+    "Frozen Orb",
+    "Frost",
+    false
+   ],
+   [
+    "Icy Veins",
+    "Frost",
+    false
+   ],
+   [
+    "Living Bomb",
+    "Fire",
+    false
+   ],
+   [
+    "Mass Regeneration",
+    "Arcane",
+    false
+   ],
+   [
+    "Regeneration",
+    "Arcane",
+    false
+   ],
+   [
+    "Rewind Time",
+    "Arcane",
+    false
+   ],
+   [
+    "Spellfrost Bolt",
+    "Frost",
+    false
+   ],
+   [
+    "Expanded Intellect",
+    "Arcane",
+    false
+   ],
+   [
+    "Fire Vulnerability",
+    "Fire",
+    false
+   ],
+   [
+    "Living Flame",
+    "Fire",
+    false
+   ]
+  ],
+  "paladin": [
+   [
+    "Avenging Wrath",
+    "Retribution",
+    false
+   ],
+   [
+    "Divine Light",
+    "Holy",
+    false
+   ],
+   [
+    "Divine Sacrifice",
+    "Retribution",
+    false
+   ],
+   [
+    "Divine Storm",
+    "Retribution",
+    false
+   ],
+   [
+    "Horn of Lordaeron",
+    "Holy",
+    false
+   ],
+   [
+    "Inspiration Exemplar",
+    "Holy",
+    false
+   ],
+   [
+    "Judgement of Martyrdom",
+    "Retribution",
+    false
+   ],
+   [
+    "Judgement of Righteousness",
+    "Holy",
+    false
+   ],
+   [
+    "Rebuke",
+    "Holy",
+    false
+   ],
+   [
+    "Righteous Judgement",
+    "Retribution",
+    false
+   ],
+   [
+    "Sacred Shield",
+    "Holy",
+    false
+   ],
+   [
+    "Shield of Righteousness",
+    "Protection",
+    false
+   ],
+   [
+    "Judgement of the Crusader",
+    "Retribution",
+    false
+   ],
+   [
+    "Judgement of Command",
+    "Retribution",
+    false
+   ],
+   [
+    "Voice of Truth",
+    "Holy",
+    true
+   ],
+   [
+    "Judgement of Justice",
+    "Protection",
+    false
+   ],
+   [
+    "Judgement of Fury",
+    "Protection",
+    true
+   ],
+   [
+    "Judgement of Wisdom",
+    "Holy",
+    false
+   ],
+   [
+    "Enhanced Blessings",
+    "Holy",
+    false
+   ],
+   [
+    "Exorcist",
+    "Retribution",
+    false
+   ],
+   [
+    "Improved Flash of Light",
+    "Holy",
+    false
+   ],
+   [
+    "Improved Seal of Fury",
+    "Protection",
+    true
+   ],
+   [
+    "Seal of Martyrdom",
+    "Retribution",
+    false
+   ]
+  ],
+  "priest": [
+   [
+    "Circle of Healing",
+    "Holy",
+    false
+   ],
+   [
+    "Dispersion",
+    "Shadow Magic",
+    false
+   ],
+   [
+    "Eye of the Void",
+    "Shadow Magic",
+    false
+   ],
+   [
+    "Homunculi",
+    "Shadow Magic",
+    false
+   ],
+   [
+    "Mind Sear",
+    "Shadow Magic",
+    false
+   ],
+   [
+    "Mind Spike",
+    "Shadow Magic",
+    false
+   ],
+   [
+    "Pain Suppression",
+    "Discipline",
+    false
+   ],
+   [
+    "Power Word: Barrier",
+    "Discipline",
+    false
+   ],
+   [
+    "Shadowfiend",
+    "Shadow Magic",
+    false
+   ],
+   [
+    "Vampiric Touch",
+    "Shadow Magic",
+    false
+   ],
+   [
+    "Void Plague",
+    "Shadow Magic",
+    false
+   ],
+   [
+    "Focused Casting",
+    "Discipline",
+    false
+   ],
+   [
+    "Increased Fortitude",
+    "Discipline",
+    false
+   ],
+   [
+    "Secrets of Elune",
+    "Meditation",
+    false
+   ],
+   [
+    "Secrets of Undeath",
+    "Meditation",
+    false
+   ],
+   [
+    "Secrets of the Light",
+    "Meditation",
+    false
+   ],
+   [
+    "Secrets of the Loa",
+    "Meditation",
+    false
+   ],
+   [
+    "TREE Shadow",
+    "",
+    false
+   ]
+  ],
+  "rogue": [
+   [
+    "Between the Eyes",
+    "Combat",
+    false
+   ],
+   [
+    "Blade Dance",
+    "Combat",
+    false
+   ],
+   [
+    "Poisoned Knife",
+    "Combat",
+    false
+   ],
+   [
+    "Quick Draw",
+    "Combat",
+    false
+   ],
+   [
+    "Redirect",
+    "Subtlety",
+    false
+   ],
+   [
+    "Saber Slash",
+    "Combat",
+    false
+   ],
+   [
+    "Shadowstrike",
+    "Subtlety",
+    false
+   ],
+   [
+    "Shiv",
+    "Combat",
+    false
+   ],
+   [
+    "Shuriken Toss",
+    "Subtlety",
+    false
+   ],
+   [
+    "Poised",
+    "Subtlety",
+    true
+   ],
+   [
+    "Main Gauche",
+    "Combat",
+    false
+   ],
+   [
+    "Vanished",
+    "Subtlety",
+    false
+   ]
+  ],
+  "shaman": [
+   [
+    "Ancestral Guidance",
+    "Elemental Combat",
+    false
+   ],
+   [
+    "Decoy Totem",
+    "Enhancement",
+    false
+   ],
+   [
+    "Earth Shield",
+    "Restoration",
+    false
+   ],
+   [
+    "Lava Lash",
+    "Enhancement",
+    false
+   ],
+   [
+    "Molten Blast",
+    "Elemental Combat",
+    false
+   ],
+   [
+    "Spirit of the Alpha",
+    "Enhancement",
+    false
+   ],
+   [
+    "Ancestral Fortitude",
+    "Restoration",
+    false
+   ],
+   [
+    "Healing Rain",
+    "Restoration",
+    false
+   ],
+   [
+    "TREE Elemental",
+    "",
+    false
+   ]
+  ],
+  "warlock": [
+   [
+    "Chaos Bolt",
+    "Destruction",
+    false
+   ],
+   [
+    "Demon Charge",
+    "Demonology",
+    false
+   ],
+   [
+    "Demonic Howl",
+    "Demonology",
+    false
+   ],
+   [
+    "Fel Armor",
+    "Demonology",
+    false
+   ],
+   [
+    "Grimoire of Synergy",
+    "Demonology",
+    false
+   ],
+   [
+    "Invocation",
+    "Affliction",
+    false
+   ],
+   [
+    "Menace",
+    "Demonology",
+    false
+   ],
+   [
+    "Metamorphosis",
+    "Demonology",
+    false
+   ],
+   [
+    "Metamorphosis : Demon Charge",
+    "Demonology",
+    false
+   ],
+   [
+    "Metamorphosis : Demonic Howl",
+    "Demonology",
+    false
+   ],
+   [
+    "Shadow Cleave",
+    "Demonology",
+    false
+   ],
+   [
+    "Shadowflame",
+    "Destruction",
+    false
+   ],
+   [
+    "Explorer Imp",
+    "Explorer Imp",
+    false
+   ],
+   [
+    "Hellfire Effect",
+    "Destruction",
+    false
+   ],
+   [
+    "Curse of Idiocy",
+    "Affliction",
+    false
+   ],
+   [
+    "Ritual of Doom Effect",
+    "Demonology",
+    false
+   ],
+   [
+    "Dance of the Wicked",
+    "Demonology",
+    false
+   ],
+   [
+    "Demonic Grace",
+    "Demonology",
+    false
+   ]
+  ],
+  "warrior": [
+   [
+    "Commanding Shout",
+    "Protection",
+    false
+   ],
+   [
+    "Devastate",
+    "Protection",
+    false
+   ],
+   [
+    "Enraged Regeneration",
+    "Fury",
+    false
+   ],
+   [
+    "Meathook",
+    "Arms",
+    false
+   ],
+   [
+    "Quick Strike",
+    "Arms",
+    false
+   ],
+   [
+    "Raging Blow",
+    "Fury",
+    false
+   ],
+   [
+    "Rallying Cry",
+    "Protection",
+    false
+   ],
+   [
+    "Shockwave",
+    "Arms",
+    false
+   ],
+   [
+    "Valor of Azeroth",
+    "Protection",
+    false
+   ],
+   [
+    "Improved Intimidating Shout",
+    "Fury",
+    false
+   ],
+   [
+    "Long Daze",
+    "Arms",
+    false
+   ]
+  ]
+ },
+ "talents": {
+  "druid": [],
+  "hunter": [],
+  "mage": [],
+  "paladin": [],
+  "priest": [],
+  "rogue": [],
+  "shaman": [],
+  "warlock": [],
+  "warrior": []
+ }
+}

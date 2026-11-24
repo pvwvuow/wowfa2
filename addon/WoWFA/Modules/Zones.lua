@@ -36,7 +36,18 @@ local function fa(name, quiet)
     if v == nil then
         -- rc14 (the owner: the map label said "Wetlands (20-30)" in English): the
         -- hover label adds the level range after the zone name
-        local base, lv = string.match(name, "^(.-)%s*(%(%s*%d+%s*%-%s*%d+%s*%))$")
+        -- rc16 (the owner: "Hillsbrad Foothills (20-30)" still English): the client
+        -- colours the level range, so the colour codes go first
+        local plain = (string.gsub(name, "|c%x%x%x%x%x%x%x%x", ""))
+        plain = (string.gsub(plain, "|r", ""))
+        plain = string.match(plain, "^%s*(.-)%s*$") or plain
+        if plain ~= name then
+            local pv = F.D.names.zone[T.NameKey(plain)]
+            if pv then
+                return pv
+            end
+        end
+        local base, lv = string.match(plain, "^(.-)%s*(%(%s*%d+[%s%-%d]*%))$")
         if base and base ~= "" then
             local bv = F.D.names.zone[T.NameKey(base)]
             if bv then
@@ -139,6 +150,7 @@ local function apply_inplace(fs, faText, enText, kind)
         shown = shown .. "\n" .. enText
     end
     fs:SetText(shown)
+    original[fs].shown = shown
     writing[fs] = nil
 end
 
@@ -191,6 +203,16 @@ local function on_inplace(fs, enText, kind)
     -- rc4 (the owner's miss list: "<Persian> / Eastern Kingdoms" x1755): our OWN
     -- SetText re-enters this hook; never look our Persian output up as a zone
     if writing[fs] then
+        return
+    end
+    -- rc16 (the owner: the zone headers of the quest list flip between Persian, empty
+    -- boxes and English): the map scan read our OWN Persian back, found no zone of that
+    -- name and put the game font back under the Persian text = empty boxes. Persian text
+    -- is never English input: only its font is kept right.
+    if type(enText) == "string" and string.find(enText, "[\216-\219]") then
+        if original[fs] then
+            refont(fs)
+        end
         return
     end
     -- the hooks are raw (not F:Wrap): after switch/module OFF they must stop

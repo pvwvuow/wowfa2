@@ -15,6 +15,7 @@
 
 Shape.lua
 Locale.lua
+Locale_Alerts.lua
 Core.lua
 Text.lua
 Room.lua
@@ -30,6 +31,7 @@ Modules\Tracker.lua
 Modules\Spells.lua
 Modules\Walk.lua
 Modules\Npc.lua
+Modules\Alerts.lua
 Panel.lua
 Dump.lua
 Minimap.lua

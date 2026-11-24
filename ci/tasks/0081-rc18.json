@@ -1,0 +1,123 @@
+{
+ "id": "0081-rc18",
+ "kind": "edit",
+ "why": "rc18: coloured English names, quest list header/title flicker + boxes, quest list titles via the quest log ids",
+ "args": {
+  "ops": [
+   {
+    "file": "addon/WoWFA/Text.lua",
+    "old": "        if not F.Room.On(key) then\n            return en\n        end\n        if fa == \"\" and fam == \"set\" then",
+    "new": "        if not F.Room.On(key) then\n            -- rc18 (the owner: a name switched to English lost the colour he picked):\n            -- the English name keeps the colour of its family\n            local ehex = (en ~= \"\") and T.ColorOf(fam, en) or nil\n            if ehex then\n                return \"|cff\" .. ehex .. en .. \"|r\"\n            end\n            return en\n        end\n        if fa == \"\" and fam == \"set\" then",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "local original = {} -- fs -> { font, size, flags, text } of the state to restore\n",
+    "new": "local original = {} -- fs -> { font, size, flags, text } of the state to restore\nlocal zwatch = setmetatable({}, { __mode = \"k\" }) -- rc18: fs -> kind of every string we wrote\nlocal zseen = setmetatable({}, { __mode = \"k\" })  -- rc18: fs -> the text read back last time\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "    fs:SetText(shown)\n    original[fs].shown = shown\n    writing[fs] = nil\nend",
+    "new": "    fs:SetText(shown)\n    original[fs].shown = shown\n    writing[fs] = nil\n    zwatch[fs] = kind\n    zseen[fs] = shown\nend",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "local function restore_all()\n    for fs in pairs(original) do\n        unapply_inplace(fs)\n    end",
+    "new": "local function restore_all()\n    for fs in pairs(zwatch) do\n        zwatch[fs] = nil\n    end\n    for fs in pairs(original) do\n        unapply_inplace(fs)\n    end",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "    if type(enText) == \"string\" and string.find(enText, \"[\\216-\\219]\") then",
+    "new": "    -- rc18: the SHAPED Persian (display mode 3) is all Arabic presentation forms\n    -- (UTF-8 lead byte \\239) - the rc16 guard missed it, so the scan still read our own\n    -- header back as \"no zone\" and put the game font under it (the empty boxes)\n    if type(enText) == \"string\" and string.find(enText, \"[\\216-\\219\\239]\") then",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "    hooksecurefunc(fs, \"SetText\", function(self, text)\n        on_inplace(self, text, kind)\n    end)\nend",
+    "new": "    hooksecurefunc(fs, \"SetText\", function(self, text)\n        on_inplace(self, text, kind)\n    end)\nend\n\n-- rc18 (the owner: the quest list zone headers still flip English / Persian / boxes):\n-- the header rows are buttons and the client writes them through Button:SetText on the\n-- C side, so the FontString hook never fires and the English stayed until the next\n-- scan. Every string we once wrote is read back every frame and translated again the\n-- moment the client changed it.\nfunction M.watch()\n    if not M.active or not F.Room.On(\"namesZone\") then\n        return\n    end\n    for fs, kind in pairs(zwatch) do\n        local ok, txt = pcall(fs.GetText, fs)\n        if ok and F.Usable(txt) and type(txt) == \"string\" and txt ~= zseen[fs] then\n            zseen[fs] = txt\n            if txt ~= \"\" then\n                on_inplace(fs, txt, kind)\n            end\n        end\n    end\nend",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "                    if n % 4 == 0 then",
+    "new": "                    if n % 2 == 0 then",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "    local fixer = CreateFrame(\"Frame\")\n    local acc = 0\n    fixer:SetScript(\"OnUpdate\", function(_, el)\n        acc = acc + el\n        if acc < 0.1 then\n            return\n        end\n        acc = 0\n        if M.active and next(original) ~= nil then\n            M.fix_fonts()\n        end\n    end)",
+    "new": "    local fixer = CreateFrame(\"Frame\")\n    fixer:SetScript(\"OnUpdate\", function()\n        -- rc18: every frame (the tables hold only the strings we wrote)\n        if M.active and next(zwatch) ~= nil then\n            local ok, err = pcall(M.watch)\n            if not ok then\n                F:LogError(\"dungeons\", err)\n            end\n        end\n        if M.active and next(original) ~= nil then\n            M.fix_fonts()\n        end\n    end)\n    -- rc18: a quest log change rebuilds the header rows - scan right after it\n    local pend = false\n    F:On(\"QUEST_LOG_UPDATE\", \"dungeons\", function()\n        local wm = WorldMapFrame\n        if pend or type(wm) ~= \"table\" or not (wm.IsShown and wm:IsShown()) then\n            return\n        end\n        pend = true\n        F.After(0.05, function()\n            pend = false\n            pcall(M.scan_map)\n        end)\n    end)",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Walk.lua",
+    "old": "local function shaped(s)\n    return T.ShapeLine(T.Digits(s), T.Mode())\nend\n",
+    "new": "local function shaped(s)\n    return T.ShapeLine(T.Digits(s), T.Mode())\nend\n\n-- Persian bytes (plain \\216-\\219, the shaped presentation forms \\239)\nlocal function has_fa(s)\n    return type(s) == \"string\" and string.find(s, \"[\\216-\\219\\239]\") ~= nil\nend\n\n-- rc18 (the owner's screenshot: the quest list titles stayed English): the quest log\n-- names the quest id of every title (the tracker reads it the same way); the title\n-- hash of the data is only the fallback\nlocal logIdx = {}\nlocal function simple(s)\n    return (string.gsub(string.lower(tostring(s or \"\")), \"[^%w]\", \"\"))\nend\n\nfunction W.RebuildLog()\n    logIdx = {}\n    if C_QuestLog and C_QuestLog.GetInfo and C_QuestLog.GetNumQuestLogEntries then\n        local okn, n = pcall(C_QuestLog.GetNumQuestLogEntries)\n        if not okn or not F.Usable(n) or type(n) ~= \"number\" then\n            return\n        end\n        for i = 1, n do\n            local ok, info = pcall(C_QuestLog.GetInfo, i)\n            if ok and type(info) == \"table\" and F.Usable(info.questID) and type(info.questID) == \"number\"\n                and info.questID > 0 and F.Usable(info.title) and type(info.title) == \"string\" and info.title ~= \"\" then\n                logIdx[simple(info.title)] = info.questID\n            end\n        end\n    elseif GetNumQuestLogEntries and GetQuestLogTitle then\n        local okn, n = pcall(GetNumQuestLogEntries)\n        if not okn or not F.Usable(n) or type(n) ~= \"number\" then\n            return\n        end\n        for i = 1, n do\n            local ok, title, _, _, _, _, _, _, qid = pcall(GetQuestLogTitle, i)\n            if ok and F.Usable(qid) and type(qid) == \"number\" and qid > 0 and F.Usable(title)\n                and type(title) == \"string\" and title ~= \"\" then\n                logIdx[simple(title)] = qid\n            end\n        end\n    end\nend\n\nfunction W.LogId(title)\n    local k = simple(title)\n    return k ~= \"\" and logIdx[k] or nil\nend\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Walk.lua",
+    "old": "    local h = F.TitleHash(title)\n    local id = h ~= \"\" and byHash[h] or nil",
+    "new": "    local id = W.LogId(title)\n    if not id or type(F.D.quests[id]) ~= \"string\" then\n        local h = F.TitleHash(title)\n        id = h ~= \"\" and byHash[h] or nil\n    end",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Walk.lua",
+    "old": "    local dash, body = string.match(plain, \"^(%s*%-+%s*)(.+)$\")\n    body = body or plain\n    dash = dash or \"\"\n",
+    "new": "    local dash, body = string.match(plain, \"^(%s*%-+%s*)(.+)$\")\n    body = body or plain\n    dash = dash or \"\"\n    -- rc18: the status line of a finished quest\n    local st = string.lower(string.match(body, \"^%s*(.-)%s*$\") or \"\")\n    if st == \"ready for turn-in\" or st == \"complete\" or st == \"(complete)\" then\n        local word = (st == \"ready for turn-in\") and (L.tracker_ready or \"\u0622\u0645\u0627\u062f\u0647\u0654 \u062a\u062d\u0648\u06cc\u0644\")\n            or (L.tracker_complete or SUFFIX.complete)\n        if st == \"(complete)\" then\n            word = \"(\" .. word .. \")\"\n        end\n        return (c or \"\") .. dash .. shaped(word) .. (c and \"|r\" or \"\")\n    end\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Walk.lua",
+    "old": "local last = setmetatable({}, { __mode = \"k\" })   -- fs -> the text we wrote\n",
+    "new": "local last = setmetatable({}, { __mode = \"k\" })   -- fs -> the text we wrote\nlocal cand = setmetatable({}, { __mode = \"k\" })   -- rc18: fs -> true once we wrote it (the watch list)\nlocal seenT = setmetatable({}, { __mode = \"k\" })  -- rc18: fs -> the text the watch read last\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Walk.lua",
+    "old": "    fs:SetText(out)\n    writing[fs] = nil\n    last[fs] = out\nend",
+    "new": "    fs:SetText(out)\n    writing[fs] = nil\n    last[fs] = out\n    cand[fs] = true\n    seenT[fs] = out\nend",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Walk.lua",
+    "old": "    if last[fs] == text then\n        return -- our own output read back\n    end\n",
+    "new": "    if last[fs] == text then\n        return -- our own output read back\n    end\n    if has_fa(text) then\n        -- rc18: Persian another module wrote here (the zone headers): never ours to\n        -- undo - putting the game font back under it drew the empty boxes\n        mine[fs], last[fs] = nil, nil\n        return\n    end\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Walk.lua",
+    "old": "W.Refresh = refresh_all\n",
+    "new": "W.Refresh = refresh_all\n\n-- rc18: the client also rewrites these lines through paths no hook sees\n-- (Button:SetText, SetFormattedText): every line we once wrote is read back every\n-- frame and translated again the moment it changed\nfunction W.Watch()\n    for fs in pairs(cand) do\n        local ok, txt = pcall(fs.GetText, fs)\n        if ok and F.Usable(txt) and type(txt) == \"string\" and txt ~= seenT[fs] then\n            seenT[fs] = txt\n            if txt ~= last[fs] then\n                process(fs, txt)\n            end\n        end\n    end\nend\n\n-- /wowfa why: one chat report for the owner when a quest list line stays English\nfunction W.Why()\n    local n, w, li = 0, 0, 0\n    for _ in pairs(hooked) do\n        n = n + 1\n    end\n    for _ in pairs(mine) do\n        w = w + 1\n    end\n    for _ in pairs(logIdx) do\n        li = li + 1\n    end\n    F.Chat(string.format(\"WoWFA why: tracker=%s listTitles=%s namesQuest=%s questText=%s hooked=%d written=%d log=%d\",\n        kind_active(\"quest\") and \"on\" or \"off\", tostring(F.db and F.db.listTitles),\n        tostring(F.Room.On(\"namesQuest\")), tostring(F.Room.On(\"questText\")), n, w, li))\n    local shown = 0\n    for fs, kind in pairs(hooked) do\n        if kind == \"quest\" and shown < 6 then\n            local ok, txt = pcall(fs.GetText, fs)\n            if ok and F.Usable(txt) and type(txt) == \"string\" and txt ~= \"\" and not has_fa(txt) then\n                local p = plain_of(txt) or \"\"\n                local _, title = string.match(p, \"^(%[[^%]]*%])%s*(.+)$\")\n                if title then\n                    local id = W.LogId(title)\n                    local h = F.TitleHash(title)\n                    F.Chat(string.format(\"  '%s' id=%s data=%s hash=%s\", p, tostring(id),\n                        tostring(id and type(F.D.quests[id]) == \"string\"), h))\n                    shown = shown + 1\n                end\n            end\n        end\n    end\nend\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Walk.lua",
+    "old": "    local fixer = CreateFrame(\"Frame\")\n    local acc = 0\n    fixer:SetScript(\"OnUpdate\", function(_, el)\n        acc = acc + el\n        if acc < 0.1 then\n            return\n        end\n        acc = 0\n        for fs, o in pairs(mine) do",
+    "new": "    local fixer = CreateFrame(\"Frame\")\n    fixer:SetScript(\"OnUpdate\", function()\n        if next(cand) ~= nil then\n            local ok, err = pcall(W.Watch)\n            if not ok then\n                F:LogError(\"tracker\", err)\n            end\n        end\n        for fs, o in pairs(mine) do",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Walk.lua",
+    "old": "function W.Start()\n    if W.ticker or not (C_Timer and C_Timer.NewTicker) then\n        return\n    end",
+    "new": "-- rc18: scan right after the quest log changed / the map opened (not a second later)\nlocal pend = false\nlocal function soon()\n    if pend then\n        return\n    end\n    pend = true\n    F.After(0.05, function()\n        pend = false\n        local ok, err = pcall(W.Scan)\n        if not ok then\n            F:LogError(\"tracker\", err)\n        end\n    end)\nend\nW.Soon = soon\n\nF:On(\"QUEST_LOG_UPDATE\", nil, function()\n    W.RebuildLog()\n    memo = {}\n    soon()\nend)\n\nfunction W.Start()\n    W.RebuildLog()\n    local wm = WorldMapFrame\n    if type(wm) == \"table\" and wm.HookScript and not W.mapHooked then\n        W.mapHooked = true\n        pcall(wm.HookScript, wm, \"OnShow\", function()\n            soon()\n            F.After(0.3, soon)\n        end)\n    end\n    if W.ticker or not (C_Timer and C_Timer.NewTicker) then\n        return\n    end",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Core.lua",
+    "old": "    elseif cmd == \"status\" then\n        F.Chat(status_line())",
+    "new": "    elseif cmd == \"why\" and F.Walk and F.Walk.Why then\n        F.Walk.Why() -- rc18: why a quest list line stays English\n    elseif cmd == \"status\" then\n        F.Chat(status_line())",
+    "count": 1
+   },
+   {
+    "file": "policy.json",
+    "old": "\"version\": \"1.0.0-rc17\"",
+    "new": "\"version\": \"1.0.0-rc18\"",
+    "count": 1
+   }
+  ]
+ }
+}

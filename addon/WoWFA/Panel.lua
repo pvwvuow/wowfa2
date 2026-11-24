@@ -611,8 +611,12 @@ local function build()
     ab:SetSize(PW - 16, 30)
     panel.shareApply = UI.Button(ab, L.sh_apply, 150, 26, function()
         local txt = panel.shareIn:GetText() or ""
-        local ok, why = F.Room.ShareImport(txt)
-        panel.shareMsg:SetFa(ok and L.sh_ok or tostring(why), PW - 30)
+        local ok, why, note = F.Room.ShareImport(txt)
+        local msg = ok and L.sh_ok or tostring(why)
+        if ok and note then
+            msg = msg .. " " .. note
+        end
+        panel.shareMsg:SetFa(msg, PW - 30)
         if ok then
             refresh()
         end

@@ -1,0 +1,12 @@
+{
+ "id": "0066-diff",
+ "kind": "script",
+ "why": "report only: what exactly changed in the spell descriptions of build 71037",
+ "args": {
+  "module": "raw_diff",
+  "args": {
+   "build": "1.60.1.71037",
+   "ids": ["8024", "8027", "8030", "16339", "16341", "16342", "10486", "8232", "15286", "408498", "17330"]
+  }
+ }
+}

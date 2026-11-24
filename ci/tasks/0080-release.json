@@ -1,0 +1,8 @@
+{
+ "id": "0080-release",
+ "kind": "release",
+ "why": "rc17: rc16 fixes + every real name in the spell and talent texts marked",
+ "args": {
+  "notes": "WoWFA Forever 1.0.0-rc17 (test build, built by wowfa2 CI).\n\nFix: zone headers in the quest list no longer flip between Persian, empty boxes and English.\nFix: the world-map hover label with a level range ('Hillsbrad Foothills (20-30)') is Persian.\nFix: the quest tracker no longer turns itself off on the modern client, so quest titles and objective lines in the quest list are Persian.\nFix: every marked name is coloured: classes (also 'the hunter', 'Hunters', talent trees), game terms (cyan), items (gold) and objects (purple) got default colours.\nData: 131 more class / spell / term / zone names marked in spell and talent descriptions (school words like 'fire damage' stay plain on purpose).\nIncludes rc7 to rc16.\n\nData from ForeverDB.net"
+ }
+}

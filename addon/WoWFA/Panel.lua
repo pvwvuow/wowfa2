@@ -479,6 +479,7 @@ local function build()
             F:Fire("options", "questDock")
         end), 32, 2)
     panel.questAuto = opt_toggle("questAuto", L.d_qauto, true)
+    panel.listTitles = opt_toggle("listTitles", L.d_listtitles, true)
     end_page()
 
     -- ===================================================== Quest tracker

@@ -64,7 +64,7 @@ local function quest_row(title)
 end
 
 function W.Quest(text)
-    if not F.Room.On("namesQuest") then
+    if not F.Room.On("namesQuest") or (F.db and F.db.listTitles == false) then
         return nil
     end
     local plain, c = plain_of(text)
@@ -354,3 +354,31 @@ F:Listen("disp", refresh_all)
 F:Listen("state", function()
     memo = {}
 end)
+F:Listen("options", function(key)
+    if key == "listTitles" then
+        refresh_all()
+    end
+end)
+
+-- rc15 (the owner: empty boxes instead of Persian): the game resets the font of its
+-- buttons without a Lua call we can hook, so the font of every line we wrote is
+-- checked ten times a second (the table holds only those lines)
+do
+    local fixer = CreateFrame("Frame")
+    local acc = 0
+    fixer:SetScript("OnUpdate", function(_, el)
+        acc = acc + el
+        if acc < 0.1 then
+            return
+        end
+        acc = 0
+        for fs, o in pairs(mine) do
+            local ok, cur = pcall(fs.GetFont, fs)
+            if ok and cur ~= F.FONT then
+                writing[fs] = true
+                pcall(fs.SetFont, fs, F.FONT, o.size or T.Size(), "")
+                writing[fs] = nil
+            end
+        end
+    end)
+end

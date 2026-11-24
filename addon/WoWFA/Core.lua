@@ -194,6 +194,7 @@ local DEFAULTS = {
     noticed = {},
     minimap = { hide = false, angle = 200 },
     toast = true,
+    listTitles = true, -- rc15: quest titles in the quest list of the modern UI are Persian
     share = true,
     errors = {},
     lastBuild = 0,

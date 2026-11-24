@@ -471,6 +471,15 @@ local function build()
             F.db.alerts = v and true or false
             F:Fire("options", "alerts")
         end), 50, 2)
+    panel.alertScale = place(UI.Slider(page.child, PW - 16, L.al_size, 70, 160, 5,
+        function() return F.db.alertScale or 100 end,
+        function(v)
+            v = math.floor(v + 0.5)
+            if v ~= (F.db.alertScale or 100) then
+                F.db.alertScale = v
+                F:Fire('options', 'alertScale')
+            end
+        end), 30, 4)
     -- the system lines of the chat (Modules/Sysmsg.lua)
     panel.sysmsg = place(UI.Toggle(page.child, PW - 16, L.sy_on, L.sy_on_d,
         function() return F.db.sysmsg ~= false end,
@@ -478,6 +487,14 @@ local function build()
             F.db.sysmsg = v and true or false
             F:Fire('options', 'sysmsg')
         end), 50, 2)
+    for _, k in ipairs({ 'sysLoot', 'sysXp', 'sysRep', 'sysGroup' }) do
+        panel[k] = place(UI.Toggle(page.child, PW - 16, L['sy_' .. k], nil,
+            function() return F.db[k] ~= false end,
+            function(v)
+                F.db[k] = v and true or false
+                F:Fire('options', 'sysmsg')
+            end), 32, 2)
+    end
     -- Persian in the game chat (Modules/Chat.lua)
     panel.chatFa = place(UI.Toggle(page.child, PW - 16, L.ch_on, L.ch_on_d,
         function() return F.db.chatFa ~= false end,
@@ -517,6 +534,15 @@ local function build()
         end), 32, 2)
     panel.questAuto = opt_toggle("questAuto", L.d_qauto, true)
     panel.listTitles = opt_toggle("listTitles", L.d_listtitles, true)
+    panel.listScale = place(UI.Slider(page.child, PW - 16, L.ls_size, 70, 160, 5,
+        function() return F.db.listScale or 110 end,
+        function(v)
+            v = math.floor(v + 0.5)
+            if v ~= (F.db.listScale or 110) then
+                F.db.listScale = v
+                F:Fire('options', 'listScale')
+            end
+        end), 30, 4)
     end_page()
 
     -- ===================================================== Quest tracker

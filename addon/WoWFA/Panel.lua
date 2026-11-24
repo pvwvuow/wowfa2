@@ -93,12 +93,15 @@ local function restack(sf)
     end
     local yy = -6
     for _, it in ipairs(sf.items) do
-        yy = yy - (it.pre or 0)
-        local h = math.max(it.h, math.ceil(need_of(it.f)))
-        it.f:SetHeight(h)
-        it.f:ClearAllPoints()
-        it.f:SetPoint("TOPRIGHT", sf.child, "TOPRIGHT", -8, yy)
-        yy = yy - h - it.gap
+        -- rc37: a hidden row (an empty profile slot) takes no room
+        if not (it.f.IsShown and not it.f:IsShown()) then
+            yy = yy - (it.pre or 0)
+            local h = math.max(it.h, math.ceil(need_of(it.f)))
+            it.f:SetHeight(h)
+            it.f:ClearAllPoints()
+            it.f:SetPoint("TOPRIGHT", sf.child, "TOPRIGHT", -8, yy)
+            yy = yy - h - it.gap
+        end
     end
     sf.child:SetHeight(-yy + 10)
     if sf.UpdateBar then
@@ -747,6 +750,115 @@ local function build()
     panel.shareMsg:SetPoint("TOPRIGHT", mf, "TOPRIGHT", -4, 0)
     panel.shareMsg:SetFa(" ", PW - 30)
     place(mf, 30, 2)
+
+    -- rc37 (the owner: save the profile I made and put it back later with one click):
+    -- the named profiles of Room.lua (account-wide, at most 10), one row each
+    header(L.pf_hdr)
+    note(L.pf_d)
+    local pn = CreateFrame("Frame", nil, page.child)
+    pn:SetSize(PW - 16, 26)
+    panel.pfName = code_box(pn, true)
+    place(pn, 26, 4)
+    local pmsg
+    local function pf_say(s)
+        if pmsg then
+            pmsg.text:SetFa(s or " ", PW - 30)
+        end
+    end
+    local function pf_redo()
+        refresh()
+        if pages.share then
+            restack(pages.share)
+        end
+    end
+    local pb = CreateFrame("Frame", nil, page.child)
+    pb:SetSize(PW - 16, 30)
+    panel.pfSave = UI.Button(pb, L.pf_save, 150, 26, function()
+        local ok, why, name = F.Room.ProfileSave(panel.pfName:GetText() or "")
+        if ok then
+            pf_say(string.format(why == "updated" and L.pf_updated or L.pf_saved, tostring(name)))
+            panel.pfName:SetText("")
+            panel.pfName:ClearFocus()
+        else
+            pf_say(tostring(why))
+        end
+        pf_redo()
+    end)
+    panel.pfSave:SetPoint("RIGHT", pb, "RIGHT", -4, 0)
+    place(pb, 30, 4)
+    pmsg = CreateFrame("Frame", nil, page.child)
+    pmsg:SetSize(PW - 16, 24)
+    pmsg.text = UI.Text(pmsg, 12, C.goldLight)
+    pmsg.text:SetPoint("TOPRIGHT", pmsg, "TOPRIGHT", -4, 0)
+    pmsg.text:SetFa(" ", PW - 30)
+    place(pmsg, 24, 4)
+    panel.pfRows = {}
+    for i = 1, (F.Room.PROFILE_MAX or 10) do
+        local r = CreateFrame("Frame", nil, page.child)
+        r:SetSize(PW - 16, 30)
+        r.name = UI.Text(r, 13, C.text)
+        r.name:SetPoint("RIGHT", r, "RIGHT", -4, 0)
+        r.load = UI.Button(r, L.pf_load, 110, 24, function()
+            if not r.pname then
+                return
+            end
+            local nm = r.pname
+            local ok, why = F.Room.ProfileLoad(nm)
+            pf_say(ok and string.format(L.pf_loaded, nm) or tostring(why))
+            if ok then
+                panel:SetScale(F.db.scale or 1)
+            end
+            pf_redo()
+        end)
+        r.load:SetPoint("LEFT", r, "LEFT", 96, 0)
+        r.del = UI.Button(r, L.pf_del, 86, 24, function(self)
+            if not r.pname then
+                return
+            end
+            if not r.armed then
+                r.armed = true
+                self:SetLabel(L.pf_del_sure)
+                return
+            end
+            r.armed = false
+            self:SetLabel(L.pf_del)
+            local nm = r.pname
+            F.Room.ProfileDelete(nm)
+            pf_say(string.format(L.pf_deleted, nm))
+            pf_redo()
+        end)
+        r.del:SetPoint("LEFT", r, "LEFT", 4, 0)
+        r.Update = function(self)
+            local n = F.Room.ProfileNames()[i]
+            if self.pname ~= n and self.armed then
+                self.armed = false
+                self.del:SetLabel(L.pf_del)
+            end
+            self.pname = n
+            if n then
+                self.name:SetFa(n, PW - 260)
+                self:Show()
+            else
+                self:Hide()
+            end
+        end
+        panel.pfRows[i] = place(r, 30, 2)
+        r:Update()
+    end
+    local pe = CreateFrame("Frame", nil, page.child)
+    pe:SetSize(PW - 16, 24)
+    pe.text = UI.Text(pe, 12, C.muted)
+    pe.text:SetPoint("TOPRIGHT", pe, "TOPRIGHT", -4, 0)
+    pe.Update = function(self)
+        if #F.Room.ProfileNames() == 0 then
+            self.text:SetFa(L.pf_none, PW - 30)
+            self:Show()
+        else
+            self:Hide()
+        end
+    end
+    place(pe, 24, 2)
+    pe:Update()
     end_page()
 
     -- ===================================================== Status

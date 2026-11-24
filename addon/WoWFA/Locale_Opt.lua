@@ -30,5 +30,20 @@ L.sy_sysXp = fa("پیام~های تجربه، سطح و مأموریت~ها")
 L.sy_sysRep = fa("پیام~های اعتبار، مهارت و جادوی تازه")
 L.sy_sysGroup = fa("پیام~های گروه و AFK")
 
+L.pf_hdr = fa("پروفایل~های من")
+L.pf_d = fa("تنظیمات فعلی (بخش~ها، نمایش، رنگ~ها، اندازه~ها و هشدارها) را با یک اسم ذخیره کن و بعداً با یک کلیک «اعمال» برگردان. اسم را در کادر زیر بنویس. پروفایل~ها برای همهٔ کاراکترهای این اکانت مشترک~اند (حداکثر ۱۰).")
+L.pf_save = fa("ذخیرهٔ پروفایل")
+L.pf_load = fa("اعمال")
+L.pf_del = fa("حذف")
+L.pf_del_sure = fa("مطمئنی؟")
+L.pf_saved = fa("پروفایل «%s» ذخیره شد.")
+L.pf_updated = fa("پروفایل «%s» به~روز شد.")
+L.pf_loaded = fa("پروفایل «%s» اعمال شد.")
+L.pf_deleted = fa("پروفایل «%s» حذف شد.")
+L.pf_none = fa("هنوز پروفایلی نساخته~ای. یک اسم بنویس و «ذخیرهٔ پروفایل» را بزن.")
+
 L.ALERTS = L.ALERTS or {}
+L.ALERTS[#L.ALERTS + 1] = { "Your pet is dead. Use Revive Pet.", fa("پت شما مرده است. از Revive Pet استفاده کنید.") }
+L.ALERTS[#L.ALERTS + 1] = { "You do not have a pet to summon.", fa("پتی برای احضار ندارید.") }
+L.ALERTS[#L.ALERTS + 1] = { "Discovered: %s", fa("کشف شد: %s") }
 L.ALERTS[#L.ALERTS + 1] = { "There is no loot.", fa("غنیمتی وجود ندارد.") }

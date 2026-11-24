@@ -429,7 +429,8 @@ end
 -- switches (never the opt-in capture helper) and the display options. The
 -- SavedVariables are account-wide, so every character sees the same list.
 local PROFILE_OPTS = { "fontSize", "scale", "questDock", "questAuto", "zoneToast", "onUpdate", "toast", "share",
-    "szList", "szGame", "chatScale", "alertScale", "fontAll", "chatFa" }
+    "szList", "szGame", "chatScale", "alertScale", "fontAll", "chatFa",
+    "npcName", "zoneMap", "alerts", "sysmsg", "sysLoot", "sysXp", "sysRep", "sysGroup", "listTitles" }
 Room.PROFILE_MAX = 10
 
 local function deep(v)
@@ -500,6 +501,13 @@ function Room.ProfileSave(name)
         p.opt[k] = fdb[k]
     end
     p.opt.minimapHide = (type(fdb.minimap) == "table" and fdb.minimap.hide) and true or false
+    -- rc37: the colours and the spell / talent display are part of a profile too
+    if type(fdb.col) == "table" then
+        p.col = deep(fdb.col)
+    end
+    if type(fdb.disp) == "table" then
+        p.disp = deep(fdb.disp)
+    end
     ps[name] = p
     return true, existed and "updated" or "saved", name
 end
@@ -539,6 +547,12 @@ function Room.ProfileLoad(name)
     if opt.minimapHide ~= nil and type(fdb.minimap) == "table" then
         fdb.minimap.hide = opt.minimapHide and true or false
     end
+    if type(p.col) == "table" then -- rc37 (an older profile has none: the colours stay)
+        fdb.col = deep(p.col)
+    end
+    if type(p.disp) == "table" then
+        fdb.disp = deep(p.disp)
+    end
     if F.Refresh then
         F:Refresh()
     end
@@ -553,6 +567,12 @@ function Room.ProfileLoad(name)
     F:Fire("options", "fontAll")
     F:Fire("options", "chatFa")
     F:Fire("options", "alertScale")
+    F:Fire("options", "zoneMap")
+    F:Fire("options", "alerts")
+    F:Fire("options", "sysmsg")
+    F:Fire("options", "listTitles")
+    F:Fire("disp")
+    F:Fire("npcname")
     F:Fire("minimap")
     Room.Changed() -- the open texts + the panel re-render now (RefreshAll included)
     return true, r.m

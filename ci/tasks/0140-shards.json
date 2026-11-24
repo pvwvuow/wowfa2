@@ -1,0 +1,1 @@
+{"id":"0140-shards","kind":"script","why":"cut npc, zone and tpl into small review files","args":{"module":"make_shards","args":{"jobs":[{"table":"npc","size":100,"risky":true},{"table":"zone","size":100},{"table":"tpl","size":40}]}}}

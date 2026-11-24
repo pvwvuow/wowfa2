@@ -52,4 +52,4 @@ def run(args, rep):
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_bytes(body)
     rep.ok('%s written: %d bytes, %d entries, sha256 %s' % (path, len(body), len(data), got[:12]))
-    return ['data']
+    return [path]

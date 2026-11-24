@@ -1,0 +1,11 @@
+{
+ "id": "0085-qprobe",
+ "kind": "script",
+ "why": "report only: shape of the ForeverDB English quest data (does it carry the NPC / object names of every quest?)",
+ "args": {
+  "module": "fdb_quests_probe",
+  "args": {
+   "titles": ["Raptor Mastery", "Merrick's Bow"]
+  }
+ }
+}

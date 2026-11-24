@@ -105,6 +105,10 @@ check("zone names shipped", zkey ~= nil)
 MinimapZoneText:SetText(zkey)
 check("minimap zone text in Persian", non_ascii(MinimapZoneText:GetText()), MinimapZoneText:GetText())
 check("minimap zone text uses the Persian font", (MinimapZoneText._font or ""):find("Vazirmatn") ~= nil, MinimapZoneText._font)
+-- rc18: the SHAPED Persian (presentation forms, byte \239) read back keeps our font
+MinimapZoneText:SetText("\239\186\142\239\187\160\239\186\174")
+check("rc18: shaped Persian read back keeps the Persian font (no empty boxes)",
+    (MinimapZoneText._font or ""):find("Vazirmatn") ~= nil, MinimapZoneText._font)
 MinimapZoneText:SetText("Zzz Unknown Place")
 check("unknown zone stays English", MinimapZoneText:GetText() == "Zzz Unknown Place", MinimapZoneText:GetText())
 -- rc4: our own Persian write must never come back as a zone miss
@@ -384,7 +388,12 @@ local okRc9, errRc9 = pcall(function()
     F.db.mode = 1
     F.Room.Set("namesZone", false)
     F.db.col = { on = true }
-    check("a family that is off shows English, uncoloured", T.Markers(m):find("x Elwynn y", 1, true) ~= nil, T.Markers(m))
+    -- rc18 (the owner): a family switched to English keeps the colour he picked
+    check("a family that is off shows English in its colour", T.Markers(m):find("x |cff4cd964Elwynn|r y", 1, true) ~= nil, T.Markers(m))
+    F.db.col = { on = true, zn = "off" }
+    check("a family that is off and has no colour stays plain English", T.Markers(m):find("x Elwynn y", 1, true) ~= nil, T.Markers(m))
+    F.db.col = nil
+    check("colours off: the English stays plain", T.Markers(m):find("x Elwynn y", 1, true) ~= nil, T.Markers(m))
     F.Room.Set("namesZone", true)
 
     F.OpenPanel("colors")
@@ -502,6 +511,10 @@ do
         FF.Room.Set("questText", true)
         local o = FF.Walk.Objective("0/8 Skeletal Warrior slain")
         check("rc14: a modern objective line is rebuilt", type(o) == "string" and o ~= "0/8 Skeletal Warrior slain", tostring(o))
+        local rdy = FF.Walk.Objective("Ready for turn-in")
+        check("rc18: 'Ready for turn-in' becomes Persian", non_ascii(rdy), tostring(rdy))
+        check("rc18: the quest log index exists", type(FF.Walk.LogId) == "function" and type(FF.Walk.Watch) == "function")
+        check("rc18: /wowfa why runs", pcall(FF.Walk.Why))
         check("rc14: a map label with a level range is found", FF.Walk.Scan ~= nil)
         FF.Room.Set("namesSpell", wasSp)
         FF.Room.Set("questText", wasQt)

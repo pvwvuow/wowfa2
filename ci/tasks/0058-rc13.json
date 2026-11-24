@@ -1,0 +1,12 @@
+{
+ "id": "0058-rc13",
+ "kind": "edit",
+ "why": "rc13: floors follow the new counts (spells 1276, templates 1732), version bump",
+ "args": {
+  "ops": [
+   {"file": "policy.json", "old": "\"names.spell\": 1119", "new": "\"names.spell\": 1276", "count": 1},
+   {"file": "policy.json", "old": "\"tpl\": 1708", "new": "\"tpl\": 1732", "count": 1},
+   {"file": "policy.json", "old": "\"version\": \"1.0.0-rc12\"", "new": "\"version\": \"1.0.0-rc13\"", "count": 1}
+  ]
+ }
+}

@@ -1,0 +1,11 @@
+{
+ "id": "0054-fdbcov",
+ "kind": "script",
+ "why": "the owner: close the spell and talent file at the latest build: compare ForeverDB (70959) with our names and templates",
+ "args": {
+  "module": "fdb_cov",
+  "args": {
+   "top": 40
+  }
+ }
+}

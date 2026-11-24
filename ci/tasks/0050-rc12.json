@@ -1,0 +1,15 @@
+{
+ "id": "0050-rc12",
+ "kind": "edit",
+ "why": "rc12: spell / talent marker fixes + translated emote tags",
+ "args": {
+  "ops": [
+   {
+    "file": "policy.json",
+    "old": "\"version\": \"1.0.0-rc11\"",
+    "new": "\"version\": \"1.0.0-rc12\"",
+    "count": 1
+   }
+  ]
+ }
+}

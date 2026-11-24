@@ -192,10 +192,10 @@ local function remember(fs)
     local o = original[fs]
     local g = F.GameFont(fs) -- rc32: never our own font read back as the original
     if not o then
-        o = { font = g.font, size = g.size, flags = g.flags, text = fs:GetText() }
+        o = { font = g.font, size = g.size, flags = g.flags, fobj = g.fobj, text = fs:GetText() }
         original[fs] = o
     else
-        o.font, o.size, o.flags = g.font, g.size, g.flags
+        o.font, o.size, o.flags, o.fobj = g.font, g.size, g.flags, g.fobj
     end
     return o
 end
@@ -220,7 +220,8 @@ local function apply(fs, fa, prefix)
     -- Brain review #136-3: the walker reads what the client JUST re-rendered -
     -- keep the restore text fresh so a switch-off never writes stale bytes
     o.text = fs.GetText and fs:GetText() or o.text
-    fs:SetFont(F.FONT, F.ListSize(o.size or T.Size()), "")
+    local sz = F.ListSize(o.size or T.Size())
+    fs:SetFont(F.FONT, sz, "")
     -- the player's CURRENT display mode (Brain review #136-1); colour kept -
     -- SetText never touches the vertex colour
     -- the player's CURRENT display mode (Brain review #136-1); colour kept -
@@ -228,6 +229,7 @@ local function apply(fs, fa, prefix)
     -- (#136-8) is client chrome: prepended AFTER the shaping so a manual
     -- RTL reorder never drags it into the Persian run.
     fs:SetText((prefix or "") .. T.ShapeLine(fa, T.Mode()))
+    F.FitLine(fs, sz)
 end
 
 local function unapply(fs)
@@ -235,9 +237,7 @@ local function unapply(fs)
     if not o then
         return
     end
-    if o.font then
-        pcall(fs.SetFont, fs, o.font, o.size, o.flags or "")
-    end
+    F.RestoreFont(fs, o)
     fs:SetText(o.text)
     original[fs] = nil
 end
@@ -580,9 +580,11 @@ function M.install()
             for fs, o in pairs(original) do
                 local okt, txt = pcall(fs.GetText, fs)
                 if okt and F.Usable(txt) and type(txt) == 'string' and string.find(txt, '[\216-\219\239]') then
-                    pcall(fs.SetFont, fs, F.FONT, F.ListSize(o.size or T.Size()), '')
-                elseif o.font then
-                    pcall(fs.SetFont, fs, o.font, o.size, o.flags or '') -- rc32: English keeps the game font
+                    local sz = F.ListSize(o.size or T.Size())
+                    pcall(fs.SetFont, fs, F.FONT, sz, '')
+                    F.FitLine(fs, sz)
+                else
+                    F.RestoreFont(fs, o) -- rc32: English keeps the game font
                 end
             end
         end

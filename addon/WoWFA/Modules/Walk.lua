@@ -235,11 +235,13 @@ end
 
 local function put(fs, out, english)
     local g = F.GameFont(fs) -- rc32: the game's own font, never ours read back as the original
-    mine[fs] = { font = g.font, size = g.size, flags = g.flags }
+    mine[fs] = { font = g.font, size = g.size, flags = g.flags, fobj = g.fobj }
     eng[fs] = english
     writing[fs] = true
-    fs:SetFont(F.FONT, F.ListSize(mine[fs].size or T.Size()), "")
+    local sz = F.ListSize(mine[fs].size or T.Size())
+    fs:SetFont(F.FONT, sz, "")
     fs:SetText(out)
+    F.FitLine(fs, sz)
     writing[fs] = nil
     last[fs] = out
     cand[fs] = true
@@ -252,9 +254,7 @@ local function font_back(fs)
         return
     end
     writing[fs] = true
-    if o.font then
-        pcall(fs.SetFont, fs, o.font, o.size, o.flags or "")
-    end
+    F.RestoreFont(fs, o)
     writing[fs] = nil
     mine[fs], last[fs] = nil, nil
 end
@@ -389,9 +389,7 @@ local function refresh_all()
     for _, fs in ipairs(list) do
         local o = mine[fs]
         writing[fs] = true
-        if o and o.font then
-            pcall(fs.SetFont, fs, o.font, o.size, o.flags or "")
-        end
+        F.RestoreFont(fs, o)
         if eng[fs] then
             pcall(fs.SetText, fs, eng[fs])
         end
@@ -507,13 +505,16 @@ F:Listen("options", function(key)
     if key == "listTitles" then
         refresh_all()
     elseif key == 'fontSize' or key == 'listScale' then
+        F.RelayoutQuests()
         for fs, o in pairs(mine) do
             writing[fs] = true
             local okt, txt = pcall(fs.GetText, fs)
             if okt and F.Usable(txt) and has_fa(txt) then
-                pcall(fs.SetFont, fs, F.FONT, F.ListSize(o.size or T.Size()), '')
-            elseif o.font then
-                pcall(fs.SetFont, fs, o.font, o.size, o.flags or '') -- rc32: English keeps the game font
+                local sz = F.ListSize(o.size or T.Size())
+                pcall(fs.SetFont, fs, F.FONT, sz, '')
+                F.FitLine(fs, sz)
+            else
+                F.RestoreFont(fs, o) -- rc32: English keeps the game font
             end
             writing[fs] = nil
         end
@@ -538,7 +539,9 @@ do
                 local okt, txt = pcall(fs.GetText, fs)
                 writing[fs] = true
                 if okt and F.Usable(txt) and has_fa(txt) then
-                    pcall(fs.SetFont, fs, F.FONT, F.ListSize(o.size or T.Size()), "")
+                    local sz = F.ListSize(o.size or T.Size())
+                    pcall(fs.SetFont, fs, F.FONT, sz, "")
+                    F.FitLine(fs, sz)
                 else
                     mine[fs], last[fs] = nil, nil -- rc32: English text again: the game font stays
                 end

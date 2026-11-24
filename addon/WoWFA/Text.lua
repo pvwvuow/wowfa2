@@ -946,13 +946,34 @@ end
 local gameFont = setmetatable({}, { __mode = 'k' })
 function F.GameFont(fs)
     local ok, font, size, flags = pcall(fs.GetFont, fs)
-    if ok and type(font) == 'string' and type(size) == 'number' and font ~= F.FONT then
+    local okf, fo = pcall(function()
+        return fs.GetFontObject and fs:GetFontObject()
+    end)
+    if not okf or type(fo) ~= 'table' or not fo.GetFont then
+        fo = nil
+    end
+    -- the string INHERITS our font when its font object carries it (General > Persian
+    -- font in the whole game): that is the game's setting, not a font we put on it
+    local inherited = false
+    if fo and ok and font == F.FONT then
+        local ok3, f3 = pcall(fo.GetFont, fo)
+        inherited = ok3 and f3 == font
+    end
+    if ok and type(font) == 'string' and type(size) == 'number' and (font ~= F.FONT or inherited) then
         local o = gameFont[fs]
         if not o then
             o = {}
             gameFont[fs] = o
         end
-        o.font, o.size, o.flags = font, size, flags
+        o.font, o.size, o.flags, o.fobj = font, size, flags, fo
+        if inherited and F.FontOriginal then
+            -- the font object was scaled by us: the size the game meant is the base
+            local nm = fo.GetName and fo:GetName()
+            local orig = type(nm) == 'string' and F.FontOriginal(nm) or nil
+            if orig and type(orig[2]) == 'number' then
+                o.size = orig[2]
+            end
+        end
         return o
     end
     local o = gameFont[fs]
@@ -960,23 +981,89 @@ function F.GameFont(fs)
         return o
     end
     local bfont, bsize, bflags = STANDARD_TEXT_FONT or 'Fonts\\FRIZQT__.TTF', 12, ''
-    local okf, fo = pcall(function()
-        return fs.GetFontObject and fs:GetFontObject()
-    end)
-    if okf and type(fo) == 'table' and fo.GetFont then
+    if fo then
         local ok2, f2, s2, fl2 = pcall(fo.GetFont, fo)
         if ok2 and type(f2) == 'string' and type(s2) == 'number' and f2 ~= F.FONT then
             bfont, bsize, bflags = f2, s2, fl2
         end
     end
-    o = { font = bfont, size = bsize, flags = bflags }
+    o = { font = bfont, size = bsize, flags = bflags, fobj = nil }
     gameFont[fs] = o
     return o
+end
+
+-- put a record of F.GameFont back on a string (the font object when it had one)
+function F.RestoreFont(fs, o)
+    if not o then
+        return
+    end
+    if o.fobj then
+        local okf = pcall(fs.SetFontObject, fs, o.fobj)
+        if okf then
+            return
+        end
+    end
+    if o.font then
+        pcall(fs.SetFont, fs, o.font, o.size, o.flags or '')
+    end
 end
 
 function F.GameFontTriple(fs)
     local g = F.GameFont(fs)
     return g.font, g.size, g.flags
+end
+
+-- rc33 (the owner: objective lines run into each other above size 15): a line we wrote
+-- must stay ONE line inside its own width. The game lays the quest list / tracker out
+-- in fixed rows; a Persian line wider than its string wraps and the second line lands
+-- on the next objective. Too wide: shrink in half steps (never below 8) until it fits.
+-- A string with no width of its own (width = text width) is left alone.
+function F.FitLine(fs, size)
+    local okw, uw = pcall(function()
+        return fs.GetUnboundedStringWidth and fs:GetUnboundedStringWidth() or nil
+    end)
+    if not okw or not F.Usable(uw) or type(uw) ~= 'number' or uw <= 0 then
+        return size
+    end
+    local okx, w = pcall(fs.GetWidth, fs)
+    if not okx or not F.Usable(w) or type(w) ~= 'number' or w < 30 then
+        return size
+    end
+    if uw <= w - 2 or math.abs(uw - w) < 3 then
+        return size
+    end
+    local ns = math.floor(size * (w - 2) / uw * 2) / 2
+    if ns < 8 then
+        ns = 8
+    end
+    if ns >= size then
+        return size
+    end
+    pcall(fs.SetFont, fs, F.FONT, ns, '')
+    return ns
+end
+
+-- after a size slider moved: the game measures its rows when it writes the text, so
+-- let it write the quest list / tracker once more (our hooks run inside that write)
+local relayoutPending = false
+function F.RelayoutQuests()
+    if relayoutPending then
+        return
+    end
+    relayoutPending = true
+    F.After(0.15, function()
+        relayoutPending = false
+        if InCombatLockdown and InCombatLockdown() then
+            return
+        end
+        for _, name in ipairs({ 'QuestMapFrame_UpdateAll', 'QuestLogQuests_Update', 'ObjectiveTracker_Update',
+            'QuestWatch_Update', 'WatchFrame_Update' }) do
+            local fn = _G[name]
+            if type(fn) == 'function' then
+                pcall(fn)
+            end
+        end
+    end)
 end
 
 -- Persian template {0} {1} ... filled with live numbers

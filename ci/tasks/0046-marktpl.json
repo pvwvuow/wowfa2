@@ -1,0 +1,14 @@
+{
+ "id": "0046-marktpl",
+ "kind": "script",
+ "why": "the owner: spell names inside spell / talent descriptions are not marked as spells (Hunter's Mark)",
+ "args": {
+  "module": "mark_tpl",
+  "args": {
+   "apply": true,
+   "min_words": 2,
+   "min_len": 5,
+   "top": 80
+  }
+ }
+}

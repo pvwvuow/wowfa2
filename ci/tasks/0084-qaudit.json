@@ -1,0 +1,12 @@
+{
+ "id": "0084-qaudit",
+ "kind": "script",
+ "why": "the owner: names in quest texts are not coloured (Raptor Mastery); report every quest field, every family, what no marker covers",
+ "args": {
+  "module": "quest_audit",
+  "args": {
+   "titles": ["Raptor Mastery", "Panther Mastery", "The Night Watch"],
+   "top": 45
+  }
+ }
+}

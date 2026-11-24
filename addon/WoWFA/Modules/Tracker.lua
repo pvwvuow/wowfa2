@@ -218,7 +218,7 @@ local function apply(fs, fa, prefix)
     -- Brain review #136-3: the walker reads what the client JUST re-rendered -
     -- keep the restore text fresh so a switch-off never writes stale bytes
     o.text = fs.GetText and fs:GetText() or o.text
-    fs:SetFont(F.FONT, o.size or T.Size(), "")
+    fs:SetFont(F.FONT, F.ListSize(o.size or T.Size()), "")
     -- the player's CURRENT display mode (Brain review #136-1); colour kept -
     -- SetText never touches the vertex colour
     -- the player's CURRENT display mode (Brain review #136-1); colour kept -
@@ -572,6 +572,14 @@ function M.install()
             end
         end
     end
+    -- the size sliders: lines we already wrote take the new size right away
+    F:Listen('options', function(key)
+        if key == 'fontSize' or key == 'listScale' then
+            for fs, o in pairs(original) do
+                pcall(fs.SetFont, fs, F.FONT, F.ListSize(o.size or T.Size()), '')
+            end
+        end
+    end)
     F:On("QUEST_LOG_UPDATE", "tracker", on_log_update)
     F:On("GOSSIP_SHOW", "tracker", on_gossip)
     F:On("QUEST_GREETING", "tracker", on_gossip)

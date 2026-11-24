@@ -20,6 +20,9 @@ local function build()
     map, pats = {}, {}
     for _, e in ipairs(L.ALERTS or {}) do
         local en = _G[e[1]]
+        if en == nil and string.find(e[1], ' ', 1, true) then
+            en = e[1] -- a row named by its English text (no global known for it)
+        end
         if type(en) == "string" and en ~= "" then
             if string.find(en, "%%[sd]") then
                 local p = string.gsub(en, "%%[s]", "\1")
@@ -76,7 +79,7 @@ local function apply_font()
             local font, size, flags = ef:GetFont()
             origFont = { font, size, flags }
         end
-        pcall(ef.SetFont, ef, F.FONT, (origFont and origFont[2]) or 16, "OUTLINE")
+        pcall(ef.SetFont, ef, F.FONT, ((origFont and origFont[2]) or 16) * ((tonumber(F.db.alertScale) or 100) / 100), "OUTLINE")
     elseif origFont then
         pcall(ef.SetFont, ef, origFont[1], origFont[2], origFont[3] or "")
         origFont = nil

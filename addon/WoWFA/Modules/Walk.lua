@@ -240,7 +240,7 @@ local function put(fs, out, english)
     end
     eng[fs] = english
     writing[fs] = true
-    fs:SetFont(F.FONT, mine[fs].size or T.Size(), "")
+    fs:SetFont(F.FONT, F.ListSize(mine[fs].size or T.Size()), "")
     fs:SetText(out)
     writing[fs] = nil
     last[fs] = out
@@ -508,6 +508,12 @@ end)
 F:Listen("options", function(key)
     if key == "listTitles" then
         refresh_all()
+    elseif key == 'fontSize' or key == 'listScale' then
+        for fs, o in pairs(mine) do
+            writing[fs] = true
+            pcall(fs.SetFont, fs, F.FONT, F.ListSize(o.size or T.Size()), '')
+            writing[fs] = nil
+        end
     end
 end)
 
@@ -527,7 +533,7 @@ do
             local ok, cur = pcall(fs.GetFont, fs)
             if ok and cur ~= F.FONT then
                 writing[fs] = true
-                pcall(fs.SetFont, fs, F.FONT, o.size or T.Size(), "")
+                pcall(fs.SetFont, fs, F.FONT, F.ListSize(o.size or T.Size()), "")
                 writing[fs] = nil
             end
         end

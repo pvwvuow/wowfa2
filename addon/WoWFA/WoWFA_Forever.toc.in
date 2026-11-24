@@ -17,6 +17,7 @@ Shape.lua
 Locale.lua
 Locale_Alerts.lua
 Locale_Sys.lua
+Locale_Opt.lua
 Core.lua
 Text.lua
 Room.lua

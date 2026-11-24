@@ -1,0 +1,11 @@
+{
+ "id": "0067-imbue",
+ "kind": "script",
+ "why": "build 71037 (21 Nov) removed the Flametongue / Windfury Totem sentence from the weapon imbue descriptions; add the matching templates",
+ "args": {
+  "module": "derive_totem",
+  "args": {
+   "apply": true
+  }
+ }
+}

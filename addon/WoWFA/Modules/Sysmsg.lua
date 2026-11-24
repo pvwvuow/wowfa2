@@ -6,6 +6,7 @@
 -- (anything with a | in it) are kept out of the shaper under a Latin
 -- placeholder and put back after it, so a link is never touched. A line that
 -- does not match stays English. Switch: General > system lines (F.db.sysmsg,
+-- default on) and one switch per group (F.db.sysLoot / sysXp / sysRep / sysGroup,
 -- default on); it needs the Persian chat switch too (the chat font).
 -- Not a registered module: one filter, every call wrapped in pcall.
 
@@ -26,6 +27,22 @@ local function on()
     return db and db.enabled and db.sysmsg ~= false and db.chatFa ~= false and true or false
 end
 
+-- which switch of General a row belongs to
+local function category(name)
+    if string.find(name, '^LOOT_') or string.find(name, '^YOU_LOOT') or name == 'ERR_QUEST_REWARD_MONEY_S'
+        or name == 'ERR_QUEST_REWARD_ITEM_S' then
+        return 'sysLoot'
+    end
+    if string.find(name, '^FACTION_') or string.find(name, '^ERR_SKILL') or string.find(name, '^ERR_LEARN')
+        or name == 'ERR_SPELL_UNLEARNED_S' then
+        return 'sysRep'
+    end
+    if string.find(name, 'GROUP', 1, true) or string.find(name, 'RAID', 1, true) or string.find(name, 'AFK', 1, true) then
+        return 'sysGroup'
+    end
+    return 'sysXp'
+end
+
 -- the English of every row becomes a Lua pattern: %s -> (.-)  %d -> (%d+)
 local function build()
     rules, exact = {}, {}
@@ -41,12 +58,12 @@ local function build()
                 return '\1'
             end)
             if n == 0 then
-                exact[en] = e[2]
+                exact[en] = { e[2], category(e[1]) }
             else
                 p = string.gsub(p, '([%^%$%(%)%%%.%[%]%*%+%-%?])', '%%%1')
                 p = string.gsub(p, '\1', '(.-)')
                 p = string.gsub(p, '\2', '(%%d+)')
-                rules[#rules + 1] = { '^' .. p .. '$', e[2] }
+                rules[#rules + 1] = { '^' .. p .. '$', e[2], category(e[1]) }
             end
         end
     end
@@ -98,13 +115,19 @@ local function translate(text)
     if not rules then
         build()
     end
-    local tpl = exact[text]
-    if tpl then
-        return render(tpl, {})
+    local row = exact[text]
+    if row then
+        if F.db[row[2]] == false then
+            return nil
+        end
+        return render(row[1], {})
     end
     for i = 1, #rules do
         local caps = { string.match(text, rules[i][1]) }
         if caps[1] ~= nil then
+            if F.db[rules[i][3]] == false then
+                return nil
+            end
             return render(rules[i][2], caps)
         end
     end

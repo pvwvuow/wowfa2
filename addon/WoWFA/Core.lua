@@ -863,6 +863,8 @@ SlashCmdList["WOWFAF"] = function(msg)
         else
             F.Chat("usage: /wowfa unlock <locked module> - '" .. tostring(what) .. "' is not a locked module")
         end
+    elseif cmd == "why" and F.Walk and F.Walk.Why then
+        F.Walk.Why() -- rc18: why a quest list line stays English
     elseif cmd == "status" then
         F.Chat(status_line())
     elseif cmd == "reset" then

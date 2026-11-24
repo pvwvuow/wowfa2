@@ -166,6 +166,12 @@ function T.Markers(s, owner)
             key = owner -- 72-A: the line's own text switch owns the word
         end
         if not F.Room.On(key) then
+            -- rc18 (the owner: a name switched to English lost the colour he picked):
+            -- the English name keeps the colour of its family
+            local ehex = (en ~= "") and T.ColorOf(fam, en) or nil
+            if ehex then
+                return "|cff" .. ehex .. en .. "|r"
+            end
             return en
         end
         if fa == "" and fam == "set" then

@@ -429,7 +429,7 @@ end
 -- switches (never the opt-in capture helper) and the display options. The
 -- SavedVariables are account-wide, so every character sees the same list.
 local PROFILE_OPTS = { "fontSize", "scale", "questDock", "questAuto", "zoneToast", "onUpdate", "toast", "share",
-    "szList", "szGame", "chatScale", "alertScale" }
+    "szList", "szGame", "chatScale", "alertScale", "fontAll", "chatFa" }
 Room.PROFILE_MAX = 10
 
 local function deep(v)
@@ -541,6 +541,10 @@ function Room.ProfileLoad(name)
     end
     if F.Refresh then
         F:Refresh()
+    end
+    local pf = F.PanelFrame and F.PanelFrame() -- rc36: the open window takes the loaded scale
+    if pf and pf.SetScale then
+        pf:SetScale(F.db.scale or 1)
     end
     F:Fire("options", "questDock")
     F:Fire("options", "questAuto")

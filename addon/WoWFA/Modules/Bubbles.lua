@@ -26,9 +26,14 @@ local function fix_fs(fs)
     if not okS or type(shaped) ~= "string" or shaped == "" then
         return
     end
-    local _, size, flags = fs:GetFont()
-    local sz = type(size) == "number" and size or 12
-    pcall(fs.SetFont, fs, F.FONT, math.floor(sz * 0.9 * 10 + 0.5) / 10, flags or "")
+    -- rc36: the size of the first sight of this bubble string, never the size we set
+    local base = fs.wfaBubbleBase
+    if not base then
+        local _, size, flags = fs:GetFont()
+        base = { size = type(size) == "number" and size or 12, flags = flags or "" }
+        fs.wfaBubbleBase = base
+    end
+    pcall(fs.SetFont, fs, F.FONT, math.floor(base.size * 0.9 * 10 + 0.5) / 10, base.flags)
     pcall(fs.SetText, fs, shaped)
 end
 

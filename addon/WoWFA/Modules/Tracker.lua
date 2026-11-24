@@ -186,7 +186,7 @@ end
 -- ----------------------------------------------------- in-place rendering
 -- one registry for every Blizzard font string we rewrote; the original font
 -- (size + flags) and the original text are kept so the restore is byte-exact.
-local original = {} -- fs -> { font, size, flags, text }
+local original = setmetatable({}, { __mode = "k" }) -- fs -> { font, size, flags, text } (rc36: weak, pooled rows are freed)
 
 local function remember(fs)
     local o = original[fs]
@@ -217,7 +217,11 @@ local function apply(fs, fa, prefix, role)
     local o = remember(fs)
     -- Brain review #136-3: the walker reads what the client JUST re-rendered -
     -- keep the restore text fresh so a switch-off never writes stale bytes
-    o.text = fs.GetText and fs:GetText() or o.text
+    -- rc36: never take our own Persian back as the English to restore
+    local current = fs.GetText and fs:GetText()
+    if type(current) == "string" and not string.find(current, "[\216-\219\239]") then
+        o.text = current
+    end
     o.role = role or o.role or "title" -- rc35: the size comes from the role only
     local sz = F.SizeOf(o.role)
     fs:SetFont(F.FONT, sz, "")
@@ -252,7 +256,7 @@ local function restore_all()
     if WatchFrame_Update then
         pcall(WatchFrame_Update)
     end
-    if ObjectiveTracker_Update then
+    if ObjectiveTracker_Update and not (InCombatLockdown and InCombatLockdown()) then -- rc36: no taint in combat
         pcall(ObjectiveTracker_Update)
     end
 end
@@ -505,7 +509,7 @@ local function update_questlog()
         local txt = b.GetText and b:GetText()
         if F.Usable(txt) and txt ~= "" and txt ~= "..." and F.Room.On("questText") then -- inbox/29 D2
             local id = title_id_of(txt)
-            if id then
+            if id and F.db.listTitles ~= false then -- rc36: the list title switch
                 local fa = title_fa(id)
                 if fa then
                     apply(fs_of(b), fa) -- the BUTTON's own font string (#136-6)
@@ -586,6 +590,8 @@ function M.install()
                     F.RestoreFont(fs, o) -- rc32: English keeps the game font
                 end
             end
+        elseif key == 'listTitles' then
+            update_questlog()
         end
     end)
     F:On("QUEST_LOG_UPDATE", "tracker", on_log_update)

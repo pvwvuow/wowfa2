@@ -82,7 +82,7 @@ end
 
 local shapeMemo = {} -- rc4: Persian zone text -> shaped string (per display mode)
 local writing = {}  -- fs -> true while WE are inside SetText (re-entry flag)
-local original = {} -- fs -> { font, size, flags, text } of the state to restore
+local original = setmetatable({}, { __mode = "k" }) -- fs -> { font, size, flags, text } of the state to restore (rc36: weak)
 local zwatch = setmetatable({}, { __mode = "k" }) -- rc18: fs -> kind of every string we wrote
 local zseen = setmetatable({}, { __mode = "k" })  -- rc18: fs -> the text read back last time
 
@@ -633,7 +633,7 @@ function M.install()
     end)
     -- a new zoneMap choice: put the English back now, the next hover re-applies
     F:Listen("options", function(a, b)
-        if a == "zoneMap" or b == "zoneMap" then
+        if a == "zoneMap" or b == "zoneMap" or a == "zoneToast" or b == "zoneToast" then -- rc36
             restore_all()
         end
     end)

@@ -233,6 +233,10 @@ local function spell_tip(modId, tt, data)
     -- spell/talent tooltip. A hit still counts (the data matches the game).
     -- rc8: the section's own (or General's) display of the name and the description
     local sec = section_of(modId)
+    local tmod = F.mods and F.mods.talents -- rc36: the Talents switch also holds the fallback path
+    if sec == "talents" and tmod and not tmod.active then
+        return
+    end
     local tmode = F.Disp and F.Disp(sec, "title") or 2
     local dmode = F.Disp and F.Disp(sec, "desc") or 2
     local showName = faName ~= nil and F.Room.On("namesSpell") and tmode ~= 3 -- 51-B

@@ -1,9 +1,11 @@
 {
+"natural armor":"زره طبیعی",
 "natural grace":"لطف طبیعت",
 "natural instinct":"غریزهٔ طبیعی",
 "natural reaction":"واکنش طبیعی",
 "natural shapeshifter":"تغییرشکل‌دهندهٔ طبیعی",
 "naturalist":"دانای طبیعت",
+"nature resistance":"مقاومت طبیعت",
 "nature resistance totem":"توتم مقاومت طبیعت",
 "nature's focus":"تمرکز طبیعت",
 "nature's grace":"برکت طبیعت",
@@ -12,5 +14,6 @@
 "nature's reach":"برد طبیعت",
 "nature's splendor":"جلال طبیعت",
 "nature's swiftness":"شتاب طبیعت",
-"nightfall":"شب‌فرود"
+"nightfall":"شب‌فرود",
+"nourish":"تغذیه"
 }

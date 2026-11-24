@@ -1,0 +1,10 @@
+{
+ "id": "0079-rc17",
+ "kind": "edit",
+ "why": "rc17 = rc16 code + the second marking pass in the spell and talent texts",
+ "args": {
+  "ops": [
+   {"file": "policy.json", "old": "\"version\": \"1.0.0-rc16\"", "new": "\"version\": \"1.0.0-rc17\"", "count": 1}
+  ]
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "id": "0083-release",
+ "kind": "release",
+ "why": "rc18: coloured English names, quest list flicker and boxes, quest list titles",
+ "args": {
+  "notes": "WoWFA Forever 1.0.0-rc18 (test build, built by wowfa2 CI).\n\nNew: a name family switched to English keeps the colour you picked.\nFix: the zone headers of the quest list no longer flip between English, Persian and empty boxes (the shaped Persian was read back as unknown text; header buttons are now re-checked every frame).\nFix: quest titles in the quest list beside the map are found through the quest log itself; 'Ready for turn-in' / 'Complete' are Persian.\nNew: /wowfa why prints why a quest list line stays English (paste it to us).\nIncludes rc7 to rc17.\n\nData from ForeverDB.net"
+ }
+}

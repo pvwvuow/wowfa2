@@ -1,0 +1,1 @@
+{"id":"0125-vocab","kind":"script","why":"the owner: cliff lurker came out as 'ambush of the cliff'. Audit the vocabulary behind the NPC names","args":{"module":"npc_vocab","args":{"min_count":7,"top":330,"per":3,"agents":true,"grep":["lurker","stalker","watcher","creeper","crawler"],"limit":25}}}

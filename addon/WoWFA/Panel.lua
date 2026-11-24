@@ -478,6 +478,15 @@ local function build()
             F.db.chatFa = v and true or false
             F:Fire("options", "chatFa")
         end), 50, 2)
+    panel.chatScale = place(UI.Slider(page.child, PW - 16, L.ch_size, 60, 120, 5,
+        function() return F.db.chatScale or 90 end,
+        function(v)
+            v = math.floor(v + 0.5)
+            if v ~= (F.db.chatScale or 90) then
+                F.db.chatScale = v
+                F:Fire("options", "chatFa")
+            end
+        end), 30, 4)
     end_page()
 
     -- ===================================================== Quests

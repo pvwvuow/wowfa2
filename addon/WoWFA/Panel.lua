@@ -463,6 +463,14 @@ local function build()
             F.db.onUpdate = v
             F:Refresh()
         end), 32, 2)
+    -- the red messages in the middle of the screen (Modules/Alerts.lua)
+    header(L.al_hdr)
+    panel.alerts = place(UI.Toggle(page.child, PW - 16, L.al_on, L.al_on_d,
+        function() return F.db.alerts ~= false end,
+        function(v)
+            F.db.alerts = v and true or false
+            F:Fire("options", "alerts")
+        end), 50, 2)
     end_page()
 
     -- ===================================================== Quests

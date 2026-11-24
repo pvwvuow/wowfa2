@@ -1,0 +1,1 @@
+{"id":"0179-cmangos","kind":"script","why":"owner: high level quests and NPCs untranslated - take the English source from cmangos/classic-db and list what data lacks","args":{"module":"cmangos_cov","args":{}}}

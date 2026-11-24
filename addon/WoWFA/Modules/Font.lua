@@ -33,10 +33,10 @@ local NAMES = {
 }
 
 local SCALE = 0.92
--- rc33 (the owner: the size slider must reach every text, English game texts too):
--- the size of every font object is the game's size x 0.92 x (General font size / 12)
--- x (game text size percent / 100). The chat fonts keep 0.92 only: the chat has its
--- own size slider (Modules/Chat.lua).
+-- rc34: the size of every font object is the game's size x 0.92 x (game text size
+-- percent / 100, default 110 = the game's own size) - ONE slider (Sizes page), no
+-- other slider multiplies in. The chat fonts keep 0.92 only: the chat has its own
+-- size slider (Modules/Chat.lua).
 local KEEP = { ChatFontNormal = true, ChatFontSmall = true }
 
 local function factor(name)
@@ -44,9 +44,8 @@ local function factor(name)
         return SCALE
     end
     local db = F.db
-    local fsz = (db and tonumber(db.fontSize)) or 12
-    local pct = (db and tonumber(db.fontAllScale)) or 100
-    return SCALE * (fsz / 12) * (pct / 100)
+    local pct = (db and tonumber(db.fontAllScale)) or 110
+    return SCALE * (pct / 100)
 end
 
 local function on()

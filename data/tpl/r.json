@@ -79,6 +79,7 @@
 "reduces the energy cost of claw and rake by $s#.":"هزینهٔ {{sp:Claw}} و {{sp:Rake}} را $s{0} انرژی کم می‌کند.",
 "reduces the energy cost of your cheap shot and garrote abilities by #, and your garrote ability no longer requires you to be behind your target":"هزینهٔ {{tm:Energy|انرژی}} توانایی‌های {{sp:cheap shot}} و خفه‌کردن را {0} {{tm:reduces|کاهش می‌دهد}} و توانایی {{sp:garrote}} دیگر لازم ندارد پشت {{tm:target|هدف}} باشی.",
 "reduces the energy cost of your eviscerate ability by #":"هزینهٔ {{sp:Eviscerate}} را {0} انرژی کم می‌کند.",
+"reduces the energy cost of your expose armor ability by #, and refunds # combo point when cast with # combo points":"هزینهٔ انرژیِ توانایی {{sp:expose armor}} تو را {0} واحد کم می‌کند و {1} امتیاز ترکیبی را پس می‌دهد، وقتی با {2} امتیاز ترکیبی اجرا شود.",
 "reduces the energy cost of your expose armor ability by #, and refunds # combo points when cast with # combo points":"هزینهٔ {{tm:Energy|انرژی}} توانایی {{sp:Expose Armor}} را {0} کاهش می‌دهد و {1} {{tm:Combo Points|امتیاز ترکیبی}} را بازمی‌گرداند، اگر با {2} {{tm:Combo Points|امتیاز ترکیبی}} اجرا شود.",
 "reduces the energy cost of your sap and blind abilities by #%":"هزینهٔ {{tm:Energy|انرژی}} توانایی‌های {{sp:Sap}} و {{sp:Blind}} را {0}% کاهش می‌دهد.",
 "reduces the energy cost of your shred ability by # and reduces the rage cost of your lacerate ability by #":"هزینهٔ {{tm:Energy|انرژی}} توانایی {{sp:shred}} را {0} {{tm:reduces|کاهش می‌دهد}} و هزینهٔ خشم توانایی {{sp:lacerate}} را {1} {{tm:reduces|کاهش می‌دهد}}.",

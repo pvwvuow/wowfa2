@@ -1,0 +1,13 @@
+{
+ "id": "0087-qmark",
+ "kind": "script",
+ "why": "the owner: names in the quest texts are not coloured (Raptor Mastery); mark every plain NPC / zone / object / profession name in every quest field and in the tracker objective lists",
+ "args": {
+  "module": "quest_mark",
+  "args": {
+   "apply": true,
+   "top": 60,
+   "sample": 30
+  }
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "id": "0088-rc19",
+ "kind": "edit",
+ "why": "rc19: $C coloured, quest list headers follow combat redraws, micro button tooltips no longer logged as misses",
+ "args": {
+  "ops": [
+   {
+    "file": "addon/WoWFA/Text.lua",
+    "old": "        elseif c == \"c\" then\n            return class_fa() or \"\"",
+    "new": "        elseif c == \"c\" then\n            -- rc19 (the owner: names in the quest text are not coloured): the player's own\n            -- class word takes the class colour too\n            local cf = class_fa()\n            if not cf then\n                return \"\"\n            end\n            local loc = UnitClass(\"player\")\n            local hex = F.Usable(loc) and T.ColorOf(\"cls\", loc) or nil\n            if hex then\n                return \"|cff\" .. hex .. cf .. \"|r\"\n            end\n            return cf",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "    if (kind == \"map\" or kind == \"maplabel\") and InCombatLockdown and InCombatLockdown() then\n        return -- never touch the world map in combat (lane-28 \u00a7B)\n    end",
+    "new": "    -- rc19 (the owner: some texts turn English when a fight starts): the quest list headers\n    -- (maplabel) are plain font strings and the quest list redraws on every kill - they\n    -- follow it in combat too. Only the hover label keeps the old combat guard (lane-28 \u00a7B).\n    if kind == \"map\" and InCombatLockdown and InCombatLockdown() then\n        return\n    end",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "    hooksecurefunc(fs, \"SetText\", function(self, text)\n        on_inplace(self, text, kind)\n    end)\nend",
+    "new": "    hooksecurefunc(fs, \"SetText\", function(self, text)\n        local ok, err = pcall(on_inplace, self, text, kind)\n        if not ok then\n            F:LogError(\"dungeons\", err)\n        end\n    end)\nend",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Spells.lua",
+    "old": "        local inFrame = string.find(low, \"talent\") or string.find(low, \"spell\")",
+    "new": "        -- rc19: the micro menu buttons (SpellbookMicroButton, TalentMicroButton) are no spell\n        -- frames - their \"Spellbook (P)\" tooltip was logged as a miss\n        local inFrame = (string.find(low, \"talent\") or string.find(low, \"spell\")) and not string.find(low, \"microbutton\")",
+    "count": 1
+   },
+   {
+    "file": "tests/run.lua",
+    "old": "-- ------------------------------------------------------------------ world map label (zoneMap)",
+    "new": "-- ------------------------------------------------------------------ rc19: $C colour\ndo\n    local okC, errC = pcall(function()\n        local oldCol = F.db.col\n        F.db.col = { on = true }\n        local s = F.T.Tokens(\"a $C here\")\n        check(\"rc19: $C takes the class colour\", s:find(\"|cffabd473\", 1, true) ~= nil and s:find(\"|r\", 1, true) ~= nil, s)\n        F.db.col = nil\n        s = F.T.Tokens(\"a $C here\")\n        check(\"rc19: $C stays plain with the colours off\", s:find(\"|c\", 1, true) == nil, s)\n        F.db.col = oldCol\n    end)\n    check(\"rc19 tests ran\", okC, errC)\nend\n\n-- ------------------------------------------------------------------ world map label (zoneMap)",
+    "count": 1
+   },
+   {
+    "file": "policy.json",
+    "old": "\"version\": \"1.0.0-rc18\"",
+    "new": "\"version\": \"1.0.0-rc19\"",
+    "count": 1
+   }
+  ]
+ }
+}

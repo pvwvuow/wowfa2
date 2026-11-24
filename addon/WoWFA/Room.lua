@@ -633,6 +633,11 @@ end
 local SHARE_COL = { u = "zn", v = "sp", w = "npc", x = "cls", y = "it", q = "tm", r = "ob" }
 local SHARE_COL_ORDER = { "u", "v", "w", "x", "y", "q", "r" }
 local SHARE_SEC = { { "b", "spellbook" }, { "a", "talents" } }
+-- rc24: the format version of a WFP1 code (token z) and how many game bits the maker knew
+-- (token h). A code from a NEWER version still works as far as this version understands
+-- it (unknown tokens are skipped, the checksum covers the whole payload) and the player is
+-- told to update; a code from an OLDER version leaves the game bits it did not know as they are.
+Room.SHARE_V = 2
 
 -- the colour ids of a family, in the order of the panel choice (Text.lua COL_PALETTE)
 local function share_ids(fam)
@@ -681,6 +686,8 @@ function Room.ShareExport()
     local t = {}
     t[#t + 1] = "s" .. b36num(bits_of(Room.SITE_KEYS))
     t[#t + 1] = "g" .. b36num(bits_of(Room.GAME_KEYS))
+    t[#t + 1] = "h" .. tostring(#Room.GAME_KEYS)
+    t[#t + 1] = "z" .. tostring(Room.SHARE_V)
     t[#t + 1] = "p" .. tostring(d.faPlace == 2 and 2 or 1)
     t[#t + 1] = "t" .. tostring(F.Disp("*", "title"))
     t[#t + 1] = "e" .. tostring(F.Disp("*", "desc"))
@@ -708,6 +715,10 @@ function Room.ShareImport(code)
     end
     if string.lower(string.sub(code, 1, 4)) == "wf4-" then
         return Room.Decode(code)
+    end
+    local pv = string.match(code, "^[Ww][Ff][Pp](%d+)%-")
+    if pv and tonumber(pv) > 1 and F.L and F.L.sh_upd then
+        return nil, F.L.sh_upd -- a code format this version does not know: update the addon
     end
     local payload, cc = string.match(code, "^[Ww][Ff][Pp]1%-([%w%.]+)%-(%w%w%w)$")
     if not payload then
@@ -743,8 +754,13 @@ function Room.ShareImport(code)
     for i, k in ipairs(Room.SITE_KEYS) do
         d[k] = (floor(s / 2 ^ (i - 1)) % 2) == 1
     end
+    local known = tonumber(vals.h) or #Room.GAME_KEYS -- the game bits the maker knew
     for i, k in ipairs(Room.GAME_KEYS) do
-        d[k] = (floor(g / 2 ^ (i - 1)) % 2) == 1
+        if i <= known then
+            d[k] = (floor(g / 2 ^ (i - 1)) % 2) == 1
+        else
+            d[k] = raw_on(k) -- a bit the maker's version did not have: keep this player's own
+        end
     end
     d.faPlace = (vals.p == "2") and 2 or 1
     r.d = d
@@ -778,7 +794,12 @@ function Room.ShareImport(code)
     Room.Changed()
     F:Fire("disp")
     F:Fire("npcname")
-    return true, r.m
+    local note
+    local z = tonumber(vals.z)
+    if z and z > Room.SHARE_V and F.L then
+        note = F.L.sh_newer
+    end
+    return true, r.m, note
 end
 
 -- ------------------------------------------------------------ boot

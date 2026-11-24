@@ -51,11 +51,59 @@ end
 -- ------------------------------------------------------------------ layout
 local y -- the running offset inside page.child (negative = down)
 
+local pre = 0 -- the gap a section header asked for above the next row
+
 local function place(f, h, gap)
     f:SetPoint("TOPRIGHT", page.child, "TOPRIGHT", -8, y)
     y = y - (h or 32) - (gap or 4)
     rows[#rows + 1] = f
+    page.items[#page.items + 1] = { f = f, h = h or 32, gap = gap or 4, pre = pre }
+    pre = 0
     return f
+end
+
+-- rc33 (the owner's screenshots: rows run into each other): the row heights above are
+-- guesses. A label that wraps to two lines or a two-line description needs more, so
+-- every page is stacked again from the REAL height of its texts (rows only ever grow).
+local function sh(fs)
+    local h = fs and fs.GetStringHeight and fs:GetStringHeight()
+    if F.Usable(h) and type(h) == "number" then
+        return h
+    end
+    return 0
+end
+
+local function need_of(f)
+    if f.label and f.label.GetStringHeight then
+        local n = sh(f.label) + 10
+        if f.desc then
+            n = n + 2 + sh(f.desc)
+        end
+        return n
+    end
+    if f.text and f.text.GetStringHeight then
+        return sh(f.text) + 4
+    end
+    return 0
+end
+
+local function restack(sf)
+    if not sf or not sf.items or not sf.child then
+        return
+    end
+    local yy = -6
+    for _, it in ipairs(sf.items) do
+        yy = yy - (it.pre or 0)
+        local h = math.max(it.h, math.ceil(need_of(it.f)))
+        it.f:SetHeight(h)
+        it.f:ClearAllPoints()
+        it.f:SetPoint("TOPRIGHT", sf.child, "TOPRIGHT", -8, yy)
+        yy = yy - h - it.gap
+    end
+    sf.child:SetHeight(-yy + 10)
+    if sf.UpdateBar then
+        sf:UpdateBar()
+    end
 end
 
 local function begin_page(id)
@@ -63,15 +111,19 @@ local function begin_page(id)
     sf:SetPoint("TOPLEFT", panel, "TOPLEFT", 14, -64)
     sf:Hide()
     pages[id] = sf
+    sf.items = {}
     page, y = sf, -6
+    pre = 0
 end
 
 local function end_page()
     page.child:SetHeight(-y + 10)
+    restack(page)
 end
 
 local function header(text)
     y = y - 10
+    pre = pre + 10
     local hd = UI.Header(page.child, text, PW - 16)
     place(hd, 28, 6)
     return hd
@@ -232,6 +284,7 @@ local function select_page(id)
         end
     end
     F.After(0, function()
+        restack(sf)
         if sf.Fit then
             sf:Fit()
         end
@@ -508,6 +561,16 @@ local function build()
             F.db.fontAll = v and true or false
             F:Fire("options", "fontAll")
         end), 50, 2)
+    -- rc33: how big every game text is drawn while the Persian font is on in the whole game
+    panel.fontAllScale = place(UI.Slider(page.child, PW - 16, L.fa_size, 70, 160, 5,
+        function() return F.db.fontAllScale or 100 end,
+        function(v)
+            v = math.floor(v + 0.5)
+            if v ~= (F.db.fontAllScale or 100) then
+                F.db.fontAllScale = v
+                F:Fire("options", "fontAll")
+            end
+        end), 30, 4)
     panel.chatScale = place(UI.Slider(page.child, PW - 16, L.ch_size, 60, 120, 5,
         function() return F.db.chatScale or 90 end,
         function(v)
@@ -835,6 +898,7 @@ local function build()
         refresh()
         local sf = pages[active or "general"]
         F.After(0, function()
+            restack(sf)
             if sf and sf.Fit then
                 sf:Fit()
             end
@@ -894,6 +958,11 @@ function F.PanelPage()
     return active
 end
 
+F:Listen("text", function()
+    if panel and panel:IsShown() and active and pages[active] then
+        restack(pages[active])
+    end
+end)
 for _, sig in ipairs({ "state", "room", "errors", "minimap", "miss", "disp" }) do
     F:Listen(sig, function()
         if panel and panel:IsShown() then

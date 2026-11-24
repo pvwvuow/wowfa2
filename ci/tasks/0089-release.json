@@ -1,0 +1,8 @@
+{
+ "id": "0089-release",
+ "kind": "release",
+ "why": "rc19: quest names coloured everywhere, combat redraws, pet names",
+ "args": {
+  "notes": "WoWFA Forever 1.0.0-rc19 (test build, built by wowfa2 CI).\n\nNew: 1571 more NPC, zone, object and profession names in the quest texts and the tracker objective lines are marked, so they take the colour you picked (zone names that were plain after a comma, a semicolon or a question mark were missed before).\nNew: the class word of your own character ($C) in the quest text takes the class colour.\nFix: the zone headers of the quest list follow the quest list while you fight (they used to flip to English on every kill).\nFix: the micro menu tooltips (Spellbook P, Talents N) are no longer logged as misses.\nData: Hawk, Bird of Prey, the Trueshot Aura line.\nIncludes rc7 to rc18.\n\nData from ForeverDB.net"
+ }
+}

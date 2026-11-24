@@ -14,7 +14,7 @@ import urllib.request
 from wfa.core import name_key
 from wfa.store import Store
 
-FIELDS = ("t", "obj", "det", "o")
+FIELDS = ("t", "obj", "det")
 
 
 def fetch(repo, path, ref):
@@ -65,7 +65,7 @@ def run(args, rep):
         st = bands.setdefault(b, {"fdb": 0, "missing": 0, "partial": 0})
         st["fdb"] += 1
         zone = (q.get("zone") or {}).get("n") if isinstance(q.get("zone"), dict) else q.get("category")
-        rec = quests.get(qid)
+        rec = quests.get(int(q.get("id") or 0))
         if rec is None:
             st["missing"] += 1
             missing.append([int(q.get("id") or 0), lv, q.get("name"), zone, bool(q.get("knownInForever"))])

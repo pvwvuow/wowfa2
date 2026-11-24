@@ -1,0 +1,8 @@
+{
+ "id": "0059-release",
+ "kind": "release",
+ "why": "rc13: spells and talents complete at build 70959",
+ "args": {
+  "notes": "WoWFA Forever 1.0.0-rc13 (test build, built by wowfa2 CI).\n\nSpells and talents are now complete against ForeverDB build 1.60.1.70959: Persian for 157 more spell and ability names (all nine classes, hunter pets, Shadowfiend, Chaos Bolt, Divine Storm ...) and 24 more talent descriptions (Death Mark, Oath of Light, Ice Barrier, Wrack, Demonic Sacrifice ...). Spell names inside descriptions are marked as spells (Hunter's Mark and 57 more).\n\nStill open: the tooltip text of spellbook abilities (not talents) that ForeverDB does not publish; the addon's miss list reports the ones that appear in game.\n\nIncludes rc7 to rc12.\n\nData from ForeverDB.net"
+ }
+}

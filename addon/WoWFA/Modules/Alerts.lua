@@ -57,6 +57,17 @@ local function translate(text)
     for i = 1, #pats do
         local caps = { string.match(text, pats[i][1]) }
         if caps[1] ~= nil then
+            -- rc37: a zone name in the message ("Discovered: %s") is drawn in Persian too
+            local zn = F.D and F.D.names and F.D.names.zone
+            if type(zn) == "table" then
+                for j = 1, #caps do
+                    local okk, key = pcall(T.NameKey, caps[j])
+                    local z = okk and key and zn[key]
+                    if type(z) == "string" and z ~= "" then
+                        caps[j] = z
+                    end
+                end
+            end
             local ok, s = pcall(string.format, pats[i][2], unpack(caps))
             if ok then
                 return s

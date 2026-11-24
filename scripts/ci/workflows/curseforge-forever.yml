@@ -1,0 +1,55 @@
+# PROPOSAL (copy to pvwvuow/wowfarsi-addon/.github/workflows/curseforge-forever.yml - the bot may not edit workflows).
+#
+# When the owner presses Publish on a WoWFA Forever draft (tag forever-v1.0.0-rc27, forever-v1.0.0-beta.1 ...),
+# this uploads the zip that wowfa2 CI attached to the release to CurseForge.
+#
+# Needs (repository settings of wowfarsi-addon):
+#   secret   CF_API_KEY            the CurseForge API token (never in chat or in a file)
+#   variable CF_FOREVER_PROJECT_ID the numeric id of the NEW CurseForge project for WoWFA Forever
+#   variable CF_GAME_VERSION       the game version name as the CurseForge upload form lists it
+# The old release.yml of this repo (tag v*, retail WoWFarsi) stays as it is.
+#
+# A tag with a dash after the version (beta, rc) is uploaded as beta, a plain tag as release.
+
+name: CurseForge (WoWFA Forever)
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  upload:
+    if: startsWith(github.event.release.tag_name, 'forever-v')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download the release zip
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern 'WoWFA-*.zip' --dir .
+          ls -l WoWFA-*.zip
+
+      - name: Upload to CurseForge
+        env:
+          CF_API_KEY: ${{ secrets.CF_API_KEY }}
+          CF_PROJECT_ID: ${{ vars.CF_FOREVER_PROJECT_ID }}
+          CF_GAME_VERSION: ${{ vars.CF_GAME_VERSION }}
+          TAG: ${{ github.event.release.tag_name }}
+          NOTES: ${{ github.event.release.body }}
+        run: |
+          set -euo pipefail
+          test -n "$CF_API_KEY" && test -n "$CF_PROJECT_ID" || { echo "CF_API_KEY / CF_FOREVER_PROJECT_ID missing"; exit 1; }
+          # the id of the game version the owner named
+          GV=$(curl -fsS -H "X-Api-Token: $CF_API_KEY" https://wow.curseforge.com/api/game/versions \
+            | python3 -c 'import json,sys,os; w=os.environ["CF_GAME_VERSION"]; v=[x["id"] for x in json.load(sys.stdin) if x.get("name")==w]; print(v[0] if v else "")')
+          test -n "$GV" || { echo "game version '$CF_GAME_VERSION' not found in the CurseForge list"; exit 1; }
+          case "$TAG" in *-*) REL=beta ;; *) REL=release ;; esac
+          ZIP=$(ls WoWFA-*.zip | head -n1)
+          META=$(python3 -c 'import json,os; print(json.dumps({"changelog": os.environ["NOTES"], "changelogType": "markdown", "displayName": os.environ["TAG"], "gameVersions": [int(os.environ["GV"])], "releaseType": os.environ["REL"]}))' GV="$GV" REL="$REL")
+          curl -fsS -H "X-Api-Token: $CF_API_KEY" \
+            -F "metadata=$META" -F "file=@$ZIP" \
+            "https://wow.curseforge.com/api/projects/$CF_PROJECT_ID/upload-file"

@@ -1,0 +1,15 @@
+{
+ "id": "0078-marktpl3",
+ "kind": "script",
+ "why": "0077 without its two false hits: 'Seal of ... Retribution' is a spell, not the talent tree, and 'Water Elemental' was the Hydraxian Waterlords faction",
+ "args": {
+  "module": "mark_tpl",
+  "args": {
+   "terms": true,
+   "kinds": ["class", "zone", "spell"],
+   "apply": true,
+   "sample": 10,
+   "only": ["sp:Garrote", "sp:Tranquility", "sp:Aspect of the Hawk", "sp:Mutilate", "cls:Warrior", "zn:Darnassus", "zn:Tanaris", "tm:silence"]
+  }
+ }
+}

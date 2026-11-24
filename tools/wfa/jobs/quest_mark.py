@@ -70,6 +70,60 @@ def letters(fa):
     return len(fa.replace("\u200c", "").replace(" ", ""))
 
 
+_WORD = re.compile("[%s]+" % PERS)
+_PERS1 = re.compile("[%s]" % PERS)
+_PLURAL = re.compile("\u200c?(?:\u0647\u0627|\u0647\u0627\u06cc)(?![%s])" % PERS)
+
+
+class Finder:
+    """Longest-first whole-name matcher, indexed by the first word (a 30k-name regex alternation
+    is far too slow in Python). A name must start and end on a word edge; plural=True yields the
+    names that are followed by the plural suffix instead (a common noun test)."""
+
+    def __init__(self, names):
+        self.index = collections.defaultdict(list)
+        for n in names:
+            m = _WORD.match(n)
+            if m:
+                self.index[m.group(0)].append(n)
+        for k in self.index:
+            self.index[k].sort(key=lambda x: (-len(x), x))
+
+    @staticmethod
+    def _edge(ch):
+        return ch == "" or not (_PERS1.match(ch) or ("A" <= ch <= "Z") or ("a" <= ch <= "z") or ("0" <= ch <= "9"))
+
+    def find(self, text, plural=False):
+        pos = 0
+        for m in _WORD.finditer(text):
+            s = m.start()
+            if s < pos:
+                continue
+            if s and not self._edge(text[s - 1]) and not _PERS1.match(text[s - 1]):
+                continue
+            for name in self.index.get(m.group(0)) or ():
+                if not text.startswith(name, s):
+                    continue
+                e = s + len(name)
+                if plural:
+                    ok = _PLURAL.match(text, e) is not None
+                else:
+                    ok = self._edge(text[e:e + 1])
+                if ok:
+                    yield s, e, name
+                    pos = e
+                    break
+
+    def sub(self, text, fn):
+        out, last = [], 0
+        for s, e, name in self.find(text):
+            out.append(text[last:s])
+            out.append(fn(name))
+            last = e
+        out.append(text[last:])
+        return "".join(out)
+
+
 def run(args, rep):
     store = Store.load()
     apply = bool(args.get("apply"))
@@ -162,21 +216,19 @@ def run(args, rep):
     rep.h("Candidates")
     rep.ok("%d names usable (%d learned from existing markers), %d skipped as ambiguous" % (
         len(cand), sum(1 for v in cand.values() if v[1] == "learned"), len(amb)))
-    alt = "|".join(re.escape(x) for x in sorted(cand, key=lambda s: (-len(s), s)))
-    rx = re.compile("(?<![%sA-Za-z0-9])(?:%s)(?![%sA-Za-z0-9])" % (PERS, alt, PERS))
-    rx_pl = re.compile("(?<![%sA-Za-z0-9])(%s)(?=\u200c?(?:\u0647\u0627|\u0647\u0627\u06cc)(?![%s]))" % (PERS, alt, PERS))
+    finder = Finder(list(cand))
 
     hits = collections.Counter()
     plural = collections.Counter()
     where = collections.defaultdict(set)
     for qid, rec in store.quests.items():
         for f, i, v in segs(rec):
-            def cnt(s):
-                for m in rx.finditer(s):
-                    hits[m.group(0)] += 1
-                    where[m.group(0)].add(qid)
-                for m in rx_pl.finditer(s):
-                    plural[m.group(1)] += 1
+            def cnt(s, qid=qid):
+                for _a, _b, name in finder.find(s):
+                    hits[name] += 1
+                    where[name].add(qid)
+                for _a, _b, name in finder.find(s, plural=True):
+                    plural[name] += 1
                 return s
             each_seg(v, cnt)
     common = set()
@@ -205,8 +257,8 @@ def run(args, rep):
     sample = []
     for qid, rec in store.quests.items():
         for f, i, v in segs(rec):
-            each_seg(v, lambda s, q=qid, ff=f: ([sample.append((q, ff, m.group(0), s[max(0, m.start() - 25):m.end() + 25].replace("\n", " ")))
-                                                 for m in rx.finditer(s) if m.group(0) in use], s)[1])
+            each_seg(v, lambda s, q=qid, ff=f: ([sample.append((q, ff, name, s[max(0, a - 25):b + 25].replace("\n", " ")))
+                                                 for a, b, name in finder.find(s) if name in use], s)[1])
     rnd.shuffle(sample)
     rep.h("Sample contexts")
     for q, f, fa, c in sample[:int(args.get("sample", 20))]:
@@ -252,8 +304,7 @@ def run(args, rep):
         rep.ok("report only: nothing written")
         return []
 
-    def mark(m):
-        fa = m.group(0)
+    def mark(fa):
         v = use.get(fa)
         if not v:
             return fa
@@ -264,7 +315,7 @@ def run(args, rep):
         return "{{%s:%s|%s}}" % (fam, en, fa)
 
     def apply_text(qid, text):
-        new = each_seg(text, lambda s: rx.sub(mark, s))
+        new = each_seg(text, lambda s: finder.sub(s, mark))
         al = alias.get(qid)
         if al:
             for p, (fam, key, en) in sorted(al.items(), key=lambda x: -len(x[0])):

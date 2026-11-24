@@ -1,0 +1,16 @@
+{
+ "id": "0092-qmark3",
+ "kind": "script",
+ "why": "the owner: names in the quest texts still not coloured (kill target named differently from its marker, item names in the text); indexed matcher",
+ "args": {
+  "module": "quest_mark",
+  "args": {
+   "apply": true,
+   "items": true,
+   "aliases": true,
+   "top": 60,
+   "sample": 30,
+   "check": 70
+  }
+ }
+}

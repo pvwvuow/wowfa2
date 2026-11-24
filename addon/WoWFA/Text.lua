@@ -239,7 +239,18 @@ function T.Tokens(s)
             local n = UnitName("player")
             return F.Usable(n) and n or ""
         elseif c == "c" then
-            return class_fa() or ""
+            -- rc19 (the owner: names in the quest text are not coloured): the player's own
+            -- class word takes the class colour too
+            local cf = class_fa()
+            if not cf then
+                return ""
+            end
+            local loc = UnitClass("player")
+            local hex = F.Usable(loc) and T.ColorOf("cls", loc) or nil
+            if hex then
+                return "|cff" .. hex .. cf .. "|r"
+            end
+            return cf
         elseif c == "r" then
             return race_fa() or ""
         end

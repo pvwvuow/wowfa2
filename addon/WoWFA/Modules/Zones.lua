@@ -243,8 +243,11 @@ local function on_inplace(fs, enText, kind)
     if kind == "arrival" and (not F.db or F.db.zoneToast ~= 4) then
         return
     end
-    if (kind == "map" or kind == "maplabel") and InCombatLockdown and InCombatLockdown() then
-        return -- never touch the world map in combat (lane-28 §B)
+    -- rc19 (the owner: some texts turn English when a fight starts): the quest list headers
+    -- (maplabel) are plain font strings and the quest list redraws on every kill - they
+    -- follow it in combat too. Only the hover label keeps the old combat guard (lane-28 §B).
+    if kind == "map" and InCombatLockdown and InCombatLockdown() then
+        return
     end
     local faText = enText ~= "" and fa(enText, kind == "maplabel") or nil
     if faText then
@@ -260,7 +263,10 @@ local function hook_inplace(fs, kind)
     end
     fs.wfaHooked = true
     hooksecurefunc(fs, "SetText", function(self, text)
-        on_inplace(self, text, kind)
+        local ok, err = pcall(on_inplace, self, text, kind)
+        if not ok then
+            F:LogError("dungeons", err)
+        end
     end)
 end
 

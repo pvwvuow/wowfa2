@@ -72,7 +72,8 @@ def letters(fa):
 
 _WORD = re.compile("[%s]+" % PERS)
 _PERS1 = re.compile("[%s]" % PERS)
-_PLURAL = re.compile("\u200c?(?:\u0647\u0627|\u0647\u0627\u06cc)(?![%s])" % PERS)
+_SUFFIXES = ("\u200c\u0647\u0627\u06cc", "\u200c\u0647\u0627", "\u0647\u0627\u06cc", "\u0647\u0627")
+_NUM = re.compile("[0-9\u06f0-\u06f9]+")
 
 
 class Finder:
@@ -88,6 +89,7 @@ class Finder:
                 self.index[m.group(0)].append(n)
         for k in self.index:
             self.index[k].sort(key=lambda x: (-len(x), x))
+        self.singles = {n for n in names if " " not in n}
 
     @staticmethod
     def _edge(ch):
@@ -99,16 +101,20 @@ class Finder:
             s = m.start()
             if s < pos:
                 continue
-            if s and not self._edge(text[s - 1]) and not _PERS1.match(text[s - 1]):
+            if s and not self._edge(text[s - 1]):
+                continue
+            if plural:
+                w = m.group(0)
+                for suf in _SUFFIXES:
+                    if w.endswith(suf) and len(w) > len(suf) and w[:-len(suf)] in self.singles:
+                        yield s, s + len(w) - len(suf), w[:-len(suf)]
+                        break
                 continue
             for name in self.index.get(m.group(0)) or ():
                 if not text.startswith(name, s):
                     continue
                 e = s + len(name)
-                if plural:
-                    ok = _PLURAL.match(text, e) is not None
-                else:
-                    ok = self._edge(text[e:e + 1])
+                ok = self._edge(text[e:e + 1])
                 if ok:
                     yield s, e, name
                     pos = e
@@ -275,6 +281,12 @@ def run(args, rep):
                 if m.group(1) == "npc" and m.group(2):
                     ms.add((name_key(m.group(2)), m.group(2), m.group(3)))
             if len({x[0] for x in ms}) != 1:
+                continue
+            # one kill target only: ONE number in obj and in desc and ONE npc marker in desc
+            d_plain = MARKER_RE.sub("", rec.get("desc") or "")
+            o_plain = MARKER_RE.sub("", rec.get("obj") or "")
+            n_mark = sum(1 for m in MARKER_RE.finditer(rec.get("desc") or "") if m.group(1) == "npc")
+            if n_mark != 1 or len(_NUM.findall(d_plain)) > 1 or len(_NUM.findall(o_plain)) != 1:
                 continue
             key, en, fam_fa = next(iter(ms))
             fa_m = fam_fa or table_fa("npc", key)

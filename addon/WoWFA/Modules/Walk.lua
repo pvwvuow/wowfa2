@@ -234,10 +234,8 @@ local function translate(kind, text)
 end
 
 local function put(fs, out, english)
-    if not mine[fs] then
-        local font, size, flags = fs:GetFont()
-        mine[fs] = { font = font, size = size, flags = flags }
-    end
+    local g = F.GameFont(fs) -- rc32: the game's own font, never ours read back as the original
+    mine[fs] = { font = g.font, size = g.size, flags = g.flags }
     eng[fs] = english
     writing[fs] = true
     fs:SetFont(F.FONT, F.ListSize(mine[fs].size or T.Size()), "")
@@ -511,7 +509,12 @@ F:Listen("options", function(key)
     elseif key == 'fontSize' or key == 'listScale' then
         for fs, o in pairs(mine) do
             writing[fs] = true
-            pcall(fs.SetFont, fs, F.FONT, F.ListSize(o.size or T.Size()), '')
+            local okt, txt = pcall(fs.GetText, fs)
+            if okt and F.Usable(txt) and has_fa(txt) then
+                pcall(fs.SetFont, fs, F.FONT, F.ListSize(o.size or T.Size()), '')
+            elseif o.font then
+                pcall(fs.SetFont, fs, o.font, o.size, o.flags or '') -- rc32: English keeps the game font
+            end
             writing[fs] = nil
         end
     end
@@ -532,8 +535,13 @@ do
         for fs, o in pairs(mine) do
             local ok, cur = pcall(fs.GetFont, fs)
             if ok and cur ~= F.FONT then
+                local okt, txt = pcall(fs.GetText, fs)
                 writing[fs] = true
-                pcall(fs.SetFont, fs, F.FONT, F.ListSize(o.size or T.Size()), "")
+                if okt and F.Usable(txt) and has_fa(txt) then
+                    pcall(fs.SetFont, fs, F.FONT, F.ListSize(o.size or T.Size()), "")
+                else
+                    mine[fs], last[fs] = nil, nil -- rc32: English text again: the game font stays
+                end
                 writing[fs] = nil
             end
         end

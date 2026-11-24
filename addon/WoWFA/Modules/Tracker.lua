@@ -190,10 +190,12 @@ local original = {} -- fs -> { font, size, flags, text }
 
 local function remember(fs)
     local o = original[fs]
+    local g = F.GameFont(fs) -- rc32: never our own font read back as the original
     if not o then
-        local font, size, flags = fs:GetFont()
-        o = { font = font, size = size, flags = flags, text = fs:GetText() }
+        o = { font = g.font, size = g.size, flags = g.flags, text = fs:GetText() }
         original[fs] = o
+    else
+        o.font, o.size, o.flags = g.font, g.size, g.flags
     end
     return o
 end
@@ -576,7 +578,12 @@ function M.install()
     F:Listen('options', function(key)
         if key == 'fontSize' or key == 'listScale' then
             for fs, o in pairs(original) do
-                pcall(fs.SetFont, fs, F.FONT, F.ListSize(o.size or T.Size()), '')
+                local okt, txt = pcall(fs.GetText, fs)
+                if okt and F.Usable(txt) and type(txt) == 'string' and string.find(txt, '[\216-\219\239]') then
+                    pcall(fs.SetFont, fs, F.FONT, F.ListSize(o.size or T.Size()), '')
+                elseif o.font then
+                    pcall(fs.SetFont, fs, o.font, o.size, o.flags or '') -- rc32: English keeps the game font
+                end
             end
         end
     end)

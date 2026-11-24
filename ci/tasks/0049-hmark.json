@@ -1,0 +1,17 @@
+{
+ "id": "0049-hmark",
+ "kind": "script",
+ "why": "the owner: Hunter's Mark inside its own description was not marked as a spell (the Persian read it as the class 'the hunter' + mark)",
+ "args": {
+  "module": "tpl_replace",
+  "args": {
+   "edits": [
+    {
+     "key": "places the hunter's mark on the target, increasing",
+     "old": "\u0646\u0634\u0627\u0646 {{cls:the hunter}} \u0631\u0627 \u0631\u0648\u06cc \u0647\u062f\u0641",
+     "new": "{{sp:hunter's mark}} \u0631\u0627 \u0631\u0648\u06cc \u0647\u062f\u0641"
+    }
+   ]
+  }
+ }
+}

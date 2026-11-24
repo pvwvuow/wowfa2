@@ -34,6 +34,8 @@ Modules\Npc.lua
 Modules\Alerts.lua
 Modules\Chat.lua
 Modules\Font.lua
+Modules\Bubbles.lua
+Modules\Taxi.lua
 Panel.lua
 Dump.lua
 Minimap.lua

@@ -13,7 +13,7 @@
 "equip: axe weapon skills increased by #":"مجهز به: {{sp:Axe weapon skills}} {0} واحد افزایش می‌یابد.",
 "equip: breathing underwater #% longer":"مجهز به: مدت تنفس زیر آب را {0}% افزایش می‌دهد.",
 "equip: crossbow skill increased by #":"مجهز به: مهارت {{sp:Crossbow}} {0} واحد افزایش می‌یابد.",
-"equip: dagger skill increased by #":"مجهز به: {{tm:Dagger skill|مهارت خنجر}} {0} واحد افزایش می‌یابد.",
+"equip: dagger skill increased by #":"مجهز به: {{sp:dagger skill}} {0} واحد افزایش می‌یابد.",
 "equip: deals # arcane damage to the attacker after being hit":"مجهز به: پس از {{tm:hit|اصابت}}، {0} {{tm:arcane damage|آسیب اسرار}} به مهاجم وارد می‌کند.",
 "equip: explodes when a thrown attack hits, dealing # to # fire damage to nearby enemies":"مجهز به: هنگام اصابت حملهٔ پرتابی منفجر می‌شود و به {{tm:enemies|دشمنان}} نزدیک {0} تا {1} {{tm:fire damage|آسیب آتش}} وارد می‌کند.",
 "equip: firearms skill increased by # points":"مجهز به: مهارت تفنگ {0} واحد افزایش می‌یابد.",

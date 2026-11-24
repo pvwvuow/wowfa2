@@ -271,7 +271,7 @@
 "increases your total stamina by #%":"{{tm:Stamina|استقامت}} کل تو را {0}% {{tm:increases|افزایش می‌دهد}}.",
 "inflict # fire damage every # sec":"هر {1} ثانیه {0} آسیب آتش وارد می‌کند.",
 "inflict searing pain on the enemy target, causing # to # fire damage":"درد سوزانی به هدف دشمن وارد می‌کند و {0} تا {1} {{tm:Fire damage|آسیب آتش}} می‌زند.",
-"inflict searing pain on the enemy target, causing # to # fire damage. causes a high amount of threat":"به هدف دشمن {{tm:searing pain|درد سوزان}} وارد می‌کند و {0} تا {1} {{tm:Fire damage|آسیب آتش}} می‌زند. {{tm:high amount of threat|تهدید بسیار بالا}} {{tm:Causes|ایجاد می‌کند}}.",
+"inflict searing pain on the enemy target, causing # to # fire damage. causes a high amount of threat":"به هدف دشمن {{sp:searing pain}} وارد می‌کند و {0} تا {1} {{tm:Fire damage|آسیب آتش}} می‌زند. {{tm:high amount of threat|تهدید بسیار بالا}} {{tm:Causes|ایجاد می‌کند}}.",
 "inflicts # damage and reduces the enemy target's movement speed by #% for # sec":"{0} آسیب وارد می‌کند و سرعت حرکت هدف دشمن را به مدت {2} ثانیه {1}% کم می‌کند.",
 "inflicts # damage to an enemy every # sec. and slows its movement by #% for # sec":"هر {1} ثانیه {0} آسیب به یک دشمن وارد می‌کند و به مدت {3} ثانیه {2}% کندی حرکت ایجاد می‌کند.",
 "inflicts $w# shadow damage every $t# sec and increases the speed at which the caster's siphon life, corruption, and bane of agony effects deal periodic damage by $w#%.":"هر $t{1} ثانیه $w{0} {{tm:Shadow damage|آسیب سایه}} وارد می‌کند و سرعت وارد شدن آسیب دوره‌ای اثرهای {{sp:Siphon Life}}، {{sp:Corruption}} و {{sp:Bane of Agony}} اجراکننده را $w{2}% بیشتر می‌کند.",

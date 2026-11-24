@@ -1,15 +1,19 @@
--- WoWFA Forever - Persian in the game chat (the owner: typing Persian in the chat
--- shows squares). Two parts, both behind F.db.chatFa (General > Persian chat,
--- default on):
+-- WoWFA Forever - Persian in the game chat. Behind F.db.chatFa (General > Persian
+-- chat, default on):
 --   1. our font on every chat window and its edit box (the game's chat font has
---      no Persian letters, so typed and received Persian came out as squares).
---      rc23 (the owner: the size of the English lines got messy): the font is the
---      game's chat size times F.db.chatScale percent (default 90, a slider in
---      General), because Vazirmatn is drawn bigger than the game font at the same size;
+--      no Persian letters). The size is the game's chat size times
+--      F.db.chatScale percent (default 90, a slider in General), because
+--      Vazirmatn is drawn bigger than the game font at the same size;
 --   2. a chat filter that shapes an incoming message that holds Persian letters
 --      (same shaper as every other text), so a player who has the addon reads
 --      joined letters in the right order. A player without the addon sees the
---      raw letters, the filter only changes what THIS client draws.
+--      raw letters, the filter only changes what THIS client draws;
+--   3. rc24 (the owner: typed Persian is not joined and runs backwards): the edit
+--      box draws raw letters one by one, left to right. While the line holds
+--      Persian, the raw text of the edit box is made invisible and a font string
+--      on top of it draws the SAME text shaped and in reading order. What is sent
+--      is untouched (the edit box still holds the plain letters). The caret stays
+--      where the edit box keeps it.
 -- Not a registered module: every call is wrapped in pcall.
 
 local F = WoWFAF
@@ -17,6 +21,7 @@ local T = F.T
 
 local saved = {} -- frame -> { font, size, flags } of the game's own chat font
 local ours = {} -- frame -> the size we set last (to tell our size from a size the player picked)
+local color = {} -- edit box -> { r, g, b, a } of its own text colour
 local registered = false
 
 local EVENTS = {
@@ -42,18 +47,27 @@ local function scale()
     return v / 100
 end
 
-local function chat_frames()
+local function edit_boxes()
     local out = {}
-    local n = NUM_CHAT_WINDOWS or 10
-    for i = 1, n do
-        local cf = _G["ChatFrame" .. i]
-        if cf then
-            out[#out + 1] = cf
-        end
+    for i = 1, (NUM_CHAT_WINDOWS or 10) do
         local eb = _G["ChatFrame" .. i .. "EditBox"]
         if eb then
             out[#out + 1] = eb
         end
+    end
+    return out
+end
+
+local function chat_frames()
+    local out = {}
+    for i = 1, (NUM_CHAT_WINDOWS or 10) do
+        local cf = _G["ChatFrame" .. i]
+        if cf then
+            out[#out + 1] = cf
+        end
+    end
+    for _, eb in ipairs(edit_boxes()) do
+        out[#out + 1] = eb
     end
     return out
 end
@@ -64,6 +78,87 @@ local function base_size(f, size)
         return saved[f][2]
     end
     return size
+end
+
+-- ---------------------------------------------------------- the typing overlay
+local function has_raw_fa(s)
+    return type(s) == "string" and string.find(s, "[\216-\219]") ~= nil
+end
+
+local function show_plain(eb)
+    local ov = eb.wfaOv
+    if ov then
+        ov:Hide()
+    end
+    local c = color[eb]
+    if c and eb.wfaHidden then
+        eb:SetTextColor(c[1], c[2], c[3], c[4] or 1)
+    end
+    eb.wfaHidden = nil
+end
+
+local function refresh_box(eb)
+    local ov = eb.wfaOv
+    if not ov then
+        return
+    end
+    local text = eb:GetText()
+    if not on() or not F.Usable(text) or not has_raw_fa(text) then
+        show_plain(eb)
+        return
+    end
+    local ok, shaped = pcall(function()
+        return T.ShapeLine(T.Clean(text), T.Mode())
+    end)
+    if not ok or type(shaped) ~= "string" or shaped == "" then
+        show_plain(eb)
+        return
+    end
+    if not color[eb] then
+        local r, g, b, a = eb:GetTextColor()
+        color[eb] = { r or 1, g or 1, b or 1, a or 1 }
+    end
+    local _, size = eb:GetFont()
+    ov:SetFont(F.FONT, (type(size) == "number" and size) or 14, "")
+    -- start after the channel word ("Say:") the edit box keeps on its left
+    local left = 14
+    local name = eb.GetName and eb:GetName()
+    local header = name and _G[name .. "Header"]
+    if header and header.GetStringWidth then
+        local w = header:GetStringWidth()
+        if F.Usable(w) and type(w) == "number" then
+            left = w + 18
+        end
+    end
+    ov:ClearAllPoints()
+    ov:SetPoint("LEFT", eb, "LEFT", left, 0)
+    ov:SetPoint("RIGHT", eb, "RIGHT", -10, 0)
+    ov:SetJustifyH("RIGHT")
+    ov:SetText(shaped)
+    ov:Show()
+    eb:SetTextColor(color[eb][1], color[eb][2], color[eb][3], 0)
+    eb.wfaHidden = true
+end
+
+local function hook_box(eb)
+    if eb.wfaOv or not eb.HookScript then
+        return
+    end
+    local ov = eb:CreateFontString(nil, "OVERLAY")
+    ov:SetFont(F.FONT, 14, "")
+    ov:SetWordWrap(false)
+    ov:SetTextColor(1, 1, 1, 1)
+    ov:Hide()
+    eb.wfaOv = ov
+    eb:HookScript("OnTextChanged", function(self)
+        pcall(refresh_box, self)
+    end)
+    eb:HookScript("OnShow", function(self)
+        pcall(refresh_box, self)
+    end)
+    eb:HookScript("OnHide", function(self)
+        pcall(show_plain, self)
+    end)
 end
 
 local function apply_font()
@@ -88,6 +183,10 @@ local function apply_font()
             end
         end
     end
+    for _, eb in ipairs(edit_boxes()) do
+        pcall(hook_box, eb)
+        pcall(refresh_box, eb)
+    end
 end
 
 local function filter(_, _, msg, ...)
@@ -98,7 +197,7 @@ local function filter(_, _, msg, ...)
         return false
     end
     -- raw Persian / Arabic letters only; text we shaped already (presentation forms) is left alone
-    if not string.find(msg, "[\216-\219]") or string.find(msg, "\239[\173-\187]") then
+    if not has_raw_fa(msg) or string.find(msg, "\239[\173-\187]") then
         return false
     end
     local ok, shaped = pcall(function()

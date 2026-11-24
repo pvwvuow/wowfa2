@@ -1,0 +1,13 @@
+{
+ "id": "0071-tplscan2",
+ "kind": "script",
+ "why": "report only: plain class / zone / spell / term names in the spell and talent texts (the owner: classes and terms are not coloured)",
+ "args": {
+  "module": "mark_tpl",
+  "args": {
+   "terms": true,
+   "apply": false,
+   "sample": 40
+  }
+ }
+}

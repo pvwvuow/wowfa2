@@ -1,0 +1,11 @@
+{
+ "id": "0063-raw71037",
+ "kind": "script",
+ "why": "report only: what the newest client build (71037) changed for spells, against our data (build 70959)",
+ "args": {
+  "module": "raw_changes",
+  "args": {
+   "build": "1.60.1.71037"
+  }
+ }
+}

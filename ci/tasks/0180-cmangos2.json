@@ -1,0 +1,1 @@
+{"id":"0180-cmangos2","kind":"script","why":"English quest texts + creature names from cmangos/classic-db vs data","args":{"module":"cmangos_cov","args":{"url":"https://raw.githubusercontent.com/cmangos/classic-db/13e933726f386399d9820138fbd1123e7cda86c8/Full_DB/ClassicDB_1_12_1_z2815.sql.gz"}}}

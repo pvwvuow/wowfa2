@@ -1,0 +1,12 @@
+{
+ "id": "0053-audit",
+ "kind": "script",
+ "why": "the owner: close the spell and talent file without defects: audit every entry, normalise what is safe",
+ "args": {
+  "module": "audit_spells",
+  "args": {
+   "apply": true,
+   "top": 40
+  }
+ }
+}

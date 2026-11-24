@@ -701,7 +701,7 @@ local function style(tt, side)
         return
     end
     tt.wfaFonts = tt.wfaFonts or {}
-    local font, size, flags = fs:GetFont()
+    local font, size, flags = F.GameFontTriple(fs)
     table.insert(tt.wfaFonts, { fs = fs, font = font, size = size, flags = flags, justify = fs:GetJustifyH(), spacing = fs.GetSpacing and fs:GetSpacing() or nil })
     fs:SetFont(F.FONT, T.Size(), "")
     -- inbox/29 C: the same line gap on the spell/talent (TipLine) strings
@@ -765,7 +765,7 @@ function T.TipSet(tt, fs, text, width, side)
     end
     if not seen[fs] then
         seen[fs] = true
-        local font, size, flags = fs:GetFont()
+        local font, size, flags = F.GameFontTriple(fs)
         table.insert(tt.wfaFonts, {
             fs = fs,
             text = fs:GetText(),
@@ -933,6 +933,50 @@ function T.NumKey(s)
     key = string.gsub(key, " $", "")
     key = string.gsub(key, "%.$", "")
     return key, nums
+end
+
+-- rc32 (the owner: English text became size 11 and never grew again): the ORIGINAL
+-- font of a font string, one record for every module. A module used to read
+-- fs:GetFont() as "the original" - when another module had already put our font on
+-- that string (they share the quest list / tracker lines) the "original" was OUR font
+-- at a slider size, and restoring it left English text in our font at a frozen size.
+-- Rule: whenever the string shows a font that is NOT ours, that is the game's own font
+-- and the record is refreshed; while it shows ours, the record stays. A string we
+-- never saw with a game font falls back to its font object, then to 12.
+local gameFont = setmetatable({}, { __mode = 'k' })
+function F.GameFont(fs)
+    local ok, font, size, flags = pcall(fs.GetFont, fs)
+    if ok and type(font) == 'string' and type(size) == 'number' and font ~= F.FONT then
+        local o = gameFont[fs]
+        if not o then
+            o = {}
+            gameFont[fs] = o
+        end
+        o.font, o.size, o.flags = font, size, flags
+        return o
+    end
+    local o = gameFont[fs]
+    if o then
+        return o
+    end
+    local bfont, bsize, bflags = STANDARD_TEXT_FONT or 'Fonts\\FRIZQT__.TTF', 12, ''
+    local okf, fo = pcall(function()
+        return fs.GetFontObject and fs:GetFontObject()
+    end)
+    if okf and type(fo) == 'table' and fo.GetFont then
+        local ok2, f2, s2, fl2 = pcall(fo.GetFont, fo)
+        if ok2 and type(f2) == 'string' and type(s2) == 'number' and f2 ~= F.FONT then
+            bfont, bsize, bflags = f2, s2, fl2
+        end
+    end
+    o = { font = bfont, size = bsize, flags = bflags }
+    gameFont[fs] = o
+    return o
+end
+
+function F.GameFontTriple(fs)
+    local g = F.GameFont(fs)
+    return g.font, g.size, g.flags
 end
 
 -- Persian template {0} {1} ... filled with live numbers

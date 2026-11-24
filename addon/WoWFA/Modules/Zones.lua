@@ -478,6 +478,21 @@ local function update()
 end
 
 function M.install()
+    -- rc15 (the owner: the zone headers of the quest list still showed empty boxes): the
+    -- game resets the font of its buttons without a Lua call we can hook, so the font is
+    -- checked ten times a second (the table holds only the strings we wrote)
+    local fixer = CreateFrame("Frame")
+    local acc = 0
+    fixer:SetScript("OnUpdate", function(_, el)
+        acc = acc + el
+        if acc < 0.1 then
+            return
+        end
+        acc = 0
+        if M.active and next(original) ~= nil then
+            M.fix_fonts()
+        end
+    end)
     F:On("ZONE_CHANGED_NEW_AREA", "dungeons", update)
     F:On("ZONE_CHANGED", "dungeons", update)
     F:On("ZONE_CHANGED_INDOORS", "dungeons", update)

@@ -1,0 +1,1 @@
+{"id":"0174-qprobe","kind":"script","why":"see the shape of ForeverDB quest records before a coverage job","args":{"module":"fdb_quests_probe","args":{"titles":["Rise of the Silithid","The Fall of Ragnaros"]}}}

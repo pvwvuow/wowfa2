@@ -49,7 +49,8 @@ end
 T.COL_PALETTE = { "green", "blue", "gold", "orange", "red", "purple", "cyan", "pink", "white" }
 T.COL_HEX = { green = "4cd964", blue = "5ac8fa", gold = "ffd24a", orange = "ff9f43", red = "ff6b6b",
     purple = "c58cff", cyan = "3de3d0", pink = "ff8fc7", white = "ffffff" }
-T.COL_DEFAULT = { zn = "green", sp = "blue", npc = "orange", cls = "class" }
+-- rc16 (the owner: classes and terms are not coloured): every family has a default colour
+T.COL_DEFAULT = { zn = "green", sp = "blue", npc = "orange", cls = "class", tm = "cyan", it = "gold", ob = "purple" }
 T.COL_FAMS = { "zn", "sp", "npc", "cls", "it", "tm", "ob" }
 local CLASS_HEX = { warrior = "c79c6e", paladin = "f58cba", hunter = "abd473", rogue = "fff569",
     priest = "ffffff", shaman = "0070de", mage = "69ccf0", warlock = "9482c9", druid = "ff7d0a",
@@ -68,8 +69,11 @@ function T.ColorOf(fam, en)
         if fam ~= "cls" then
             return nil
         end
-        local l = string.lower(tostring(en or ""))
-        return CLASS_HEX[l] or CLASS_HEX[(string.gsub(l, "s$", ""))]
+        -- rc16: "the hunter", "Hunter's", "Hunters" find the class; a talent tree name
+        -- (Beast Mastery) has no class colour and gets gold - a cls name is never uncoloured
+        local l = T.NameKey(en)
+        l = (string.gsub(l, "'s$", ""))
+        return CLASS_HEX[l] or CLASS_HEX[(string.gsub(l, "s$", ""))] or T.COL_HEX.gold
     end
     return T.COL_HEX[id]
 end

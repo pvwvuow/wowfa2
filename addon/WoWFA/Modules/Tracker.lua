@@ -39,8 +39,11 @@ function M.data()
 end
 
 function M.api()
-    return (QuestWatchFrame ~= nil or WatchFrame ~= nil or ObjectiveTrackerFrame ~= nil or QuestLogFrame ~= nil)
-        and GetQuestLogTitle ~= nil
+    -- rc16 (the owner: the tracker page said "turned itself off"): the modern client has
+    -- no GetQuestLogTitle (C_QuestLog.GetInfo instead) and its quest list sits under the map
+    local frames = QuestWatchFrame ~= nil or WatchFrame ~= nil or ObjectiveTrackerFrame ~= nil
+        or QuestLogFrame ~= nil or QuestMapFrame ~= nil or WorldMapFrame ~= nil or C_QuestLog ~= nil
+    return frames and (GetQuestLogTitle ~= nil or (C_QuestLog ~= nil and C_QuestLog.GetInfo ~= nil))
 end
 
 -- ------------------------------------------------------------- data helpers
@@ -291,6 +294,21 @@ end
 
 local function rebuild_titles()
     titleIndex = {}
+    if not GetQuestLogTitle and C_QuestLog and C_QuestLog.GetInfo and C_QuestLog.GetNumQuestLogEntries then
+        local okn, n = pcall(C_QuestLog.GetNumQuestLogEntries)
+        if not okn or not F.Usable(n) or type(n) ~= "number" then
+            n = 0
+        end
+        for i = 1, n do
+            local ok, info = pcall(C_QuestLog.GetInfo, i)
+            if ok and type(info) == "table" and not info.isHeader and F.Usable(info.questID)
+                and type(info.questID) == "number" and info.questID > 0 and F.Usable(info.title)
+                and type(info.title) == "string" and info.title ~= "" then
+                titleIndex[simple(info.title)] = info.questID
+            end
+        end
+        return
+    end
     if GetNumQuestLogEntries and GetQuestLogTitle then
         for i = 1, GetNumQuestLogEntries() do
             local title, _, _, isHeader, _, _, _, qid = GetQuestLogTitle(i)

@@ -213,6 +213,7 @@ local cand = setmetatable({}, { __mode = "k" })   -- rc18: fs -> true once we wr
 local seenT = setmetatable({}, { __mode = "k" })  -- rc18: fs -> the text the watch read last
 local writing = {}
 local memo = {}
+local memo_n = 0 -- rc36: the memo is emptied past 4000 lines (live counts make new keys)
 
 local function kind_active(kind)
     local m = F.mods and F.mods[kind == "spell" and "spellbook" or "tracker"]
@@ -228,7 +229,11 @@ local function translate(kind, text)
         else
             v = W.Spell(text) or false
         end
+        if memo_n >= 4000 then
+            memo, memo_n = {}, 0
+        end
         memo[key] = v
+        memo_n = memo_n + 1
     end
     return v or nil
 end
@@ -383,6 +388,9 @@ local function roots_for(kind)
 end
 
 function W.Scan()
+    if InCombatLockdown and InCombatLockdown() then
+        return -- rc36: never touch the tracker in combat; the ticker scans again after
+    end
     for _, kind in ipairs({ "quest", "spell" }) do
         if kind_active(kind) then
             for _, root in ipairs(roots_for(kind)) do

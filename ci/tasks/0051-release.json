@@ -1,0 +1,8 @@
+{
+ "id": "0051-release",
+ "kind": "release",
+ "why": "rc12: spell and talent description markers, translated emote tags",
+ "args": {
+  "notes": "WoWFA Forever 1.0.0-rc12 (test build, built by wowfa2 CI).\n\nFix: spell names inside spell and talent descriptions are marked as spells (coloured, follow the spell switch). Hunter's Mark now reads as a spell in its own description; 42 plain spell names were marked and 16 spell names written as terms or NPCs were moved to the spell family.\nFix: the emote tags in quest texts (snort, cough ...) are Persian now.\n\nIncludes rc11 (NPC names, full map zone names, share codes, marked quest names) and rc7 to rc10.\n\nData from ForeverDB.net"
+ }
+}

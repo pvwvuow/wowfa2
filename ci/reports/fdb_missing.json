@@ -1,0 +1,48 @@
+{
+ "build": "1.60.1.70959",
+ "descriptions": {
+  "druid": {},
+  "hunter": {},
+  "mage": {},
+  "paladin": {},
+  "priest": {},
+  "rogue": {},
+  "shaman": {},
+  "warlock": {},
+  "warrior": {}
+ },
+ "names": {
+  "druid": [],
+  "hunter": [],
+  "mage": [],
+  "paladin": [],
+  "priest": [
+   [
+    "TREE Shadow",
+    "",
+    false
+   ]
+  ],
+  "rogue": [],
+  "shaman": [
+   [
+    "TREE Elemental",
+    "",
+    false
+   ]
+  ],
+  "warlock": [],
+  "warrior": []
+ },
+ "talents": {
+  "druid": [],
+  "hunter": [],
+  "mage": [],
+  "paladin": [],
+  "priest": [],
+  "rogue": [],
+  "shaman": [],
+  "warlock": [],
+  "warrior": []
+ }
+}

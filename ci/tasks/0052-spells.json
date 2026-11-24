@@ -1,0 +1,6 @@
+{
+ "id": "0052-spells",
+ "kind": "spells",
+ "why": "the owner: close the spell and talent file with everything at the latest update; re-run after every site / game update",
+ "args": {"wow_ref": "main"}
+}

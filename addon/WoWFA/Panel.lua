@@ -471,6 +471,13 @@ local function build()
             F.db.alerts = v and true or false
             F:Fire("options", "alerts")
         end), 50, 2)
+    -- Persian in the game chat (Modules/Chat.lua)
+    panel.chatFa = place(UI.Toggle(page.child, PW - 16, L.ch_on, L.ch_on_d,
+        function() return F.db.chatFa ~= false end,
+        function(v)
+            F.db.chatFa = v and true or false
+            F:Fire("options", "chatFa")
+        end), 50, 2)
     end_page()
 
     -- ===================================================== Quests

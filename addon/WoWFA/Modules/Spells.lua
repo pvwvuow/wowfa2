@@ -159,6 +159,20 @@ local function section_of(modId)
     return modId == "talents" and "talents" or "spellbook"
 end
 
+-- rc22 (the owner: Persian only, the first words of a description fell under the rest;
+-- and the same after a font size change): the tooltip is as wide as its English lines,
+-- so the Persian is wrapped at THAT width. A line wider than the tooltip is re-wrapped
+-- by the client, which cuts our already ordered line and puts its logical start last.
+local function tip_w(tt)
+    local ok, w = pcall(function()
+        return tt:GetWidth()
+    end)
+    if ok and F.Usable(w) and type(w) == "number" and w >= 140 then
+        return w - 18
+    end
+    return nil
+end
+
 local function spell_tip(modId, tt, data)
     if tt and tt.wfaScan then
         return -- the /wowfa dump scanner tooltip: we export English, never translate it
@@ -259,7 +273,7 @@ local function spell_tip(modId, tt, data)
                 local fs = i > 0 and line_fs(tt, i, lines[i]) or nil
                 local ok = false
                 if fs then
-                    ok = pcall(T.TipSet, tt, fs, txt, nil, "Left")
+                    ok = pcall(T.TipSet, tt, fs, txt, tip_w(tt), "Left")
                 end
                 if not ok then
                     T.TipLine(tt, txt, DESC)
@@ -274,6 +288,16 @@ local function spell_tip(modId, tt, data)
     T.Done(tt)
     if showName or showDesc then
         tt:Show()
+        -- one frame after the layout: a string the client re-wrapped after all is wrapped
+        -- again, narrower (T.TipRecheck), then the tooltip lays itself out once more
+        if T.Mode() == 3 and F.After then
+            F.After(0, function()
+                local ok, changed = pcall(T.TipRecheck, tt)
+                if ok and changed then
+                    pcall(tt.Show, tt)
+                end
+            end)
+        end
     end
 end
 

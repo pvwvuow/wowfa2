@@ -30,7 +30,7 @@
 "use: deals # to # fire damage to targets within a # yard radius.(# minute cooldown)":"استفاده: {0} تا {1} {{tm:Fire Damage|آسیب آتش}} به هدف‌های در شعاع {2} یاردی وارد می‌کند. ({{tm:cooldown|کول‌داون}} {3} دقیقه)",
 "use: deals #-# damage to undead within a # yard radius.(# minute cooldown)":"استفاده: {0} تا {1} {{tm:damage|آسیب}} به {{npc:undead|مرده‌متحرک‌ها}} در شعاع {2} یاردی وارد می‌کند. ({{tm:cooldown|کول‌داون}} {3} دقیقه)",
 "use: defense increased by # points for # hour":"استفاده: {{tm:Defense|دفاع}} را به مدت {1} ساعت {0} واحد افزایش می‌دهد.",
-"use: dispel all charm, fear, and transformation effects.(# minute cooldown)":"استفاده: همهٔ اثرات جذب، ترس و {{tm:shapeshifting|تغییر شکل}} اجباری را رفع می‌کند. ({{tm:cooldown|کول‌داون}} {0} دقیقه)",
+"use: dispel all charm, fear, and transformation effects.(# minute cooldown)":"استفاده: همهٔ اثرهای افسون، ترس و {{tm:shapeshifting|تغییر شکل}} را برطرف می‌کند. ({{tm:cooldown|کول‌داون}} {0} دقیقه)",
 "use: dispels a blackthorn contracted member's defensive magic.(# sec cooldown)":"استفاده: جادوی دفاعی یکی از اعضای تحت قرارداد {{npc:Blackthorn|بلک‌ثورن}} را رفع می‌کند. ({{tm:cooldown|کول‌داون}} {0} ثانیه)",
 "use: drink to increase healing from spells and effects by up to # for # min.(# sec cooldown)":"استفاده: بنوشید تا {{tm:healing|شفای}} {{tm:spells|اسپل‌ها}} و اثرها را تا {0} به مدت {1} دقیقه افزایش دهید. ({{tm:cooldown|کول‌داون}} {2} ثانیه)",
 "use: drink to increase your spirit by # and increase your critical strike chance by #%. lasts for # min.(# sec cooldown)":"استفاده: با نوشیدن، {{tm:Spirit|روح}} را {0} واحد و {{tm:Critical Strike chance|شانس ضربهٔ بحرانی}} را {1}% افزایش می‌دهد. اثر به‌مدت {2} دقیقه باقی می‌ماند. ({{tm:cooldown|کول‌داون}} {3} ثانیه)",

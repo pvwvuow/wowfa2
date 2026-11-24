@@ -527,6 +527,18 @@ do
 end
 check("tracker objective rewritten (Persian verb + counts)", non_ascii(l2), l2)
 
+-- ------------------------------------------------------------------ rc20: map label outline
+do
+    local okF, errF = pcall(function()
+        local fl = F.ZoneFlags
+        check("rc20: the hover label gets a black outline", fl({ kind = "map", flags = "" }) == "OUTLINE", tostring(fl({ kind = "map", flags = "" })))
+        check("rc20: a thick outline stays thick", fl({ kind = "map", flags = "THICKOUTLINE" }) == "THICKOUTLINE")
+        check("rc20: the minimap text keeps its own outline", fl({ kind = "minimap", flags = "OUTLINE" }) == "OUTLINE")
+        check("rc20: the minimap text without one stays plain", fl({ kind = "minimap", flags = "" }) == "")
+    end)
+    check("rc20 tests ran", okF, errF)
+end
+
 -- ------------------------------------------------------------------ rc19: $C colour
 do
     local okC, errC = pcall(function()

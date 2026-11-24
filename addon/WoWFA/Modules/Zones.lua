@@ -93,6 +93,24 @@ end
 -- rc14 (the owner: the breadcrumb above the map showed empty boxes): a button
 -- gives its text a new font object after we wrote - the Persian then has no glyphs.
 -- The font comes back at once (SetFontObject hook) and every half second.
+-- rc20 (the owner: the Persian hover label of the map is hard to read on the parchment): the
+-- font flags of the in-place text. The hover label always gets a black outline; the other
+-- surfaces keep the outline their own game font had (the arrival text, the minimap text).
+local function flags_of(o)
+    local f = o and o.flags
+    if type(f) ~= "string" then
+        f = ""
+    end
+    if string.find(f, "THICKOUTLINE", 1, true) then
+        return "THICKOUTLINE"
+    end
+    if string.find(f, "OUTLINE", 1, true) or (o and o.kind == "map") then
+        return "OUTLINE"
+    end
+    return ""
+end
+F.ZoneFlags = flags_of
+
 local function refont(fs)
     local o = original[fs]
     if not o or writing[fs] or not M.active then
@@ -101,7 +119,7 @@ local function refont(fs)
     local ok, cur = pcall(fs.GetFont, fs)
     if ok and cur ~= F.FONT then
         writing[fs] = true
-        pcall(fs.SetFont, fs, F.FONT, o.size or T.Size(), "")
+        pcall(fs.SetFont, fs, F.FONT, o.size or T.Size(), flags_of(o))
         writing[fs] = nil
     end
 end
@@ -136,7 +154,8 @@ local function apply_inplace(fs, faText, enText, kind)
     -- Brain review #136-3: the client just set enText - keep the RESTORE text
     -- fresh, so a switch-off later restores what is on screen NOW, not a stale zone
     original[fs].text = enText
-    fs:SetFont(F.FONT, (original[fs].size or T.Size()), "")
+    original[fs].kind = kind
+    fs:SetFont(F.FONT, (original[fs].size or T.Size()), flags_of(original[fs]))
     guard_font(fs)
     -- Brain review #136-1: the player's CURRENT display mode, never a hardcoded 3
     -- rc4: the map label is re-set by the client every frame: shape once per text

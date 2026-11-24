@@ -426,7 +426,9 @@ local function plain_tip(tt)
     if names[T.NameKey(first)] == nil then
         local path = owner_path(tt)
         local low = string.lower(path)
-        local inFrame = string.find(low, "talent") or string.find(low, "spell")
+        -- rc19: the micro menu buttons (SpellbookMicroButton, TalentMicroButton) are no spell
+        -- frames - their "Spellbook (P)" tooltip was logged as a miss
+        local inFrame = (string.find(low, "talent") or string.find(low, "spell")) and not string.find(low, "microbutton")
         -- rc6: a spec tab tooltip is just the tree name ("Survival", "Beast Mastery")
         local trees = F.D.names and F.D.names.tree or {}
         local faTree = inFrame and trees[T.NameKey(first)] or nil

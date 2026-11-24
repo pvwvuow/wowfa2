@@ -527,6 +527,21 @@ do
 end
 check("tracker objective rewritten (Persian verb + counts)", non_ascii(l2), l2)
 
+-- ------------------------------------------------------------------ rc19: $C colour
+do
+    local okC, errC = pcall(function()
+        local oldCol = F.db.col
+        F.db.col = { on = true }
+        local s = F.T.Tokens("a $C here")
+        check("rc19: $C takes the class colour", s:find("|cffabd473", 1, true) ~= nil and s:find("|r", 1, true) ~= nil, s)
+        F.db.col = nil
+        s = F.T.Tokens("a $C here")
+        check("rc19: $C stays plain with the colours off", s:find("|c", 1, true) == nil, s)
+        F.db.col = oldCol
+    end)
+    check("rc19 tests ran", okC, errC)
+end
+
 -- ------------------------------------------------------------------ world map label (zoneMap)
 local okMap, errMap = pcall(function()
     local zk = next(F.D.names.zone)

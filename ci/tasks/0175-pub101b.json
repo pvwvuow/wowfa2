@@ -1,0 +1,1 @@
+{"id":"0175-pub101b","kind":"script","why":"CurseForge refused the notes (';' cut the JSON): clean the notes, publish again, read the log","args":{"module":"cf_retry","args":{"tag":"forever-v1.0.1-beta","notes_replace":[[";",","]]}}}

@@ -487,7 +487,16 @@ do
         check("rc14: an unknown quest title is left alone", FF.Walk.Quest("Zzzz Not A Quest") == nil)
         local wasSp, wasQt = FF.Room.On("namesSpell"), FF.Room.On("questText")
         FF.Room.Set("namesSpell", true)
-        local k = next(FF.D.names.spell)
+        local wasT, wasC = FF.Disp("*", "title"), FF.DispCustom("spellbook")
+        FF.DispSetDefault("title", 1)
+        FF.DispSetCustom("spellbook", false)
+        local k
+        for kk in pairs(FF.D.names.spell) do
+            if FF.T.NameKey(kk) == kk then
+                k = kk
+                break
+            end
+        end
         local sp = FF.Walk.Spell(k)
         check("rc14: a spell name in the book becomes Persian", type(sp) == "string" and sp ~= k, tostring(sp))
         FF.Room.Set("questText", true)
@@ -496,6 +505,10 @@ do
         check("rc14: a map label with a level range is found", FF.Walk.Scan ~= nil)
         FF.Room.Set("namesSpell", wasSp)
         FF.Room.Set("questText", wasQt)
+        FF.DispSetDefault("title", wasT)
+        if wasC then
+            FF.DispSetCustom("spellbook", true)
+        end
     end)
     check("rc14 walker block ran", okW, errW)
 end

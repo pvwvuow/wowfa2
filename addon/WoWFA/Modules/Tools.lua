@@ -41,7 +41,8 @@ end
 -- quest tracker): the game's own size x the quest list slider of the Sizes page
 -- (default 110%). ONLY that slider moves it (rc34: the General font size no longer
 -- multiplies in). Steps of half a point, never below 8 or above 36.
-function F.ListSize(base)
+-- rc35: replaced by F.ListSize / F.SizeOf in Text.lua (kept local, unused)
+local function list_size_old(base)
     base = tonumber(base) or 12
     local db = F.db or {}
     local v = base * ((tonumber(db.listScale) or 110) / 100)

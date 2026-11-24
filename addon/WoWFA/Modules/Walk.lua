@@ -233,12 +233,29 @@ local function translate(kind, text)
     return v or nil
 end
 
+-- rc35: the size of a line comes from its ROLE (F.SizeOf) - never from the font the
+-- string shows right now (that read our own size back: the titles grew on every redraw)
+local function role_of(kind, english)
+    if kind == "spell" then
+        return "spell"
+    end
+    local p = plain_of(english or "") or ""
+    if string.find(p, "^%s*%[") then
+        return "title"
+    end
+    local lp = string.lower(p)
+    if string.find(p, "%d+/%d+") or string.find(lp, "turn%-in") or string.find(lp, "complete") then
+        return "obj"
+    end
+    return "title"
+end
+
 local function put(fs, out, english)
     local g = F.GameFont(fs) -- rc32: the game's own font, never ours read back as the original
-    mine[fs] = { font = g.font, size = g.size, flags = g.flags, fobj = g.fobj }
+    mine[fs] = { font = g.font, size = g.size, flags = g.flags, fobj = g.fobj, role = role_of(hooked[fs], english) }
     eng[fs] = english
     writing[fs] = true
-    local sz = F.ListSize(mine[fs].size or T.Size())
+    local sz = F.SizeOf(mine[fs].role)
     fs:SetFont(F.FONT, sz, "")
     fs:SetText(out)
     F.FitLine(fs, sz)
@@ -504,13 +521,13 @@ end)
 F:Listen("options", function(key)
     if key == "listTitles" then
         refresh_all()
-    elseif key == 'fontSize' or key == 'listScale' then
+    elseif key == 'fontSize' or key == 'szList' then
         F.RelayoutQuests()
         for fs, o in pairs(mine) do
             writing[fs] = true
             local okt, txt = pcall(fs.GetText, fs)
             if okt and F.Usable(txt) and has_fa(txt) then
-                local sz = F.ListSize(o.size or T.Size())
+                local sz = F.SizeOf(o.role)
                 pcall(fs.SetFont, fs, F.FONT, sz, '')
                 F.FitLine(fs, sz)
             else
@@ -539,7 +556,7 @@ do
                 local okt, txt = pcall(fs.GetText, fs)
                 writing[fs] = true
                 if okt and F.Usable(txt) and has_fa(txt) then
-                    local sz = F.ListSize(o.size or T.Size())
+                    local sz = F.SizeOf(o.role)
                     pcall(fs.SetFont, fs, F.FONT, sz, "")
                     F.FitLine(fs, sz)
                 else

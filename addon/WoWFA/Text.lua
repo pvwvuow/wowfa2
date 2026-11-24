@@ -944,7 +944,17 @@ end
 -- and the record is refreshed; while it shows ours, the record stays. A string we
 -- never saw with a game font falls back to its font object, then to 12.
 local gameFont = setmetatable({}, { __mode = 'k' })
+-- rc35 (the owner: the quest titles grew on every redraw, whatever the slider): the
+-- record is taken ONCE, the first time a module touches the string (before it changes
+-- anything), and never refreshed - a refresh could read our own size back and the next
+-- write made it bigger again. The font OBJECT is what a restore puts back (its size is
+-- the game's, scaled only by the game text slider in Font.lua); the font / size are
+-- the fallback for a string without one. No size is ever computed from this record.
 function F.GameFont(fs)
+    local o = gameFont[fs]
+    if o then
+        return o
+    end
     local ok, font, size, flags = pcall(fs.GetFont, fs)
     local okf, fo = pcall(function()
         return fs.GetFontObject and fs:GetFontObject()
@@ -952,42 +962,10 @@ function F.GameFont(fs)
     if not okf or type(fo) ~= 'table' or not fo.GetFont then
         fo = nil
     end
-    -- the string INHERITS our font when its font object carries it (General > Persian
-    -- font in the whole game): that is the game's setting, not a font we put on it
-    local inherited = false
-    if fo and ok and font == F.FONT then
-        local ok3, f3 = pcall(fo.GetFont, fo)
-        inherited = ok3 and f3 == font
+    if not (ok and type(font) == 'string' and type(size) == 'number') then
+        font, size, flags = STANDARD_TEXT_FONT or 'Fonts\\FRIZQT__.TTF', 12, ''
     end
-    if ok and type(font) == 'string' and type(size) == 'number' and (font ~= F.FONT or inherited) then
-        local o = gameFont[fs]
-        if not o then
-            o = {}
-            gameFont[fs] = o
-        end
-        o.font, o.size, o.flags, o.fobj = font, size, flags, fo
-        if inherited and F.FontOriginal then
-            -- the font object was scaled by us: the size the game meant is the base
-            local nm = fo.GetName and fo:GetName()
-            local orig = type(nm) == 'string' and F.FontOriginal(nm) or nil
-            if orig and type(orig[2]) == 'number' then
-                o.size = orig[2]
-            end
-        end
-        return o
-    end
-    local o = gameFont[fs]
-    if o then
-        return o
-    end
-    local bfont, bsize, bflags = STANDARD_TEXT_FONT or 'Fonts\\FRIZQT__.TTF', 12, ''
-    if fo then
-        local ok2, f2, s2, fl2 = pcall(fo.GetFont, fo)
-        if ok2 and type(f2) == 'string' and type(s2) == 'number' and f2 ~= F.FONT then
-            bfont, bsize, bflags = f2, s2, fl2
-        end
-    end
-    o = { font = bfont, size = bsize, flags = bflags, fobj = nil }
+    o = { font = font, size = size, flags = flags, fobj = fo }
     gameFont[fs] = o
     return o
 end
@@ -1064,6 +1042,50 @@ function F.RelayoutQuests()
             end
         end
     end)
+end
+
+-- ------------------------------------------------------------ rc35: the sizes
+-- ONE place for every text size (the owner: "two sliders move one thing, one moves
+-- nothing - rebuild it and wire every thing to its own slider"). A size is asked by
+-- ROLE and computed from the sliders only - never from the size a string shows now.
+--   own / spell  F.db.fontSize 9-20 pt   the addon's own Persian (tooltips, spell and
+--                                        talent texts, quest window, spellbook names)
+--   title / obj  F.db.szList 70-200 %    quest list beside the map + the tracker:
+--                                        title 13 pt, objective 12 pt at 100 %
+--   game         F.db.szGame 70-160 %    the game's own texts, English too (Font.lua)
+--   chat, red alerts, settings window: their own sliders (chatScale, alertScale, scale)
+F.SIZE_BASE = { title = 13, obj = 12 }
+
+function F.SizePct(key, def, lo, hi)
+    local v = tonumber(F.db and F.db[key]) or def
+    if v < lo or v > hi then
+        v = def
+    end
+    return v / 100
+end
+
+local function clamp_size(v)
+    if v < 8 then
+        v = 8
+    elseif v > 36 then
+        v = 36
+    end
+    return math.floor(v * 2 + 0.5) / 2
+end
+
+function F.SizeOf(role)
+    if role == 'own' or role == 'spell' then
+        return clamp_size(T.Size())
+    end
+    return clamp_size((F.SIZE_BASE[role] or F.SIZE_BASE.title) * F.SizePct('szList', 100, 70, 200))
+end
+
+-- older callers: a role name, or a base size scaled by the list slider only
+function F.ListSize(base)
+    if type(base) == 'string' then
+        return F.SizeOf(base)
+    end
+    return clamp_size((tonumber(base) or 12) * F.SizePct('szList', 100, 70, 200))
 end
 
 -- Persian template {0} {1} ... filled with live numbers

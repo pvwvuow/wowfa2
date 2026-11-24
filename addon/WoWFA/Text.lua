@@ -30,14 +30,47 @@ function T.Size()
     return (F.db and F.db.fontSize) or 12
 end
 
+local ESC_PATTERNS = { "|c%x%x%x%x%x%x%x%x", "|H[^|]*|h", "|T[^|]*|t", "|A[^|]*|a" }
+
+local function conv_digits(s)
+    return (string.gsub(s, "%d", function(d)
+        return FA_DIGITS[tonumber(d) + 1]
+    end))
+end
+
+-- rc25 (the owner: raw "cff3de3d0|" pieces in the quest list): the digits of a colour code
+-- (|cff3de3d0) or of a link (|Hitem:123|h) are not numbers. Only the text between the
+-- escapes turns into Persian digits.
+local function digits_outside_escapes(s)
+    if not string.find(s, "|", 1, true) then
+        return conv_digits(s)
+    end
+    local out, pos = {}, 1
+    while true do
+        local a, b
+        for _, p in ipairs(ESC_PATTERNS) do
+            local x, y = string.find(s, p, pos)
+            if x and (not a or x < a) then
+                a, b = x, y
+            end
+        end
+        if not a then
+            out[#out + 1] = conv_digits(string.sub(s, pos))
+            break
+        end
+        out[#out + 1] = conv_digits(string.sub(s, pos, a - 1))
+        out[#out + 1] = string.sub(s, a, b)
+        pos = b + 1
+    end
+    return table.concat(out)
+end
+
 function T.Digits(s, force)
     -- 51-B: the room owns the Persian-digits switch
     if not force and not F.Room.On("faDigits") then
         return s
     end
-    return (string.gsub(s, "%d", function(d)
-        return FA_DIGITS[tonumber(d) + 1]
-    end))
+    return digits_outside_escapes(s)
 end
 
 -- rc9: colours per name family (zone / spell / NPC / class / item / term / object).

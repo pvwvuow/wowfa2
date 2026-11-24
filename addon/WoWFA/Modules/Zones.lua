@@ -83,6 +83,8 @@ end
 local shapeMemo = {} -- rc4: Persian zone text -> shaped string (per display mode)
 local writing = {}  -- fs -> true while WE are inside SetText (re-entry flag)
 local original = {} -- fs -> { font, size, flags, text } of the state to restore
+local zwatch = setmetatable({}, { __mode = "k" }) -- rc18: fs -> kind of every string we wrote
+local zseen = setmetatable({}, { __mode = "k" })  -- rc18: fs -> the text read back last time
 
 local function hookable(fs)
     return fs and type(fs) == "table" and fs.SetText and fs.GetFont
@@ -152,6 +154,8 @@ local function apply_inplace(fs, faText, enText, kind)
     fs:SetText(shown)
     original[fs].shown = shown
     writing[fs] = nil
+    zwatch[fs] = kind
+    zseen[fs] = shown
 end
 
 local function unapply_inplace(fs)
@@ -184,6 +188,9 @@ local function font_only_restore(fs)
 end
 
 local function restore_all()
+    for fs in pairs(zwatch) do
+        zwatch[fs] = nil
+    end
     for fs in pairs(original) do
         unapply_inplace(fs)
     end
@@ -209,7 +216,10 @@ local function on_inplace(fs, enText, kind)
     -- boxes and English): the map scan read our OWN Persian back, found no zone of that
     -- name and put the game font back under the Persian text = empty boxes. Persian text
     -- is never English input: only its font is kept right.
-    if type(enText) == "string" and string.find(enText, "[\216-\219]") then
+    -- rc18: the SHAPED Persian (display mode 3) is all Arabic presentation forms
+    -- (UTF-8 lead byte \239) - the rc16 guard missed it, so the scan still read our own
+    -- header back as "no zone" and put the game font under it (the empty boxes)
+    if type(enText) == "string" and string.find(enText, "[\216-\219\239]") then
         if original[fs] then
             refont(fs)
         end
@@ -252,6 +262,26 @@ local function hook_inplace(fs, kind)
     hooksecurefunc(fs, "SetText", function(self, text)
         on_inplace(self, text, kind)
     end)
+end
+
+-- rc18 (the owner: the quest list zone headers still flip English / Persian / boxes):
+-- the header rows are buttons and the client writes them through Button:SetText on the
+-- C side, so the FontString hook never fires and the English stayed until the next
+-- scan. Every string we once wrote is read back every frame and translated again the
+-- moment the client changed it.
+function M.watch()
+    if not M.active or not F.Room.On("namesZone") then
+        return
+    end
+    for fs, kind in pairs(zwatch) do
+        local ok, txt = pcall(fs.GetText, fs)
+        if ok and F.Usable(txt) and type(txt) == "string" and txt ~= zseen[fs] then
+            zseen[fs] = txt
+            if txt ~= "" then
+                on_inplace(fs, txt, kind)
+            end
+        end
+    end
 end
 
 -- the world-map hover label. Old-style clients have the WorldMapFrameAreaLabel
@@ -298,7 +328,7 @@ local function hook_map()
                 if wm.IsShown and wm:IsShown() then
                     n = n + 1
                     M.fix_fonts()
-                    if n % 4 == 0 then
+                    if n % 2 == 0 then
                         M.scan_map()
                     end
                 end
@@ -504,16 +534,30 @@ function M.install()
     -- game resets the font of its buttons without a Lua call we can hook, so the font is
     -- checked ten times a second (the table holds only the strings we wrote)
     local fixer = CreateFrame("Frame")
-    local acc = 0
-    fixer:SetScript("OnUpdate", function(_, el)
-        acc = acc + el
-        if acc < 0.1 then
-            return
+    fixer:SetScript("OnUpdate", function()
+        -- rc18: every frame (the tables hold only the strings we wrote)
+        if M.active and next(zwatch) ~= nil then
+            local ok, err = pcall(M.watch)
+            if not ok then
+                F:LogError("dungeons", err)
+            end
         end
-        acc = 0
         if M.active and next(original) ~= nil then
             M.fix_fonts()
         end
+    end)
+    -- rc18: a quest log change rebuilds the header rows - scan right after it
+    local pend = false
+    F:On("QUEST_LOG_UPDATE", "dungeons", function()
+        local wm = WorldMapFrame
+        if pend or type(wm) ~= "table" or not (wm.IsShown and wm:IsShown()) then
+            return
+        end
+        pend = true
+        F.After(0.05, function()
+            pend = false
+            pcall(M.scan_map)
+        end)
     end)
     F:On("ZONE_CHANGED_NEW_AREA", "dungeons", update)
     F:On("ZONE_CHANGED", "dungeons", update)

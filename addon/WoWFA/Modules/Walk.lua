@@ -36,6 +36,53 @@ local function shaped(s)
     return T.ShapeLine(T.Digits(s), T.Mode())
 end
 
+-- Persian bytes (plain \216-\219, the shaped presentation forms \239)
+local function has_fa(s)
+    return type(s) == "string" and string.find(s, "[\216-\219\239]") ~= nil
+end
+
+-- rc18 (the owner's screenshot: the quest list titles stayed English): the quest log
+-- names the quest id of every title (the tracker reads it the same way); the title
+-- hash of the data is only the fallback
+local logIdx = {}
+local function simple(s)
+    return (string.gsub(string.lower(tostring(s or "")), "[^%w]", ""))
+end
+
+function W.RebuildLog()
+    logIdx = {}
+    if C_QuestLog and C_QuestLog.GetInfo and C_QuestLog.GetNumQuestLogEntries then
+        local okn, n = pcall(C_QuestLog.GetNumQuestLogEntries)
+        if not okn or not F.Usable(n) or type(n) ~= "number" then
+            return
+        end
+        for i = 1, n do
+            local ok, info = pcall(C_QuestLog.GetInfo, i)
+            if ok and type(info) == "table" and F.Usable(info.questID) and type(info.questID) == "number"
+                and info.questID > 0 and F.Usable(info.title) and type(info.title) == "string" and info.title ~= "" then
+                logIdx[simple(info.title)] = info.questID
+            end
+        end
+    elseif GetNumQuestLogEntries and GetQuestLogTitle then
+        local okn, n = pcall(GetNumQuestLogEntries)
+        if not okn or not F.Usable(n) or type(n) ~= "number" then
+            return
+        end
+        for i = 1, n do
+            local ok, title, _, _, _, _, _, _, qid = pcall(GetQuestLogTitle, i)
+            if ok and F.Usable(qid) and type(qid) == "number" and qid > 0 and F.Usable(title)
+                and type(title) == "string" and title ~= "" then
+                logIdx[simple(title)] = qid
+            end
+        end
+    end
+end
+
+function W.LogId(title)
+    local k = simple(title)
+    return k ~= "" and logIdx[k] or nil
+end
+
 -- ------------------------------------------------------------ quest titles
 local byHash
 local function quest_row(title)
@@ -50,8 +97,11 @@ local function quest_row(title)
             end
         end
     end
-    local h = F.TitleHash(title)
-    local id = h ~= "" and byHash[h] or nil
+    local id = W.LogId(title)
+    if not id or type(F.D.quests[id]) ~= "string" then
+        local h = F.TitleHash(title)
+        id = h ~= "" and byHash[h] or nil
+    end
     local row = id and F.D.quests[id]
     if type(row) ~= "string" then
         return nil
@@ -105,6 +155,16 @@ function W.Objective(text)
     local dash, body = string.match(plain, "^(%s*%-+%s*)(.+)$")
     body = body or plain
     dash = dash or ""
+    -- rc18: the status line of a finished quest
+    local st = string.lower(string.match(body, "^%s*(.-)%s*$") or "")
+    if st == "ready for turn-in" or st == "complete" or st == "(complete)" then
+        local word = (st == "ready for turn-in") and (L.tracker_ready or "آمادهٔ تحویل")
+            or (L.tracker_complete or SUFFIX.complete)
+        if st == "(complete)" then
+            word = "(" .. word .. ")"
+        end
+        return (c or "") .. dash .. shaped(word) .. (c and "|r" or "")
+    end
     local got, need, name = string.match(body, "^(%d+)/(%d+)%s+(.-)%s+slain$")
     if not got then
         name, got, need = string.match(body, "^(.-)%s+slain:%s*(%d+)/(%d+)$")
@@ -149,6 +209,8 @@ local hooked = setmetatable({}, { __mode = "k" }) -- fs -> kind
 local eng = setmetatable({}, { __mode = "k" })    -- fs -> the English text before we wrote
 local mine = setmetatable({}, { __mode = "k" })   -- fs -> { font, size, flags }
 local last = setmetatable({}, { __mode = "k" })   -- fs -> the text we wrote
+local cand = setmetatable({}, { __mode = "k" })   -- rc18: fs -> true once we wrote it (the watch list)
+local seenT = setmetatable({}, { __mode = "k" })  -- rc18: fs -> the text the watch read last
 local writing = {}
 local memo = {}
 
@@ -182,6 +244,8 @@ local function put(fs, out, english)
     fs:SetText(out)
     writing[fs] = nil
     last[fs] = out
+    cand[fs] = true
+    seenT[fs] = out
 end
 
 local function font_back(fs)
@@ -203,6 +267,12 @@ local function process(fs, text)
     end
     if last[fs] == text then
         return -- our own output read back
+    end
+    if has_fa(text) then
+        -- rc18: Persian another module wrote here (the zone headers): never ours to
+        -- undo - putting the game font back under it drew the empty boxes
+        mine[fs], last[fs] = nil, nil
+        return
     end
     local kind = hooked[fs]
     if not kind or not kind_active(kind) then
@@ -334,7 +404,88 @@ local function refresh_all()
 end
 W.Refresh = refresh_all
 
+-- rc18: the client also rewrites these lines through paths no hook sees
+-- (Button:SetText, SetFormattedText): every line we once wrote is read back every
+-- frame and translated again the moment it changed
+function W.Watch()
+    for fs in pairs(cand) do
+        local ok, txt = pcall(fs.GetText, fs)
+        if ok and F.Usable(txt) and type(txt) == "string" and txt ~= seenT[fs] then
+            seenT[fs] = txt
+            if txt ~= last[fs] then
+                process(fs, txt)
+            end
+        end
+    end
+end
+
+-- /wowfa why: one chat report for the owner when a quest list line stays English
+function W.Why()
+    local n, w, li = 0, 0, 0
+    for _ in pairs(hooked) do
+        n = n + 1
+    end
+    for _ in pairs(mine) do
+        w = w + 1
+    end
+    for _ in pairs(logIdx) do
+        li = li + 1
+    end
+    F.Chat(string.format("WoWFA why: tracker=%s listTitles=%s namesQuest=%s questText=%s hooked=%d written=%d log=%d",
+        kind_active("quest") and "on" or "off", tostring(F.db and F.db.listTitles),
+        tostring(F.Room.On("namesQuest")), tostring(F.Room.On("questText")), n, w, li))
+    local shown = 0
+    for fs, kind in pairs(hooked) do
+        if kind == "quest" and shown < 6 then
+            local ok, txt = pcall(fs.GetText, fs)
+            if ok and F.Usable(txt) and type(txt) == "string" and txt ~= "" and not has_fa(txt) then
+                local p = plain_of(txt) or ""
+                local _, title = string.match(p, "^(%[[^%]]*%])%s*(.+)$")
+                if title then
+                    local id = W.LogId(title)
+                    local h = F.TitleHash(title)
+                    F.Chat(string.format("  '%s' id=%s data=%s hash=%s", p, tostring(id),
+                        tostring(id and type(F.D.quests[id]) == "string"), h))
+                    shown = shown + 1
+                end
+            end
+        end
+    end
+end
+
+-- rc18: scan right after the quest log changed / the map opened (not a second later)
+local pend = false
+local function soon()
+    if pend then
+        return
+    end
+    pend = true
+    F.After(0.05, function()
+        pend = false
+        local ok, err = pcall(W.Scan)
+        if not ok then
+            F:LogError("tracker", err)
+        end
+    end)
+end
+W.Soon = soon
+
+F:On("QUEST_LOG_UPDATE", nil, function()
+    W.RebuildLog()
+    memo = {}
+    soon()
+end)
+
 function W.Start()
+    W.RebuildLog()
+    local wm = WorldMapFrame
+    if type(wm) == "table" and wm.HookScript and not W.mapHooked then
+        W.mapHooked = true
+        pcall(wm.HookScript, wm, "OnShow", function()
+            soon()
+            F.After(0.3, soon)
+        end)
+    end
     if W.ticker or not (C_Timer and C_Timer.NewTicker) then
         return
     end
@@ -365,13 +516,13 @@ end)
 -- checked ten times a second (the table holds only those lines)
 do
     local fixer = CreateFrame("Frame")
-    local acc = 0
-    fixer:SetScript("OnUpdate", function(_, el)
-        acc = acc + el
-        if acc < 0.1 then
-            return
+    fixer:SetScript("OnUpdate", function()
+        if next(cand) ~= nil then
+            local ok, err = pcall(W.Watch)
+            if not ok then
+                F:LogError("tracker", err)
+            end
         end
-        acc = 0
         for fs, o in pairs(mine) do
             local ok, cur = pcall(fs.GetFont, fs)
             if ok and cur ~= F.FONT then

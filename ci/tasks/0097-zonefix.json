@@ -1,0 +1,11 @@
+{
+ "id": "0097-zonefix",
+ "kind": "edit",
+ "onto": "task/0095-zones",
+ "why": "the unified zone spellings make two English keys share one Persian name (Dire Maul east / east: the same place spelled twice by the game): 13 more known pairs, not a defect",
+ "args": {
+  "ops": [
+   {"file": "policy.json", "old": "\"name_pairs_zone\": 9", "new": "\"name_pairs_zone\": 22", "count": 1}
+  ]
+ }
+}

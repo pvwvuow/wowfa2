@@ -1,0 +1,8 @@
+{
+ "id": "0094-release",
+ "kind": "release",
+ "why": "rc20: map label outline, item names and kill targets marked",
+ "args": {
+  "notes": "WoWFA Forever 1.0.0-rc20 (test build, built by wowfa2 CI).\n\nNew: the Persian hover label of the world map has a black outline (readable on the parchment).\nNew: 2400 item names in the quest texts are marked, so they take the item colour. Items follow the item switch: while it is locked they show their English name, like in your bags.\nFix: a kill target that the quest text names differently from its own marker ('Forest Lurker') is coloured too.\nIncludes rc7 to rc19.\n\nData from ForeverDB.net"
+ }
+}

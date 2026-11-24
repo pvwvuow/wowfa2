@@ -1,0 +1,1 @@
+{"id":"0169-cfretry2","kind":"script","why":"fire the CurseForge upload of 1.0.0-beta.2 again (flavour wow-forever set)","args":{"module":"cf_retry","args":{"tag":"forever-v1.0.0-beta.2"}}}

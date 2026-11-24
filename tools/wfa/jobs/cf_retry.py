@@ -2,13 +2,20 @@
 start workflows by hand, so the release is turned back into a draft and published again (that sends
 the release `published` event). Then the run's printed lines are read into the report.
 args: {"tag": "forever-v1.0.0-beta.2"}. Nothing is committed."""
+import importlib.util
 import os
 import subprocess
 import time
 
-from tools.wfa.jobs import cf_log, publish_release
-
 REPO = "pvwvuow/wowfarsi-addon"
+HERE = os.path.dirname(os.path.abspath(__file__))
+
+
+def _load(name):
+    spec = importlib.util.spec_from_file_location("wfa_job_" + name, os.path.join(HERE, name + ".py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
 
 
 def run(args, rep):
@@ -22,7 +29,7 @@ def run(args, rep):
         return []
     rep.add("- %s is a draft again" % tag)
     time.sleep(5)
-    publish_release.run({"tag": tag}, rep)
+    _load("publish_release").run({"tag": tag}, rep)
     time.sleep(70)
-    cf_log.run({}, rep)
+    _load("cf_log").run({}, rep)
     return []

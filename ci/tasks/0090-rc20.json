@@ -1,0 +1,39 @@
+{
+ "id": "0090-rc20",
+ "kind": "edit",
+ "why": "rc20: black outline on the Persian map hover label; other in-place zone texts keep their own outline",
+ "args": {
+  "ops": [
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "local function refont(fs)\n    local o = original[fs]\n    if not o or writing[fs] or not M.active then",
+    "new": "-- rc20 (the owner: the Persian hover label of the map is hard to read on the parchment): the\n-- font flags of the in-place text. The hover label always gets a black outline; the other\n-- surfaces keep the outline their own game font had (the arrival text, the minimap text).\nlocal function flags_of(o)\n    local f = o and o.flags\n    if type(f) ~= \"string\" then\n        f = \"\"\n    end\n    if string.find(f, \"THICKOUTLINE\", 1, true) then\n        return \"THICKOUTLINE\"\n    end\n    if string.find(f, \"OUTLINE\", 1, true) or (o and o.kind == \"map\") then\n        return \"OUTLINE\"\n    end\n    return \"\"\nend\nF.ZoneFlags = flags_of\n\nlocal function refont(fs)\n    local o = original[fs]\n    if not o or writing[fs] or not M.active then",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "        pcall(fs.SetFont, fs, F.FONT, o.size or T.Size(), \"\")",
+    "new": "        pcall(fs.SetFont, fs, F.FONT, o.size or T.Size(), flags_of(o))",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Zones.lua",
+    "old": "    fs:SetFont(F.FONT, (original[fs].size or T.Size()), \"\")",
+    "new": "    original[fs].kind = kind\n    fs:SetFont(F.FONT, (original[fs].size or T.Size()), flags_of(original[fs]))",
+    "count": 1
+   },
+   {
+    "file": "tests/run.lua",
+    "old": "-- ------------------------------------------------------------------ rc19: $C colour",
+    "new": "-- ------------------------------------------------------------------ rc20: map label outline\ndo\n    local okF, errF = pcall(function()\n        local fl = F.ZoneFlags\n        check(\"rc20: the hover label gets a black outline\", fl({ kind = \"map\", flags = \"\" }) == \"OUTLINE\", tostring(fl({ kind = \"map\", flags = \"\" })))\n        check(\"rc20: a thick outline stays thick\", fl({ kind = \"map\", flags = \"THICKOUTLINE\" }) == \"THICKOUTLINE\")\n        check(\"rc20: the minimap text keeps its own outline\", fl({ kind = \"minimap\", flags = \"OUTLINE\" }) == \"OUTLINE\")\n        check(\"rc20: the minimap text without one stays plain\", fl({ kind = \"minimap\", flags = \"\" }) == \"\")\n    end)\n    check(\"rc20 tests ran\", okF, errF)\nend\n\n-- ------------------------------------------------------------------ rc19: $C colour",
+    "count": 1
+   },
+   {
+    "file": "policy.json",
+    "old": "\"version\": \"1.0.0-rc19\"",
+    "new": "\"version\": \"1.0.0-rc20\"",
+    "count": 1
+   }
+  ]
+ }
+}

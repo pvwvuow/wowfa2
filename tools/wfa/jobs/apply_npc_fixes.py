@@ -2,7 +2,9 @@
 the texts: the OLD Persian of every changed name is replaced inside full markers {{fam:EN|OLD}} and, for
 names of >= min_letters, as plain text in the quest texts and the templates.
 
-args: files [repo paths], check {file: [sha1[:6] per 20 sorted items]}, min_letters (6), tpl (true), table (npc)
+args: files [repo paths], check {file: [sha1[:6] per 20 sorted items]}, expect [sha1[:4] of [key, value] rows that
+must exist in the merged corrections] + expect_files (listed when a row is missing), min_letters (6), tpl (true),
+table (npc)
 """
 import collections
 import hashlib
@@ -49,6 +51,19 @@ def run(args, rep):
                 if g != w:
                     bad.append("%s group %d (%s ... ) differs" % (f, i, items[i * 20][0]))
         fixes.update(part)
+    # row-level guard for the files that failed the group check once: every expected row
+    # (sha1 of [key, value], 4 hex) must exist in the merged corrections
+    expect = set(args.get("expect") or [])
+    if expect:
+        have = {hashlib.sha1(json.dumps([k, v]).encode()).hexdigest()[:4] for k, v in fixes.items()}
+        gone = sorted(expect - have)
+        if gone:
+            bad.append("%d expected rows are missing or different: %s" % (len(gone), " ".join(gone)))
+            for f in args.get("expect_files") or []:
+                part = json.loads((ROOT / f).read_text(encoding="utf-8"))
+                for k, v in part.items():
+                    if hashlib.sha1(json.dumps([k, v]).encode()).hexdigest()[:4] not in expect:
+                        bad.append("remote row not expected: %r = %r" % (k, v))
     rep.h("Corrections")
     if bad:
         rep.fail("data check failed")

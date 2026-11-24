@@ -38,13 +38,13 @@ function F.TargetInfo()
 end
 
 -- The size of a Persian line we draw over a game font string (the quest list, the
--- quest tracker): the game's own size x the size slider of General (12 = 100%) x
--- the quest list slider of Quests (default 110%), so a slider the player moves is
--- never ignored. Steps of half a point, never below 8 or above 36.
+-- quest tracker): the game's own size x the quest list slider of the Sizes page
+-- (default 110%). ONLY that slider moves it (rc34: the General font size no longer
+-- multiplies in). Steps of half a point, never below 8 or above 36.
 function F.ListSize(base)
     base = tonumber(base) or 12
     local db = F.db or {}
-    local v = base * ((tonumber(db.fontSize) or 12) / 12) * ((tonumber(db.listScale) or 110) / 100)
+    local v = base * ((tonumber(db.listScale) or 110) / 100)
     if v < 8 then
         v = 8
     elseif v > 36 then

@@ -21,7 +21,7 @@ local panel, page, rows, health
 local pages, navbtns, active = {}, {}, nil
 local SHIPPED = { "quests", "tracker", "dungeons", "npc", "spellbook", "talents" }
 local ROOM_KEYS = { "namesZone", "namesSpell", "namesClass", "namesQuest", "terms", "questText", "npcSay", "faDigits", "namesNpc" }
-local SECTIONS = { "general", "quests", "tracker", "map", "npc", "spellbook", "talents", "colors", "share", "health", "about" }
+local SECTIONS = { "general", "sizes", "quests", "tracker", "map", "npc", "spellbook", "talents", "colors", "share", "health", "about" }
 -- the ids of the one-page panel still work (F.OpenPanel("health") from the toast, the tests)
 local ALIAS = { room = "general", mods = "general", display = "general", home = "general", welcome = "general" }
 local STATE_L = { ok = "st_ok", warn = "st_warn", off = "st_off", master = "st_master", nodata = "st_nodata",
@@ -482,26 +482,6 @@ local function build()
         function() return F.Disp("*", "desc") end,
         function(v) F.DispSetDefault("desc", v) end), 32, 2)
     header(L.tab_display)
-    panel.fontSize = place(UI.Slider(page.child, PW - 16, L.d_size, 9, 20, 1,
-        function() return F.db.fontSize end,
-        function(v)
-            v = math.floor(v + 0.5)
-            if v ~= F.db.fontSize then
-                F.db.fontSize = v
-                if F.T and F.T.RefreshAll then
-                    F.T.RefreshAll()
-                end
-                F:Fire("options", "fontSize")
-            end
-        end), 30, 4)
-    panel.scale = place(UI.Slider(page.child, PW - 16, L.d_scale, 0.8, 1.3, 0.05,
-        function() return F.db.scale end,
-        function(v)
-            if v ~= F.db.scale then
-                F.db.scale = v
-                panel:SetScale(v)
-            end
-        end), 30, 4)
     panel.minimap = place(UI.Toggle(page.child, PW - 16, L.d_minimap, nil,
         function() return not F.db.minimap.hide end,
         function(v)
@@ -524,15 +504,6 @@ local function build()
             F.db.alerts = v and true or false
             F:Fire("options", "alerts")
         end), 50, 2)
-    panel.alertScale = place(UI.Slider(page.child, PW - 16, L.al_size, 70, 160, 5,
-        function() return F.db.alertScale or 100 end,
-        function(v)
-            v = math.floor(v + 0.5)
-            if v ~= (F.db.alertScale or 100) then
-                F.db.alertScale = v
-                F:Fire('options', 'alertScale')
-            end
-        end), 30, 4)
     -- the system lines of the chat (Modules/Sysmsg.lua)
     panel.sysmsg = place(UI.Toggle(page.child, PW - 16, L.sy_on, L.sy_on_d,
         function() return F.db.sysmsg ~= false end,
@@ -555,22 +526,56 @@ local function build()
             F.db.chatFa = v and true or false
             F:Fire("options", "chatFa")
         end), 50, 2)
+    end_page()
+
+    -- ===================================================== Font sizes
+    -- rc34 (the owner: two sliders moved one thing and one moved nothing): EVERY size
+    -- slider lives on this page and each one moves exactly ONE group of texts
+    begin_page("sizes")
+    note(L.sz_intro)
+    header(L.sz_own_h)
+    panel.fontSize = place(UI.Slider(page.child, PW - 16, L.d_size, 9, 20, 1,
+        function() return F.db.fontSize end,
+        function(v)
+            v = math.floor(v + 0.5)
+            if v ~= F.db.fontSize then
+                F.db.fontSize = v
+                if F.T and F.T.RefreshAll then
+                    F.T.RefreshAll()
+                end
+                F:Fire("options", "fontSize")
+            end
+        end), 30, 4)
+    note(L.sz_own_d)
+    header(L.sz_list_h)
+    panel.listScale = place(UI.Slider(page.child, PW - 16, L.ls_size, 70, 200, 5,
+        function() return F.db.listScale or 110 end,
+        function(v)
+            v = math.floor(v + 0.5)
+            if v ~= (F.db.listScale or 110) then
+                F.db.listScale = v
+                F:Fire('options', 'listScale')
+            end
+        end), 30, 4)
+    note(L.sz_list_d)
+    header(L.sz_all_h)
     panel.fontAll = place(UI.Toggle(page.child, PW - 16, L.fa_on, L.fa_on_d,
         function() return F.db.fontAll == true end,
         function(v)
             F.db.fontAll = v and true or false
             F:Fire("options", "fontAll")
         end), 50, 2)
-    -- rc33: how big every game text is drawn while the Persian font is on in the whole game
     panel.fontAllScale = place(UI.Slider(page.child, PW - 16, L.fa_size, 70, 160, 5,
-        function() return F.db.fontAllScale or 100 end,
+        function() return F.db.fontAllScale or 110 end,
         function(v)
             v = math.floor(v + 0.5)
-            if v ~= (F.db.fontAllScale or 100) then
+            if v ~= (F.db.fontAllScale or 110) then
                 F.db.fontAllScale = v
                 F:Fire("options", "fontAll")
             end
         end), 30, 4)
+    note(L.sz_all_d)
+    header(L.sz_other_h)
     panel.chatScale = place(UI.Slider(page.child, PW - 16, L.ch_size, 60, 120, 5,
         function() return F.db.chatScale or 90 end,
         function(v)
@@ -580,6 +585,26 @@ local function build()
                 F:Fire("options", "chatFa")
             end
         end), 30, 4)
+    note(L.sz_chat_d)
+    panel.alertScale = place(UI.Slider(page.child, PW - 16, L.al_size, 70, 160, 5,
+        function() return F.db.alertScale or 100 end,
+        function(v)
+            v = math.floor(v + 0.5)
+            if v ~= (F.db.alertScale or 100) then
+                F.db.alertScale = v
+                F:Fire('options', 'alertScale')
+            end
+        end), 30, 4)
+    note(L.sz_alert_d)
+    panel.scale = place(UI.Slider(page.child, PW - 16, L.d_scale, 0.8, 1.3, 0.05,
+        function() return F.db.scale end,
+        function(v)
+            if v ~= F.db.scale then
+                F.db.scale = v
+                panel:SetScale(v)
+            end
+        end), 30, 4)
+    note(L.sz_win_d)
     end_page()
 
     -- ===================================================== Quests
@@ -597,15 +622,6 @@ local function build()
         end), 32, 2)
     panel.questAuto = opt_toggle("questAuto", L.d_qauto, true)
     panel.listTitles = opt_toggle("listTitles", L.d_listtitles, true)
-    panel.listScale = place(UI.Slider(page.child, PW - 16, L.ls_size, 70, 160, 5,
-        function() return F.db.listScale or 110 end,
-        function(v)
-            v = math.floor(v + 0.5)
-            if v ~= (F.db.listScale or 110) then
-                F.db.listScale = v
-                F:Fire('options', 'listScale')
-            end
-        end), 30, 4)
     end_page()
 
     -- ===================================================== Quest tracker

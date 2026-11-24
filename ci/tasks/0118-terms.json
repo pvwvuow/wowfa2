@@ -1,0 +1,1 @@
+{"id":"0118-terms","kind":"script","why":"report: which glossary terms stand unmarked in the templates","args":{"module":"mark_tpl","args":{"kinds":[],"terms":true,"apply":false,"sample":40}}}

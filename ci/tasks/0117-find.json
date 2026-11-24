@@ -1,0 +1,1 @@
+{"id":"0117-find","kind":"script","why":"the owner: the Serpent Sting text and the unmarked terms (physical damage)","args":{"module":"tpl_find","args":{"grep":["per hunter","physical damage"],"limit":12}}}

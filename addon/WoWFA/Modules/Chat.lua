@@ -2,7 +2,10 @@
 -- shows squares). Two parts, both behind F.db.chatFa (General > Persian chat,
 -- default on):
 --   1. our font on every chat window and its edit box (the game's chat font has
---      no Persian letters, so typed and received Persian came out as squares);
+--      no Persian letters, so typed and received Persian came out as squares).
+--      rc23 (the owner: the size of the English lines got messy): the font is the
+--      game's chat size times F.db.chatScale percent (default 90, a slider in
+--      General), because Vazirmatn is drawn bigger than the game font at the same size;
 --   2. a chat filter that shapes an incoming message that holds Persian letters
 --      (same shaper as every other text), so a player who has the addon reads
 --      joined letters in the right order. A player without the addon sees the
@@ -13,6 +16,7 @@ local F = WoWFAF
 local T = F.T
 
 local saved = {} -- frame -> { font, size, flags } of the game's own chat font
+local ours = {} -- frame -> the size we set last (to tell our size from a size the player picked)
 local registered = false
 
 local EVENTS = {
@@ -26,6 +30,16 @@ local EVENTS = {
 local function on()
     local db = F.db
     return db and db.enabled and db.chatFa ~= false and true or false
+end
+
+local function scale()
+    local v = F.db and tonumber(F.db.chatScale) or 90
+    if v < 50 then
+        v = 50
+    elseif v > 130 then
+        v = 130
+    end
+    return v / 100
 end
 
 local function chat_frames()
@@ -44,19 +58,32 @@ local function chat_frames()
     return out
 end
 
+-- the size the game (or the player) wants: ours is told apart by the value we set
+local function base_size(f, size)
+    if saved[f] and ours[f] and math.abs(size - ours[f]) < 0.05 then
+        return saved[f][2]
+    end
+    return size
+end
+
 local function apply_font()
     for _, f in ipairs(chat_frames()) do
         if f.GetFont and f.SetFont then
             local font, size, flags = f:GetFont()
             if type(font) == "string" and type(size) == "number" then
+                local base = base_size(f, size)
                 if on() then
                     if not saved[f] then
-                        saved[f] = { font, size, flags }
+                        saved[f] = { font, base, flags }
+                    else
+                        saved[f][2] = base
                     end
-                    pcall(f.SetFont, f, F.FONT, size, flags or "")
+                    local target = math.floor(base * scale() * 10 + 0.5) / 10
+                    ours[f] = target
+                    pcall(f.SetFont, f, F.FONT, target, flags or "")
                 elseif saved[f] then
-                    pcall(f.SetFont, f, saved[f][1], size, flags or saved[f][3] or "")
-                    saved[f] = nil
+                    pcall(f.SetFont, f, saved[f][1], base, flags or saved[f][3] or "")
+                    saved[f], ours[f] = nil, nil
                 end
             end
         end

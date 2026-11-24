@@ -28,6 +28,7 @@ Modules\Quests.lua
 Modules\Zones.lua
 Modules\Tracker.lua
 Modules\Spells.lua
+Modules\Walk.lua
 Modules\Npc.lua
 Panel.lua
 Dump.lua

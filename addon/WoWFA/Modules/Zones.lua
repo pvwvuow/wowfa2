@@ -33,6 +33,17 @@ local function fa(name, quiet)
     -- lane-28 §A3: the shared name-key normalisation (the export side keys the
     -- same way), so "The Barrens" resolves even when the client adds the article
     local v = F.D.names.zone[T.NameKey(name)]
+    if v == nil then
+        -- rc14 (the owner: the map label said "Wetlands (20-30)" in English): the
+        -- hover label adds the level range after the zone name
+        local base, lv = string.match(name, "^(.-)%s*(%(%s*%d+%s*%-%s*%d+%s*%))$")
+        if base and base ~= "" then
+            local bv = F.D.names.zone[T.NameKey(base)]
+            if bv then
+                return bv .. " " .. lv
+            end
+        end
+    end
     -- rc3 update watch: a zone the data does not know (a label with digits is
     -- a level range / description line, never a zone name)
     if v == nil and not quiet and not string.find(name, "%d") and not string.find(name, "[\216-\219\239]") then
@@ -66,6 +77,40 @@ local function hookable(fs)
     return fs and type(fs) == "table" and fs.SetText and fs.GetFont
 end
 
+-- rc14 (the owner: the breadcrumb above the map showed empty boxes): a button
+-- gives its text a new font object after we wrote - the Persian then has no glyphs.
+-- The font comes back at once (SetFontObject hook) and every half second.
+local function refont(fs)
+    local o = original[fs]
+    if not o or writing[fs] or not M.active then
+        return
+    end
+    local ok, cur = pcall(fs.GetFont, fs)
+    if ok and cur ~= F.FONT then
+        writing[fs] = true
+        pcall(fs.SetFont, fs, F.FONT, o.size or T.Size(), "")
+        writing[fs] = nil
+    end
+end
+
+local function guard_font(fs)
+    if fs.wfaFontGuard then
+        return
+    end
+    fs.wfaFontGuard = true
+    if type(hooksecurefunc) == "function" then
+        pcall(hooksecurefunc, fs, "SetFontObject", function(self)
+            refont(self)
+        end)
+    end
+end
+
+function M.fix_fonts()
+    for fs in pairs(original) do
+        refont(fs)
+    end
+end
+
 local function apply_inplace(fs, faText, enText, kind)
     if writing[fs] then
         return
@@ -79,6 +124,7 @@ local function apply_inplace(fs, faText, enText, kind)
     -- fresh, so a switch-off later restores what is on screen NOW, not a stale zone
     original[fs].text = enText
     fs:SetFont(F.FONT, (original[fs].size or T.Size()), "")
+    guard_font(fs)
     -- Brain review #136-1: the player's CURRENT display mode, never a hardcoded 3
     -- rc4: the map label is re-set by the client every frame: shape once per text
     local mkey = faText .. "\1" .. tostring(T.Mode()) .. tostring(F.Room.On("faDigits"))
@@ -225,9 +271,14 @@ local function hook_map()
             end)
         end
         if C_Timer and C_Timer.NewTicker and not M.ticker then
-            M.ticker = C_Timer.NewTicker(2, function()
+            local n = 0
+            M.ticker = C_Timer.NewTicker(0.5, function()
                 if wm.IsShown and wm:IsShown() then
-                    M.scan_map()
+                    n = n + 1
+                    M.fix_fonts()
+                    if n % 4 == 0 then
+                        M.scan_map()
+                    end
                 end
             end)
         end

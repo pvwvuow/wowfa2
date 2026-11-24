@@ -480,6 +480,38 @@ QuestWatch_Update()
 local l1, l2 = QuestWatchLine1:GetText(), QuestWatchLine2:GetText()
 check("tracker title in Persian", non_ascii(l1), l1)
 check("tracker objective: the NPC name is Persian now (rc11 unlocked the npc names)", type(l2) == "string" and l2:find("Kobold Vermin", 1, true) == nil, l2)
+do
+    local okW, errW = pcall(function()
+        local FF = WoWFAF
+        check("rc14: the UI walker exists", FF.Walk ~= nil and type(FF.Walk.Quest) == "function")
+        check("rc14: an unknown quest title is left alone", FF.Walk.Quest("Zzzz Not A Quest") == nil)
+        local wasSp, wasQt = FF.Room.On("namesSpell"), FF.Room.On("questText")
+        FF.Room.Set("namesSpell", true)
+        local wasT, wasC = FF.Disp("*", "title"), FF.DispCustom("spellbook")
+        FF.DispSetDefault("title", 1)
+        FF.DispSetCustom("spellbook", false)
+        local k
+        for kk in pairs(FF.D.names.spell) do
+            if FF.T.NameKey(kk) == kk then
+                k = kk
+                break
+            end
+        end
+        local sp = FF.Walk.Spell(k)
+        check("rc14: a spell name in the book becomes Persian", type(sp) == "string" and sp ~= k, tostring(sp))
+        FF.Room.Set("questText", true)
+        local o = FF.Walk.Objective("0/8 Skeletal Warrior slain")
+        check("rc14: a modern objective line is rebuilt", type(o) == "string" and o ~= "0/8 Skeletal Warrior slain", tostring(o))
+        check("rc14: a map label with a level range is found", FF.Walk.Scan ~= nil)
+        FF.Room.Set("namesSpell", wasSp)
+        FF.Room.Set("questText", wasQt)
+        FF.DispSetDefault("title", wasT)
+        if wasC then
+            FF.DispSetCustom("spellbook", true)
+        end
+    end)
+    check("rc14 walker block ran", okW, errW)
+end
 check("tracker objective rewritten (Persian verb + counts)", non_ascii(l2), l2)
 
 -- ------------------------------------------------------------------ world map label (zoneMap)

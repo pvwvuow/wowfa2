@@ -1,0 +1,1 @@
+{"id":"0119-tmlearn","kind":"script","why":"report: game terms that stand plain next to their own marker (physical damage ...)","args":{"module":"tm_learn","args":{"apply":false,"sample":40,"top":90}}}

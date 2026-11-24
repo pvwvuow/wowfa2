@@ -1,5 +1,5 @@
 {
- "version": "1.0.0-rc12",
+ "version": "1.0.0-rc13",
  "interface": 16001,
  "game_build": "1.60.1.70959",
  "ship": {
@@ -26,12 +26,12 @@
   "names.npc": 10251,
   "names.obj": 141,
   "names.set": 67,
-  "names.spell": 1119,
+  "names.spell": 1276,
   "names.tree": 30,
   "names.zone": 1178,
   "quests": 5189,
   "quests_with_title": 5189,
-  "tpl": 1708
+  "tpl": 1732
  },
  "ratchet": {
   "latin_in_fa": 492,

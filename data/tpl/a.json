@@ -58,7 +58,7 @@
 "allows the druid to prowl around, but reduces your movement speed by #%. lasts until cancelled":"به حالت پنهان‌روی درمی‌آیی، اما سرعت حرکتت {0}% کاهش می‌یابد. تا زمان لغو اثر ادامه دارد.",
 "allows the friendly target to detect greater invisibility for # min":"به هدف متحد اجازه می‌دهد {{tm:invisibility|نامرئی‌شدن}} پیشرفته را به مدت {0} دقیقه تشخیص دهد.",
 "allows the friendly target to detect invisibility for # min":"به هدف هم‌پیمان امکان می‌دهد {0} دقیقه {{tm:invisibility|نامرئی‌شدن}} را تشخیص دهد.",
-"allows the friendly target to detect lesser invisibility for # min":"به هدف هم‌پیمان امکان می‌دهد {0} دقیقه {{tm:lesser invisibility|نامرئی‌شدن ضعیف}} را تشخیص دهد.",
+"allows the friendly target to detect lesser invisibility for # min":"به هدف هم‌پیمان امکان می‌دهد {0} دقیقه {{sp:lesser invisibility}} را تشخیص دهد.",
 "allows the friendly target to walk across water for # min. any damage will cancel the effect":"به هدف {{tm:friendly|دوستانه}} اجازه می‌دهد {0} دقیقه روی آب راه برود. هرگونه {{tm:damage|آسیب}} اثر را لغو می‌کند.",
 "allows the rogue to sneak around, but reduces your speed by #%. lasts until cancelled":"به راهزن امکان می‌دهد پنهانی حرکت کند، اما سرعت شما را {0}% کاهش می‌دهد. تا زمان لغو دوام دارد.",
 "allows the rogue to vanish from sight, entering an improved stealth mode for # sec. also breaks movement impairing effects":"راهزن از دید ناپدید می‌شود و {0} ثانیه وارد حالت {{sp:Stealth}} بهبودیافته می‌شود. اثرهای {{tm:movement impairing|کندکنندهٔ حرکت}} را هم از بین می‌برد.",

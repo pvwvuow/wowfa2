@@ -76,5 +76,5 @@
 "grants your main hand melee attacks against enemies afflicted by your rend a #% chance to allow an activation of overpower":"به {{tm:melee attacks|حمله‌های نزدیک‌زن}} دست اصلی تو علیه دشمنانی که دچار {{sp:Rend}} تو هستند، {0}% شانس می‌دهد امکان فعال‌سازی {{sp:Overpower}} را فراهم کنند.",
 "grants your melee and ranged attacks against enemies afflicted by hunter's mark a #% chance to allow an activation of mongoose bite. lasts # sec":"حمله‌های {{tm:melee|نزدیک‌زن}} و دوربردت به دشمنانی که {{sp:Hunter's Mark}} روی آن‌هاست، {0}% شانس دارند امکان فعال‌کردن {{sp:Mongoose Bite}} را به تو بدهند. {1} ثانیه دوام دارد.",
 "grants your shank ability a #% chance to add # combo points to the target":"{{sp:Shank}} {0}% شانس دارد {1} {{tm:combo point|امتیاز ترکیبی}} به هدف اضافه کند.",
-"greatly increased chance to detect traps":"شانس {{tm:detect traps|تشخیص تله‌ها}} را به‌شدت افزایش می‌دهد."
+"greatly increased chance to detect traps":"شانس {{sp:detect traps}} را به‌شدت افزایش می‌دهد."
 }

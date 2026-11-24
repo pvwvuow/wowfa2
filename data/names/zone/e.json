@@ -1,9 +1,9 @@
 {
 "eagle nest mountain":"کوه آشیانهٔ عقاب",
 "east pillar":"ستون شرقی",
-"east plaguelands":"طاعون زار شرقی",
-"eastern kingdoms":"قلمرو شرقی",
-"eastern plaguelands":"اراضی طاعون‌زدهٔ شرقی",
+"east plaguelands":"طاعون‌زار شرقی",
+"eastern kingdoms":"پادشاهی‌های شرقی",
+"eastern plaguelands":"طاعون‌زار شرقی",
 "eastern strand":"نوار ساحلی شرقی",
 "eastmoon ruins":"ویرانه‌های ماه شرقی",
 "eastvale logging camp":"اردوگاه چوب‌بری ایست‌ویل",
@@ -16,8 +16,8 @@
 "elbrim's farm":"مزرعهٔ البریم",
 "elder rise":"بلندی کهنسالان",
 "elderwild":"وحش‌زار کهن",
-"elwynn forest":"جنگل الزوین",
-"elwynn forest (blue whelpling inn prototype)":"جنگل الزوین (نمونهٔ اولیهٔ مسافرخانهٔ توله‌اژدهای آبی)",
+"elwynn forest":"جنگل الوین",
+"elwynn forest (blue whelpling inn prototype)":"جنگل الوین (نمونهٔ اولیهٔ مسافرخانهٔ توله‌اژدهای آبی)",
 "emberstone mine":"معدن سنگ‌اخگر",
 "emberstone village":"دهکدهٔ سنگ‌اخگر",
 "emberstrife's den":"لانهٔ امبراسترایف",
@@ -32,6 +32,6 @@
 "evenshade's overlook":"چشم‌انداز ایون‌شید",
 "eventide":"شامگاه",
 "everlook":"ایورلوک",
-"excavation site":"محوطهٔ حفاری: تالاب‌ها",
+"excavation site":"محل حفاری",
 "excavation site: wetlands":"محل حفاری: تالاب‌ها"
 }

@@ -1,0 +1,8 @@
+{
+ "id": "0070-release",
+ "kind": "release",
+ "why": "rc15: data checked against client build 71037, quest-list titles setting, empty-box font fix",
+ "args": {
+  "notes": "WoWFA Forever 1.0.0-rc15 (test build, built by wowfa2 CI).\n\nData: checked against the newest client build 1.60.1.71037 (21 Nov). Class spells and talents did not change; the Flametongue / Windfury weapon texts lost one sentence and the new wording is added.\nFix: zone names and quest titles in the quest list no longer turn into empty boxes: the font of every translated line is checked ten times a second.\nNew: Quests page: a switch for the quest titles in the quest list beside the map (on by default).\nIncludes rc14 (modern quest list, spellbook names, map label with level range) and rc7 to rc13.\n\nData from ForeverDB.net"
+ }
+}

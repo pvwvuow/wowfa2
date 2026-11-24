@@ -1,3 +1,3 @@
 {
-"maims the enemy, causing # damage and slowing the enemy's movement by #% for # sec":"دشمن را علیل می‌کند، {0} آسیب وارد می‌کند و به مدت {2} ثانیه {1}% کندی حرکت ایجاد می‌کند."
+"maims the enemy, causing # damage and slowing the enemy's movement by #% for # sec":"دشمن را علیل می‌کند، {0} آسیب وارد می‌کند و به مدت {2} ثانیه {1}% {{tm:slow|کندی}} حرکت ایجاد می‌کند."
 }

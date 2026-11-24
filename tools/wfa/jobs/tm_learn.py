@@ -1,14 +1,17 @@
 """Learn the game terms from the {{tm:EN|FA}} markers that are already in the data and mark the SAME
-Persian wherever it stands as plain text in the quest texts and the templates, so every such term
-follows the terms switch and gets the term colour (the owner: 'physical damage' and many more were
-not marked).
+Persian wherever it stands as plain text in the templates (and, if asked, the quest texts), so every
+such term follows the terms switch and gets the term colour (the owner: 'physical damage' and many
+more were not marked).
 
 A Persian string is learned when it stands in at least min_count tm markers and one English side
 owns at least 80 percent of them. Never marked: a string that is also a class / zone / spell / tree /
 npc name (two families), anything in stop, anything shorter than min_len letters.
 
 args: apply (false = report only), min_count (3), min_len (3), stop ([]), sample (30), tpl (true),
-      fields (default every quest text field + o)
+      quests (true = also rewrite the quest texts; the story text says 'spirit' and 'power' in their
+      everyday sense, so the owner's run uses false), allow (list: when given, a ONE-word term is
+      marked only if it is in the list; multi-word terms always), fields (default every quest text
+      field + o), top (rows of the table)
 """
 import collections
 import random
@@ -42,8 +45,10 @@ def run(args, rep):
     min_count = int(args.get("min_count", 3))
     min_len = int(args.get("min_len", 3))
     stop = set(args.get("stop") or [])
+    allow = args.get("allow")
     fields = args.get("fields") or FIELDS
     use_tpl = args.get("tpl", True)
+    use_quests = args.get("quests", True)
 
     def all_texts():
         for rec in store.quests.values():
@@ -54,10 +59,9 @@ def run(args, rep):
             for v in rec.get("o") or []:
                 if isinstance(v, str) and v:
                     yield v
-        if use_tpl:
-            for v in store.tpl.values():
-                if isinstance(v, str) and v:
-                    yield v
+        for v in store.tpl.values():
+            if isinstance(v, str) and v:
+                yield v
 
     seen = collections.defaultdict(collections.Counter)
     for text in all_texts():
@@ -86,6 +90,9 @@ def run(args, rep):
         if fa in names:
             skipped.append(fa + " (also a name)")
             continue
+        if allow is not None and " " not in fa and fa not in allow:
+            skipped.append(fa + " (one word, not allowed)")
+            continue
         # the English spelling most used for that lower-case form
         best = max((en for en in c if en.lower() == top), key=lambda e: c[e])
         learned[fa] = best
@@ -113,21 +120,22 @@ def run(args, rep):
         return each_seg(text, mark)
 
     changed = 0
-    for rec in store.quests.values():
-        for f in fields:
-            v = rec.get(f)
-            if isinstance(v, str) and v:
-                new = fix(v)
-                if new != v and apply:
-                    rec[f] = new
-                changed += new != v
-        o = rec.get("o")
-        if o:
-            out = [fix(v) if isinstance(v, str) else v for v in o]
-            if out != o:
-                changed += 1
-                if apply:
-                    rec["o"] = out
+    if use_quests:
+        for rec in store.quests.values():
+            for f in fields:
+                v = rec.get(f)
+                if isinstance(v, str) and v:
+                    new = fix(v)
+                    if new != v and apply:
+                        rec[f] = new
+                    changed += new != v
+            o = rec.get("o")
+            if o:
+                out = [fix(v) if isinstance(v, str) else v for v in o]
+                if out != o:
+                    changed += 1
+                    if apply:
+                        rec["o"] = out
     if use_tpl:
         for k, v in list(store.tpl.items()):
             if isinstance(v, str):

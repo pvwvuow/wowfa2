@@ -1,0 +1,13 @@
+{
+ "id": "0045-tplscan",
+ "kind": "script",
+ "why": "report only: how spell / talent templates carry spell-name markers (Hunter's Mark shows Persian and English together)",
+ "args": {
+  "module": "tpl_scan",
+  "args": {
+   "grep": ["hunter's mark", "hunters mark"],
+   "top": 70,
+   "sample": 20
+  }
+ }
+}

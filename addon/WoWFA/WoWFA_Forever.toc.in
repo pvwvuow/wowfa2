@@ -18,6 +18,7 @@ Locale.lua
 Locale_Alerts.lua
 Locale_Sys.lua
 Locale_Opt.lua
+Locale_Dlg.lua
 Core.lua
 Text.lua
 Room.lua
@@ -37,6 +38,7 @@ Modules\Alerts.lua
 Modules\Chat.lua
 Modules\Font.lua
 Modules\Bubbles.lua
+Modules\Dialog.lua
 Modules\Taxi.lua
 Modules\Sysmsg.lua
 Modules\Tools.lua

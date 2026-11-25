@@ -18,7 +18,12 @@ local function fix_fs(fs)
         return
     end
     if not string.find(txt, "[\216-\219]") then
-        return -- no raw Persian (ours is already shaped: presentation forms)
+        -- 1.0.7: an NPC line the data has in Persian (Modules/Dialog.lua)
+        local fa = F.Dialog and F.Dialog.BubbleFa and F.Dialog.BubbleFa(txt)
+        if type(fa) ~= "string" or fa == "" then
+            return -- no raw Persian (ours is already shaped: presentation forms)
+        end
+        txt = fa
     end
     local okS, shaped = pcall(function()
         return T.ShapeLine(T.Clean(txt), T.Mode())

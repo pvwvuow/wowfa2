@@ -177,6 +177,9 @@ local function spell_tip(modId, tt, data)
     if tt and tt.wfaScan then
         return -- the /wowfa dump scanner tooltip: we export English, never translate it
     end
+    if F.ShiftEn and F.ShiftEn() then
+        return -- 1.0.7: Shift held = the game's English original (Modules/Dialog.lua re-shows on release)
+    end
     if not tt or (tt.IsForbidden and tt:IsForbidden()) then
         return
     end

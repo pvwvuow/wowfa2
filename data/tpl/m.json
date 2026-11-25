@@ -1,4 +1,5 @@
 {
 "maims the enemy, causing # damage and slowing the enemy's movement by #% for # sec":"دشمن را علیل می‌کند، {0} {{tm:damage|آسیب}} وارد می‌کند و به مدت {2} ثانیه {1}% {{tm:slow|کندی}} حرکت ایجاد می‌کند.",
+"master nesingwary has a big hunt ahead of him. i find helping him prepare for a day in the jungle is much more relaxing than helping him ready for combat. although i do miss some of those glorious moments on the battlefield":"استاد {{npc:Nesingwary|نسینگواری}} شکار بزرگی در پیش دارد. آماده‌کردنش برای یک روز در جنگل را بسیار آرام‌بخش‌تر از آماده‌کردنش برای جنگ می‌یابم، هرچند دلم برای آن لحظه‌های باشکوه میدان نبرد تنگ می‌شود.",
 "movement speed, attack speed, and casting speed reduced by #%":"سرعت حرکت، سرعت حمله و سرعت اجرای اسپل {0}% کم شده است."
 }

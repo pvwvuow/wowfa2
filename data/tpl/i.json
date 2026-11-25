@@ -1,4 +1,6 @@
 {
+"i can teach you the finer points of tiger riding, provided you have enough gold to cover the lesson!":"اگر طلای کافی برای هزینهٔ درس داشته باشی، نکته‌های ظریف‌تر ببرسواری را به تو یاد می‌دهم!",
+"i woke up in a bed in northshire three weeks later. don't remember a damn thing":"سه هفته بعد در یک تخت در {{zn:Northshire|نورث‌شایر}} بیدار شدم. حتی یک چیز لعنتی هم یادم نیست.",
 "ice shards pelt the target area doing # frost damage over # sec":"تکه‌های یخ بر ناحیهٔ هدف می‌بارند و {0} {{tm:Frost damage|آسیب یخ}}، طی {1} ثانیه وارد می‌کنند.",
 "if an enemy strikes the caster, they may have their movement slowed by #% and the time between their attacks increased by #% for # sec":"اگر دشمن به اجراکننده ضربه بزند، ممکن است سرعت حرکتش {0}% کاهش یابد و فاصلهٔ بین حمله‌هایش برای {2} ثانیه {1}% افزایش یابد.",
 "if the target dies within # sec of shadowburn, and yields experience or honor, the caster gains a soul shard":"اگر هدف ظرف {0} ثانیه پس از {{sp:Shadowburn|سوختن سایه}} بمیرد و تجربه یا افتخار بدهد، اجراکننده یک تکهٔ جان می‌گیرد.",

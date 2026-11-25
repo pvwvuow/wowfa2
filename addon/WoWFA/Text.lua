@@ -16,7 +16,7 @@ local RLM = "\226\128\143"
 local LRM = "\226\128\142"
 local FA_DIGITS = { "\219\176", "\219\177", "\219\178", "\219\179", "\219\180", "\219\181", "\219\182", "\219\183", "\219\184", "\219\185" }
 
-T.FAMILIES = { "npc", "zn", "it", "sp", "ob", "qs", "cls", "tm" }
+T.FAMILIES = { "npc", "zn", "it", "sp", "ob", "qs", "cls", "tm", "fac" }
 
 function T.Mode()
     local m = F.db and F.db.mode
@@ -28,6 +28,18 @@ end
 
 function T.Size()
     return (F.db and F.db.fontSize) or 12
+end
+
+-- 1.1.0 (the owner: "and they can put a border"): the outline of OUR Persian letters,
+-- F.db.fontOutline 1 none / 2 thin / 3 thick (Colours page)
+function F.Flags()
+    local v = tonumber(F.db and F.db.fontOutline) or 1
+    if v == 2 then
+        return "OUTLINE"
+    elseif v == 3 then
+        return "THICKOUTLINE"
+    end
+    return ""
 end
 
 local ESC_PATTERNS = { "|c%x%x%x%x%x%x%x%x", "|H[^|]*|h", "|T[^|]*|t", "|A[^|]*|a" }
@@ -83,8 +95,10 @@ T.COL_PALETTE = { "green", "blue", "gold", "orange", "red", "purple", "cyan", "p
 T.COL_HEX = { green = "4cd964", blue = "5ac8fa", gold = "ffd24a", orange = "ff9f43", red = "ff6b6b",
     purple = "c58cff", cyan = "3de3d0", pink = "ff8fc7", white = "ffffff" }
 -- rc16 (the owner: classes and terms are not coloured): every family has a default colour
-T.COL_DEFAULT = { zn = "green", sp = "blue", npc = "orange", cls = "class", tm = "cyan", it = "gold", ob = "purple" }
-T.COL_FAMS = { "zn", "sp", "npc", "cls", "it", "tm", "ob" }
+-- 1.1.0 (the owner 25 Nov): factions and groups (Forsaken, Scarlet Crusade, Syndicate...) are their
+-- own family "fac" with their own colour (they were NPC-coloured)
+T.COL_DEFAULT = { zn = "green", sp = "blue", npc = "orange", cls = "class", tm = "cyan", it = "gold", ob = "purple", fac = "red" }
+T.COL_FAMS = { "zn", "sp", "npc", "fac", "cls", "it", "tm", "ob" }
 local CLASS_HEX = { warrior = "c79c6e", paladin = "f58cba", hunter = "abd473", rogue = "fff569",
     priest = "ffffff", shaman = "0070de", mage = "69ccf0", warlock = "9482c9", druid = "ff7d0a",
     ["death knight"] = "c41f3b", monk = "00ff96", ["demon hunter"] = "a330c9", evoker = "33937f" }
@@ -97,6 +111,13 @@ function T.ColorOf(fam, en)
     local id = c[fam]
     if id == nil then
         id = T.COL_DEFAULT[fam]
+    end
+    -- 1.1.0: a colour the player picked exactly ("c:rrggbb", the game's colour picker)
+    if type(id) == "string" then
+        local cx = string.match(id, "^c:(%x%x%x%x%x%x)$")
+        if cx then
+            return string.lower(cx)
+        end
     end
     if id == "class" then
         if fam ~= "cls" then
@@ -140,11 +161,22 @@ local function col_refresh()
     F:Fire("disp")
 end
 
+-- 1.1.0 (the owner: "they must pick ANY colour exactly, not only switch through a list"):
+-- every family also takes an exact colour from the game's colour picker (the «رنگ دلخواه»
+-- button of its row). It is stored as "c:rrggbb"; the row's list then shows «دلخواه», and
+-- cycling past it goes on to «off». The last picked colour is kept (col["c_" .. fam]), so
+-- cycling back to «دلخواه» brings it back.
+local function custom_hex(fam)
+    local id = col_db()[fam]
+    return type(id) == "string" and string.match(id, "^c:(%x%x%x%x%x%x)$") or nil
+end
+
 function F.ColLabels(fam)
     local out = {}
     for i, id in ipairs(col_ids(fam)) do
         out[i] = (L.col_id and L.col_id[id]) or id
     end
+    out[#out + 1] = (L.col_id and L.col_id.custom) or "custom"
     return out
 end
 
@@ -153,6 +185,9 @@ function F.ColId(fam)
 end
 
 function F.ColIndex(fam)
+    if custom_hex(fam) then
+        return #col_ids(fam) + 1
+    end
     local id = F.ColId(fam)
     for i, x in ipairs(col_ids(fam)) do
         if x == id then
@@ -163,12 +198,105 @@ function F.ColIndex(fam)
 end
 
 function F.ColHex(fam) -- the colour of the choice itself (the class choice previews gold)
+    local cx = custom_hex(fam)
+    if cx then
+        return string.lower(cx)
+    end
     local id = F.ColId(fam)
     return T.COL_HEX[id] or (id == "class" and "ffd24a") or nil
 end
 
+local pickPending = false
+local function refresh_soon()
+    if pickPending then
+        return
+    end
+    pickPending = true
+    F.After(0.15, function()
+        pickPending = false
+        col_refresh()
+        if F.PanelRefresh then
+            pcall(F.PanelRefresh)
+        end
+    end)
+end
+
+-- the game's colour picker on the colour the family shows now; every move is applied live
+-- (debounced), Cancel puts the old choice back
+function F.ColPick(fam)
+    local cpf = ColorPickerFrame
+    if type(cpf) ~= "table" then
+        return false
+    end
+    local db = col_db()
+    local prev = db[fam]
+    local hex = F.ColHex(fam) or "ffffff"
+    local r = (tonumber(string.sub(hex, 1, 2), 16) or 255) / 255
+    local g = (tonumber(string.sub(hex, 3, 4), 16) or 255) / 255
+    local b = (tonumber(string.sub(hex, 5, 6), 16) or 255) / 255
+    local function byte(v)
+        v = math.floor((tonumber(v) or 0) * 255 + 0.5)
+        if v < 0 then
+            v = 0
+        elseif v > 255 then
+            v = 255
+        end
+        return v
+    end
+    local function take()
+        local ok, nr, ng, nb = pcall(cpf.GetColorRGB, cpf)
+        if not ok or type(nr) ~= "number" then
+            return
+        end
+        local id = string.format("c:%02x%02x%02x", byte(nr), byte(ng), byte(nb))
+        db[fam] = id
+        db["c_" .. fam] = id
+        refresh_soon()
+    end
+    local function cancel()
+        db[fam] = prev
+        refresh_soon()
+    end
+    pcall(cpf.SetFrameStrata, cpf, "FULLSCREEN_DIALOG")
+    local ok = false
+    if type(cpf.SetupColorPickerAndShow) == "function" then
+        ok = pcall(cpf.SetupColorPickerAndShow, cpf, { r = r, g = g, b = b, hasOpacity = false,
+            swatchFunc = take, cancelFunc = cancel })
+    end
+    if not ok then
+        cpf.hasOpacity = false
+        cpf.opacityFunc = nil
+        cpf.func = take
+        cpf.swatchFunc = take
+        cpf.cancelFunc = cancel
+        cpf.previousValues = { r = r, g = g, b = b, r, g, b }
+        if cpf.SetColorRGB then
+            pcall(cpf.SetColorRGB, cpf, r, g, b)
+        end
+        cpf:Hide()
+        if ShowUIPanel then
+            pcall(ShowUIPanel, cpf)
+        else
+            cpf:Show()
+        end
+    end
+    return true
+end
+
 function F.ColSet(fam, idx)
-    col_db()[fam] = col_ids(fam)[idx] or "off"
+    local ids = col_ids(fam)
+    local db = col_db()
+    if idx > #ids then
+        -- «دلخواه» in the cycle: the last picked colour, or straight on to «off» if none yet
+        local last = db["c_" .. fam]
+        if type(last) == "string" and string.match(last, "^c:%x%x%x%x%x%x$") then
+            db[fam] = last
+        else
+            db[fam] = ids[1]
+        end
+    else
+        db[fam] = ids[idx] or "off"
+    end
     col_refresh()
 end
 
@@ -180,7 +308,7 @@ end
 -- {{fam:English|Persian}} -> Persian, or English when that family is off
 -- Brain 59: the set names have their own switch (namesSet) - the owner: "the
 -- item names and the set names must be separate"
-local MARKER_KEY = { it = "namesItem", sp = "namesSpell", npc = "namesNpc", zn = "namesZone",
+local MARKER_KEY = { it = "namesItem", sp = "namesSpell", npc = "namesNpc", zn = "namesZone", fac = "namesNpc",
     qs = "namesQuest", ob = "namesObj", cls = "namesClass", tm = "terms", set = "namesSet" }
 
 -- 72-A: the tm markers inside a line owned by a TEXT switch (roles
@@ -563,7 +691,7 @@ function T.Set(fs, text, width)
     registry[fs] = true
     local size = fs.wfaSize or T.Size()
     local mode = fs.wfaMode or T.Mode()
-    fs:SetFont(F.FONT, size, "")
+    fs:SetFont(F.FONT, size, F.Flags())
     if width and width >= 40 then
         fs:SetWidth(width)
     end
@@ -703,7 +831,7 @@ local function style(tt, side)
     tt.wfaFonts = tt.wfaFonts or {}
     local font, size, flags = F.GameFontTriple(fs)
     table.insert(tt.wfaFonts, { fs = fs, font = font, size = size, flags = flags, justify = fs:GetJustifyH(), spacing = fs.GetSpacing and fs:GetSpacing() or nil })
-    fs:SetFont(F.FONT, T.Size(), "")
+    fs:SetFont(F.FONT, T.Size(), F.Flags())
     -- inbox/29 C: the same line gap on the spell/talent (TipLine) strings
     fs:SetSpacing(T.Spacing(T.Size()))
     if side == "Left" then
@@ -778,7 +906,7 @@ function T.TipSet(tt, fs, text, width, side)
         })
     end
     local size = T.Size()
-    fs:SetFont(F.FONT, size, "")
+    fs:SetFont(F.FONT, size, F.Flags())
     -- inbox/29 C: the same line gap on the multi-line in-place strings
     fs:SetSpacing(T.Spacing(size))
     fs:SetWordWrap(true)
@@ -1017,7 +1145,7 @@ function F.FitLine(fs, size)
     if ns >= size then
         return size
     end
-    pcall(fs.SetFont, fs, F.FONT, ns, '')
+    pcall(fs.SetFont, fs, F.FONT, ns, F.Flags())
     return ns
 end
 
@@ -1098,3 +1226,14 @@ function T.Fill(fa, nums, force)
         return "{" .. i .. "}"
     end))
 end
+
+-- 1.1.0: the outline switch re-renders everything we wrote
+F:Listen("options", function(key)
+    if key == "fontOutline" then
+        if T.RefreshAll then
+            T.RefreshAll()
+        end
+        F:Fire("names")
+        F:Fire("disp")
+    end
+end)

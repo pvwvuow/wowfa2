@@ -250,7 +250,7 @@ local function apply(fs, fa, prefix, role)
     end
     o.role = role or o.role or "title" -- rc35: the size comes from the role only
     local sz = F.SizeOf(o.role)
-    fs:SetFont(F.FONT, sz, "")
+    fs:SetFont(F.FONT, sz, F.Flags())
     -- the player's CURRENT display mode (Brain review #136-1); colour kept -
     -- SetText never touches the vertex colour
     -- the player's CURRENT display mode (Brain review #136-1); colour kept -
@@ -620,7 +620,7 @@ function M.install()
                 local okt, txt = pcall(fs.GetText, fs)
                 if okt and F.Usable(txt) and type(txt) == 'string' and string.find(txt, '[\216-\219\239]') then
                     local sz = F.SizeOf(o.role or 'title')
-                    pcall(fs.SetFont, fs, F.FONT, sz, '')
+                    pcall(fs.SetFont, fs, F.FONT, sz, F.Flags())
                     F.FitLine(fs, sz)
                 else
                     F.RestoreFont(fs, o) -- rc32: English keeps the game font

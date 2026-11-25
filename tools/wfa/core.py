@@ -12,7 +12,7 @@ NAME_KINDS = ("zone", "spell", "class", "tree", "npc", "boss", "obj", "itn", "it
 MARKER_KIND = {"sp": "spell", "zn": "zone", "cls": "class", "npc": "npc", "it": "it",
                "ob": "obj", "set": "set"}
 # markers we never resolve from a table (their Persian is free text): terms, quest titles
-FREE_MARKERS = ("tm", "qs")
+FREE_MARKERS = ("tm", "qs", "fac")
 MARKER_RE = re.compile(r"\{\{([a-z]+):([^|{}]*)(?:\|([^{}]*))?\}\}")
 
 _QUOTES = {"\u2018": "'", "\u2019": "'", "\u201c": '"', "\u201d": '"'}

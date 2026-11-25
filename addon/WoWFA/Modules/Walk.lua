@@ -149,6 +149,14 @@ function W.Quest(text)
     return (c or "") .. out .. (c and "|r" or "")
 end
 
+-- 1.1.0 (Modules/Questie.lua): the Persian title of a quest by its English title (nil = none)
+function W.TitleFa(title)
+    if not F.Room.On("namesQuest") or type(title) ~= "string" or title == "" then
+        return nil
+    end
+    return quest_row(title)
+end
+
 -- "0/8 Skeletal Warrior slain" / "Skeletal Warrior slain: 0/8"
 function W.Objective(text)
     if not F.Room.On("questText") then
@@ -316,7 +324,7 @@ local function put(fs, out, english)
     eng[fs] = english
     writing[fs] = true
     local sz = F.SizeOf(mine[fs].role)
-    fs:SetFont(F.FONT, sz, "")
+    fs:SetFont(F.FONT, sz, F.Flags())
     fs:SetText(out)
     F.FitLine(fs, sz)
     writing[fs] = nil
@@ -411,6 +419,8 @@ local function walk(frame, kind, depth, budget)
 end
 
 local QUEST_ROOTS = { "WorldMapFrame", "QuestMapFrame", "QuestLogFrame", "ObjectiveTrackerFrame", "QuestWatchFrame", "WatchFrame" }
+-- 1.1.0: the Questie quest tracker (its own frames), walked only while the Questie switch is on
+local QUESTIE_ROOTS = { "Questie_BaseFrame", "QuestieTrackerBaseFrame", "Questie_TrackerBaseFrame", "QuestieTracker" }
 local SPELL_ROOTS = { "SpellBookFrame", "PlayerSpellsFrame", "SpellbookFrame" }
 
 local function roots_for(kind)
@@ -420,6 +430,15 @@ local function roots_for(kind)
         if type(f) == "table" and f.GetChildren and not seen[f] then
             seen[f] = true
             out[#out + 1] = f
+        end
+    end
+    if kind ~= "spell" and F.Questie and F.Questie.On and F.Questie.On() then
+        for _, n in ipairs(QUESTIE_ROOTS) do
+            local f = _G[n]
+            if type(f) == "table" and f.GetChildren and not seen[f] then
+                seen[f] = true
+                out[#out + 1] = f
+            end
         end
     end
     if kind == "spell" and UIParent and UIParent.GetChildren then
@@ -591,7 +610,7 @@ F:Listen("options", function(key)
             local okt, txt = pcall(fs.GetText, fs)
             if okt and F.Usable(txt) and has_fa(txt) then
                 local sz = F.SizeOf(o.role)
-                pcall(fs.SetFont, fs, F.FONT, sz, '')
+                pcall(fs.SetFont, fs, F.FONT, sz, F.Flags())
                 F.FitLine(fs, sz)
             else
                 F.RestoreFont(fs, o) -- rc32: English keeps the game font
@@ -620,7 +639,7 @@ do
                 writing[fs] = true
                 if okt and F.Usable(txt) and has_fa(txt) then
                     local sz = F.SizeOf(o.role)
-                    pcall(fs.SetFont, fs, F.FONT, sz, "")
+                    pcall(fs.SetFont, fs, F.FONT, sz, F.Flags())
                     F.FitLine(fs, sz)
                 else
                     mine[fs], last[fs] = nil, nil -- rc32: English text again: the game font stays

@@ -39,6 +39,7 @@ Modules\Chat.lua
 Modules\Font.lua
 Modules\Bubbles.lua
 Modules\Dialog.lua
+Modules\Questie.lua
 Modules\Taxi.lua
 Modules\Sysmsg.lua
 Modules\Tools.lua

@@ -65,8 +65,13 @@ def strip_hints(font):
 
 
 def run(args, rep):
-    r = sh(sys.executable, "-m", "pip", "install", "-q", "fonttools>=4.40", "pillow")
-    rep.add("- pip fonttools pillow: rc %d" % r.returncode)
+    deps = "/tmp/wfa-pydeps"
+    r = sh(sys.executable, "-m", "pip", "install", "-q", "--target", deps, "fonttools>=4.40", "pillow")
+    rep.add("- pip fonttools pillow: rc %d %s" % (r.returncode, (r.stderr or "")[-300:]))
+    if deps not in sys.path:
+        sys.path.insert(0, deps)
+    import importlib
+    importlib.invalidate_caches()
     from fontTools.ttLib import TTFont, newTable
     from fontTools.ttLib.scaleUpem import scale_upem
     sx = float(args.get("narrow", 0.82))

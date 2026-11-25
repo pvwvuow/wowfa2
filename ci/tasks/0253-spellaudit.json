@@ -1,0 +1,1 @@
+{"id":"0253-spellaudit","kind":"script","why":"owner 25 Nov full review: spells and talents, report only","args":{"module":"audit_spells","args":{"apply":false,"top":40}}}

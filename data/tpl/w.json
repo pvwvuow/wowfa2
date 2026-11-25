@@ -1,6 +1,6 @@
 {
 "wards the friendly target against fear. the next fear effect used against the target will fail, using up the ward. lasts # min":"از هدف متحد در برابر ترس محافظت می‌کند. اثر ترس بعدی که علیه هدف به کار رود، ناکام می‌ماند و حفاظ مصرف می‌شود. به مدت {0} دقیقه باقی می‌ماند.",
-"we need arathor. allied forces. -friendly":"نیازمند جایگاه {{tm:Friendly|دوستانه}} در {{npc:Arathor Allied forces|اتحاد آراثور}}.",
+"we need arathor. allied forces. -friendly":"نیازمند جایگاه {{tm:Friendly|دوستانه}} در {{fac:Arathor Allied forces|اتحاد آراثور}}.",
 "we need blasting fuses. harbor friendly":"به فیوزهای انفجاری نیاز داریم. شهرت {{tm:friendly|دوستانه}} در بندر.",
 "weakens the target enemy, reducing melee attack power by # and reducing the effectiveness of any healing by #%. lasts # min":"دشمن را ضعیف می‌کند و {{tm:melee attack power|قدرت حملهٔ نزدیک‌زن}} او را {0} کاهش می‌دهد؛ همچنین کارایی هرگونه {{tm:healing|شفا}} را {1}% کم می‌کند. به مدت {2} دقیقه باقی می‌ماند.",
 "when activated, gives your next flash of light, holy light, or holy shock spell a #% critical effect chance":"هنگام فعال‌شدن، به {{tm:spell|اسپل}} {{sp:flash of light}}، {{sp:holy light}} یا {{sp:holy shock}} بعدی تو {0}% شانس {{tm:critical effect|اثر بحرانی}} می‌دهد.",

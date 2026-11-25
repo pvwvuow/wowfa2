@@ -1,0 +1,1 @@
+{"id":"0221-noitn","kind":"edit","why":"owner 25 Nov: item names stay English in objectives until the whole item bank ships (names.itn kept in data/, only not shipped)","args":{"ops":[{"file":"policy.json","old":"\"boss\",\n   \"itn\"\n  ]","new":"\"boss\"\n  ]","count":1}]}}

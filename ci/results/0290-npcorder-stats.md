@@ -1,0 +1,330 @@
+## task 0290-npcorder-stats (script)
+
+**GREEN**
+
+
+### Last Persian word (names with 2+ words), top 160
+
+- سرخ (88): crimson battle mage = جادوگر نبرد سرخ | crimson conjuror = احضارگر سرخ
+- دیفیاس (52): defias agent = مأمور دیفیاس | defias ambusher = کمین‌گر دیفیاس
+- سوزان (43): blistering swamp ooze = لجن باتلاقی سوزان | burning blade acolyte = مریدِ تیغهٔ سوزان
+- سیاه (42): black battlestrider = مکانواستریدر جنگی سیاه | black bear = خرس سیاه
+- پلید (37): balgaras the foul = بالگاراس پلید | evil rabbit = خرگوش پلید
+- ونچر (34): mutated venture co. drone = کارگر جهش‌یافتهٔ شرکت ونچر | venture co. builder = سازندهٔ شرکت ونچر
+- خشمگین (31): agathelos the raging = اگاتلوس خشمگین | ambershard rager = امبرشارد خشمگین
+- اسکلتی (31): skeletal acolyte = دستیار اسکلتی | skeletal berserker = جنگجوی خشمگین اسکلتی
+- گرگ‌ومیش (30): duskbat = خفاش گرگ‌ومیش | twilight acolyte = شاگرد گرگ‌ومیش
+- آهن‌سیاه (29): dark iron agent = مأمور آهن‌سیاه | dark iron ambassador = سفیر آهن‌سیاه
+- مرگ (29): death cultist = فرقه‌گرای مرگ | death flayer = پوست‌کن مرگ
+- نقره‌ای (28): argent charger = اسب جنگی نقره‌ای | argent dawn champion = قهرمان سپیدهٔ نقره‌ای
+- طوفان‌نیزه (27): corporal noreg stormpike = سرجوخه نورگ طوفان‌نیزه | mountaineer stormpike = کوه‌نورد طوفان‌نیزه
+- بزرگ (25): big samras = سمراس بزرگ | big will = ویل بزرگ
+- سایه (24): aspect of shadow = جلوه سایه | balthule shadowstrike = بالتول ضربهٔ سایه
+- بلک‌راک (23): blackrock ambusher = کمین‌گرِ بلک‌راک | blackrock assassin = آدم‌کشِ بلک‌راک
+- کیراژی (23): blue qiraji battle tank = تانک جنگی آبی کیراژی | green qiraji battle tank = تانک جنگی سبز کیراژی
+- هورد (23): fallen hero of the horde = قهرمان سقوط‌کردهٔ هورد | hero of the horde = قهرمان هورد
+- جوان (23): young arikara = اریکارا جوان | young black bear = خرس سیاه جوان
+- خونین (22): blood elf defender = مدافعِ الف خونین | blood parrot = طوطی خونین
+- تاریک (22): dark adept = کارآزموده تاریک | dark caster = جادوگر تاریک
+- گرگ‌یخی (22): east frostwolf marshal = مارشال شرقی گرگ‌یخی | east frostwolf warmaster = استاد جنگ شرقی گرگ‌یخی
+- کهنسال (22): elder black bear = خرس سیاه کهنسال | elder cloud serpent = مار ابر کهنسال
+- طاعونی (22): plague beast = جانور طاعونی | plague flesh tentacle = شاخک گوشت طاعونی
+- فاسد (21): corrupt courser = اسب تیزپای فاسد | corrupt force of nature = نیروی طبیعت فاسد
+- شبح‌وار (21): ghost leopard = پلنگ شبح‌وار | ghostly citizen = شهروند شبح‌وار
+- سندیکا (21): syndicate agent = مأمور سندیکا | syndicate assassin = آدم‌کش سندیکا
+- سرد (20): champion coldmine explorer = قهرمان کاوشگر معدن سرد | champion coldmine guard = قهرمان نگهبان معدن سرد
+- دگرگون (20): deviate adder = افعی دگرگون | deviate coiler = مار پیچنده دگرگون
+- مرده‌متحرک (20): undead druid trainer = مربی دروید مرده‌متحرک | undead dynamiter = بمب‌گذار مرده‌متحرک
+- ۵ (19): agro 5 = اگرو ۵ | corrupted fire nova totem v = توتم فوران آتش فاسد ۵
+- ژرف‌آهن (19): champion irondeep explorer = قهرمان کاوشگر ژرف‌آهن | champion irondeep guard = قهرمان نگهبان ژرف‌آهن
+- سایه‌آهن (19): shadowforge ambusher = کمین‌گر سایه‌آهن | shadowforge archaeologist = باستان‌شناس سایه‌آهن
+- رام‌شده (19): tame kodo = کودوی رام‌شده | tame wolf = گرگ رام‌شده
+- ماه (18): elder moonwarden = ریش‌سفید نگهبان ماه | harklan moongrove = هارکلان بیشهٔ ماه
+- ۲ (18): fire nova totem ii = توتم انفجار آتش ۲ | fire resistance totem ii = توتم مقاومت در برابر آتش ۲
+- سواری (18): gray riding kodo = کودو خاکستری سواری | gray riding wolf = گرگ خاکستری سواری
+- کولکار (18): kolkar ambusher = کمین‌گر کولکار | kolkar battle lord = سالار جنگ کولکار
+- استورم‌ویند (18): stormwind archmage = جادوگر اعظم استورم‌ویند | stormwind cavalryman = مرد سواره‌نظام استورم‌ویند
+- ۳ (17): corrupted windfury totem iii = توتم خشم باد فاسد ۳ | fire nova totem iii = توتم انفجار آتش ۳
+- دیوانه (17): crazed ancient = باستانی دیوانه | crazed owlbeast = جانور جغدی دیوانه
+- مورلوک (17): murloc coastrunner = دونده ساحل مورلوک | murloc flesheater = گوشت‌خوار مورلوک
+- نفرین‌شده (16): accursed slitherblade = تیغه‌لغزان نفرین‌شده | arados the damned = ارادوس، نفرین‌شده
+- سبز (16): green baby murloc = بچه‌مورلوک سبز | green dragonspawn = اژدازاده سبز
+- توتم‌خشمگین (15): cor grimtotem = کور توتم‌خشمگین | gorm grimtotem = گورم توتم‌خشمگین
+- دالاران (15): dalaran apprentice = شاگرد دالاران | dalaran brewmaster = استاد آبجوی دالاران
+- غول‌پیکر (15): gargantuan ooze = لجن غول‌پیکر | giant buzzard = کرکس غول‌پیکر
+- جمجمه‌شکاف (15): krueg skullsplitter = کروگ جمجمه‌شکاف | krug skullsplit = کراگ جمجمه‌شکاف
+- سیلیتید (15): lesser silithid flayer = پوست‌کن کوچک سیلیتید | minor silithid flayer = پوست‌کن کوچک سیلیتید
+- کالیمدور (15): might of kalimdor archer = کماندار نیروی کالیمدور | might of kalimdor archmage = جادوگر اعظم نیروی کالیمدور
+- آنوبیسات (14): anubisath conqueror = فاتح آنوبیسات | anubisath defender = مدافع آنوبیسات
+- دست‌سیاه (14): blackhand armorsmith = زره‌ساز دست‌سیاه | blackhand assassin = آدم‌کش دست‌سیاه
+- کورزن (14): colonel kurzen = سرهنگ کورزن | kurzen commando = کماندوی کورزن
+- عذاب (14): doom touched warrior = جنگجوی نشان‌خورده‌ی عذاب | doom wraith = شبح عذاب
+- برخاسته (14): risen aberration = ناهنجاری برخاسته | risen ancient = باستانی برخاسته
+- پنجه‌رود (14): riverpaw bandit = دزد گردنه پنجه‌رود | riverpaw brute = زورمند پنجه‌رود
+- جنوبی (14): southern sand crawler = خزندهٔ شنزار جنوبی | southsea brigand = راهزن دریای جنوبی
+- زمستان (13): father winter's helper = دستیار پدر زمستان | goblin female winter reveler = زن گابلین جشن‌گیر زمستان
+- گالاک (13): galak assassin = آدم‌کشِ گالاک | galak centaur = سنتور گالاک
+- گوردوک (13): gordok brute = زورمند گوردوک | gordok bushwacker = بوته‌شکار گوردوک
+- آیرون‌فورج (13): ironforge brigade mortarman = خمپاره‌انداز تیپ آیرون‌فورج | ironforge cavalryman = سوارکار آیرون‌فورج
+- پیر (13): myranda the hag = میراندا، جادوگر پیر | ol' beasley = بیسلی پیر
+- اورگریمار (13): orgrimmar celebrant = جشن‌گیرندهٔ اورگریمار | orgrimmar commendation officer = افسر تقدیر اورگریمار
+- اسکورج (13): scourge archer = کماندار اسکورج | scourge cauldron = دیگ اسکورج
+- سنگ‌طاق (13): stonevault ambusher = کمین‌گرِ سنگ‌طاق | stonevault brawler = مشت‌زن سنگ‌طاق
+- ترمور (13): theramore combat dummy = آدمک تمرینی ترمور | theramore commando = کماندو ترمور
+- شب (12): alanndarian nightsong = آلاندریان آوای شب | argos nightwhisper = آرگوس نجوای شب
+- وحشی (12): alzzin the wildshaper = الزین، دگرگون‌ساز وحشی | druid of the wild = دروید وحشی
+- آب (12): aqua guardian = نگهبان آب | corrupt minor manifestation of water = تجلی کوچک فاسد آب
+- آبی (12): blue baby murloc = بچه‌مورلوک آبی | blue dragonspawn = اژدازاده آبی
+- اسیر (12): captive abomination = هیولای نفرت‌انگیز اسیر | captive fire elemental = عنصرزاد آتش اسیر
+- ناکس‌راماس (12): eye of naxxramas = چشم ناکس‌راماس | ghost of naxxramas = شبح ناکس‌راماس
+- آتش (12): fire beetle = سوسک آتش | fire elemental = عنصرزادِ آتش
+- جنگل (12): forest creeper = خزنده جنگل | forest lurker = کمین‌گر جنگل
+- کاج‌پیچ‌خورده (12): gnarlpine ambusher = کمین‌گر کاج‌پیچ‌خورده | gnarlpine augur = پیشگو کاج‌پیچ‌خورده
+- گابلین (12): goblin buzzcutter = برش‌گر وزوزی گابلین | goblin craftsman = پیشه‌ور گابلین
+- سفید (12): great white kodo = کودو بزرگ سفید | pat's firework guy - white = مسئول آتش‌بازی پت سفید
+- گمشده (12): lost horse = اسب گمشده | lost one cook = آشپز گمشده
+- سمی (12): noxious flayer = پوست‌کن سمی | noxious horror = وحشت سمی
+- گندیده (12): putrid flyer = پرنده گندیده | putrid gargoyle = گارگویل گندیده
+- شاخه‌پلید (12): vilebranch berserker = جنگجوی خشمگین شاخه‌پلید | vilebranch blood drinker = خون‌نوش شاخه‌پلید
+- ۱۰ (11): agro 10 = اگرو ۱۰ | druid 10 = دروید ۱۰
+- باد (11): bath'rah the windwatcher = باث‌را، دیده‌بان باد | elder windtotem = ریش‌سفید توتم باد
+- هاکاری (11): captured hakkari zealot = متعصب اسیرِ هاکاری | hakkari blood priest = کاهن خون هاکاری
+- ۱ (11): druid 1 = دروید ۱ | hunter 1 = شکارچی ۱
+- ۲۰ (11): druid 20 = دروید ۲۰ | hunter 20 = شکارچی ۲۰
+- ۴ (11): fire nova totem iv = توتم انفجار آتش ۴ | flametongue totem iv = توتم زبان‌آتش ۴
+- جیدنار (11): jaedenar adept = کارآزمودهٔ جیدنار | jaedenar arch warlock = جادوگر اهریمنی ارشد جیدنار
+- کوبولد (11): kobold digger = حفار کوبولد | kobold geomancer = زمین‌افسونگر کوبولد
+- مردگان (11): necro knight = شوالیه مردگان | necro knight guardian = نگهبان شوالیه مردگان
+- هار (11): rabid blisterpaw = پنجه‌آبله هار | rabid bonepaw = استخوان‌پنجه هار
+- یال‌تیز (11): razormane battleguard = نگهبان نبرد یال‌تیز | razormane defender = مدافع یال‌تیز
+- سنگی (11): rock elemental = عنصر سنگی | rock worm = کرم سنگی
+- اسکولومنس (11): scholomance acolyte = مرید اسکولومنس | scholomance adept = کارآزمودهٔ اسکولومنس
+- کارکشته (11): seasoned commando = کماندوی کارکشته | seasoned defender = مدافع کارکشته
+- کهنه‌کار (11): veteran commando = کماندوی کهنه‌کار | veteran defender = مدافع کهنه‌کار
+- تبرزمستان (11): winterax axe thrower = تبرانداز تبرزمستان | winterax berserker = جنگجوی خشمگین تبرزمستان
+- توتم‌خشم (10): altsoba ragetotem = آلتسوبا توتم‌خشم | elder ragetotem = ریش‌سفید توتم‌خشم
+- باستانی (10): anachronos the ancient = اناچرونوس، باستانی | ancient core hound = سگ هسته‌ای باستانی
+- اتال‌آی (10): atal'ai corpse eater = جسدخوار اتال‌آی | atal'ai deathwalker = رهرو مرگ اتال‌آی
+- هولناک (10): battle boar horror = گراز جنگی هولناک | dire condor = کرکس هولناک
+- بال‌سیاه (10): blackwing guardsman = نگهبان بال‌سیاه | blackwing legionnaire = لژیونر بال‌سیاه
+- قهوه‌ای (10): brown horse = اسب قهوه‌ای | brown prairie dog = سگ دشتی قهوه‌ای
+- پوسیده (10): decaying horror = وحشت پوسیده | hed'mush the rotting = هدموش، پوسیده
+- ۳۰ (10): druid 30 = دروید ۳۰ | hunter 30 = شکارچی ۳۰
+- ۴۰ (10): druid 40 = دروید ۴۰ | hunter 40 = شکارچی ۴۰
+- بزرگ‌تر (10): fjordune the greater = فجوردون، بزرگ‌تر | greater feral spirit = روح وحشی بزرگ‌تر
+- گوردونی (10): gordunni battlemaster = استاد نبرد گوردونی | gordunni brute = زورمند گوردونی
+- تندرو (10): healer longrunner = درمانگر تندرو | helgrum the swift = هلگروم، تندرو
+- هیلزبراد (10): hillsbrad apprentice blacksmith = شاگرد آهنگر هیلزبراد | hillsbrad councilman = عضو شورا هیلزبراد
+- کوچک (10): imp = دیو کوچک | imp minion = خدمتگزار دیو کوچک
+- کوچک‌تر (10): lesser felguard = نگهبان پلید کوچک‌تر | lesser gargoyle = گارگویل کوچک‌تر
+- مانا (10): mana burst = انفجار مانا | mana elemental = عنصرزادِ مانا
+- مکانیکی (10): mechanical chicken = مرغ مکانیکی | mechanical dragon whelp = بچه‌اژدهای مکانیکی
+- ندرگارد (10): nethergarde analyst = تحلیلگر ندرگارد | nethergarde cleric = روحانی ندرگارد
+- شن‌خشم (10): sandfury acolyte = مریدِ شن‌خشم | sandfury axe thrower = تبرانداز شن‌خشم
+- پوست‌خشک (10): witherbark axe thrower = تبرانداز پوست‌خشک | witherbark berserker = جنگجوی خشمگین پوست‌خشک
+- اتحاد (9): alliance battle standard = درفش نبرد اتحاد | alliance battleguard = نگهبان نبرد اتحاد
+- آلوده (9): befouled water elemental = عنصر آب آلوده | blighted dead = مرده‌متحرک آلوده
+- تبرخون (9): bloodaxe evoker = احضارگر تبرخون | bloodaxe raider = یورشگر تبرخون
+- قفس (9): caged chicken = مرغ در قفس | caged dwarf female = زن دورف در قفس
+- خاکستری (9): calder gray = کالدر خاکستری | gray bear = خرس خاکستری
+- سناریون (9): cenarion botanist = گیاه‌شناس سناریون | cenarion caretaker = سرپرستِ سناریون
+- چنگال‌مرگ (9): death talon captain = کاپیتان چنگال‌مرگ | death talon dragonspawn = اژدازاده چنگال‌مرگ
+- بیمار (9): diseased black bear = خرس سیاه بیمار | diseased flayer = پوست‌کن بیمار
+- ۱۵ (9): druid 15 = دروید ۱۵ | hunter 15 = شکارچی ۱۵
+- غبارآروغ (9): dustbelcher brute = خشن غبارآروغ | dustbelcher lord = سالار غبارآروغ
+- انسان (9): female human captive = زن اسیر انسان | festival flamekeeper costume: human = لباس آتش‌بان جشنواره، انسان
+- گوریشی (9): gorishi egg = تخمِ گوریشی | gorishi grub = لارو گوریشی
+- چنگال‌کلاغ (9): hand of ravenclaw = دست چنگال‌کلاغ | ravenclaw apparition = شبحِ چنگال‌کلاغ
+- گرسنه (9): hungering dead = مردهٔ گرسنه | hungering wraith = شبح گرسنه
+- ماراودین (9): maraudine khan advisor = مشاور خان ماراودین | maraudine khan guard = نگهبان خان ماراودین
+- خلأ (9): menara voidrender = منارا شکافندهٔ خلأ | void zone = منطقهٔ خلأ
+- خشم‌ماه (9): moonrage armorer = زره‌ساز خشم‌ماه | moonrage darksoul = روح تاریک خشم‌ماه
+- آرواره‌چوب (9): timbermaw ancestor = نیاِ آرواره‌چوب | timbermaw den watcher = دیده‌بان لانهٔ آرواره‌چوب
+- وکنس (9): vekniss borer = حفارِ وکنس | vekniss drone = کارگر وکنس
+- سندان‌خشم (8): anvilrage footman = پیاده‌نظام سندان‌خشم | anvilrage guardsman = نگهبان سندان‌خشم
+- آسمان (8): azzere the skyblade = اززر، تیغه‌ی آسمان | elder skygleam = ریش‌سفید برق آسمان
+- پشت‌ژیان (8): bristleback battleboar = گراز جنگی پشت‌ژیان | bristleback geomancer = جادوگر زمین پشت‌ژیان
+- ردپث (8): captain redpath = کاپیتان ردپث | carlin redpath = کارلین ردپث
+- خارخنجر (8): daggerspine marauder = غارتگر خارخنجر | daggerspine raider = مهاجم خارخنجر
+- اژدهادهان (8): dragonmaw battlemaster = استاد نبرد اژدهادهان | dragonmaw bonewarder = نگهبان استخوان اژدهادهان
+- دریاچه (8): elder lake creeper = خزنده‌ی کهنسال دریاچه | elder lake skulker = کمین‌گر کهنسال دریاچه
+- مرداب (8): fen creeper = خزندهٔ مرداب | fen dweller = ساکن مرداب
+- تورن (8): festival flamekeeper costume: tauren = لباس آتش‌بان جشنواره، تورن | tauren female winter reveler = جشن‌گیرنده زمستانی زن تورن
+- فورسیکن (8): forsaken assassin = آدم‌کشِ فورسیکن | forsaken dark stalker = تعقیب‌گر تاریکِ فورسیکن
+- یخی (8): frost spectre = شبح یخی | frostwolf stables manager = مدیر اصطبل گرگ یخی
+- یال‌یخی (8): frostmane headhunter = کله‌شکار یال‌یخی | frostmane hideskinner = پوست‌کن یال‌یخی
+- گلکیس (8): gelkis earthcaller = احضارگر زمین گلکیس | gelkis marauder = غارتگرِ گلکیس
+- گنوم (8): gnome drag car = ماشین مسابقهٔ درگ گنوم | gnome engineer = مهندسِ گنوم
+- گوروباشی (8): gurubashi axe thrower = تبرانداز گوروباشی | gurubashi bat rider = سوار خفاش گوروباشی
+- ماگرام (8): magram marauder = غارتگرِ ماگرام | magram mauler = کوبندهٔ ماگرام
+- موش‌اوگ (8): mosh'ogg brute = زورمند موش‌اوگ | mosh'ogg butcher = قصاب موش‌اوگ
+- خزه‌پوست (8): mosshide alpha = پیشتاز خزه‌پوست | mosshide brute = زورمند خزه‌پوست
+- کابوس (8): nightmare ectoplasm = اکتوپلاسم کابوس | nightmare illusion = توهم کابوس
+- پوست‌پوسیده (8): rot hide bruiser = قلدر پوست‌پوسیده | rot hide brute = زورمند پوست‌پوسیده
+- تیغه‌لغزان (8): slitherblade myrmidon = میرمیدون تیغه‌لغزان | slitherblade naga = ناگای تیغه‌لغزان
+- خاراخگر (8): smolderthorn axe thrower = تبرانداز خاراخگر | smolderthorn berserker = جنگجوی خشمگین خاراخگر
+- سنگ‌تراشه (8): stonesplinter bonesnapper = استخوان‌شکن سنگ‌تراشه | stonesplinter digger = حفار سنگ‌تراشه
+- آندرسیتی (8): undercity celebrant = جشن‌گیرندهٔ آندرسیتی | undercity commendation officer = افسر تقدیر آندرسیتی
+
+### First English word, top 160
+
+- world (89): world alchemy trainer = مربی جهانی کیمیاگری | world armorsmithing trainer = مربی جهانی زره‌سازی
+- elder (82): elder ashenvale bear = خرس کهنسال اشن‌ویل | elder barrens giraffe = زرافهٔ کهنسال بارنز
+- riding (82): riding bat = خفاشِ سواری | riding frostsaber = گربه دندان‌خنجری یخی سواری
+- scarlet (69): scarlet abbot = راهب اعظم سرخ | scarlet adept = کارآزمودهٔ سرخ
+- dark (52): dark adept = کارآزموده تاریک | dark caster = جادوگر تاریک
+- mountaineer (52): mountaineer angst = کوه‌نورد انگست | mountaineer barleybrew = کوه‌نورد جوآب‌ساز
+- defias (50): defias agent = مأمور دیفیاس | defias ambusher = کمین‌گر دیفیاس
+- captain (49): captain andrews = کاپیتان اندروس | captain aransas = کاپیتان آرانساس
+- lord (46): lord alexei barov = لرد الکسی باروف | lord aliden perenolde = لرد الیدن پرنولد
+- innkeeper (43): innkeeper abeqwa = مهمان‌دار ابقوا | innkeeper adegwa = مهمان‌دار ادگوا
+- high (35): high chief winterfall = رئیس اعظم زمستان‌زده | high commander lynore windstryke = فرمانده ارشد لینور ویندستریک
+- lieutenant (35): lieutenant baxter = ستوان باکستر | lieutenant beech = ستوان بیچ
+- black (34): black battlestrider = مکانواستریدر جنگی سیاه | black bear = خرس سیاه
+- skeletal (33): skeletal acolyte = دستیار اسکلتی | skeletal berserker = جنگجوی خشمگین اسکلتی
+- twilight (33): twilight acolyte = شاگرد گرگ‌ومیش | twilight aquamancer = آب‌افسونگر گرگ‌ومیش
+- venture (33): venture co. builder = سازندهٔ شرکت ونچر | venture co. cutter = برشگر شرکت ونچر
+- auctioneer (31): auctioneer beardo = حراج‌گذار بیردو | auctioneer bernal = حراج‌گذار برنال
+- argent (30): argent charger = اسب جنگی نقره‌ای | argent dawn champion = قهرمان سپیدهٔ نقره‌ای
+- spirit (30): spirit healer = شفادهندهٔ روح | spirit healer (dnd) = شفادهندهٔ روح (دی‌ان‌دی)
+- watcher (30): watcher backus = دیده‌بان باکوس | watcher biggs = دیده‌بان بیگز
+- deathguard (29): deathguard abraham = نگهبان مرگ ابراهام | deathguard baldren = نگهبان مرگ بالدرن
+- young (29): young arikara = اریکارا جوان | young black bear = خرس سیاه جوان
+- guard (28): guard adams = نگهبان ادامس | guard ashlock = نگهبان اشلوک
+- pat's (28): pat's firework cluster guy (blue big) = مسئول دستهٔ آتش‌بازی پت (بزرگ آبی) | pat's firework cluster guy (blue) = مسئول دستهٔ آتش‌بازی پت (آبی)
+- burning (27): burning blade acolyte = مریدِ تیغهٔ سوزان | burning blade adept = ماهر تیغ سوزان
+- swift (25): swift blue mechanostrider = مکانواستریدر تندرو آبی | swift blue raptor = راپتور تندرو آبی
+- qiraji (24): qiraji brainwasher = مغزشوی کیراژی | qiraji brigadier general = سرتیپ کیراژی
+- blackrock (23): blackrock ambusher = کمین‌گرِ بلک‌راک | blackrock assassin = آدم‌کشِ بلک‌راک
+- frostwolf (23): frostwolf ambassador rokhstrom = سفیر گرگ‌یخ راک‌استروم | frostwolf battle standard = پرچم نبرد گرگ‌یخی
+- lady (22): lady anacondra = بانو آناکوندرا | lady blaumeux = بانو بلوما
+- syndicate (22): syndicate agent = مأمور سندیکا | syndicate assassin = آدم‌کش سندیکا
+- commander (21): commander aggro'gosh = فرمانده اگروگوش | commander althea ebonlocke = فرمانده آلتیا آبنوس‌گیس
+- crimson (21): crimson battle mage = جادوگر نبرد سرخ | crimson bodyguard = محافظ شخصی سرخ‌فام
+- master (21): master angler form = شکل ماهیگیر ماهر | master apothecary faranell = داروساز ارشد فارانل
+- corrupted (20): corrupted bloodtalon scythemaw = آرواره‌داس چنگال‌خون فاسد | corrupted blue whelp = بچه‌اژدهای آبی فاسد
+- deviate (20): deviate adder = افعی دگرگون | deviate coiler = مار پیچنده دگرگون
+- sentinel (20): sentinel amarassan = نگهبان اماراسسان | sentinel arynia cloudsbreak = نگهبان ارینیا کلاودزبریک
+- sergeant (20): sergeant ba'sha = گروهبان باشا | sergeant bly = گروهبان بلای
+- spectral (20): spectral apparition = پدیدار شبح‌وار | spectral assassin = آدم‌کش شبح‌وار
+- stormpike (20): stormpike battle standard = درفش نبرد طوفان‌نیزه | stormpike battleguard = نگهبان نبرد طوفان‌نیزه
+- vile (20): vile bat = خفاش پلید | vile familiar = همراه پلید
+- champion (19): champion coldmine explorer = قهرمان کاوشگر معدن سرد | champion coldmine guard = قهرمان نگهبان معدن سرد
+- death (19): death cultist = فرقه‌گرای مرگ | death flayer = پوست‌کن مرگ
+- greater (19): greater anubisath warbringer = جنگ‌آور بزرگ‌ترِ آنوبیسات | greater barrens kodo = کودوی بزرگ بارنز
+- horde (19): horde axe thrower = تبرانداز هورد | horde battle standard = پرچم نبرد هورد
+- seasoned (19): seasoned coldmine explorer = کاوشگر کارکشتهٔ معدن سرد | seasoned coldmine guard = نگهبان کارکشتهٔ معدن سرد
+- shadowforge (19): shadowforge ambusher = کمین‌گر سایه‌آهن | shadowforge archaeologist = باستان‌شناس سایه‌آهن
+- veteran (19): veteran coldmine explorer = کاوشگر کهنه‌کارِ معدن سرد | veteran coldmine guard = نگهبان کهنه‌کارِ معدن سرد
+- vilebranch (19): vilebranch aman'zasi guard = نگهبان شاخه‌پلید آمان‌زاسی | vilebranch ambusher = کمین‌گرِ ویلبرانچ
+- apothecary (18): apothecary berard = داروساز برارد | apothecary dithers = داروساز دیترز
+- kolkar (18): kolkar ambusher = کمین‌گر کولکار | kolkar battle lord = سالار جنگ کولکار
+- theramore (18): theramore archery target 1 = هدف تیراندازی ترمور ۱ | theramore archery target 2 = هدف تیراندازی ترمور ۲
+- warrior (18): warrior 1 = جنگجو ۱ | warrior 10 = جنگجو ۱۰
+- brave (17): brave cloudmane = دلیر کلاودمان | brave darksky = دلیر دارکسکی
+- brother (17): brother anton = برادر انتون | brother benjamin = برادر بنجامین
+- murloc (17): murloc coastrunner = دونده ساحل مورلوک | murloc flesheater = گوشت‌خوار مورلوک
+- orb (17): orb of deception (dwarf, female) = گوی فریب (زن دورف) | orb of deception (dwarf, male) = گوی فریب (مرد دورف)
+- razorfen (17): razorfen battleguard = نگهبان نبرد تیغ‌باتلاق | razorfen beast trainer = مربی جانوران تیغ‌باتلاق
+- sandfury (17): sandfury acolyte = مریدِ شن‌خشم | sandfury axe thrower = تبرانداز شن‌خشم
+- stonevault (17): stonevault ambusher = کمین‌گرِ سنگ‌طاق | stonevault basher = کوبندهٔ سنگ‌سرداب
+- stormwind (17): stormwind archmage = جادوگر اعظم استورم‌ویند | stormwind cavalryman = مرد سواره‌نظام استورم‌ویند
+- tamed (17): tamed battleboar = گراز جنگی رام‌شده | tamed bear = خرس رام‌شده
+- witherbark (17): witherbark axe thrower = تبرانداز پوست‌خشک | witherbark berserker = جنگجوی خشمگین پوست‌خشک
+- archmage (16): archmage allistarj = جادوگر اعظم آلیستارج | archmage angela dosantos = جادوگر اعظم آنجلا دوسانتوس
+- forsaken (16): forsaken assassin = آدم‌کشِ فورسیکن | forsaken blacksmith = آهنگر متروکان
+- giant (16): giant ashenvale bear = خرس غول‌پیکر اشن‌ویل | giant buzzard = کرکس غول‌پیکر
+- cenarion (15): cenarion botanist = گیاه‌شناس سناریون | cenarion caretaker = سرپرستِ سناریون
+- dalaran (15): dalaran apprentice = شاگرد دالاران | dalaran brewmaster = استاد آبجوی دالاران
+- jaedenar (15): jaedenar adept = کارآزمودهٔ جیدنار | jaedenar arch warlock = جادوگر اهریمنی ارشد جیدنار
+- might (15): might of kalimdor archer = کماندار نیروی کالیمدور | might of kalimdor archmage = جادوگر اعظم نیروی کالیمدور
+- plagued (15): plagued bat = خفاش طاعونی | plagued champion = قهرمان طاعونی
+- razormane (15): razormane battleguard = نگهبان نبرد یال‌تیز | razormane defender = مدافع یال‌تیز
+- searing (15): searing blade cultist = فرقه‌گرای تیغهٔ سوزان | searing blade enforcer = سرکوبگر تیغهٔ سوزان
+- shadow (15): shadow charger = اسب سایه | shadow council champion = قهرمان شورای سایه
+- bloodscalp (14): bloodscalp axe thrower = تبرانداز پوست‌سر خونین | bloodscalp beastmaster = رام‌کننده‌ی جانوران پوست‌سر خونین
+- druid (14): druid 1 = دروید ۱ | druid 10 = دروید ۱۰
+- green (14): green baby murloc = بچه‌مورلوک سبز | green dragonspawn = اژدازاده سبز
+- ironforge (14): ironforge brigade footman = پیاده‌نظامِ آیرون‌فورج بریگاد | ironforge brigade mortarman = خمپاره‌انداز تیپ آیرون‌فورج
+- mana (14): mana burst = انفجار مانا | mana eater = ماناخوار
+- risen (14): risen aberration = ناهنجاری برخاسته | risen ancient = باستانی برخاسته
+- riverpaw (14): riverpaw bandit = دزد گردنه پنجه‌رود | riverpaw brute = زورمند پنجه‌رود
+- undead (14): undead druid trainer = مربی دروید مرده‌متحرک | undead dynamiter = بمب‌گذار مرده‌متحرک
+- baron (13): baron alexton = بارون الکستون | baron aquanis = بارون آکوانیس
+- enraged (13): enraged felbat = خفاش پلید خشمگین | enraged felguard = نگهبان پلید خشمگین
+- foreman (13): foreman bonds = سرکارگر باندز | foreman cozzle = سرکارگر کازل
+- galak (13): galak assassin = آدم‌کشِ گالاک | galak centaur = سنتور گالاک
+- goblin (13): goblin buzzcutter = برش‌گر وزوزی گابلین | goblin craftsman = پیشه‌ور گابلین
+- lost (13): lost barrens kodo = کودوی گمشدهٔ بارنز | lost horse = اسب گمشده
+- orgrimmar (13): orgrimmar celebrant = جشن‌گیرندهٔ اورگریمار | orgrimmar commendation officer = افسر تقدیر اورگریمار
+- red (13): red dragonspawn = اژدهازاده سرخ | red drakonid = دراکونید سرخ
+- scourge (13): scourge archer = کماندار اسکورج | scourge cauldron = دیگ اسکورج
+- skullsplitter (13): skullsplitter axe thrower = تبرانداز جمجمه‌شکاف | skullsplitter beastmaster = ارباب جانوران جمجمه‌شکاف
+- withered (13): withered ancient = کهن‌سال پژمرده | withered battle boar = گراز نبرد خشکیده
+- atal'ai (12): atal'ai corpse eater = جسدخوار اتال‌آی | atal'ai deathwalker = رهرو مرگ اتال‌آی
+- fire (12): fire beetle = سوسک آتش | fire elemental = عنصرزادِ آتش
+- gnarlpine (12): gnarlpine ambusher = کمین‌گر کاج‌پیچ‌خورده | gnarlpine augur = پیشگو کاج‌پیچ‌خورده
+- gordok (12): gordok brute = زورمند گوردوک | gordok bushwacker = بوته‌شکار گوردوک
+- great (12): great bear spirit = روح بزرگِ خرس | great brown kodo = کودو بزرگ قهوه‌ای
+- kurzen (12): kurzen commando = کماندوی کورزن | kurzen elite = نخبهٔ کورزن
+- lesser (12): lesser anubisath warbringer = جنگ‌آور کوچک‌ترِ آنوبیسات | lesser felguard = نگهبان پلید کوچک‌تر
+- officer (12): officer areyn = افسر ارین | officer brady = افسر برادی
+- paladin (12): paladin 1 = پالادین ۱ | paladin 10 = پالادین ۱۰
+- plague (12): plague beast = جانور طاعونی | plague flesh tentacle = شاخک گوشت طاعونی
+- rotting (12): rotting agam'ar = آگامار گندیده | rotting ancestor = نیای پوسیده
+- servant (12): servant of alexi barov = خدمتکار الکسی باروو | servant of allistarj = خدمتکار اللیستارج
+- silithid (12): silithid creeper = خزنده سیلیتید | silithid creeper egg = تخم خزنده سیلیتید
+- stone (12): stone behemoth = غول‌پیکر سنگی | stone fury = خشم سنگی
+- captured (11): captured arko'narin = آرکونارین اسیر | captured farmer = کشاورز اسیر
+- cursed (11): cursed atal'ai = اتال‌ای نفرین‌شده | cursed centaur = سنتور نفرین‌شده
+- father (11): father cobb = پدر کاب | father gavin = پدر گاوین
+- grimtotem (11): grimtotem bandit = راهزن توتم‌خشمگین | grimtotem brute = زورمند توتم‌خشمگین
+- grunt (11): grunt bek'rah = سرباز بک‌راه | grunt dogran = سرباز دوگران
+- hive'zara (11): hive'zara collector = گردآورندهٔ هایوزارا | hive'zara drone = زنبور نر هیوزارا
+- kobold (11): kobold digger = حفار کوبولد | kobold geomancer = زمین‌افسونگر کوبولد
+- maraudine (11): maraudine bonepaw = ماراودین بونپاو | maraudine khan advisor = مشاور خان ماراودین
+- moonrage (11): moonrage armorer = زره‌ساز خشم‌ماه | moonrage bloodhowler = زوزه‌کش خونین مونراج
+- old (11): old blanchy = بلانچی پیر | old cliff jumper = جهنده صخره‌ای پیر
+- rabid (11): rabid blisterpaw = پنجه‌آبله هار | rabid bonepaw = استخوان‌پنجه هار
+- rogue (11): rogue 1 = یاغی ۱ | rogue 10 = یاغی ۱۰
+- scarshield (11): scarshield acolyte = دستیار سپرسرخ | scarshield grunt = سربازِ سکارشیلد
+- southsea (11): southsea brigand = راهزن دریای جنوبی | southsea buccaneer = دزد دریایی دریای جنوبی
+- winterax (11): winterax axe thrower = تبرانداز تبرزمستان | winterax berserker = جنگجوی خشمگین تبرزمستان
+- anvilrage (10): anvilrage captain = کاپیتان خشم‌سندان | anvilrage footman = پیاده‌نظام سندان‌خشم
+- blackhand (10): blackhand armorsmith = زره‌ساز دست‌سیاه | blackhand assassin = آدم‌کش دست‌سیاه
+- blackwing (10): blackwing guardsman = نگهبان بال‌سیاه | blackwing legionnaire = لژیونر بال‌سیاه
+- bristleback (10): bristleback battleboar = گراز جنگی پشت‌ژیان | bristleback defender = مدافعِ بریستلباک
+- corporal (10): corporal bluth = سرجوخه بلوت | corporal carnes = سرجوخه کارنز
+- crypt (10): crypt beast = جانور سردابه | crypt crawler = خزنده سردابه
+- doctor (10): doctor draxlegauge = دکتر دراکسل‌گیج | doctor gregory victor = دکتر گرگوری ویکتور
+- forest (10): forest bear cub = توله‌خرس جنگلی | forest creeper = خزنده جنگل
+- general (10): general angerforge = ژنرال آنگرفورج | general colbatann = ژنرال کولباتانن
+- gordunni (10): gordunni battlemaster = استاد نبرد گوردونی | gordunni brute = زورمند گوردونی
+- hakkari (10): hakkari blood priest = کاهن خون هاکاری | hakkari bloodkeeper = نگهبان خون هاکاری
+- hillsbrad (10): hillsbrad apprentice blacksmith = شاگرد آهنگر هیلزبراد | hillsbrad councilman = عضو شورا هیلزبراد
+- hunter (10): hunter 1 = شکارچی ۱ | hunter 10 = شکارچی ۱۰
+- lunar (10): lunar cluster credit marker = نشانگر اعتبار خوشهٔ ماه | lunar festival emissary = فرستادهٔ جشن ماه
+- marshal (10): marshal bluewall = مارشال دیوارآبی | marshal dughan = مارشال داگان
+- minor (10): minor anubisath warbringer = جنگ‌آور کوچک آنوبیسات | minor infernal = جهنمی کوچک
+- nethergarde (10): nethergarde analyst = تحلیلگر ندرگارد | nethergarde cleric = روحانی ندرگارد
+- prospector (10): prospector gehn = معدن‌کاو جهن | prospector gunstan = معدن‌کاو گونستان
+- scholomance (10): scholomance acolyte = مرید اسکولومنس | scholomance adept = کارآزمودهٔ اسکولومنس
+- spitelash (10): spitelash battlemaster = استاد نبرد شلاق‌خشم | spitelash enchantress = افسونگر شلاق‌خشم
+- summoned (10): summoned blackhand dreadweaver = بافنده وحشت احضارشده دست‌سیاه | summoned blackhand veteran = کهنه‌کار احضارشدهٔ دست‌سیاه
+- timbermaw (10): timbermaw ancestor = نیاِ آرواره‌چوب | timbermaw den watcher = دیده‌بان لانهٔ آرواره‌چوب
+- alliance (9): alliance battle standard = درفش نبرد اتحاد | alliance battleguard = نگهبان نبرد اتحاد
+- blood (9): blood elf defender = مدافعِ الف خونین | blood elf reclaimer = بازپس‌گیر الف خونی
+- bloodsail (9): bloodsail deckhand = ملوان عرشه بادبان خونین | bloodsail elder magus = جادوگر ریش‌سفید بادبان خونین
+- blue (9): blue baby murloc = بچه‌مورلوک آبی | blue dragonspawn = اژدازاده آبی
+- caged (9): caged chicken = مرغ در قفس | caged dwarf female = زن دورف در قفس
+- carrion (9): carrion devourer = لاشه‌بلعنده | carrion grub = کرم لاشه
+- chief (9): chief archaeologist greywhisker = باستان‌شناس ارشد سبیل‌خاکستری | chief engineer bilgewhizzle = سرمهندس بیلج‌ویزل
+- councilman (9): councilman brunswick = عضو شورا برونسویک | councilman cooper = عضو شورا کوپر
+- death's (9): death's head acolyte = دستیار سرِ مرگ | death's head adept = کارآزمودهٔ سرِ مرگ
+- deathstalker (9): deathstalker adamant = مرگ‌شکار آدامنت | deathstalker agent = مأمور مرگ‌شکار
+- duke (9): duke august foehammer = دوک اوگوست فوهاممر | duke hydraxis = دوک هایدراکسیس
+- dun (9): dun baldar north marshal = مارشال شمالی دان بالدار | dun baldar north warmaster = استاد جنگ شمالی دان بالدار
+- dustbelcher (9): dustbelcher brute = خشن غبارآروغ | dustbelcher lord = سالار غبارآروغ
+- farmer (9): farmer dalson = کشاورز دالسون | farmer elbrim = کشاورز البریم
+- gorishi (9): gorishi egg = تخمِ گوریشی | gorishi grub = لارو گوریشی
+- irondeep (9): irondeep explorer = کاوشگرِ ژرف‌آهن | irondeep guard = نگهبانِ ژرف‌آهن

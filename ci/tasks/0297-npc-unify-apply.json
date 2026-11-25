@@ -1,0 +1,1 @@
+{"id":"0297-npc-unify-apply","kind":"script","why":"owner 25 Nov: NPC names, adjective order + one English word one Persian word","args":{"module":"npc_unify_from","args":{"base":"ci/tasks/0296-npc-unify-dry.json","apply":true,"show":40}}}

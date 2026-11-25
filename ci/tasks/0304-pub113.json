@@ -1,0 +1,1 @@
+{"id":"0304-pub113","kind":"script","why":"owner 25 Nov: release 1.1.3-beta (publish + CurseForge upload)","args":{"module":"cf_retry","args":{"tag":"forever-v1.1.3-beta","notes_replace":[[";",","],["(Gorilla Ancient of Mountain-Hyjal reads right)","(for example Ancient Gorilla of Mount Hyjal)"]]}}}

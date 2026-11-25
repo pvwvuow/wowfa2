@@ -1,5 +1,5 @@
 {
-"need arathor coalition forces-reverence":"نیازمند: {{npc:Arathor Coalition|اتحاد آراثور}} - ارجمند",
+"need arathor coalition forces-reverence":"نیازمند: {{fac:Arathor Coalition|اتحاد آراثور}} - ارجمند",
 "need arathor coalition-worship":"نیازمند جایگاه سپاس‌شده نزد اتحاد آراثور",
 "need dark spear raider-friendly":"نیازمند شهرت دوستانه نزد مهاجم نیزهٔ تاریک.",
 "need dark spear raider-respect":"نیازمند شهرت گرامی نزد مهاجم نیزهٔ تاریک.",
@@ -33,7 +33,7 @@
 "needed kenrito-friendly":"نیازمند جایگاه دوستانه نزد کنریتو",
 "needed nozdom's children-reverence":"نیازمند شهرت ارجمند نزد فرزندان نوزدورمو.",
 "needed nozdom's children-worship":"نیازمند جایگاه سپاس‌شده نزد فرزندان نوزدورمو.",
-"needed nozdom's heir. -respect":"نیازمند جایگاه گرامی نزد {{npc:Nozdom's heir|وارث نوزدورمو}}.",
+"needed nozdom's heir. -respect":"نیازمند جایگاه گرامی نزد {{fac:Nozdom's heir|وارث نوزدورمو}}.",
 "needed nozdom's offspring-friendly":"نیازمند شهرت دوستانه نزد فرزندان نوزدورمو.",
 "needed offspring of nozdom-neutral":"نیازمند جایگاه بی‌طرف نزد فرزندان نوزدورمو.",
 "non-periodic critical strikes with fireball, frostfire bolt, fire blast, and scorch reduce the cast time of your next pyroblast cast within # sec by #%, stacking up to # times. fire blast grants an additional stack every time it deals damage":"{{tm:critical strikes|ضربه‌های بحرانی}} غیردوره‌ای با {{sp:Fireball}}، {{sp:Frostfire Bolt}}، {{sp:Fire Blast}} و {{sp:Scorch}}، زمان اجرای {{sp:Pyroblast}} بعدی‌ات را که در {0} ثانیهٔ آینده اجرا شود {1}% کاهش می‌دهند؛ تا {2} {{tm:stack|استک}} می‌شود. {{sp:Fire Blast}} هر بار که {{tm:damage|آسیب}} می‌زند، یک {{tm:stack|استک}} اضافه می‌دهد.",

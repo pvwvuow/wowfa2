@@ -1,0 +1,1 @@
+{"id":"0211-v106zone","kind":"fix","onto":"task/0207-v106","why":"0207 failed whole: 'trade district' already had the same Persian. Only the missing Dwarven District (Stormwind) now","args":{"ops":[{"op":"set","table":"names.zone","key":"dwarven district","value":"محلهٔ دورف‌ها","expect_old":null,"create":true}]}}

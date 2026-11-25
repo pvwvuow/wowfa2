@@ -113,4 +113,18 @@ L.ALERTS = {
     { "Objective Complete.", "هدف انجام شد." },
     { "Resisted", "مقاومت کرد" },
     { "%s slain: %d/%d", "%s کشته" .. Z .. "شده: %d/%d" },
+    -- 1.1.0 (the owner's report 25 Nov + nearby ones)
+    { "Item is locked.", "آیتم قفل است." },
+    { "That item is locked.", "آن آیتم قفل است." },
+    { "You can't do that right now.", "الان نمی" .. Z .. "توانید این کار را انجام دهید." },
+    { "Another action is in progress", "کار دیگری در حال انجام است" },
+    { "Interrupted", "قطع شد" },
+    { "Invalid target", "هدف نامعتبر" },
+    { "Not yet recovered", "هنوز آماده نیست" },
+    { "You are facing the wrong way!", "رو به سمت اشتباه هستید!" },
+    { "Target too close", "هدف خیلی نزدیک است" },
+    { "Your target is out of range.", "هدف شما خارج از برد است." },
+    { "Out of range.", "خارج از برد." },
+    { "You don't have enough reagents", "مواد لازم را ندارید" },
+    { "Can't do that while in combat", "در نبرد نمی" .. Z .. "توانید این کار را انجام دهید" },
 }

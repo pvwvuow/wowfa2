@@ -1,0 +1,1 @@
+{"id":"0190-pub103","kind":"script","why":"publish 1.0.3-beta and read the CurseForge upload log","args":{"module":"cf_retry","args":{"tag":"forever-v1.0.3-beta","notes_replace":[[";",","]]}}}

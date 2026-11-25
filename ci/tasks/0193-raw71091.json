@@ -1,0 +1,1 @@
+{"id":"0193-raw71091","kind":"script","why":"owner: the game updated - capture the new build (wago has 1.60.1.71091, wow-raw stops at 71037)","args":{"module":"raw_fetch_now","args":{"build":"auto","push":true}}}

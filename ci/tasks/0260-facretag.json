@@ -1,0 +1,1 @@
+{"id": "0260-facretag", "kind": "script", "why": "owner 25 Nov: factions get their own colour; npc-coloured faction markers move to the fac family", "args": {"module": "fac_retag", "args": {"apply": true}}}

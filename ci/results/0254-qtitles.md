@@ -1,0 +1,160 @@
+## task 0254-qtitles (script)
+
+**GREEN**
+
+
+### Quest titles
+
+- ok: 78270 Goblin Lockpicks -> قفل‌بازکن‌های گابلینی
+- ok: 79229 Highway Robbery -> راهزنی در جاده
+- ok: 79235 On the Lam -> در حال فرار
+- ok: 79236 Cherry for Your Thoughts? -> گیلاسی برای افکارت؟
+- ok: 79624 Anyone Can Cook -> هر کسی می‌تواند آشپزی کند
+- ok: 79677 A Quick Grocery Run -> خرید سریع آذوقه
+- ok: 79678 Taste Testing -> مزه‌چشی
+- ok: 80001 Rekindle -> دوباره افروختن
+- ok: 92754 A New Need for Shadow Protection -> نیازی تازه به محافظت در برابر سایه
+- ok: 92867 Ground to Keep -> زمینی برای نگه‌داشتن
+- ok: 93226 Buying Friendship: Magram -> خریدن دوستی: مَگرام
+- ok: 93443 Lost Shipping Crate -> جعبهٔ بار گمشده
+- ok: 93644 Tattered Journal -> دفترچهٔ پاره
+- ok: 94613 My Kingdom for a Horse -> پادشاهی‌ام برای یک اسب
+- ok: 94614 Freshwater Fiends -> اهریمنان آب شیرین
+- ok: 94615 Foal Play -> بازی کره‌اسب‌ها
+- ok: 94617 Coyote Huntin' -> شکار کایوت
+- ok: 94618 Wheeler's Fleeing Steeds -> اسب‌های فراری ویلر
+- ok: 94678 Gnoll Infestation -> هجوم نول‌ها
+- ok: 94679 Snargl's Snout -> پوزهٔ اسنارگل
+- ok: 94829 What We Lost -> آنچه از دست دادیم
+- ok: 94841 Lost Shipping Crate -> جعبهٔ بار گمشده
+- ok: 94842 Unsavory Plant Food -> غذای گیاهی ناخوشایند
+- ok: 94843 From Seed to Sprout -> از دانه تا جوانه
+- ok: 94857 If a Tree Falls, and No One Hears... -> اگر درختی بیفتد و کسی نشنود...
+- ok: 94858 All That's Left -> هرچه مانده
+- ok: 94861 Helping Hands -> دست‌های یاری
+- ok: 94877 Saving Sunnyglade -> نجات سانی‌گلید
+- ok: 94879 Scraps of Knowledge -> تکه‌های دانش
+- ok: 94881 Curious Trinkets -> خرده‌ریزهای عجیب
+- ok: 94884 An Unsettling Discovery -> کشفی نگران‌کننده
+- ok: 94885 Field Marshal's Log -> دفتر وقایع فیلدمارشال
+- ok: 94886 The Western Front -> جبههٔ غربی
+- ok: 94887 Saving Marshal Ryan -> نجات مارشال رایان
+- ok: 94888 No Soldier Left Behind -> هیچ سربازی جا نمی‌ماند
+- ok: 94889 Carving a Path -> گشودن راه
+- ok: 94890 Bring Me His Head -> سرش را برایم بیاور
+- ok: 94891 News to Farholde -> خبری برای فارهولد
+- ok: 94892 Dying Wish -> آخرین آرزو
+- ok: 94893 Delivering Closure -> رساندن خبر پایان
+- ok: 94894 The Twilight Threat -> تهدید گرگ‌ومیش
+- ok: 94895 Lost Shipping Crate -> جعبهٔ بار گمشده
+- ok: 94907 A Small Favor -> لطفی کوچک
+- ok: 94923 Hats Off -> کلاه از سر
+- ok: 94924 Hunting the Hunters -> شکار شکارچیان
+- ok: 94925 A Fur Trade -> تجارت پوست
+- ok: 94927 Dunston Checks Out -> دانستن سر می‌زند
+- ok: 94928 A Few Furs for Friz -> چند پوست برای فریز
+- ok: 94930 Lost Shipping Crate -> جعبهٔ بار گمشده
+- ok: 94931 Stolen Saws -> اره‌های دزدیده‌شده
+- ok: 94961 Biting the Hand -> گاز گرفتن دست
+- ok: 94963 Biting the Hand -> گاز گرفتن دست
+- ok: 94980 Krol'dok Moulding -> کپک کرول‌داک
+- ok: 94981 Key Ingredients -> مواد کلیدی
+- ok: 94982 Eye of Mugg -> چشم ماگ
+- ok: 94983 Twilight Mementos -> یادگاری‌های گرگ‌ومیش
+- ok: 94984 Tome of Twilight -> کتاب گرگ‌ومیش
+- ok: 94992 Rescue Roundup -> گردآوری نجات
+- ok: 94999 Eyes for the Watchman -> چشم‌هایی برای نگهبان
+- ok: 95059 Frazzlespark's Crate -> جعبهٔ فرازل‌اسپارک
+- ok: 95064 Preventative Measures -> اقدامات پیشگیرانه
+- ok: 95066 The Rog'mar Situation -> وضعیت روگ‌مار
+- ok: 95118 Saltwater Savages -> وحشیان آب شور
+- ok: 95119 Unfriendly Competition -> رقابت نادوستانه
+- ok: 95120 WANTED: Old Rot-Chum -> تحت تعقیب: پیر طعمه‌گندیده
+- ok: 95121 A Taste of the Sea -> طعم دریا
+- ok: 95122 Unchecked Expansion -> گسترش بی‌مهار
+- ok: 95123 A Blast Ye Scurvy Dogs! -> یک انفجار، ای سگ‌های اسقربوتی!
+- ok: 95124 Admiral Lamora -> دریاسالار لامورا
+- ok: 95141 Report to Rog'mar -> گزارش به روگ‌مار
+- ok: 95143 Finding Tan'jani -> یافتن تان‌جانی
+- ok: 95144 Overseas Delivery -> تحویل آن سوی دریا
+- ok: 95147 The Lost Scout -> دیده‌ور گمشده
+- ok: 95148 Southern Watch Gnoll Report -> گزارش نول‌های دیده‌بانی جنوبی
+- ok: 95156 Stuff 'Em and Stick 'Em -> پرشان کن و بچسبانشان
+- ok: 95165 See Ya, Scallywags! -> خداحافظ، ای ناکس‌ها!
+- ok: 95184 The Sharpest of Blades -> تیزترین تیغ‌ها
+- ok: 95219 From Port to Port -> از بندری به بندر دیگر
+- ok: 95254 WANTED: Trapclaw -> تحت تعقیب: پنجه‌تله
+- ok: 95260 Terrors From the Deep -> وحشت‌های ژرفا
+- ok: 95261 It Takes Guts -> دل و جرئت می‌خواهد
+- ok: 95267 The Monster Surfaces -> هیولا بالا می‌آید
+- ok: 95288 Smuggler's Paradise -> بهشت قاچاقچیان
+- ok: 95293 Smuggler's Special -> ویژهٔ قاچاقچی
+- ok: 95327 All's Well That Ends Well -> خوب است هرچه خوب تمام شود
+- ok: 95329 Out in the Field -> در میدان
+- ok: 95330 Love Thy Neighbor -> همسایه‌ات را دوست بدار
+- ok: 95384 Partial Mystical Notes -> یادداشت‌های رازآلود ناقص
+- ok: 95385 Torn Mystical Scroll -> طومار رازآلود پاره
+- ok: 95426 Rog'mar Supplies -> آذوقهٔ روگ‌مار
+- ok: 95561 Apple of My Eye -> نور چشمم
+- ok: 95562 Cut Off the Heads -> سرها را بِبُر
+- ok: 95603 Bats in the Belfry -> خفاش‌ها در برج ناقوس
+- ok: 95613 Keeping the Light On -> روشن نگه‌داشتن چراغ
+- ok: 95615 In Memoriam -> به یادبود
+- ok: 95642 Abominable Magics -> جادوهای نفرت‌انگیز
+- ok: 95643 Indiscriminate Purge -> پاکسازی بی‌امان
+- ok: 95770 Locating the Lost City -> یافتن شهر گمشده
+- ok: 95773 Enemies in the Water -> دشمنان در آب
+- ok: 95775 The Drowned City -> شهر غرق‌شده
+- ok: 95776 The Only Good Brinescale... -> تنها برین‌اسکیل خوب...
+- ok: 95786 An Acquaintance in Southshore -> آشنایی در ساحل جنوبی
+- ok: 95787 Take Two With Water -> دو تا با آب بخور
+- ok: 95788 Magics of the Drowned City -> جادوهای شهر غرق‌شده
+- ok: 95789 Shady Saltseers -> نمک‌بینان مشکوک
+- ok: 95791 The Saltseer Captain -> ناخدای نمک‌بین
+- ok: 95792 Clear 'em Out -> پاکسازی‌شان کن
+- ok: 95798 The Web of Magic -> تار جادو
+- ok: 95799 Findings for the Explorer's League -> یافته‌هایی برای انجمن کاشفان
+- ok: 95912 WANTED: Blademaster Kaijo -> تحت تعقیب: استاد شمشیر کایجو
+- ok: 95913 Fit for a Princess -> درخور یک شاهزاده‌خانم
+- ok: 95934 Proof of Profit -> مدرک سود
+- ok: 95943 Foreman's Plight -> گرفتاری سرکارگر
+- ok: 95951 Fetch 'n' Fletch -> بیاور و تیر بساز
+- ok: 95957 Drink Up! -> بنوش!
+- ok: 95961 Stepped Out -> بیرون رفته
+- ok: 95975 Her World -> دنیای او
+- ok: 95982 Not My Circus -> سیرک من نیست
+- ok: 95983 A Feast for Buzzards -> ضیافتی برای لاشخورها
+- ok: 95984 Song of the Strider -> ترانهٔ گام‌بلند
+- ok: 95986 King of the Wild Plains -> پادشاه دشت‌های وحشی
+- ok: 95988 Goes Down Smooth -> نرم پایین می‌رود
+- ok: 95991 WANTED: Ghostmaw -> تحت تعقیب: آرواره‌شبح
+- ok: 96009 High Stakes -> شرط سنگین
+- ok: 96015 A Miner Problem -> دردسر معدنچی
+- ok: 96063 Gaseous Gold -> طلای گازی
+- ok: 96067 Rock 'em and Sock 'em -> بزن و بکوب
+- ok: 96078 A Tale Spun Around the Fire -> قصه‌ای کنار آتش
+- ok: 96081 Wound Dressings -> باند زخم
+- ok: 96082 Doctor's Orderly -> دستیار پزشک
+- ok: 96083 Clerical Quarantine -> قرنطینهٔ روحانی
+- ok: 96084 Something's in the Water -> چیزی در آب است
+- ok: 96085 Upstream Contamination -> آلودگی بالادست
+- ok: 96125 In Need of Relief -> نیازمند یاری
+- ok: 96126 An Ogre's Captive -> اسیر اوگر
+- ok: 96770 The Witch Doctor's Head -> سر جادوپزشک
+- ok: 96771 Vengeance of the Highborne -> انتقام والاتباران
+- ok: 96773 The Coldbringer's Eye -> چشم سرمازا
+- ok: 97048 Returning to Port -> بازگشت به بندر
+- ok: 97130 Ancient Gurubashi Secrets -> رازهای باستانی گوروباشی
+- ok: 97196 The Coldbringer's Eye -> چشم سرمازا
+- ok: 97205 Learning to Ride -> یادگیری سوارکاری
+- ok: 97329 Where's the Key? -> کلید کجاست؟
+- ok: 97331 Zimmix's Great Escape -> فرار بزرگ زیمیکس
+- ok: 97386 The Offense of Grom'gol -> یورش گروم‌گول
+- ok: 97453 Weed Whacked -> علف‌زنی
+- ok: 97530 Dunemaul Dues -> باج دون‌مال
+- ok: 97536 Gnomish Garbage -> زباله‌های گنومی
+- ok: 97617 Safety Checks -> بازرسی ایمنی
+- ok: 97821 Mirage Mirror -> آینهٔ سراب
+- ok: 97884 Armory of Sunnyglade -> زرادخانهٔ سانی‌گلید
+- ok: 98233 Sword in the Slime -> شمشیر در لجن
+- ok: 152 titles added, 0 kept

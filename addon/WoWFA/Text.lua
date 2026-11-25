@@ -30,16 +30,34 @@ function T.Size()
     return (F.db and F.db.fontSize) or 12
 end
 
--- 1.1.0 (the owner: "and they can put a border"): the outline of OUR Persian letters,
--- F.db.fontOutline 1 none / 2 thin / 3 thick (Colours page)
-function F.Flags()
-    local v = tonumber(F.db and F.db.fontOutline) or 1
-    if v == 2 then
+-- 1.1.0 (the owner: "pick per kind: item names with a border or not, NPC names with a border
+-- or not - not one switch for all"; no thick outline): a thin outline per name family,
+-- F.db.col["ol_" .. fam] = true (Colours page). fam = "npc" / "zn" / "qs" / "sp" for a string
+-- that holds ONLY that name, nil = "text" (a sentence: quest text, descriptions, objectives,
+-- talk). The game draws ONE outline per font string, so a name inside a sentence follows
+-- "text". Off = the look the string had before (base = the game's own flags, NPC / zone).
+function F.Flags(fam, base)
+    local c = F.db and F.db.col
+    if type(c) == "table" and c["ol_" .. (fam or "text")] then
         return "OUTLINE"
-    elseif v == 3 then
-        return "THICKOUTLINE"
     end
-    return ""
+    return base or ""
+end
+
+function F.OlOn(fam)
+    local c = F.db and F.db.col
+    return type(c) == "table" and c["ol_" .. (fam or "text")] and true or false
+end
+
+function F.OlSet(fam, v)
+    if not F.db then
+        return
+    end
+    if type(F.db.col) ~= "table" then
+        F.db.col = {}
+    end
+    F.db.col["ol_" .. (fam or "text")] = v and true or nil
+    F:Fire("options", "fontOutline")
 end
 
 local ESC_PATTERNS = { "|c%x%x%x%x%x%x%x%x", "|H[^|]*|h", "|T[^|]*|t", "|A[^|]*|a" }
@@ -883,7 +901,7 @@ end
 --   width = the wrap width for T.Lines (mode 3 pre-wraps, modes 1/2 shape per
 --   paragraph); side "Left" strings justify RIGHT (Persian reads right-to-left,
 --   same rule as the additive lines in style()).
-function T.TipSet(tt, fs, text, width, side)
+function T.TipSet(tt, fs, text, width, side, fam)
     hook_tooltip(tt)
     tt.wfaFonts = tt.wfaFonts or {}
     local seen = tt.wfaSeen
@@ -906,7 +924,7 @@ function T.TipSet(tt, fs, text, width, side)
         })
     end
     local size = T.Size()
-    fs:SetFont(F.FONT, size, F.Flags())
+    fs:SetFont(F.FONT, size, F.Flags(fam))
     -- inbox/29 C: the same line gap on the multi-line in-place strings
     fs:SetSpacing(T.Spacing(size))
     fs:SetWordWrap(true)
@@ -1145,7 +1163,8 @@ function F.FitLine(fs, size)
     if ns >= size then
         return size
     end
-    pcall(fs.SetFont, fs, F.FONT, ns, F.Flags())
+    local okf, _, _, fl = pcall(fs.GetFont, fs) -- 1.1.0: keep the outline the string has
+    pcall(fs.SetFont, fs, F.FONT, ns, (okf and type(fl) == "string") and fl or "")
     return ns
 end
 

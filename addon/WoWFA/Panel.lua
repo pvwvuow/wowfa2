@@ -815,13 +815,15 @@ local function build()
     end
     note(L.col_note)
     note(L.col_pick_note)
+    -- 1.1.0: a thin outline per kind of name (F.Flags in Text.lua)
     header(L.ol_hdr)
-    panel.fontOutline = place(UI.Choice(page.child, PW - 16, L.ol_lbl, L.ol_note, L.ol_opts,
-        function() return tonumber(F.db.fontOutline) or 1 end,
-        function(v)
-            F.db.fontOutline = v
-            F:Fire("options", "fontOutline")
-        end), 50, 2)
+    note(L.ol_note)
+    panel.ol = {}
+    for _, k in ipairs({ "npc", "zn", "qs", "sp", "text" }) do
+        panel.ol[k] = place(UI.Toggle(page.child, PW - 16, L["ol_" .. k] or k, nil,
+            function() return F.OlOn(k) end,
+            function(v) F.OlSet(k, v) end), 32, 2)
+    end
     end_page()
 
     -- ===================================================== Share

@@ -109,6 +109,9 @@ end
 -- font flags of the in-place text. The hover label always gets a black outline; the other
 -- surfaces keep the outline their own game font had (the arrival text, the minimap text).
 local function flags_of(o)
+    if F.OlOn and F.OlOn("zn") then
+        return "OUTLINE" -- 1.1.0: the zone-name outline switch (Colours page)
+    end
     local f = o and o.flags
     if type(f) ~= "string" then
         f = ""
@@ -648,7 +651,7 @@ function M.install()
     end)
     -- a new zoneMap choice: put the English back now, the next hover re-applies
     F:Listen("options", function(a, b)
-        if a == "zoneMap" or b == "zoneMap" or a == "zoneToast" or b == "zoneToast" then -- rc36
+        if a == "zoneMap" or b == "zoneMap" or a == "zoneToast" or b == "zoneToast" or a == "fontOutline" then -- rc36
             restore_all()
         end
     end)

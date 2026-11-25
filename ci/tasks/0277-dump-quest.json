@@ -1,0 +1,1 @@
+{"id":"0277-dump-quest","kind":"script","why":"owner 25 Nov: read every quest title","args":{"module":"name_dump","args":{"kind":"quest","per":800}}}

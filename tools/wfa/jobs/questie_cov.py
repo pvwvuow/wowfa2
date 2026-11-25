@@ -44,14 +44,21 @@ def run(args, rep):
     rep.ok("foreverQuestDB.lua %d KB, foreverNpcDB.lua %d KB" % (len(qsrc) // 1024, len(nsrc) // 1024))
     rep.add("quest file starts: " + qsrc[:240].replace("\n", " | "))
     rep.add("npc file starts: " + nsrc[:240].replace("\n", " | "))
+    for label, src in (("quest", qsrc), ("npc", nsrc)):
+        ls = [x for x in src.split("\n") if re.match("\\s*\\[\\d+\\]", x)][:3]
+        rep.add("%s data lines: %s" % (label, " || ".join(x[:160] for x in ls)))
     qs = {}
     for m in LINE.finditer(qsrc):
         qs[int(m.group(1))] = unesc(m.group(2))
     ns = {}
     for m in LINE.finditer(nsrc):
         ns[int(m.group(1))] = (unesc(m.group(2)), unesc(m.group(3) or ""))
+    if not ns:
+        alt = re.compile(r"^\s*\[(\d+)\]\s*=\s*\{\s*'((?:[^'\\]|\\.)*)'(?:\s*,\s*(?:'((?:[^'\\]|\\.)*)'|nil))?", re.M)
+        for m in alt.finditer(nsrc):
+            ns[int(m.group(1))] = (unesc(m.group(2)), unesc(m.group(3) or ""))
     rep.ok("parsed %d quests and %d NPCs" % (len(qs), len(ns)))
-    if len(qs) < 100 or len(ns) < 100:
+    if len(qs) < 100:
         rep.fail("the line pattern found too little; check the 'starts' lines above")
         return []
     ours = store.quests

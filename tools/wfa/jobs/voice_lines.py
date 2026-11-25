@@ -86,7 +86,7 @@ def run(args, rep):
     done = set(r[3] for r in rows)
     for table in ("script_texts", "dbscript_string", "custom_texts", "creature_ai_texts", "broadcast_text"):
         cols, rs = cov.parse(sql, table)
-        cands = [c for c in cols if c.startswith("content_default") or c in ("male_text", "female_text")]
+        cands = [c for c in cols if c.startswith("content_default") or ("male" in c and "text" in c)]
         rep.ok("%s: %d rows, text columns %s" % (table, len(rs), cands))
         for r in rs:
             for col in cands:

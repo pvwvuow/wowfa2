@@ -126,5 +126,8 @@ L.ALERTS = {
     { "Your target is out of range.", "هدف شما خارج از برد است." },
     { "Out of range.", "خارج از برد." },
     { "You don't have enough reagents", "مواد لازم را ندارید" },
+    -- 1.1.3 (the owner's report 25 Nov, build 71091)
+    { "New flight path discovered!", "مسیر پرواز تازه" .. Z .. "ای کشف شد!" },
+    { "Your pet is not dead.", "حیوان همراه شما نمرده است." },
     { "Can't do that while in combat", "در نبرد نمی" .. Z .. "توانید این کار را انجام دهید" },
 }

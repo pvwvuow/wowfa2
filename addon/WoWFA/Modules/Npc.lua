@@ -130,6 +130,12 @@ local function tip(tt)
     if F.Usable(isp) and isp then
         return
     end
+    -- 1.0.3: a player's pet (the owner saw "Huntard" in the miss list) is named by its
+    -- player: never translated, never a miss
+    local okc, ctl = pcall(UnitPlayerControlled, unit)
+    if okc and F.Usable(ctl) and ctl then
+        return
+    end
     local fa = lookup(name)
     if not fa then
         return

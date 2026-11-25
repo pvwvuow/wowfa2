@@ -430,7 +430,8 @@ end
 -- SavedVariables are account-wide, so every character sees the same list.
 local PROFILE_OPTS = { "fontSize", "scale", "questDock", "questAuto", "zoneToast", "onUpdate", "toast", "share",
     "szList", "szGame", "chatScale", "alertScale", "fontAll", "chatFa",
-    "npcName", "zoneMap", "alerts", "sysmsg", "sysLoot", "sysXp", "sysRep", "sysGroup", "listTitles" }
+    "npcName", "zoneMap", "alerts", "sysmsg", "sysLoot", "sysXp", "sysRep", "sysGroup", "listTitles",
+    "dlgGossip", "dlgSay", "dlgBook", "shiftEn" }
 Room.PROFILE_MAX = 10
 
 local function deep(v)

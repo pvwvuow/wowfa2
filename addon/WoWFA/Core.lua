@@ -196,6 +196,8 @@ local DEFAULTS = {
     toast = true,
     listTitles = true, -- rc15: quest titles in the quest list of the modern UI are Persian
     share = true,
+    dlgGossip = true, dlgSay = true, dlgBook = true, -- 1.0.7: NPC talk + books (Modules/Dialog.lua)
+    shiftEn = true, -- 1.0.7: hold Shift = the game's English original
     errors = {},
     lastBuild = 0,
     lastVersion = "",

@@ -21,7 +21,7 @@ local panel, page, rows, health
 local pages, navbtns, active = {}, {}, nil
 local SHIPPED = { "quests", "tracker", "dungeons", "npc", "spellbook", "talents" }
 local ROOM_KEYS = { "namesZone", "namesSpell", "namesClass", "namesQuest", "terms", "questText", "npcSay", "faDigits", "namesNpc" }
-local SECTIONS = { "general", "sizes", "quests", "tracker", "map", "npc", "spellbook", "talents", "colors", "share", "health", "about" }
+local SECTIONS = { "general", "sizes", "quests", "tracker", "map", "npc", "dialog", "spellbook", "talents", "colors", "share", "health", "about" }
 -- the ids of the one-page panel still work (F.OpenPanel("health") from the toast, the tests)
 local ALIAS = { room = "general", mods = "general", display = "general", home = "general", welcome = "general" }
 local STATE_L = { ok = "st_ok", warn = "st_warn", off = "st_off", master = "st_master", nodata = "st_nodata",
@@ -526,6 +526,7 @@ local function build()
         end), 32, 2)
     panel.toast = opt_toggle("toast", L.d_toast, false)
     panel.share = opt_toggle("share", L.d_share, false)
+    panel.shiftEn = opt_toggle("shiftEn", L.dl_shift, false) -- 1.0.7 (Modules/Dialog.lua)
     panel.onUpdate = place(UI.Choice(page.child, PW - 16, L.d_update, nil, L.opt_update,
         function() return F.db.onUpdate end,
         function(v)
@@ -693,6 +694,16 @@ local function build()
             F:Fire("npcname")
         end), 32, 2)
     note(L.n_npc)
+    end_page()
+
+    -- ===================================================== NPC talk and books (1.0.7, Modules/Dialog.lua)
+    begin_page("dialog")
+    note(L.dl_intro)
+    room_toggle("npcSay", true)
+    panel.dlgGossip = opt_toggle("dlgGossip", L.dl_gossip, true)
+    panel.dlgSay = opt_toggle("dlgSay", L.dl_say, true)
+    panel.dlgBook = opt_toggle("dlgBook", L.dl_book, true)
+    note(L.dl_note)
     end_page()
 
     -- ===================================================== Spellbook

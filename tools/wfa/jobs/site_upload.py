@@ -1,6 +1,6 @@
 """Put files (screenshots) into the site repos straight on main via the contents API (BOT_TOKEN).
-The files come as ONE tar from a short-lived HTTPS relay URL; its sha256 must match. Only plain
-file names with the allowed extensions are taken. Nothing in this repo changes.
+The files come as ONE zip (or tar) from a short-lived HTTPS relay URL; its sha256 must match. Only
+plain file names with the allowed extensions are taken. Nothing in this repo changes.
 args: url, sha256, dir ("assets/img/addon"), repos (["wowfarsiir", "wow"]),
       fallback ("wowfarsi-addon": used with dir "screenshots" when a site repo refuses the token)"""
 import base64
@@ -12,6 +12,7 @@ import re
 import tarfile
 import urllib.error
 import urllib.request
+import zipfile
 
 OWNER = "pvwvuow"
 OK_NAME = re.compile(r"^[a-z0-9][a-z0-9._-]{0,80}\.(webp|png|jpg|jpeg)$")
@@ -38,6 +39,20 @@ def put(repo, path, data, msg):
     return st, ((res.get("content") or {}).get("sha") if isinstance(res, dict) else None)
 
 
+def members(blob):
+    out = []
+    if blob[:2] == b"PK":
+        with zipfile.ZipFile(io.BytesIO(blob)) as zf:
+            for n in zf.namelist():
+                out.append((os.path.basename(n), zf.read(n)))
+    else:
+        with tarfile.open(fileobj=io.BytesIO(blob)) as tf:
+            for m in tf.getmembers():
+                if m.isfile():
+                    out.append((os.path.basename(m.name), tf.extractfile(m).read()))
+    return [(n, d) for n, d in out if OK_NAME.match(n)]
+
+
 def run(args, rep):
     url = str(args.get("url") or "")
     want = str(args.get("sha256") or "").lower()
@@ -55,13 +70,8 @@ def run(args, rep):
     if got != want or len(blob) > 20_000_000:
         rep.fail("sha256 wrong (%s)" % got[:12])
         return []
-    files = []
-    with tarfile.open(fileobj=io.BytesIO(blob)) as tf:
-        for m in tf.getmembers():
-            name = os.path.basename(m.name)
-            if m.isfile() and OK_NAME.match(name):
-                files.append((name, tf.extractfile(m).read()))
-    rep.ok("%d files in the tar" % len(files))
+    files = members(blob)
+    rep.ok("%d files in the archive" % len(files))
     d = str(args.get("dir") or "assets/img/addon").strip("/")
     for repo in args.get("repos") or ["wowfarsiir", "wow"]:
         rep.h(repo)

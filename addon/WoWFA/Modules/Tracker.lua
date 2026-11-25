@@ -125,6 +125,23 @@ local function parse_obj_line(en)
             return o.fam, string.match(name, "^%s*(.-)%s*$"), tonumber(got), tonumber(need)
         end
     end
+    -- 1.0.9: the count-first form of the WoW Forever tracker ("0/8 Young Tiger slain",
+    -- "0/1 Fang of Bhag'thera"). Only a "slain" line is an NPC; any other count line is an
+    -- item (or an object when names.obj knows it) - an item named after an NPC never
+    -- becomes that NPC, and an item line is never a miss (items stay English in v1.0)
+    local s = tostring(en or "")
+    local g1, n1, nm = string.match(s, "^(%d+)/(%d+)%s+(.-)%s+slain$")
+    if nm and nm ~= "" then
+        return "npc", nm, tonumber(g1), tonumber(n1)
+    end
+    local g2, n2, it = string.match(s, "^(%d+)/(%d+)%s+(.+)$")
+    if it and it ~= "" and not string.find(it, "[|{}]") then
+        local ob = F.D.names and F.D.names.obj
+        if ob and ob[T.NameKey(it)] then
+            return "ob", it, tonumber(g2), tonumber(n2)
+        end
+        return "it", it, tonumber(g2), tonumber(n2)
+    end
 end
 
 local function name_fa(fam, en)

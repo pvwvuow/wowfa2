@@ -932,6 +932,9 @@ local function build()
     end
     health.errList = eb
     place(el, 90, 4)
+    -- 1.0.3 (the owner: tell the player what the line below is and where to send it)
+    header(L.rp_hdr)
+    note(L.rp_d)
     -- rc3 update watch: what the live game showed that the data could not
     -- translate (Core F:Miss). One read-only line; click = select all.
     local mh = CreateFrame("Frame", nil, page.child)
@@ -977,6 +980,15 @@ local function build()
         refresh()
     end)
     panel.missClear:SetPoint("RIGHT", mbt, "RIGHT", -4, 0)
+    -- 1.0.3: one click selects the whole line (the game can not write the clipboard itself)
+    panel.missCopy = UI.Button(mbt, L.btn_miss_copy, 170, 26, function()
+        if health.missList then
+            health.missList:SetFocus()
+            health.missList:HighlightText()
+        end
+        F.Chat("WoWFA: Ctrl+C copies it. Send it at wowfarsi.ir/report or in the wowfarsi Discord.")
+    end)
+    panel.missCopy:SetPoint("RIGHT", panel.missClear, "LEFT", -8, 0)
     place(mbt, 30, 6)
     end_page()
 

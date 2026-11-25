@@ -42,7 +42,14 @@ L.pf_loaded = fa("پروفایل «%s» اعمال شد.")
 L.pf_deleted = fa("پروفایل «%s» حذف شد.")
 L.pf_none = fa("هنوز پروفایلی نساخته~ای. یک اسم بنویس و «ذخیرهٔ پروفایل» را بزن.")
 
+L.rp_hdr = fa("گزارش برای ما: چیزهایی که هنوز فارسی نیستند")
+L.rp_d = fa("خط پایین هر چیزی است که افزونه در بازی دید و فارسی~اش را نداشت (هشدار، اسم NPC، منطقه و...). «انتخاب برای کپی» را بزن، بعد Ctrl+C، و متن را در سایت wowfarsi.ir/report یا در سرور دیسکورد wowfarsi برای ما بفرست تا در نسخهٔ بعد فارسی شود. کوئست~ها و NPC~های تازه هم خودکار جمع می~شوند (/wowfa harvest). اسم بازیکن~ها و پت~ها هیچ~وقت ترجمه نمی~شود.")
+L.btn_miss_copy = fa("انتخاب برای کپی")
+
 L.ALERTS = L.ALERTS or {}
+L.ALERTS[#L.ALERTS + 1] = { "Internal mail database error.", fa("خطای داخلی پایگاه دادهٔ نامه~ها.") }
+L.ALERTS[#L.ALERTS + 1] = { "The item was not found.", fa("آیتم پیدا نشد.") }
+L.ALERTS[#L.ALERTS + 1] = { "You are mounted.", fa("شما سوار مرکب هستید.") }
 L.ALERTS[#L.ALERTS + 1] = { "Your pet is dead. Use Revive Pet.", fa("پت شما مرده است. از Revive Pet استفاده کنید.") }
 L.ALERTS[#L.ALERTS + 1] = { "You do not have a pet to summon.", fa("پتی برای احضار ندارید.") }
 L.ALERTS[#L.ALERTS + 1] = { "Discovered: %s", fa("کشف شد: %s") }

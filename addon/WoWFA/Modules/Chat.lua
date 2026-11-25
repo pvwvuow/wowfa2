@@ -19,6 +19,29 @@
 local F = WoWFAF
 local T = F.T
 
+-- 1.0.7 (the owner's two screenshots: with Persian chat on, the English lines looked stretched
+-- and low quality): a chat window that shows Persian takes WoWFA Chat (Fonts/WoWFAChat.ttf,
+-- built by the font_chat job): the Latin of Liberation Sans 2 narrowed to the Arial Narrow width
+-- of the game's chat, with the game's line height, plus the Persian letters of Vazirmatn. English
+-- keeps the game's look at the game's own size (no chatScale shrink). A client that can not load
+-- the file falls back to Vazirmatn at chatScale, as before.
+local CHAT_FONT = F.ROOT .. "Fonts\\WoWFAChat.ttf"
+local chatFontOk = nil -- nil = not tried yet; true / false after the first try
+
+local function set_chat_font(f, size, flags)
+    if chatFontOk == false then
+        return false
+    end
+    local ok = pcall(f.SetFont, f, CHAT_FONT, size, flags or "")
+    local cur = ok and f.GetFont and f:GetFont()
+    local good = type(cur) == "string" and string.find(string.lower(cur), "wowfachat", 1, true) ~= nil
+    if chatFontOk == nil then
+        chatFontOk = good
+    end
+    return good
+end
+F.ChatFontPath = CHAT_FONT
+
 local saved = {} -- frame -> { font, size, flags } of the game's own chat font
 local ours = {} -- frame -> the size we set last (to tell our size from a size the player picked)
 local color = {} -- edit box -> { r, g, b, a } of its own text colour
@@ -124,7 +147,10 @@ local function refresh_box(eb)
         color[eb] = { r or 1, g or 1, b or 1, a or 1 }
     end
     local _, size = eb:GetFont()
-    ov:SetFont(F.FONT, (type(size) == "number" and size) or 14, "")
+    local fsz = (type(size) == "number" and size) or 14
+    if not set_chat_font(ov, fsz, "") then
+        ov:SetFont(F.FONT, fsz, "")
+    end
     -- start after the channel word ("Say:") the edit box keeps on its left
     local left = 14
     local name = eb.GetName and eb:GetName()
@@ -192,9 +218,12 @@ local function apply_font()
                     else
                         saved[f][2] = base
                     end
-                    local target = math.max(6, math.floor(base * scale() + 0.5))
+                    local target = math.max(6, math.floor(base + 0.5))
+                    if not set_chat_font(f, target, flags) then
+                        target = math.max(6, math.floor(base * scale() + 0.5))
+                        pcall(f.SetFont, f, F.FONT, target, flags or "")
+                    end
                     ours[f] = target
-                    pcall(f.SetFont, f, F.FONT, target, flags or "")
                 elseif saved[f] then
                     pcall(f.SetFont, f, saved[f][1], base, flags or saved[f][3] or "")
                     saved[f], ours[f] = nil, nil

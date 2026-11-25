@@ -1,0 +1,1 @@
+{"id":"0273-name-review","kind":"script","why":"owner 25 Nov: full review of NPC, zone and quest names (spelling, meaning, consistency)","args":{"module":"name_review","args":{"kinds":"npc,boss,zone,quest"}}}

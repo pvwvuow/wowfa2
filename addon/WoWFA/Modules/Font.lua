@@ -67,6 +67,21 @@ end
 
 local function apply()
     local want = on()
+    -- 1.0.7 (the owner: "the game's own font sizes do not come back"): the font objects
+    -- inherit from each other (GameFontNormal from SystemFont_Shadow_Med1 ...). The old
+    -- single pass read a child AFTER its parent was resized and kept THAT as the original,
+    -- so "back to normal" left the children enlarged. Every original is read first.
+    if want then
+        for _, name in ipairs(NAMES) do
+            local fo = _G[name]
+            if not saved[name] and type(fo) == "table" and fo.GetFont then
+                local font, size, flags = fo:GetFont()
+                if type(font) == "string" and type(size) == "number" then
+                    saved[name] = { font, size, flags }
+                end
+            end
+        end
+    end
     for _, name in ipairs(NAMES) do
         local fo = _G[name]
         if type(fo) == "table" and fo.GetFont and fo.SetFont then
@@ -79,7 +94,7 @@ local function apply()
                 end
                 local s = saved[name]
                 if s then
-                    pcall(fo.SetFont, fo, fa_on() and F.FONT or s[1], math.floor(math.max(6, math.min(48, s[2] * factor(name))) * 10 + 0.5) / 10, s[3] or "")
+                    pcall(fo.SetFont, fo, fa_on() and F.FONT or s[1], math.floor(math.max(6, math.min(48, s[2] * factor(name))) + 0.5), s[3] or "")
                 end
             elseif saved[name] then
                 local s = saved[name]

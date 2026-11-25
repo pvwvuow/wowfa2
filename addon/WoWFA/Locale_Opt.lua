@@ -80,12 +80,17 @@ L.ALERTS[#L.ALERTS + 1] = { "There is no loot.", fa("غنیمتی وجود ند�
 -- 1.0.6 (user report 25 Nov)
 L.ALERTS[#L.ALERTS + 1] = { "You are too far away.", fa("خیلی دور هستید.") }
 L.ALERTS[#L.ALERTS + 1] = { "Must have ammo equipped in the ammo slot.", fa("باید مهمات را در جایگاه مهمات بگذارید.") }
+-- 1.0.7 (user reports 25 Nov)
+L.ALERTS[#L.ALERTS + 1] = { "You need to be closer to interact with that target.", fa("برای تعامل با این هدف باید نزدیک~تر بروید.") }
+L.ALERTS[#L.ALERTS + 1] = { "You don't have a pet!", fa("پت ندارید!") }
+L.ALERTS[#L.ALERTS + 1] = { "Thank you for your report!", fa("از گزارش شما سپاسگزاریم!") }
 
 -- 1.0.6 (the owner's screenshots): fixed lines under the world map that are no zone
 -- names: the map description ("Fishing: 1") and the tags of the quest list ("(Dungeon)").
 -- { Lua pattern of the English line, replacement } - read by Modules/Zones.lua fa().
 L.MAP_LINES = {
     { "^Fishing: (%d+)$", fa("ماهیگیری: %1") },
+    { "^Quests: (%d+)/(%d+)$", fa("کوئست~ها: %1/%2") },
     { "^(%(?)Dungeon(%)?)$", "%1" .. fa("دانجن") .. "%2" },
     { "^(%(?)Raid(%)?)$", "%1" .. fa("ریید") .. "%2" },
     { "^(%(?)Elite(%)?)$", "%1" .. fa("نخبه") .. "%2" },

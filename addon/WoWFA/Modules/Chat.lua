@@ -23,6 +23,11 @@ local saved = {} -- frame -> { font, size, flags } of the game's own chat font
 local ours = {} -- frame -> the size we set last (to tell our size from a size the player picked)
 local color = {} -- edit box -> { r, g, b, a } of its own text colour
 local registered = false
+-- 1.0.7 (the owner: "with Persian chat on, the other chat texts look different, ugly and
+-- blurry"): a chat window keeps the game's own font until a line with Persian letters
+-- really shows in it; the edit box never takes our font (the overlay draws typed
+-- Persian); sizes are whole points (a fractional size is drawn blurred)
+local need = setmetatable({}, { __mode = "k" }) -- chat window -> true once Persian showed in it
 
 local EVENTS = {
     "CHAT_MSG_SAY", "CHAT_MSG_YELL", "CHAT_MSG_EMOTE", "CHAT_MSG_TEXT_EMOTE",
@@ -163,17 +168,31 @@ end
 
 local function apply_font()
     for _, f in ipairs(chat_frames()) do
+        local nm = f.GetName and f:GetName()
+        local isBox = type(nm) == "string" and string.find(nm, "EditBox", 1, true) ~= nil
+        if not isBox and not f.wfaAddHooked and type(f.AddMessage) == "function" then
+            f.wfaAddHooked = true
+            hooksecurefunc(f, "AddMessage", function(self, text)
+                if need[self] or not on() or type(text) ~= "string" then
+                    return
+                end
+                if string.find(text, "[\216-\219]") or string.find(text, "\239[\173-\187]") then
+                    need[self] = true
+                    pcall(apply_font)
+                end
+            end)
+        end
         if f.GetFont and f.SetFont then
             local font, size, flags = f:GetFont()
             if type(font) == "string" and type(size) == "number" then
                 local base = base_size(f, size)
-                if on() then
+                if on() and not isBox and need[f] then
                     if not saved[f] then
                         saved[f] = { font, base, flags }
                     else
                         saved[f][2] = base
                     end
-                    local target = math.floor(base * scale() * 10 + 0.5) / 10
+                    local target = math.max(6, math.floor(base * scale() + 0.5))
                     ours[f] = target
                     pcall(f.SetFont, f, F.FONT, target, flags or "")
                 elseif saved[f] then

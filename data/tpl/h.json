@@ -1,5 +1,6 @@
 {
 "hammer the current target and up to # additional nearby targets, causing holy damage to each equal to # times the damage per second of your main hand weapon. cooldown shared with crusader strike":"با چکش به هدف فعلی و حداکثر {0} هدف نزدیک دیگر {{tm:Strike|ضربه}} می‌زند و به هرکدام {{tm:damage|آسیب}} مقدسی برابر با {1} برابر {{tm:damage|آسیب}} بر ثانیهٔ سلاح دست اصلی‌ات وارد می‌کند. {{tm:Cooldown|کول‌داون}} آن با {{sp:Crusader Strike}} مشترک است.",
+"have you come seeking training in the ways of armed combat?":"آمده‌ای تا فنون جنگ مسلحانه را بیاموزی؟",
 "heal your target for # to #":"{0} تا {1} {{tm:health|سلامتی}} به هدف بازمی‌گرداند.",
 "healed for # to #":"{0} تا {1} شفا دریافت می‌کند.",
 "healing for # every # sec for # sec":"به مدت {2} ثانیه، هر {1} ثانیه {0} شفا می‌دهد.",
@@ -20,6 +21,8 @@
 "heals your pet # health every second while you focus. lasts # sec":"تا زمانی که تمرکز می‌کنی، هر ثانیه {0} {{tm:health|سلامتی}} {{tm:pet|حیوان خانگی‌ات}} را بازیابی می‌کند. {1} ثانیه دوام دارد.",
 "health increased by $s#.":"{{tm:health|سلامتی}} $s{0} بیشتر می‌شود.",
 "hear me! i bring news from beyond our borders!":"بشنوید! از آن سوی مرزهایمان خبر آورده‌ام!",
+"hear me, citizens of stormwind! remember this day, for great heroes of the alliance have slain rend blackhand, cruel warchief of blackrock's dark horde!":"بشنوید، شهروندان استورم‌ویند! این روز را به خاطر بسپارید، زیرا قهرمانان بزرگ اتحاد، {{npc:Rend Blackhand|رند بلک‌هند}}، سردار بی‌رحم هوردهٔ تاریک بلک‌راک را کشته‌اند!",
+"hello, friend! i would be happy to offer you a riding saber, but first you should train with jartsam over there. these fearless creatures are not easily ridden, but once you know how to ride one you will not find a better companion":"سلام، دوست من! خوشحال می‌شوم یک شمشیردندان سواری به تو بدهم، ولی اول باید نزد {{npc:Jartsam|جارتسام}} آن‌جا آموزش ببینی. این جانوران بی‌باک را به‌آسانی نمی‌شود سوار شد، اما وقتی سواری‌شان را یاد بگیری همراهی بهتر پیدا نمی‌کنی.",
 "help a poor bloke out?":"به این بیچاره کمک می‌کنید؟",
 "hitting an enemy with conflagrate increases all shadow damage you deal by #% for # sec, and hitting an enemy with shadowburn increases all fire damage you deal by #% for # sec. in addition, conflagrate has a #% chance not to consume immolate, and shadowburn has a #% chance to instantly refund a soul shard":"هر بار {{sp:Conflagrate}} به دشمن اصابت کند، همهٔ {{tm:Shadow damage|آسیب سایه}} تو را به مدت {1} ثانیه {0}% بیشتر می‌کند و هر بار {{sp:Shadowburn}} به دشمن اصابت کند، همهٔ {{tm:Fire damage|آسیب آتش}} تو را به مدت {3} ثانیه {2}% بیشتر می‌کند. علاوه بر آن، {{sp:Conflagrate}} {4}% شانس دارد {{sp:Immolate}} را مصرف نکند و {{sp:Shadowburn}} {5}% شانس دارد فوراً یک {{it:Soul Shard}} را برگرداند.",
 "holy power infuses the target, increasing their spirit by # for # hr":"{{sp:holy power}} هدف را سرشار می‌کند و {{tm:Spirit|روح}} او را به مدت {1} ساعت، {0} افزایش می‌دهد.",

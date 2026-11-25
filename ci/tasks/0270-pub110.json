@@ -1,0 +1,1 @@
+{"id":"0270-pub110","kind":"script","why":"owner 25 Nov: release 1.1.0-beta (publish + CurseForge upload)","args":{"module":"cf_retry","args":{"tag":"forever-v1.1.0-beta","notes_replace":[[";",","]]}}}

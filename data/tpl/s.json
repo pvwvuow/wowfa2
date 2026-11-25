@@ -35,6 +35,7 @@
 "slams the opponent, causing weapon damage plus #":"با کوبیدن حریف، {{tm:weapon damage|آسیب سلاح}} به‌اضافهٔ {0} وارد می‌کند.",
 "slower weapons cause more holy damage per swing":"سلاح‌های کندتر در هر ضربه {{tm:Holy damage|آسیب مقدس}} بیشتری وارد می‌کنند.",
 "slows falling speed for # sec":"سرعت سقوط را برای {0} ثانیه کاهش می‌دهد.",
+"slows the target, reducing their movement speed by #% attack speed by #% and casting speed by #%":"هدف را کند میکند: سرعت حرکت {0}%، سرعت حمله {1}% و سرعت اجرای اسپل {2}% کم میشود.",
 "smite an enemy for # to # holy damage":"با {{sp:Holy Power|نیروی مقدس}} به دشمن ضربه می‌زند و {0} تا {1} {{tm:Holy damage|آسیب مقدس}} وارد می‌کند.",
 "sneak up on the trap in order to disarm it. don't get too close or the trap will go off":"پنهانی به تله نزدیک شوید تا آن را خنثی کنید. بیش از حد نزدیک نشوید وگرنه تله فعال می‌شود.",
 "soothes the target beast, reducing the range at which it will attack you by # yards. only affects beast targets level # or lower. lasts # sec":"{{npc:beast}} هدف را آرام می‌کند و فاصله‌ای را که از آن به تو حمله می‌کند {0} یارد کاهش می‌دهد. فقط روی جانورانِ لِوِل {1} یا پایین‌تر اثر دارد. مدت اثر: {2} ثانیه.",

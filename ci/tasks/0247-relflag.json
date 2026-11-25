@@ -1,0 +1,1 @@
+{"id":"0247-relflag","kind":"script","why":"owner: 1.0.8 is released, so not Pre-release on GitHub","args":{"module":"release_flag","args":{"tag":"forever-v1.0.8-beta","prerelease":false}}}

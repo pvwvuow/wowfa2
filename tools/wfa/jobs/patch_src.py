@@ -1,16 +1,23 @@
 """Patch addon sources, all-or-nothing. Two op kinds:
   {file, old, new, count}            exact text, must occur exactly `count` times
   {file, start, end, new}            replace what lies strictly BETWEEN two markers (each exactly once)
-Report lists every op; nothing is written when one op fails. args: ops [...]"""
+Report lists every op; nothing is written when one op fails. Returns the changed paths (the runner
+commits exactly those). args: ops [...] or ops_from "ci/tasks/<id>.json" (reuse that task's ops)"""
+import json
 import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 
 
 def run(args, rep):
+    ops = args.get("ops")
+    if not ops and args.get("ops_from"):
+        src = json.loads((ROOT / args["ops_from"]).read_text(encoding="utf-8"))
+        ops = ((src.get("args") or {}).get("args") or {}).get("ops") or []
+        rep.ok("ops read from %s: %d" % (args["ops_from"], len(ops)))
     texts = {}
     rep.h("ops")
-    for i, op in enumerate(args.get("ops") or [], 1):
+    for i, op in enumerate(ops or [], 1):
         f = op.get("file", "")
         p = ROOT / f
         if not p.is_file():
@@ -41,6 +48,7 @@ def run(args, rep):
             rep.ok("#%d %s: %d replaced" % (i, f, n))
         texts[f] = s
     for f, s in texts.items():
-        (ROOT / f).write_text(s, encoding="utf-8")
-    rep.ok("%d files written" % len(texts))
-    return ["data"]
+        with open(ROOT / f, "w", encoding="utf-8", newline="") as fh:
+            fh.write(s)
+    rep.ok("%d files written: %s" % (len(texts), ", ".join(sorted(texts))))
+    return sorted(texts)

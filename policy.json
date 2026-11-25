@@ -1,7 +1,7 @@
 {
- "version": "1.0.3-beta",
+ "version": "1.0.4-beta",
  "interface": 16001,
- "game_build": "1.60.1.71037",
+ "game_build": "1.60.1.71091",
  "ship": {
   "surfaces": [
    "quests",

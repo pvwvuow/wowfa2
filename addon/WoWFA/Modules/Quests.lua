@@ -338,6 +338,54 @@ local function layout(entry, ctx)
     end)
 end
 
+-- 1.0.5 (the owner: the Status page must catch EVERY untranslated thing): a quest whose
+-- window shows a text our row has no Persian for, or whose title changed since the
+-- translation was made, goes to the Status page list (Core F:Miss)
+local PART_SRC = {
+    detail = { { "details", "GetQuestText" }, { "obj", "GetObjectiveText" } },
+    progress = { { "progress", "GetProgressText" } },
+    complete = { { "completion", "GetRewardText" } },
+}
+
+local function game_text(fn)
+    local f = _G[fn]
+    if type(f) ~= "function" then
+        return ""
+    end
+    local ok, v = pcall(f)
+    if ok and F.Usable(v) and type(v) == "string" then
+        return v
+    end
+    return ""
+end
+
+local function title_of(id, enTitle)
+    if F.Usable(enTitle) and type(enTitle) == "string" and enTitle ~= "" then
+        return enTitle
+    end
+    return "quest " .. tostring(id)
+end
+
+local function part_miss(id, entry, ctx, enTitle, stale)
+    local title = title_of(id, enTitle)
+    if stale then
+        F:Miss("qold", tostring(id), title, ctx)
+    end
+    if (entry.t or "") == "" then
+        F:Miss("quest", tostring(id), title, ctx)
+    end
+    for _, p in ipairs(PART_SRC[ctx] or {}) do
+        local en = game_text(p[2])
+        local have = entry[p[1]] or ""
+        if p[1] == "obj" and have == "" then
+            have = entry.desc or ""
+        end
+        if en ~= "" and have == "" then
+            F:Miss("qtext", tostring(id) .. ":" .. p[1], title .. " / " .. en, p[1])
+        end
+    end
+end
+
 local function show(id, enTitle, ctx, anchor)
     if not pane then
         build()
@@ -352,6 +400,9 @@ local function show(id, enTitle, ctx, anchor)
     local entry = get(id)
     if not entry then
         F:Track("quests", false)
+        if F.Usable(id) then
+            F:Miss("quest", tostring(id), title_of(id, enTitle), ctx) -- 1.0.5
+        end
         pane:Hide()
         return
     end
@@ -363,6 +414,7 @@ local function show(id, enTitle, ctx, anchor)
         and F.TitleHash(enTitle) ~= entry.h
     if shownId ~= id or shownCtx ~= ctx then
         F:Track("quests", true, stale)
+        part_miss(id, entry, ctx, enTitle, stale) -- 1.0.5
     end
     pane.entry, pane.ctx, pane.anchor = entry, ctx, anchor
     shownId, shownCtx = id, ctx

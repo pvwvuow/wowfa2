@@ -1,0 +1,1 @@
+{"id":"0232-chatfont","kind":"script","why":"owner 25 Nov screenshots: with Persian chat on the English lines look stretched / low quality: one chat font with the game-like Latin + Vazirmatn Persian","args":{"module":"font_chat","args":{"narrow":0.82,"fa_scale":1.0,"preview":true}}}

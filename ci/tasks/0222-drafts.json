@@ -1,0 +1,1 @@
+{"id":"0222-drafts","kind":"script","why":"stale drafts only (never published ones): the first 1.0.7 draft (had item names), 1.0.4 x2, 1.0.5, the old rc drafts","args":{"module":"drafts_clean","args":{"tags":["forever-v1.0.7-beta","forever-v1.0.5-beta","forever-v1.0.4-beta"],"prefixes":["forever-v1.0.0-rc"]}}}

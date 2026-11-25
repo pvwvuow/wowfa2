@@ -17,6 +17,7 @@
 "decreases the cooldown of your hammer of justice spell by # sec":"{{tm:Cooldown|کول‌داون}} {{tm:spell|اسپل}} {{sp:hammer of justice}} را {0} ثانیه کاهش می‌دهد.",
 "decreases the cooldown of your judgement ability by # sec":"{{tm:Cooldown|کول‌داون}} توانایی {{sp:judgement}} را {0} ثانیه کاهش می‌دهد.",
 "decreases the mana lost per point of damage taken when your mana shield spell is active by #% and increases the resistances granted by your mage armor spell by #%":"مانای از دست‌رفته به‌ازای هر واحد {{tm:Damage|آسیب}} دریافتی را هنگام فعال بودن {{tm:spell|اسپل}} {{sp:mana shield}} {0}% کاهش می‌دهد و {{tm:resistances|مقاومت‌ها}} اعطاشده توسط {{tm:spell|اسپل}} {{sp:mage armor}} را {1}% افزایش می‌دهد.",
+"deja vu. for a moment, i thought i was back home... before the plague...":"دژاوو. لحظه‌ای فکر کردم به خانه برگشته‌ام... پیش از طاعون...",
 "disarm the enemy's weapon for # sec":"سلاح دشمن را با {{sp:Disarm}} به مدت {0} ثانیه از کار می‌اندازد.",
 "dismiss your pet. dismissing your pet will reduce its happiness by #":"{{tm:pet|حیوان خانگی‌ات}} را مرخص می‌کند. این کار شادی او را {0} واحد کاهش می‌دهد.",
 "dispels # curse or bane from a friendly target":"{0} {{tm:Curse|نفرین}} یا {{tm:Bane|بلا}} را از هدف {{tm:friendly|دوستانه}} رفع می‌کند.",

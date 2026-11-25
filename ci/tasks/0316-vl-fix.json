@@ -1,0 +1,1 @@
+{"id":"0316-vl-fix","kind":"edit","why":"owner 25 Nov: broadcast_text has its own column names","args":{"ops":[{"file":"tools/wfa/jobs/voice_lines.py","old":"c in (\"male_text\", \"female_text\")","new":"(\"male\" in c and \"text\" in c)","count":1}]}}

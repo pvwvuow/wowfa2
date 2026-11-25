@@ -351,10 +351,14 @@ function F:ResetDB()
     -- 1.0.7 (the owner: "reset all settings also deleted my saved profiles"): the named
     -- profiles are the player's own data, not a setting - they survive the reset
     local keepProfiles = F.db and type(F.db.profiles) == "table" and F.db.profiles or nil
+    local keepSv = F.db and F.db.svPath -- 1.0.8: the WoWFA.lua folder path (status page)
     WoWFA_FDB = {}
     F:InitDB()
     if keepProfiles then
         F.db.profiles = keepProfiles
+    end
+    if type(keepSv) == "string" and keepSv ~= "" then
+        F.db.svPath = keepSv
     end
     F.db.welcomed = true
     F.db.lastBuild = F.clientBuild or 0

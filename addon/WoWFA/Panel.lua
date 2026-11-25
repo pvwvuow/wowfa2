@@ -184,9 +184,50 @@ local function state_of(id)
 end
 
 -- ------------------------------------------------------------------ refresh
+-- 1.0.8 (the owner: "a button that takes the player straight to the folder of WoWFA.lua"):
+-- the game can not open a Windows folder or write the clipboard, so the status page shows the
+-- full folder path in a box; one click selects it (Ctrl+C, then Win+R, Ctrl+V, Enter opens the
+-- folder). The default is the standard install path; the player can fix it ONCE (another
+-- drive, or with the account folder added) and it is remembered account-wide (F.db.svPath,
+-- kept by Reset). An empty box + Enter = the default again.
+local function sv_default()
+    local okm, mac = pcall(function() return IsMacClient and IsMacClient() end)
+    if okm and mac then
+        return "/Applications/World of Warcraft/_forever_/WTF/Account"
+    end
+    return "C:\\Program Files (x86)\\World of Warcraft\\_forever_\\WTF\\Account"
+end
+
+function F.SvPath()
+    local p = F.db and F.db.svPath
+    if type(p) == "string" and p ~= "" then
+        return p
+    end
+    return sv_default()
+end
+
+function F.SvPathSet(p)
+    if not F.db then
+        return
+    end
+    p = tostring(p or "")
+    p = string.gsub(p, "^%s+", "")
+    p = string.gsub(p, "%s+$", "")
+    p = string.gsub(p, '^"(.*)"$', "%1")
+    if p == "" or p == sv_default() then
+        F.db.svPath = nil
+    else
+        F.db.svPath = string.sub(p, 1, 400)
+    end
+end
+
 local function refresh_health()
     if not health then
         return
+    end
+    if health.svPath and not (health.svPath.HasFocus and health.svPath:HasFocus()) then
+        health.svPath:SetText(F.SvPath())
+        health.svPath:SetCursorPosition(0)
     end
     health.addon.val:SetText("v" .. tostring(F.VERSION))
     health.client.val:SetText(tostring(F.clientVersion or "?") .. "." .. tostring(F.clientBuildText or "?"))
@@ -966,6 +1007,66 @@ local function build()
     health.copyMsg:SetPoint("TOPRIGHT", cm, "TOPRIGHT", -4, 0)
     health.copyMsg:SetFa(" ", PW - 30)
     place(cm, 24, 6)
+
+    -- 1.0.8: where WoWFA.lua is (see F.SvPath above)
+    header(L.fl_hdr)
+    note(L.fl_steps)
+    local fp = CreateFrame("Frame", nil, page.child)
+    fp:SetSize(PW - 16, 28)
+    health.svPath = code_box(fp, true)
+    health.svPath:SetText(F.SvPath())
+    health.svPath:SetCursorPosition(0)
+    health.svPath:SetScript("OnEnterPressed", function(self)
+        F.SvPathSet(self:GetText())
+        self:ClearFocus()
+        self:SetText(F.SvPath())
+        self:SetCursorPosition(0)
+        if health.svMsg then
+            health.svMsg:SetFa(L.fl_saved, PW - 30)
+            color(health.svMsg, C.green)
+        end
+    end)
+    place(fp, 28, 4)
+    local fb = CreateFrame("Frame", nil, page.child)
+    fb:SetSize(PW - 16, 30)
+    panel.svCopy = UI.Button(fb, L.fl_btn, 190, 26, function()
+        local box = health.svPath
+        if box then
+            local t = box:GetText() or ""
+            if t ~= F.SvPath() then
+                F.SvPathSet(t)
+            end
+            box:SetFocus()
+            box:HighlightText()
+        end
+        if health.svMsg then
+            health.svMsg:SetFa(L.fl_copied, PW - 30)
+            color(health.svMsg, C.green)
+        end
+        F.Chat("WoWFA: the folder path is selected - press Ctrl+C, then Win+R, Ctrl+V and Enter (Mac: Finder, Cmd+Shift+G)")
+    end)
+    panel.svCopy:SetPoint("RIGHT", fb, "RIGHT", -4, 0)
+    panel.svSave = UI.Button(fb, L.fl_save, 170, 26, function()
+        if InCombatLockdown and InCombatLockdown() then
+            if health.svMsg then
+                health.svMsg:SetFa(L.fl_combat, PW - 30)
+                color(health.svMsg, C.orange)
+            end
+            return
+        end
+        if ReloadUI then
+            ReloadUI()
+        end
+    end)
+    panel.svSave:SetPoint("RIGHT", panel.svCopy, "LEFT", -8, 0)
+    place(fb, 30, 2)
+    local fm = CreateFrame("Frame", nil, page.child)
+    fm:SetSize(PW - 16, 24)
+    health.svMsg = UI.Text(fm, 12, C.green)
+    health.svMsg:SetPoint("TOPRIGHT", fm, "TOPRIGHT", -4, 0)
+    health.svMsg:SetFa(" ", PW - 30)
+    place(fm, 24, 2)
+    note(L.fl_note)
 
     header(L.tab_health)
     health.addon = pair_row(L.h_addon, true)

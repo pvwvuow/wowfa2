@@ -1,0 +1,187 @@
+{
+ "id": "0259-v110code",
+ "kind": "edit",
+ "why": "owner 25 Nov: own colour for factions, exact colour picker, letter outline, Questie tooltips + tracker in Persian; 1.1.0",
+ "args": {
+  "ops": [
+   {
+    "file": "addon/WoWFA/Modules/Questie.lua",
+    "write": "-- WoWFA Forever - Questie (1.1.0, the owner 25 Nov: \"if our translations also covered what\n-- Questie shows, that would be great\"). Questie draws its own map / minimap pin tooltips\n-- (\"Dustbelcher Lord\" / \"[40] Terror of the Desert Skies   (Available)\"), adds quest lines\n-- under mob and object tooltips and has its own quest tracker. Nothing of Questie is changed:\n-- after a tooltip is shown its lines are read and the ones we know are written in Persian IN\n-- PLACE (put back by the shared tooltip clear in Text.lua); the Questie tracker is walked like\n-- the game's own lists (Modules/Walk.lua QUESTIE_ROOTS). Only lines that are surely Questie's\n-- are touched:\n--   * \"[level] title\" lines (+ the \"(Available)\" / \"(Complete)\" / \"(Hold Shift)\" right side),\n--   * the NPC name lines of a tooltip that has such a line (a Questie pin tooltip),\n--   * under a unit tooltip: a line that is the title of a quest IN THE PLAYER'S LOG, and the\n--     objective lines below it.\n-- Item names stay English (no item bank in v1.0); an item is never looked up as an NPC.\n-- Switch: Quests > \u00abQuestie\u00bb (F.db.questie, default on). Without Questie nothing runs.\n\nlocal F = WoWFAF\nlocal L = F.L\nlocal T = F.T\nlocal Q = {}\nF.Questie = Q\n\nlocal function has_fa(s)\n    return type(s) == \"string\" and string.find(s, \"[\\216-\\219\\239]\") ~= nil\nend\n\nfunction Q.Loaded()\n    local fn = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded\n    if type(fn) == \"function\" then\n        for _, n in ipairs({ \"Questie\", \"Questie-Forever\", \"QuestieForever\" }) do\n            local ok, v = pcall(fn, n)\n            if ok and v then\n                return true\n            end\n        end\n    end\n    return rawget(_G, \"QuestieLoader\") ~= nil\nend\n\nlocal function on()\n    local db = F.db\n    return db and db.enabled and db.questie ~= false and F.Room and Q.Loaded() and true or false\nend\nQ.On = on\n\nlocal RIGHT = { [\"(available)\"] = \"qz_avail\", [\"(complete)\"] = \"qz_complete\", [\"(hold shift)\"] = \"qz_shift\",\n    [\"(in progress)\"] = \"qz_progress\", [\"(repeatable)\"] = \"qz_repeat\" }\n\nlocal function plain(t)\n    local c = string.match(t, \"^(|c%x%x%x%x%x%x%x%x)\")\n    local p = string.gsub(t, \"|c%x%x%x%x%x%x%x%x\", \"\")\n    p = string.gsub(p, \"|r\", \"\")\n    return p, c\nend\n\nlocal function trim(s)\n    return (string.match(s or \"\", \"^%s*(.-)%s*$\"))\nend\n\nlocal function shaped(s)\n    return T.ShapeLine(T.Digits(s), T.Mode())\nend\n\n-- \"[40] Terror of the Desert Skies\" -> \"[40] <Persian title>\"\nlocal function title_line(p)\n    local lvl, title = string.match(p, \"^(%[[^%]]+%])%s*(.+)$\")\n    if not title or not (F.Walk and F.Walk.TitleFa) then\n        return nil\n    end\n    local fa = F.Walk.TitleFa(trim(title))\n    if not fa then\n        return nil\n    end\n    return lvl .. \" \" .. shaped(fa)\nend\n\nlocal function put(tt, fs, text, side)\n    if not fs then\n        return\n    end\n    -- the original font / text / justify are recorded once by the shared in-place path\n    T.TipSet(tt, fs, \" \", nil, side)\n    fs:SetText(text)\nend\n\nlocal busy = false\nlocal function scan(tt)\n    if busy or not on() then\n        return false\n    end\n    local name = tt.GetName and tt:GetName()\n    if type(name) ~= \"string\" then\n        return false\n    end\n    local okn, n = pcall(tt.NumLines, tt)\n    if not okn or not F.Usable(n) or type(n) ~= \"number\" or n < 1 then\n        return false\n    end\n    local lines, pin = {}, false\n    for i = 1, math.min(n, 40) do\n        local l, r = _G[name .. \"TextLeft\" .. i], _G[name .. \"TextRight\" .. i]\n        local okl, lt = pcall(function() return l and l:GetText() end)\n        local okr, rt = pcall(function() return r and r:GetText() end)\n        lt = (okl and F.Usable(lt) and type(lt) == \"string\") and lt or nil\n        rt = (okr and F.Usable(rt) and type(rt) == \"string\") and rt or nil\n        lines[i] = { l = l, r = r, lt = lt, rt = rt }\n        if lt and string.find(plain(lt), \"^%[[^%]]+%]%s*%S\") then\n            pin = true\n        end\n        if rt and RIGHT[string.lower(trim(plain(rt)))] then\n            pin = true\n        end\n    end\n    local names = (F.D and F.D.names) or {}\n    local npcOn = F.Room.On(\"namesNpc\")\n    local inQuest, changed = false, false\n    for i, e in ipairs(lines) do\n        local lt = e.lt\n        if lt and lt ~= \"\" and not has_fa(lt) then\n            local p, c = plain(lt)\n            local out\n            local tl = title_line(p)\n            if tl then\n                out, inQuest = tl, true\n            elseif i >= 2 and F.Walk and F.Walk.LogId and F.Walk.LogId(trim(p)) then\n                inQuest = true\n                local fa = F.Walk.TitleFa and F.Walk.TitleFa(trim(p))\n                if fa then\n                    out = (string.match(p, \"^(%s*)\") or \"\") .. shaped(fa)\n                end\n            elseif inQuest and string.find(p, \"%d+/%d+\") and F.Walk and F.Walk.Objective then\n                local ind, body = string.match(p, \"^(%s*)(.-)$\")\n                local o = F.Walk.Objective(body)\n                if o then\n                    out = (ind or \"\") .. o\n                end\n            elseif pin and npcOn and not string.find(p, \"%d\") then\n                local k = T.NameKey(trim(p))\n                local fa = (names.npc and names.npc[k]) or (names.boss and names.boss[k])\n                if fa then\n                    out = shaped(fa)\n                end\n            end\n            if out then\n                put(tt, e.l, (c or \"\") .. out .. (c and \"|r\" or \"\"), \"Left\")\n                changed = true\n            end\n        end\n        local rt = e.rt\n        if rt and rt ~= \"\" and not has_fa(rt) then\n            local p, c = plain(rt)\n            local key = RIGHT[string.lower(trim(p))]\n            if key and L[key] then\n                put(tt, e.r, (c or \"\") .. shaped(L[key]) .. (c and \"|r\" or \"\"), \"Right\")\n                changed = true\n            end\n        end\n    end\n    return changed\nend\nQ.Scan = scan\n\nlocal function hook(tt)\n    if type(tt) ~= \"table\" or tt.wfaQuestie or type(tt.Show) ~= \"function\" then\n        return\n    end\n    tt.wfaQuestie = true\n    hooksecurefunc(tt, \"Show\", function(self)\n        local ok, changed = pcall(scan, self)\n        busy = false\n        if not ok then\n            F:LogError(\"questie\", changed)\n        elseif changed then\n            -- let the tooltip size itself to the Persian lines (our scan skips them now)\n            busy = true\n            pcall(self.Show, self)\n            busy = false\n        end\n    end)\nend\n\nF:Listen(\"login\", function()\n    local ok, err = pcall(function()\n        hook(GameTooltip)\n        hook(rawget(_G, \"WorldMapTooltip\"))\n    end)\n    if not ok then\n        F:LogError(\"questie\", err)\n    end\n    if Q.Loaded() then\n        F.Chat(\"WoWFA: Questie found - its quest titles, NPC names and objectives are drawn in Persian too\")\n    end\nend)\n"
+   },
+   {
+    "file": "addon/WoWFA/Text.lua",
+    "old": "T.FAMILIES = { \"npc\", \"zn\", \"it\", \"sp\", \"ob\", \"qs\", \"cls\", \"tm\" }",
+    "new": "T.FAMILIES = { \"npc\", \"zn\", \"it\", \"sp\", \"ob\", \"qs\", \"cls\", \"tm\", \"fac\" }",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Text.lua",
+    "old": "function T.Size()\n    return (F.db and F.db.fontSize) or 12\nend\n",
+    "new": "function T.Size()\n    return (F.db and F.db.fontSize) or 12\nend\n\n-- 1.1.0 (the owner: \"and they can put a border\"): the outline of OUR Persian letters,\n-- F.db.fontOutline 1 none / 2 thin / 3 thick (Colours page)\nfunction F.Flags()\n    local v = tonumber(F.db and F.db.fontOutline) or 1\n    if v == 2 then\n        return \"OUTLINE\"\n    elseif v == 3 then\n        return \"THICKOUTLINE\"\n    end\n    return \"\"\nend\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Text.lua",
+    "old": "T.COL_DEFAULT = { zn = \"green\", sp = \"blue\", npc = \"orange\", cls = \"class\", tm = \"cyan\", it = \"gold\", ob = \"purple\" }",
+    "new": "-- 1.1.0 (the owner 25 Nov): factions and groups (Forsaken, Scarlet Crusade, Syndicate...) are their\n-- own family \"fac\" with their own colour (they were NPC-coloured)\nT.COL_DEFAULT = { zn = \"green\", sp = \"blue\", npc = \"orange\", cls = \"class\", tm = \"cyan\", it = \"gold\", ob = \"purple\", fac = \"red\" }",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Text.lua",
+    "old": "T.COL_FAMS = { \"zn\", \"sp\", \"npc\", \"cls\", \"it\", \"tm\", \"ob\" }",
+    "new": "T.COL_FAMS = { \"zn\", \"sp\", \"npc\", \"fac\", \"cls\", \"it\", \"tm\", \"ob\" }",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Text.lua",
+    "old": "    local id = c[fam]\n    if id == nil then\n        id = T.COL_DEFAULT[fam]\n    end\n",
+    "new": "    local id = c[fam]\n    if id == nil then\n        id = T.COL_DEFAULT[fam]\n    end\n    -- 1.1.0: a colour the player picked exactly (\"c:rrggbb\", the game's colour picker)\n    if type(id) == \"string\" then\n        local cx = string.match(id, \"^c:(%x%x%x%x%x%x)$\")\n        if cx then\n            return string.lower(cx)\n        end\n    end\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Text.lua",
+    "old": "function F.ColLabels(fam)\n    local out = {}\n    for i, id in ipairs(col_ids(fam)) do\n        out[i] = (L.col_id and L.col_id[id]) or id\n    end\n    return out\nend\n\nfunction F.ColId(fam)\n    return col_db()[fam] or T.COL_DEFAULT[fam] or \"off\"\nend\n\nfunction F.ColIndex(fam)\n    local id = F.ColId(fam)\n    for i, x in ipairs(col_ids(fam)) do\n        if x == id then\n            return i\n        end\n    end\n    return 1\nend\n\nfunction F.ColHex(fam) -- the colour of the choice itself (the class choice previews gold)\n    local id = F.ColId(fam)\n    return T.COL_HEX[id] or (id == \"class\" and \"ffd24a\") or nil\nend\n\nfunction F.ColSet(fam, idx)\n    col_db()[fam] = col_ids(fam)[idx] or \"off\"\n    col_refresh()\nend\n",
+    "new": "-- 1.1.0 (the owner: \"they must pick ANY colour exactly, not only switch through a list\"):\n-- every family also takes an exact colour from the game's colour picker (the \u00ab\u0631\u0646\u06af \u062f\u0644\u062e\u0648\u0627\u0647\u00bb\n-- button of its row). It is stored as \"c:rrggbb\"; the row's list then shows \u00ab\u062f\u0644\u062e\u0648\u0627\u0647\u00bb, and\n-- cycling past it goes on to \u00aboff\u00bb. The last picked colour is kept (col[\"c_\" .. fam]), so\n-- cycling back to \u00ab\u062f\u0644\u062e\u0648\u0627\u0647\u00bb brings it back.\nlocal function custom_hex(fam)\n    local id = col_db()[fam]\n    return type(id) == \"string\" and string.match(id, \"^c:(%x%x%x%x%x%x)$\") or nil\nend\n\nfunction F.ColLabels(fam)\n    local out = {}\n    for i, id in ipairs(col_ids(fam)) do\n        out[i] = (L.col_id and L.col_id[id]) or id\n    end\n    out[#out + 1] = (L.col_id and L.col_id.custom) or \"custom\"\n    return out\nend\n\nfunction F.ColId(fam)\n    return col_db()[fam] or T.COL_DEFAULT[fam] or \"off\"\nend\n\nfunction F.ColIndex(fam)\n    if custom_hex(fam) then\n        return #col_ids(fam) + 1\n    end\n    local id = F.ColId(fam)\n    for i, x in ipairs(col_ids(fam)) do\n        if x == id then\n            return i\n        end\n    end\n    return 1\nend\n\nfunction F.ColHex(fam) -- the colour of the choice itself (the class choice previews gold)\n    local cx = custom_hex(fam)\n    if cx then\n        return string.lower(cx)\n    end\n    local id = F.ColId(fam)\n    return T.COL_HEX[id] or (id == \"class\" and \"ffd24a\") or nil\nend\n\nlocal pickPending = false\nlocal function refresh_soon()\n    if pickPending then\n        return\n    end\n    pickPending = true\n    F.After(0.15, function()\n        pickPending = false\n        col_refresh()\n        if F.PanelRefresh then\n            pcall(F.PanelRefresh)\n        end\n    end)\nend\n\n-- the game's colour picker on the colour the family shows now; every move is applied live\n-- (debounced), Cancel puts the old choice back\nfunction F.ColPick(fam)\n    local cpf = ColorPickerFrame\n    if type(cpf) ~= \"table\" then\n        return false\n    end\n    local db = col_db()\n    local prev = db[fam]\n    local hex = F.ColHex(fam) or \"ffffff\"\n    local r = (tonumber(string.sub(hex, 1, 2), 16) or 255) / 255\n    local g = (tonumber(string.sub(hex, 3, 4), 16) or 255) / 255\n    local b = (tonumber(string.sub(hex, 5, 6), 16) or 255) / 255\n    local function byte(v)\n        v = math.floor((tonumber(v) or 0) * 255 + 0.5)\n        if v < 0 then\n            v = 0\n        elseif v > 255 then\n            v = 255\n        end\n        return v\n    end\n    local function take()\n        local ok, nr, ng, nb = pcall(cpf.GetColorRGB, cpf)\n        if not ok or type(nr) ~= \"number\" then\n            return\n        end\n        local id = string.format(\"c:%02x%02x%02x\", byte(nr), byte(ng), byte(nb))\n        db[fam] = id\n        db[\"c_\" .. fam] = id\n        refresh_soon()\n    end\n    local function cancel()\n        db[fam] = prev\n        refresh_soon()\n    end\n    pcall(cpf.SetFrameStrata, cpf, \"FULLSCREEN_DIALOG\")\n    local ok = false\n    if type(cpf.SetupColorPickerAndShow) == \"function\" then\n        ok = pcall(cpf.SetupColorPickerAndShow, cpf, { r = r, g = g, b = b, hasOpacity = false,\n            swatchFunc = take, cancelFunc = cancel })\n    end\n    if not ok then\n        cpf.hasOpacity = false\n        cpf.opacityFunc = nil\n        cpf.func = take\n        cpf.swatchFunc = take\n        cpf.cancelFunc = cancel\n        cpf.previousValues = { r = r, g = g, b = b, r, g, b }\n        if cpf.SetColorRGB then\n            pcall(cpf.SetColorRGB, cpf, r, g, b)\n        end\n        cpf:Hide()\n        if ShowUIPanel then\n            pcall(ShowUIPanel, cpf)\n        else\n            cpf:Show()\n        end\n    end\n    return true\nend\n\nfunction F.ColSet(fam, idx)\n    local ids = col_ids(fam)\n    local db = col_db()\n    if idx > #ids then\n        -- \u00ab\u062f\u0644\u062e\u0648\u0627\u0647\u00bb in the cycle: the last picked colour, or straight on to \u00aboff\u00bb if none yet\n        local last = db[\"c_\" .. fam]\n        if type(last) == \"string\" and string.match(last, \"^c:%x%x%x%x%x%x$\") then\n            db[fam] = last\n        else\n            db[fam] = ids[1]\n        end\n    else\n        db[fam] = ids[idx] or \"off\"\n    end\n    col_refresh()\nend\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Text.lua",
+    "old": "local MARKER_KEY = { it = \"namesItem\", sp = \"namesSpell\", npc = \"namesNpc\", zn = \"namesZone\",",
+    "new": "local MARKER_KEY = { it = \"namesItem\", sp = \"namesSpell\", npc = \"namesNpc\", zn = \"namesZone\", fac = \"namesNpc\",",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Text.lua",
+    "old": "    fs:SetFont(F.FONT, size, \"\")\n    if width and width >= 40 then",
+    "new": "    fs:SetFont(F.FONT, size, F.Flags())\n    if width and width >= 40 then",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Text.lua",
+    "old": "    fs:SetFont(F.FONT, T.Size(), \"\")",
+    "new": "    fs:SetFont(F.FONT, T.Size(), F.Flags())",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Text.lua",
+    "old": "    local size = T.Size()\n    fs:SetFont(F.FONT, size, \"\")\n    -- inbox/29 C: the same line gap on the multi-line in-place strings",
+    "new": "    local size = T.Size()\n    fs:SetFont(F.FONT, size, F.Flags())\n    -- inbox/29 C: the same line gap on the multi-line in-place strings",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Text.lua",
+    "old": "    pcall(fs.SetFont, fs, F.FONT, ns, '')",
+    "new": "    pcall(fs.SetFont, fs, F.FONT, ns, F.Flags())",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Text.lua",
+    "old": "        return \"{\" .. i .. \"}\"\n    end))\nend\n",
+    "new": "        return \"{\" .. i .. \"}\"\n    end))\nend\n\n-- 1.1.0: the outline switch re-renders everything we wrote\nF:Listen(\"options\", function(key)\n    if key == \"fontOutline\" then\n        if T.RefreshAll then\n            T.RefreshAll()\n        end\n        F:Fire(\"names\")\n        F:Fire(\"disp\")\n    end\nend)\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Walk.lua",
+    "old": "-- \"0/8 Skeletal Warrior slain\" / \"Skeletal Warrior slain: 0/8\"\nfunction W.Objective(text)",
+    "new": "-- 1.1.0 (Modules/Questie.lua): the Persian title of a quest by its English title (nil = none)\nfunction W.TitleFa(title)\n    if not F.Room.On(\"namesQuest\") or type(title) ~= \"string\" or title == \"\" then\n        return nil\n    end\n    return quest_row(title)\nend\n\n-- \"0/8 Skeletal Warrior slain\" / \"Skeletal Warrior slain: 0/8\"\nfunction W.Objective(text)",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Walk.lua",
+    "old": "local QUEST_ROOTS = { \"WorldMapFrame\", \"QuestMapFrame\", \"QuestLogFrame\", \"ObjectiveTrackerFrame\", \"QuestWatchFrame\", \"WatchFrame\" }",
+    "new": "local QUEST_ROOTS = { \"WorldMapFrame\", \"QuestMapFrame\", \"QuestLogFrame\", \"ObjectiveTrackerFrame\", \"QuestWatchFrame\", \"WatchFrame\" }\n-- 1.1.0: the Questie quest tracker (its own frames), walked only while the Questie switch is on\nlocal QUESTIE_ROOTS = { \"Questie_BaseFrame\", \"QuestieTrackerBaseFrame\", \"Questie_TrackerBaseFrame\", \"QuestieTracker\" }",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Walk.lua",
+    "old": "    if kind == \"spell\" and UIParent and UIParent.GetChildren then",
+    "new": "    if kind ~= \"spell\" and F.Questie and F.Questie.On and F.Questie.On() then\n        for _, n in ipairs(QUESTIE_ROOTS) do\n            local f = _G[n]\n            if type(f) == \"table\" and f.GetChildren and not seen[f] then\n                seen[f] = true\n                out[#out + 1] = f\n            end\n        end\n    end\n    if kind == \"spell\" and UIParent and UIParent.GetChildren then",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Walk.lua",
+    "old": "    fs:SetFont(F.FONT, sz, \"\")\n    fs:SetText(out)",
+    "new": "    fs:SetFont(F.FONT, sz, F.Flags())\n    fs:SetText(out)",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Walk.lua",
+    "old": "                    pcall(fs.SetFont, fs, F.FONT, sz, \"\")",
+    "new": "                    pcall(fs.SetFont, fs, F.FONT, sz, F.Flags())",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Walk.lua",
+    "old": "                pcall(fs.SetFont, fs, F.FONT, sz, '')",
+    "new": "                pcall(fs.SetFont, fs, F.FONT, sz, F.Flags())",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Tracker.lua",
+    "old": "    fs:SetFont(F.FONT, sz, \"\")\n    -- the player's CURRENT display mode",
+    "new": "    fs:SetFont(F.FONT, sz, F.Flags())\n    -- the player's CURRENT display mode",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Modules/Tracker.lua",
+    "old": "                    pcall(fs.SetFont, fs, F.FONT, sz, '')",
+    "new": "                    pcall(fs.SetFont, fs, F.FONT, sz, F.Flags())",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Core.lua",
+    "old": "    shiftEn = true, -- 1.0.7: hold Shift = the game's English original\n",
+    "new": "    shiftEn = true, -- 1.0.7: hold Shift = the game's English original\n    questie = true, -- 1.1.0: Questie's tooltips + tracker in Persian (Modules/Questie.lua)\n    fontOutline = 1, -- 1.1.0: outline of our Persian letters (1 none, 2 thin, 3 thick)\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Core.lua",
+    "old": "local RANGES = { mode = { 1, 3 },",
+    "new": "local RANGES = { fontOutline = { 1, 3 }, mode = { 1, 3 },",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Core.lua",
+    "old": "        \"zoneMap\", \"alerts\", \"sysmsg\", \"listTitles\" }) do",
+    "new": "        \"zoneMap\", \"alerts\", \"sysmsg\", \"listTitles\", \"fontOutline\" }) do",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Panel.lua",
+    "old": "        row:Update()\n        panel.col[fam] = place(row, 32, 2)\n    end\n    note(L.col_note)",
+    "new": "        -- 1.1.0: any colour, exactly (the game's colour picker)\n        row.pick = UI.Button(row, L.col_pick, 84, 22, function()\n            F.ColPick(fam)\n        end)\n        row.pick:SetPoint(\"TOPLEFT\", row, \"TOPLEFT\", 4, -4)\n        row.val:ClearAllPoints()\n        row.val:SetPoint(\"TOPLEFT\", row, \"TOPLEFT\", 96, -6)\n        row:Update()\n        panel.col[fam] = place(row, 32, 2)\n    end\n    note(L.col_note)\n    note(L.col_pick_note)\n    header(L.ol_hdr)\n    panel.fontOutline = place(UI.Choice(page.child, PW - 16, L.ol_lbl, L.ol_note, L.ol_opts,\n        function() return tonumber(F.db.fontOutline) or 1 end,\n        function(v)\n            F.db.fontOutline = v\n            F:Fire(\"options\", \"fontOutline\")\n        end), 50, 2)",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Panel.lua",
+    "old": "    panel.listTitles = opt_toggle(\"listTitles\", L.d_listtitles, true)",
+    "new": "    panel.listTitles = opt_toggle(\"listTitles\", L.d_listtitles, true)\n    -- 1.1.0: Questie's tooltips and tracker (Modules/Questie.lua)\n    panel.questie = place(UI.Toggle(page.child, PW - 16, L.qz_on, L.qz_on_d,\n        function() return F.db.questie ~= false end,\n        function(v)\n            F.db.questie = v and true or false\n            F:Fire(\"options\", \"questie\")\n            if F.Walk and F.Walk.Refresh then\n                F.Walk.Refresh()\n            end\n        end), 50, 2)",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/Locale_Dlg.lua",
+    "old": "L.fl_combat = \"\u0648\u0633\u0637 \u0646\u0628\u0631\u062f \u0646\u0645\u06cc\u200c\u0634\u0648\u062f\u061b \u0628\u0639\u062f \u0627\u0632 \u0646\u0628\u0631\u062f \u062f\u0648\u0628\u0627\u0631\u0647 \u0628\u0632\u0646.\"\n",
+    "new": "L.fl_combat = \"\u0648\u0633\u0637 \u0646\u0628\u0631\u062f \u0646\u0645\u06cc\u200c\u0634\u0648\u062f\u061b \u0628\u0639\u062f \u0627\u0632 \u0646\u0628\u0631\u062f \u062f\u0648\u0628\u0627\u0631\u0647 \u0628\u0632\u0646.\"\n-- 1.1.0: factions, exact colours, the letter outline, Questie\nL.col_fac = \"\u0641\u06a9\u0634\u0646\u200c\u0647\u0627 \u0648 \u06af\u0631\u0648\u0647\u200c\u0647\u0627\"\nif type(L.col_id) == \"table\" then\n    L.col_id.custom = \"\u062f\u0644\u062e\u0648\u0627\u0647\"\nend\nL.col_pick = \"\u0631\u0646\u06af \u062f\u0644\u062e\u0648\u0627\u0647\"\nL.col_pick_note = \"\u062f\u06a9\u0645\u0647\u0654 \u00ab\u0631\u0646\u06af \u062f\u0644\u062e\u0648\u0627\u0647\u00bb \u06a9\u0646\u0627\u0631 \u0647\u0631 \u0631\u062f\u06cc\u0641 \u067e\u0646\u062c\u0631\u0647\u0654 \u0627\u0646\u062a\u062e\u0627\u0628 \u0631\u0646\u06af \u0628\u0627\u0632\u06cc \u0631\u0627 \u0628\u0627\u0632 \u0645\u06cc\u200c\u06a9\u0646\u062f: \u0647\u0631 \u0631\u0646\u06af\u06cc \u0631\u0627 \u062f\u0642\u06cc\u0642 \u0627\u0646\u062a\u062e\u0627\u0628 \u06a9\u0646\u060c \u062a\u063a\u06cc\u06cc\u0631\u0634 \u0647\u0645\u0627\u0646 \u0644\u062d\u0638\u0647 \u062f\u06cc\u062f\u0647 \u0645\u06cc\u200c\u0634\u0648\u062f \u0648 Cancel \u0631\u0646\u06af \u0642\u0628\u0644\u06cc \u0631\u0627 \u0628\u0631\u0645\u06cc\u200c\u06af\u0631\u062f\u0627\u0646\u062f. \u0631\u0646\u06af \u0627\u0646\u062a\u062e\u0627\u0628\u200c\u0634\u062f\u0647 \u062f\u0631 \u0641\u0647\u0631\u0633\u062a \u0647\u0645\u0627\u0646 \u0631\u062f\u06cc\u0641 \u0628\u0627 \u0646\u0627\u0645 \u00ab\u062f\u0644\u062e\u0648\u0627\u0647\u00bb \u0645\u06cc\u200c\u0645\u0627\u0646\u062f.\"\nL.ol_hdr = \"\u062d\u0627\u0634\u06cc\u0647\u0654 \u062d\u0631\u0648\u0641\"\nL.ol_lbl = \"\u062d\u0627\u0634\u06cc\u0647\u0654 \u062f\u0648\u0631 \u062d\u0631\u0648\u0641 \u0641\u0627\u0631\u0633\u06cc\"\nL.ol_opts = { \"\u0628\u062f\u0648\u0646 \u062d\u0627\u0634\u06cc\u0647\", \"\u062d\u0627\u0634\u06cc\u0647\u0654 \u0646\u0627\u0632\u06a9\", \"\u062d\u0627\u0634\u06cc\u0647\u0654 \u0636\u062e\u06cc\u0645\" }\nL.ol_note = \"\u06cc\u06a9 \u062e\u0637 \u062a\u06cc\u0631\u0647 \u062f\u0648\u0631 \u062d\u0631\u0648\u0641 \u0645\u062a\u0646\u200c\u0647\u0627\u06cc \u0641\u0627\u0631\u0633\u06cc \u0627\u062f\u062f\u0627\u0646 (\u06a9\u0648\u0626\u0633\u062a\u200c\u0647\u0627\u060c \u0631\u0627\u0647\u0646\u0645\u0627\u0647\u0627\u060c \u062a\u0631\u06a9\u0631\u060c \u0644\u06cc\u0633\u062a\u200c\u0647\u0627) \u0645\u06cc\u200c\u06a9\u0634\u062f \u062a\u0627 \u0631\u0648\u06cc \u0647\u0631 \u0632\u0645\u06cc\u0646\u0647\u200c\u0627\u06cc \u062e\u0648\u0627\u0646\u0627 \u0628\u0627\u0634\u062f.\"\nL.qz_on = \"\u0647\u0645\u0627\u0647\u0646\u06af\u06cc \u0628\u0627 Questie\"\nL.qz_on_d = \"\u0639\u0646\u0648\u0627\u0646 \u06a9\u0648\u0626\u0633\u062a\u200c\u0647\u0627\u060c \u0627\u0633\u0645 NPC\u0647\u0627 \u0648 \u0647\u062f\u0641\u200c\u0647\u0627 \u062f\u0631 \u0631\u0627\u0647\u0646\u0645\u0627\u06cc \u0646\u0634\u0627\u0646\u0647\u200c\u0647\u0627\u06cc \u0646\u0642\u0634\u0647\u060c \u0632\u06cc\u0631 \u0631\u0627\u0647\u0646\u0645\u0627\u06cc \u0645\u0648\u062c\u0648\u062f\u0627\u062a \u0648 \u062f\u0631 \u062a\u0631\u06a9\u0631\u0650 Questie \u0647\u0645 \u0641\u0627\u0631\u0633\u06cc \u0645\u06cc\u200c\u0634\u0648\u0646\u062f.\"\nL.qz_avail = \"(\u062f\u0631 \u062f\u0633\u062a\u0631\u0633)\"\nL.qz_complete = \"(\u062a\u06a9\u0645\u06cc\u0644\u200c\u0634\u062f\u0647)\"\nL.qz_shift = \"(Shift \u0631\u0627 \u0646\u06af\u0647 \u062f\u0627\u0631)\"\nL.qz_progress = \"(\u062f\u0631 \u062d\u0627\u0644 \u0627\u0646\u062c\u0627\u0645)\"\nL.qz_repeat = \"(\u062a\u06a9\u0631\u0627\u0631\u0634\u0648\u0646\u062f\u0647)\"\n",
+    "count": 1
+   },
+   {
+    "file": "addon/WoWFA/WoWFA_Forever.toc.in",
+    "old": "Modules\\Dialog.lua",
+    "new": "Modules\\Dialog.lua\nModules\\Questie.lua",
+    "count": 1
+   },
+   {
+    "file": "tools/wfa/core.py",
+    "old": "FREE_MARKERS = (\"tm\", \"qs\")",
+    "new": "FREE_MARKERS = (\"tm\", \"qs\", \"fac\")",
+    "count": 1
+   },
+   {
+    "file": "policy.json",
+    "old": "\"version\": \"1.0.9-beta\"",
+    "new": "\"version\": \"1.1.0-beta\"",
+    "count": 1
+   }
+  ]
+ }
+}

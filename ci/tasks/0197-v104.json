@@ -1,0 +1,1 @@
+{"id":"0197-v104","kind":"edit","why":"version 1.0.4-beta for game build 1.60.1.71091","args":{"ops":[{"file":"policy.json","old":"\"version\": \"1.0.3-beta\"","new":"\"version\": \"1.0.4-beta\"","count":1},{"file":"policy.json","old":"\"game_build\": \"1.60.1.71037\"","new":"\"game_build\": \"1.60.1.71091\"","count":1}]}}

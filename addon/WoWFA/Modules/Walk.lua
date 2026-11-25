@@ -171,9 +171,36 @@ function W.Objective(text)
         end
         return (c or "") .. dash .. shaped(word) .. (c and "|r" or "")
     end
+    -- 1.0.7 (user reports): "10/10 Shadowmaw Panther slain (Complete)", the count line
+    -- "Quests: 9/40" of the list (L.MAP_LINES) and the item objectives "0/4 Miners' Union Card"
+    local done
+    local b2 = string.match(body, "^(.-)%s*%(%s*[Cc]omplete%s*%)$")
+    if b2 and b2 ~= "" then
+        body, done = b2, " (" .. (L.tracker_complete or SUFFIX.complete) .. ")"
+    end
+    if type(L.MAP_LINES) == "table" then
+        for _, row in ipairs(L.MAP_LINES) do
+            local okg, s, n = pcall(string.gsub, body, row[1], row[2])
+            if okg and n and n > 0 and s ~= body then
+                return (c or "") .. dash .. shaped(s .. (done or "")) .. (c and "|r" or "")
+            end
+        end
+    end
     local got, need, name = string.match(body, "^(%d+)/(%d+)%s+(.-)%s+slain$")
     if not got then
         name, got, need = string.match(body, "^(.-)%s+slain:%s*(%d+)/(%d+)$")
+    end
+    if not got then
+        local ig, ineed, iname = string.match(body, "^(%d+)/(%d+)%s+(.+)$")
+        if not ig then
+            iname, ig, ineed = string.match(body, "^(.-):%s*(%d+)/(%d+)$")
+        end
+        local itn = F.D and F.D.names and F.D.names.itn
+        local ifa = iname and itn and itn[T.NameKey(iname)]
+        if ifa and not string.find(iname, "[|{}]") then
+            local iline = T.Digits(T.Prepare(string.format("{{it:%s|%s}}: %d/%d", iname, ifa, tonumber(ig), tonumber(ineed))))
+            return (c or "") .. dash .. T.ShapeLine(iline .. (done or ""), T.Mode()) .. (c and "|r" or "")
+        end
     end
     if not got or not name or name == "" or string.find(name, "[|{}]") then
         -- 1.0.5: an objective line we do not translate ("0/5 Linen Cloth") goes to the list
@@ -190,7 +217,7 @@ function W.Objective(text)
     end
     fa = fa or name
     local line = T.Digits(T.Prepare(string.format("{{npc:%s|%s}} %s: %d/%d", name, fa, L.tracker_slain or "", tonumber(got), tonumber(need))))
-    return (c or "") .. dash .. T.ShapeLine(line, T.Mode()) .. (c and "|r" or "")
+    return (c or "") .. dash .. T.ShapeLine(line .. (done or ""), T.Mode()) .. (c and "|r" or "")
 end
 
 -- ------------------------------------------------------------ the spellbook

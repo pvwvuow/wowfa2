@@ -346,8 +346,14 @@ end
 
 function F:ResetDB()
     local keepAngle = F.db and F.db.minimap and F.db.minimap.angle
+    -- 1.0.7 (the owner: "reset all settings also deleted my saved profiles"): the named
+    -- profiles are the player's own data, not a setting - they survive the reset
+    local keepProfiles = F.db and type(F.db.profiles) == "table" and F.db.profiles or nil
     WoWFA_FDB = {}
     F:InitDB()
+    if keepProfiles then
+        F.db.profiles = keepProfiles
+    end
     F.db.welcomed = true
     F.db.lastBuild = F.clientBuild or 0
     F.db.lastVersion = F.VERSION
@@ -364,6 +370,12 @@ function F:ResetDB()
     end
     F:Fire("options", "questDock")
     F:Fire("options", "questAuto")
+    -- 1.0.7 (the owner: after a reset the game fonts kept their changed sizes): every
+    -- option with a live effect is announced, so each module puts its own state back now
+    for _, k in ipairs({ "fontSize", "szList", "szGame", "fontAll", "chatFa", "alertScale",
+        "zoneMap", "alerts", "sysmsg", "listTitles" }) do
+        F:Fire("options", k)
+    end
     F:Fire("minimap")
     F:Fire("surf")
 end

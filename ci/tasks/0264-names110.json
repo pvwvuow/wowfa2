@@ -1,0 +1,1 @@
+{"id": "0264-names110", "kind": "script", "why": "owner report 25 Nov: Mail (armor skill), Shen'dorei Windwell", "args": {"module": "add_names", "args": {"names": {"spell": {"Mail": "\u0632\u0631\u0647 \u0632\u0646\u062c\u06cc\u0631\u06cc"}, "npc": {"Shen'dorei Windwell": "\u0634\u0646\u200c\u062f\u0648\u0631\u06cc \u0648\u06cc\u0646\u062f\u0648\u0650\u0644"}}}}}

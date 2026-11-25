@@ -1,0 +1,1 @@
+{"id":"0215-inbox","kind":"script","why":"owner: did every report I sent from the site arrive? (the wowheadFA collector last ran 06:11Z)","args":{"module":"inbox_read","args":{"since":"12h"}}}

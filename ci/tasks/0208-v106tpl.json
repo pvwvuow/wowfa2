@@ -1,0 +1,1 @@
+{"id":"0208-v106tpl","kind":"script","onto":"task/0207-v106","why":"user report: the Aspect of the Hawk buff line 'Increases Ranged Attack Power by 70.' had no template","args":{"module":"add_tpl","args":{"rows":{"increases ranged attack power by #":"قدرت حملهٔ دوربرد {0} افزایش مییابد."}}}}

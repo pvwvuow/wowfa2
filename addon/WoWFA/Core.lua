@@ -198,6 +198,8 @@ local DEFAULTS = {
     share = true,
     dlgGossip = true, dlgSay = true, dlgBook = true, -- 1.0.7: NPC talk + books (Modules/Dialog.lua)
     shiftEn = true, -- 1.0.7: hold Shift = the game's English original
+    questie = true, -- 1.1.0: Questie's tooltips + tracker in Persian (Modules/Questie.lua)
+    fontOutline = 1, -- 1.1.0: outline of our Persian letters (1 none, 2 thin, 3 thick)
     errors = {},
     lastBuild = 0,
     lastVersion = "",
@@ -217,7 +219,7 @@ local function fill(dst, src)
     end
 end
 
-local RANGES = { mode = { 1, 3 }, fontSize = { 9, 20 }, itemDetail = { 1, 3 }, itemStyle = { 1, 2 }, questDock = { 1, 3 }, zoneToast = { 1, 4 }, onUpdate = { 1, 3 } }
+local RANGES = { fontOutline = { 1, 3 }, mode = { 1, 3 }, fontSize = { 9, 20 }, itemDetail = { 1, 3 }, itemStyle = { 1, 2 }, questDock = { 1, 3 }, zoneToast = { 1, 4 }, onUpdate = { 1, 3 } }
 
 local function sanitize(db)
     for k, r in pairs(RANGES) do
@@ -379,7 +381,7 @@ function F:ResetDB()
     -- 1.0.7 (the owner: after a reset the game fonts kept their changed sizes): every
     -- option with a live effect is announced, so each module puts its own state back now
     for _, k in ipairs({ "fontSize", "szList", "szGame", "fontAll", "chatFa", "alertScale",
-        "zoneMap", "alerts", "sysmsg", "listTitles" }) do
+        "zoneMap", "alerts", "sysmsg", "listTitles", "fontOutline" }) do
         F:Fire("options", k)
     end
     F:Fire("minimap")

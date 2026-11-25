@@ -700,6 +700,16 @@ local function build()
         end), 32, 2)
     panel.questAuto = opt_toggle("questAuto", L.d_qauto, true)
     panel.listTitles = opt_toggle("listTitles", L.d_listtitles, true)
+    -- 1.1.0: Questie's tooltips and tracker (Modules/Questie.lua)
+    panel.questie = place(UI.Toggle(page.child, PW - 16, L.qz_on, L.qz_on_d,
+        function() return F.db.questie ~= false end,
+        function(v)
+            F.db.questie = v and true or false
+            F:Fire("options", "questie")
+            if F.Walk and F.Walk.Refresh then
+                F.Walk.Refresh()
+            end
+        end), 50, 2)
     end_page()
 
     -- ===================================================== Quest tracker
@@ -793,10 +803,25 @@ local function build()
                 self.val:SetTextColor(C.muted[1], C.muted[2], C.muted[3])
             end
         end
+        -- 1.1.0: any colour, exactly (the game's colour picker)
+        row.pick = UI.Button(row, L.col_pick, 84, 22, function()
+            F.ColPick(fam)
+        end)
+        row.pick:SetPoint("TOPLEFT", row, "TOPLEFT", 4, -4)
+        row.val:ClearAllPoints()
+        row.val:SetPoint("TOPLEFT", row, "TOPLEFT", 96, -6)
         row:Update()
         panel.col[fam] = place(row, 32, 2)
     end
     note(L.col_note)
+    note(L.col_pick_note)
+    header(L.ol_hdr)
+    panel.fontOutline = place(UI.Choice(page.child, PW - 16, L.ol_lbl, L.ol_note, L.ol_opts,
+        function() return tonumber(F.db.fontOutline) or 1 end,
+        function(v)
+            F.db.fontOutline = v
+            F:Fire("options", "fontOutline")
+        end), 50, 2)
     end_page()
 
     -- ===================================================== Share

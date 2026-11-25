@@ -1,0 +1,1 @@
+{"id":"0218-v107","kind":"script","why":"1.0.7: user reports 25 Nov - item objectives stayed English (0/4 Miners' Union Card ...): ship the objective item names","args":{"module":"fill_itn","args":{"extra":["Miners' Union Card","Thistlenettle's Badge","Tablet of Ryun'eh"]}}}

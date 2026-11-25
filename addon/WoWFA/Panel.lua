@@ -217,14 +217,21 @@ local function refresh_health()
         end
         health.errList:SetFixed(table.concat(out, "\n"))
     end
-    -- rc3 update watch: the misses as ONE line (a single-line box never grows
-    -- over the rows below; Ctrl+C copies all of it). Entries: kind :: text ::
-    -- spell/context :: xCount, most seen first
+    -- rc3 update watch + 1.0.5 (the owner: "I can not tell what to copy"): ONE line holds
+    -- everything a report needs - the misses (kind :: text :: context :: xCount, most seen
+    -- first) and the last errors - so a single copy carries it all. The count and the
+    -- kinds are shown above the box in Persian.
     if health.missList then
         F:MissFresh()
-        local list = {}
+        local list, kinds, order = {}, {}, {}
         for _, e in pairs(F.db and type(F.db.miss) == "table" and F.db.miss or {}) do
             list[#list + 1] = e
+            local k = tostring(e.k or "?")
+            if not kinds[k] then
+                kinds[k] = 0
+                order[#order + 1] = k
+            end
+            kinds[k] = kinds[k] + 1
         end
         table.sort(list, function(a, b)
             local x, y2 = tonumber(a.n) or 0, tonumber(b.n) or 0
@@ -233,15 +240,41 @@ local function refresh_health()
             end
             return tostring(a.t) < tostring(b.t)
         end)
-        local out = { string.format("WoWFA %s b%s misses=%d", tostring(F.VERSION), tostring(F.clientBuildText or "?"), #list) }
+        local out = { string.format("WoWFA %s b%s misses=%d errors=%d", tostring(F.VERSION), tostring(F.clientBuildText or "?"), #list, #errs) }
         for i = 1, #list do
             local e = list[i]
             local t = string.gsub(tostring(e.t or ""), "|", "!")
             t = string.gsub(t, "[\r\n]+", " / ")
             out[#out + 1] = string.format("%s :: %s :: %s :: x%d", tostring(e.k), t, tostring(e.c or ""), tonumber(e.n) or 1)
         end
-        health.missList:SetFixed(table.concat(out, " ;; "))
-        health.missHead:SetFa(string.format(L.h_miss_n, #list), PW - 30)
+        for i = 1, math.min(5, #errs) do
+            local e = errs[i]
+            local msg = string.gsub(string.sub(tostring(e.e), 1, 160), "|", "!")
+            msg = string.gsub(msg, "[\r\n]+", " / ")
+            out[#out + 1] = string.format("err :: [%s] %s :: x%d", tostring(e.m), msg, tonumber(e.n) or 1)
+        end
+        local line = table.concat(out, " ;; ")
+        if health.missList.wfaFixed ~= line and health.copyMsg then
+            health.copyMsg:SetFa(" ", PW - 30) -- a new line: the old "selected" answer is stale
+        end
+        health.missList:SetFixed(line)
+        if #list == 0 then
+            health.missHead:SetFa(L.rp2_none, PW - 30)
+            health.missKinds:SetFa(" ", PW - 30)
+        else
+            health.missHead:SetFa(string.format(L.rp2_count, #list), PW - 30)
+            table.sort(order, function(a, b)
+                if kinds[a] ~= kinds[b] then
+                    return kinds[a] > kinds[b]
+                end
+                return a < b
+            end)
+            local parts = {}
+            for _, k in ipairs(order) do
+                parts[#parts + 1] = string.format("%s: %d", (L.MISS_KIND and L.MISS_KIND[k]) or k, kinds[k])
+            end
+            health.missKinds:SetFa(table.concat(parts, L.rp2_sep or ", "), PW - 30)
+        end
     end
 end
 
@@ -862,10 +895,68 @@ local function build()
     end_page()
 
     -- ===================================================== Status
+    -- 1.0.5 (the owner: "the page is confusing, I can not tell what to copy"): the report
+    -- comes FIRST - three numbered steps, the count + kinds in Persian, ONE box that holds
+    -- everything (misses + errors), one button that selects it and a visible answer under
+    -- it. The versions, module states and the error list follow below.
     begin_page("health")
-    header(L.tab_health)
     health = { mods = {} }
     panel.health = health
+    header(L.rp2_hdr)
+    note(L.rp2_steps)
+    local mh = CreateFrame("Frame", nil, page.child)
+    mh:SetSize(PW - 16, 24)
+    health.missHead = UI.Text(mh, 13, C.goldLight)
+    health.missHead:SetPoint("TOPRIGHT", mh, "TOPRIGHT", -4, 0)
+    health.missHead:SetFa(L.rp2_none, PW - 30)
+    place(mh, 24, 2)
+    local mk = CreateFrame("Frame", nil, page.child)
+    mk:SetSize(PW - 16, 22)
+    health.missKinds = UI.Text(mk, 12, C.muted)
+    health.missKinds:SetPoint("TOPRIGHT", mk, "TOPRIGHT", -4, 0)
+    health.missKinds:SetFa(" ", PW - 30)
+    place(mk, 22, 4)
+    local mbx = CreateFrame("Frame", nil, page.child)
+    mbx:SetSize(PW - 16, 22)
+    mbx.text = UI.Text(mbx, 12, C.text)
+    mbx.text:SetPoint("TOPRIGHT", mbx, "TOPRIGHT", -4, 0)
+    mbx.text:SetFa(L.rp2_box, PW - 30)
+    place(mbx, 22, 2)
+    -- the report line: a read-only one-line box (click = select all; it never grows over
+    -- the rows below)
+    local ml = CreateFrame("Frame", nil, page.child)
+    ml:SetSize(PW - 16, 28)
+    health.missList = code_box(ml, false)
+    place(ml, 28, 4)
+    local mbt = CreateFrame("Frame", nil, page.child)
+    mbt:SetSize(PW - 16, 30)
+    -- one click selects the whole line (the game can not write the clipboard itself)
+    panel.missCopy = UI.Button(mbt, L.rp2_btn, 190, 26, function()
+        if health.missList then
+            health.missList:SetFocus()
+            health.missList:HighlightText()
+        end
+        if health.copyMsg then
+            health.copyMsg:SetFa(L.rp2_copied, PW - 30)
+            color(health.copyMsg, C.green)
+        end
+        F.Chat("WoWFA: the report line is selected - press Ctrl+C, then paste it at wowfarsi.ir/report")
+    end)
+    panel.missCopy:SetPoint("RIGHT", mbt, "RIGHT", -4, 0)
+    panel.missClear = UI.Button(mbt, L.btn_miss_clear, 150, 26, function()
+        F:ClearMiss()
+        refresh()
+    end)
+    panel.missClear:SetPoint("RIGHT", panel.missCopy, "LEFT", -8, 0)
+    place(mbt, 30, 2)
+    local cm = CreateFrame("Frame", nil, page.child)
+    cm:SetSize(PW - 16, 24)
+    health.copyMsg = UI.Text(cm, 12, C.green)
+    health.copyMsg:SetPoint("TOPRIGHT", cm, "TOPRIGHT", -4, 0)
+    health.copyMsg:SetFa(" ", PW - 30)
+    place(cm, 24, 6)
+
+    header(L.tab_health)
     health.addon = pair_row(L.h_addon, true)
     health.client = pair_row(L.h_client, true)
     health.data = pair_row(L.h_data, true)
@@ -902,8 +993,7 @@ local function build()
     health.errHead:SetPoint("RIGHT", eh, "RIGHT", -4, 0)
     health.errHead:SetFa(L.h_noerr, PW - 30)
     place(eh, 24, 2)
-    -- the error list is a read-only EditBox: click = select all, Ctrl+C copies
-    -- it for a report (a font string can not be copied)
+    -- the error list is a read-only EditBox (the same errors also ride in the report line)
     local el = CreateFrame("Frame", nil, page.child)
     el:SetSize(PW - 16, 90)
     local eb = CreateFrame("EditBox", nil, el)
@@ -932,64 +1022,6 @@ local function build()
     end
     health.errList = eb
     place(el, 90, 4)
-    -- 1.0.3 (the owner: tell the player what the line below is and where to send it)
-    header(L.rp_hdr)
-    note(L.rp_d)
-    -- rc3 update watch: what the live game showed that the data could not
-    -- translate (Core F:Miss). One read-only line; click = select all.
-    local mh = CreateFrame("Frame", nil, page.child)
-    mh:SetSize(PW - 16, 40)
-    health.missHead = UI.Text(mh, 12, C.muted)
-    health.missHead:SetPoint("TOPRIGHT", mh, "TOPRIGHT", -4, 0)
-    health.missHead:SetFa(string.format(L.h_miss_n, 0), PW - 30)
-    place(mh, 40, 2)
-    local ml = CreateFrame("Frame", nil, page.child)
-    ml:SetSize(PW - 16, 24)
-    local mb = CreateFrame("EditBox", nil, ml)
-    mb:SetMultiLine(false)
-    mb:SetAutoFocus(false)
-    mb:SetMaxLetters(0)
-    mb:SetFont(F.FONT, 10, "")
-    mb:SetTextColor(C.muted[1], C.muted[2], C.muted[3])
-    mb:SetSize(PW - 24, 22)
-    mb:SetPoint("TOPLEFT", ml, "TOPLEFT", 4, 0)
-    mb.wfaFixed = ""
-    mb:SetScript("OnEscapePressed", function(self)
-        self:ClearFocus()
-    end)
-    mb:SetScript("OnEditFocusGained", function(self)
-        self:HighlightText()
-    end)
-    mb:SetScript("OnTextChanged", function(self, user)
-        if user then
-            self:SetText(self.wfaFixed or "")
-            self:HighlightText()
-        end
-    end)
-    mb.SetFixed = function(self, s)
-        self.wfaFixed = s or ""
-        self:SetText(self.wfaFixed)
-        self:SetCursorPosition(0)
-    end
-    health.missList = mb
-    place(ml, 24, 4)
-    local mbt = CreateFrame("Frame", nil, page.child)
-    mbt:SetSize(PW - 16, 30)
-    panel.missClear = UI.Button(mbt, L.btn_miss_clear, 150, 26, function()
-        F:ClearMiss()
-        refresh()
-    end)
-    panel.missClear:SetPoint("RIGHT", mbt, "RIGHT", -4, 0)
-    -- 1.0.3: one click selects the whole line (the game can not write the clipboard itself)
-    panel.missCopy = UI.Button(mbt, L.btn_miss_copy, 170, 26, function()
-        if health.missList then
-            health.missList:SetFocus()
-            health.missList:HighlightText()
-        end
-        F.Chat("WoWFA: Ctrl+C copies it. Send it at wowfarsi.ir/report or in the wowfarsi Discord.")
-    end)
-    panel.missCopy:SetPoint("RIGHT", panel.missClear, "LEFT", -8, 0)
-    place(mbt, 30, 6)
     end_page()
 
     -- ===================================================== About

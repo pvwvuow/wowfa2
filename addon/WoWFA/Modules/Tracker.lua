@@ -142,7 +142,16 @@ local function name_fa(fam, en)
     -- wowfa2: v1.0 ships no npc / item / object name tables (locked kinds), so
     -- the English name rides in the marker: the line still gets the Persian
     -- verb and the live counts, exactly what the v0 lock showed in game
-    return (tbl and tbl[T.NameKey(en)]) or en
+    local v = tbl and tbl[T.NameKey(en)]
+    if v == nil and fam == "npc" and names.boss then
+        v = names.boss[T.NameKey(en)]
+    end
+    -- 1.0.5: an npc / object name of an objective line we have no Persian for (items are
+    -- not shipped in v1.0, so they are never listed)
+    if v == nil and tbl and fam ~= "it" and not string.find(en, "[\216-\219\239]") then
+        F:Miss(fam == "npc" and "npc" or "object", T.NameKey(en), en, "objective")
+    end
+    return v or en
 end
 
 -- monster "%s slain: %d/%d" -> {{npc:EN|fa}} کشته‌شده: %d/%d   (lane-28 §C)
@@ -379,6 +388,8 @@ local function render_objectives(list)
                 end
                 if line then
                     apply(e.fs, line, prefix, 'obj')
+                elseif string.find(body, "%a") and not string.find(body, "[\216-\219\239]") then
+                    F:Miss("obj", string.lower((string.gsub(body, "%d+", "#"))), body, e.qid and ("q" .. tostring(e.qid)) or "tracker") -- 1.0.5
                 end
             end
         end
@@ -433,6 +444,8 @@ local function update_watch()
                     end
                     if fa then
                         apply(fs_of(fs), fa, prefix, 'title')
+                    elseif F.Room.On("namesQuest") then
+                        F:Miss("quest", tostring(qid), body, "tracker") -- 1.0.5
                     end
                 end
             else
@@ -455,6 +468,8 @@ local function update_watch()
                     end
                     if line then
                         apply(fs_of(fs), line, prefix, 'obj')
+                    elseif F.Room.On("questText") and string.find(body, "%a") and not string.find(body, "[\216-\219\239]") then
+                        F:Miss("obj", string.lower((string.gsub(body, "%d+", "#"))), body, qid and ("q" .. tostring(qid)) or "tracker") -- 1.0.5
                     end
                 end
             end
@@ -513,6 +528,8 @@ local function update_questlog()
                 local fa = title_fa(id)
                 if fa then
                     apply(fs_of(b), fa) -- the BUTTON's own font string (#136-6)
+                elseif F.Room.On("namesQuest") then
+                    F:Miss("quest", tostring(id), txt, "log") -- 1.0.5
                 end
             else
                 unapply(fs_of(b))
@@ -540,6 +557,8 @@ local function update_gossip()
                     local fa = title_fa(id)
                     if fa then
                         apply(fs_of(b), fa) -- the BUTTON's own font string (#136-6)
+                    elseif F.Room.On("namesQuest") then
+                        F:Miss("quest", tostring(id), txt, "gossip") -- 1.0.5
                     end
                 else
                     unapply(fs_of(b))

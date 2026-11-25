@@ -104,10 +104,16 @@ local function quest_row(title)
     end
     local row = id and F.D.quests[id]
     if type(row) ~= "string" then
+        -- 1.0.5: a quest of the player's log we have no row for goes to the Status list
+        local lid = W.LogId(title)
+        if lid then
+            F:Miss("quest", tostring(lid), title, "list")
+        end
         return nil
     end
     local p = F.Split(row, SEP)
     if (p[2] or "") == "" then
+        F:Miss("quest", tostring(id), title, "list") -- 1.0.5
         return nil
     end
     return T.Prepare(p[2])
@@ -170,11 +176,19 @@ function W.Objective(text)
         name, got, need = string.match(body, "^(.-)%s+slain:%s*(%d+)/(%d+)$")
     end
     if not got or not name or name == "" or string.find(name, "[|{}]") then
+        -- 1.0.5: an objective line we do not translate ("0/5 Linen Cloth") goes to the list
+        if string.find(body, "%d+/%d+") and string.find(body, "%a") and not has_fa(body) then
+            F:Miss("obj", string.lower((string.gsub(body, "%d+", "#"))), body, "objective")
+        end
         return nil
     end
     local names = (F.D and F.D.names) or {}
     local key = T.NameKey(name)
-    local fa = (names.npc and names.npc[key]) or (names.boss and names.boss[key]) or name
+    local fa = (names.npc and names.npc[key]) or (names.boss and names.boss[key])
+    if fa == nil and not has_fa(name) then
+        F:Miss("npc", key, name, "objective") -- 1.0.5
+    end
+    fa = fa or name
     local line = T.Digits(T.Prepare(string.format("{{npc:%s|%s}} %s: %d/%d", name, fa, L.tracker_slain or "", tonumber(got), tonumber(need))))
     return (c or "") .. dash .. T.ShapeLine(line, T.Mode()) .. (c and "|r" or "")
 end

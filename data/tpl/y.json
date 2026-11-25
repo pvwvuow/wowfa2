@@ -10,6 +10,7 @@
 "you may only have one light's vigil active per party":"در هر {{tm:party|گروه}} فقط می‌توان یک {{sp:light's vigil}} فعال داشت.",
 "you retain up to # rage when you change stances":"هنگام تغییر {{tm:Stances|حالت‌ها}}، حداکثر {0} {{tm:Rage|خشم}} را نگه می‌داری.",
 "you take on the aspects of a beast, becoming untrackable and increasing melee attack power by #. only one aspect can be active at a time":"شکارچی جنبهٔ {{npc:beast}} را می‌پذیرد، از ردیابی خارج می‌شود و {{tm:Melee Attack Power|قدرت حملهٔ نزدیک‌زن}} را {0} افزایش می‌دهد. در هر زمان فقط یک جنبه می‌تواند فعال باشد.",
+"you've come for training in order to pass it on to your pets?":"آمده‌ای آموزش ببینی تا آن را به حیوان‌های دست‌آموزت یاد بدهی؟",
 "your attacks with maces and staves ignore #% of your target's armor":"حملات تو با گرز و عصا {0}% از {{tm:Armor|زره}} هدف تو را نادیده می‌گیرند.",
 "your attacks with maces ignore up to #% of your target's armor":"حمله‌های تو با گرز تا {0}% از {{tm:Armor|زره}} هدف را نادیده می‌گیرند.",
 "your berserker rage ability will instantly generate # rage and has a #% chance to remove all movement impairing effects when activated":"توانایی {{sp:berserker rage}} تو بی‌درنگ {0} خشم تولید می‌کند و هنگام فعال شدن {1}% شانس دارد همهٔ اثر‌های {{tm:Movement Impairing|کندکنندهٔ حرکت}} را بردارد.",

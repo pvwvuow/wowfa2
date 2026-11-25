@@ -107,6 +107,7 @@
 "#-cell material pack":"بستهٔ مواد {0} خانه‌ای",
 "#-cell quiver":"ترکش {0} خانه‌ای",
 "#-compartment ammo bag":"کیف مهمات {0} خانه‌ای",
+"%s attempts to run away in fear!":"%s از ترس پا به فرار می‌گذارد!",
 "(#) set: #% chance to gain enrage light for # sec while taking damage, causing your melee attacks to deal # holy damage. deals # times damage to undead":"({0}) ست: هنگام آسیب‌دیدن، {1}% احتمال دارد اثر خشم نور به مدت {2} ثانیه فعال شود؛ در این مدت {{tm:melee attacks|حمله‌های نزدیک‌زن}} شما {3} {{tm:Holy damage|آسیب مقدس}} وارد می‌کنند. به {{tm:Undead|مرده‌متحرک‌ها}} {4} برابر {{tm:damage|آسیب}} می‌زند.",
 "(#) set: #% chance to make you disappear for # sec after being hit by melee weapons":"({0}) ست: پس از {{tm:hit|اصابت}} سلاح {{tm:melee|نزدیک‌زن}}، {1}% شانس داری به مدت {2} ثانیه ناپدید شوی.",
 "(#) set: #% chance to regenerate # mana after casting judgement":"({0}) ست: پس از اجرای {{sp:Judgement}} {1}% شانس دارد {2} {{tm:mana|مانا}} بازیابی کند.",

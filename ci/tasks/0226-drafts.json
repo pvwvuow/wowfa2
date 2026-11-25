@@ -1,0 +1,1 @@
+{"id":"0226-drafts","kind":"script","why":"replace the 1.0.7 draft (built before the marker fixes) and drop the stale beta.1 draft","args":{"module":"drafts_clean","args":{"tags":["forever-v1.0.7-beta","forever-v1.0.0-beta.1"]}}}

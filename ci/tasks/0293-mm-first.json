@@ -1,0 +1,1 @@
+{"id":"0293-mm-first","kind":"script","why":"owner 25 Nov: NPC names, one English word one Persian word (first word)","args":{"module":"npc_mismatch","args":{"pos":"first","min":5,"share":0.55,"per":10}}}

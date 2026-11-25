@@ -1,0 +1,1 @@
+{"id":"0294-mm-last","kind":"script","why":"owner 25 Nov: NPC names, one English word one Persian word (last word)","args":{"module":"npc_mismatch","args":{"pos":"last","min":8,"share":0.55,"per":10}}}

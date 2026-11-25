@@ -15,6 +15,7 @@ from wfa.core import name_key
 from wfa.store import Store
 
 API = "https://api.github.com/repos/Questie/QuestieDB/contents/data/Forever/%s"
+SKIP = re.compile(r"unused|placeholder|\btest|tester|\bfoo\b|gm can see|spawn point|waypoint|\bdnd\b|zzold|deprecated|copyright|aaa special", re.I)
 LINE = re.compile(r'^\s*\[(\d+)\]\s*=\s*\{\s*"((?:[^"\\]|\\.)*)"(?:\s*,\s*(?:"((?:[^"\\]|\\.)*)"|nil))?', re.M)
 
 
@@ -27,7 +28,7 @@ def get(name, ref):
 
 
 def unesc(s):
-    return s.replace('\\"', '"').replace("\\\\", "\\").replace("\\n", " ")
+    return s.replace("\\'", "'").replace('\\"', '"').replace("\\\\", "\\").replace("\\n", " ")
 
 
 def run(args, rep):
@@ -74,7 +75,7 @@ def run(args, rep):
     boss = store.names.get("boss", {})
     seen, nmiss = set(), []
     for nid, (name, sub) in sorted(ns.items()):
-        if not name or name.startswith("[") or "(" in name:
+        if not name or name.startswith("[") or "(" in name or SKIP.search(name):
             continue
         k = name_key(name)
         if k in npc or k in boss or k in seen:

@@ -30,9 +30,25 @@ ev:SetScript("OnEvent", function(_, event, addon, fn)
     end
     pcall(function()
         local combat = InCombatLockdown and InCombatLockdown() and "combat" or "no combat"
-        F:LogError("blocked", string.sub(tostring(event) .. " " .. key .. " (" .. combat .. ")", 1, 200))
+        -- 1.1.2: the event fires INSIDE the blocked call, so the stack names the game code that
+        -- made it (the first 4 files:lines) - the next report says exactly where it came from
+        local where = ""
+        if debugstack then
+            local okd, stack = pcall(debugstack, 2, 8, 0)
+            if okd and type(stack) == "string" then
+                local parts = {}
+                for file, line in string.gmatch(stack, "([%w_%-%./\\]+%.lua):(%d+)") do
+                    parts[#parts + 1] = (string.match(file, "([^/\\]+)$") or file) .. ":" .. line
+                    if #parts >= 4 then
+                        break
+                    end
+                end
+                where = table.concat(parts, " < ")
+            end
+        end
+        F:LogError("blocked", string.sub(tostring(event) .. " " .. key .. " (" .. combat .. ") " .. where, 1, 400))
         if total <= 4 then
-            F.Chat("WoWFA: the game blocked " .. key .. " (" .. combat .. ") - please send this line")
+            F.Chat("WoWFA: the game blocked " .. key .. " (" .. combat .. ") " .. where .. " - please send this line")
         end
     end)
 end)

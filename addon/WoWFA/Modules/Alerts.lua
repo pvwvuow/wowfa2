@@ -14,6 +14,7 @@ local T = F.T
 
 local map, pats
 local origAdd
+local busy = false -- 1.1.2: our own AddMessage call is running (the hook must not re-enter)
 local origFont -- { font, size, flags } of the error frame before we changed it
 
 local function build()
@@ -98,27 +99,41 @@ local function apply_font()
 end
 
 local function add(self, text, ...)
-    if active() then
-        local ok, fa = pcall(translate, text)
-        if ok and fa then
-            local oks, shaped = pcall(function()
-                return T.ShapeLine(T.Digits(fa), T.Mode())
-            end)
-            if oks and type(shaped) == "string" and shaped ~= "" then
+    -- 1.1.2 (the owner 25 Nov: "the game blocked MultiBarBottomRightButtonContainer1:SetShown()
+    -- (combat)"): this used to REPLACE UIErrorsFrame.AddMessage with our own function. Every red
+    -- line the game's own secure code sent there ("Ability is not ready yet" ...) then ran OUR code
+    -- inside its call, the call became tainted and the game blocked the next protected action
+    -- (the action bars) in combat. The game's AddMessage now runs untouched; this is a post-hook
+    -- (hooksecurefunc, the safe way): it swaps the line the game just drew for the Persian one.
+    if busy or not active() then
+        return
+    end
+    local ok, fa = pcall(translate, text)
+    if ok and fa then
+        local oks, shaped = pcall(function()
+            return T.ShapeLine(T.Digits(fa), T.Mode())
+        end)
+        if oks and type(shaped) == "string" and shaped ~= "" then
+            local a1, a2, a3, a4, a5 = ...
+            busy = true
+            pcall(function()
                 if not origFont then
                     apply_font()
                 end
-                return origAdd(self, shaped, ...)
-            end
-        elseif ok and F.Usable(text) and type(text) == "string" and text ~= ""
-            and not string.find(text, "[\216-\219\239]")
-            -- 1.0.9: "Fang of Bhag'thera: 1/1" is an item's progress - the item name stays
-            -- English by design, so it is not a miss
-            and not string.find(text, ":%s*%d+/%d+$") then
-            pcall(F.Miss, F, "alert", T.NameKey(text), text)
+                if self.Clear then
+                    self:Clear()
+                end
+                origAdd(self, shaped, a1, a2, a3, a4, a5)
+            end)
+            busy = false
         end
+    elseif ok and F.Usable(text) and type(text) == "string" and text ~= ""
+        and not string.find(text, "[\216-\219\239]")
+        -- 1.0.9: "Fang of Bhag'thera: 1/1" is an item's progress - the item name stays
+        -- English by design, so it is not a miss
+        and not string.find(text, ":%s*%d+/%d+$") then
+        pcall(F.Miss, F, "alert", T.NameKey(text), text)
     end
-    return origAdd(self, text, ...)
 end
 
 local function install()
@@ -126,8 +141,8 @@ local function install()
     if origAdd or type(ef) ~= "table" or type(ef.AddMessage) ~= "function" then
         return
     end
-    origAdd = ef.AddMessage
-    ef.AddMessage = add
+    origAdd = ef.AddMessage -- the game's own function, called directly (never through the hook)
+    hooksecurefunc(ef, "AddMessage", add)
 end
 
 F:Listen("login", function()

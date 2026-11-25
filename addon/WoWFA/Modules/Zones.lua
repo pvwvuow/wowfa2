@@ -47,6 +47,18 @@ local function fa(name, quiet)
                 return pv
             end
         end
+        -- 1.0.6 (the owner: "Fishing: 1" under the map title and "(Dungeon)" in the quest
+        -- list stayed English): fixed label lines (L.MAP_LINES); the second value tells the
+        -- caller it is a label, so no English line is added under it
+        local LL = L.MAP_LINES
+        if type(LL) == "table" then
+            for _, row in ipairs(LL) do
+                local okg, s, n = pcall(string.gsub, plain, row[1], row[2])
+                if okg and n and n > 0 and s ~= plain then
+                    return s, true
+                end
+            end
+        end
         local base, lv = string.match(plain, "^(.-)%s*(%(%s*%d+[%s%-%d]*%))$")
         if base and base ~= "" then
             local bv = F.D.names.zone[T.NameKey(base)]
@@ -142,7 +154,7 @@ function M.fix_fonts()
     end
 end
 
-local function apply_inplace(fs, faText, enText, kind)
+local function apply_inplace(fs, faText, enText, kind, noEn)
     if writing[fs] then
         return
     end
@@ -167,7 +179,7 @@ local function apply_inplace(fs, faText, enText, kind)
     end
     -- zoneMap 2: ONE font string, two lines (Persian, then the English), so the
     -- label's own description line keeps anchoring below it (no overlap)
-    if kind == "map" and map_mode() == 2 and type(enText) == "string" and enText ~= "" then
+    if kind == "map" and not noEn and map_mode() == 2 and type(enText) == "string" and enText ~= "" then
         shown = shown .. "\n" .. enText
     end
     fs:SetText(shown)
@@ -268,9 +280,12 @@ local function on_inplace(fs, enText, kind)
     if kind == "map" and InCombatLockdown and InCombatLockdown() then
         return
     end
-    local faText = enText ~= "" and fa(enText, kind == "maplabel") or nil
+    local faText, lbl
+    if enText ~= "" then
+        faText, lbl = fa(enText, kind == "maplabel")
+    end
     if faText then
-        apply_inplace(fs, faText, enText, kind)
+        apply_inplace(fs, faText, enText, kind, lbl)
     else
         font_only_restore(fs)
     end

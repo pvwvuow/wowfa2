@@ -1,8 +1,8 @@
 """List every English NPC line from the open CMaNGOS classic database, for the owner's own dubbing.
 
 Writes ci/work/voice/lines.csv (utf-8 with BOM, opens in Excel): source, id, npc, en, has_fa, fa
-  npc_text (gossip greetings, with the NPCs that use them), creature_ai_texts (say/yell in combat or
-  idle), db_script_string (scripted speech). has_fa = 1 when data/tpl already holds a Persian row.
+  npc_text (gossip greetings, with the NPCs that use them), script_texts / creature_ai_texts (say/yell), dbscript_string and
+  broadcast_text (every NPC line). has_fa = 1 when data/tpl already holds a Persian row.
 args: url (the .sql.gz; default: the newest in Full_DB)
 """
 import csv
@@ -82,15 +82,18 @@ def run(args, rep):
                     seen.add(t)
                     add("gossip", r.get("id"), npc, t)
 
-    # npc speech (say / yell) and scripted lines
-    for table in ("creature_ai_texts", "db_script_string"):
+    # npc speech (say / yell), scripted lines and every broadcast text
+    done = set(r[3] for r in rows)
+    for table in ("script_texts", "dbscript_string", "custom_texts", "creature_ai_texts", "broadcast_text"):
         cols, rs = cov.parse(sql, table)
-        col = next((c for c in cols if c.startswith("content_default")), None)
-        rep.ok("%s: %d rows" % (table, len(rs)))
-        if not col:
-            continue
+        cands = [c for c in cols if c.startswith("content_default") or c in ("male_text", "female_text")]
+        rep.ok("%s: %d rows, text columns %s" % (table, len(rs), cands))
         for r in rs:
-            add("ai_text" if table == "creature_ai_texts" else "script", r.get("entry"), "", r.get(col))
+            for col in cands:
+                t = cov.clean(r.get(col))
+                if t and t not in done:
+                    done.add(t)
+                    add(table, r.get("entry") or r.get("id"), "", t)
 
     rows.sort(key=lambda r: (r[2] == "", r[2].lower(), r[0], r[3]))
     os.makedirs("ci/work/voice", exist_ok=True)

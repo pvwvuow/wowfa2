@@ -1,0 +1,9 @@
+## Interface: 16001
+## Title: WoWFA Sound Browser
+## Notes: Listen to the original NPC greeting, farewell and annoyed sounds (type /wsb).
+## Author: WoWFarsi
+## Version: 0.1.0
+## AllowLoadGameType: forever
+
+Data.lua
+Browser.lua

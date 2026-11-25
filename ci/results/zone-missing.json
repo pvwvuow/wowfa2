@@ -1,0 +1,1105 @@
+{
+"build": "1.60.1.71091",
+"tag": "forever-1.60.1.71091",
+"rows": [
+{
+"id": 30,
+"en": "Nine",
+"key": "nine",
+"parent": "",
+"map": "Eastern Kingdoms"
+},
+{
+"id": 49,
+"en": "Dead Man's Hole",
+"key": "dead man's hole",
+"parent": "Programmer Isle",
+"map": ""
+},
+{
+"id": 65,
+"en": "***On Map Dungeon***",
+"key": "***on map dungeon***",
+"parent": "",
+"map": "Eastern Kingdoms"
+},
+{
+"id": 81,
+"en": "Jeff NE Quadrant Changed",
+"key": "jeff ne quadrant changed",
+"parent": "Programmer Isle",
+"map": ""
+},
+{
+"id": 82,
+"en": "Jeff NW Quadrant",
+"key": "jeff nw quadrant",
+"parent": "Programmer Isle",
+"map": ""
+},
+{
+"id": 83,
+"en": "Jeff SE Quadrant",
+"key": "jeff se quadrant",
+"parent": "Programmer Isle",
+"map": ""
+},
+{
+"id": 84,
+"en": "Jeff SW Quadrant",
+"key": "jeff sw quadrant",
+"parent": "Programmer Isle",
+"map": ""
+},
+{
+"id": 151,
+"en": "Designer Island",
+"key": "designer island",
+"parent": "",
+"map": ""
+},
+{
+"id": 268,
+"en": "Azshara Crater",
+"key": "azshara crater",
+"parent": "",
+"map": "Azshara Crater"
+},
+{
+"id": 495,
+"en": "DELETE ME",
+"key": "delete me",
+"parent": "",
+"map": "Eastern Kingdoms"
+},
+{
+"id": 676,
+"en": "Outland",
+"key": "outland",
+"parent": "",
+"map": ""
+},
+{
+"id": 876,
+"en": "GM Island",
+"key": "gm island",
+"parent": "",
+"map": "Kalimdor"
+},
+{
+"id": 956,
+"en": "The Verdant Fields",
+"key": "verdant fields",
+"parent": "",
+"map": "Emerald Dream"
+},
+{
+"id": 1397,
+"en": "Emerald Forest",
+"key": "emerald forest",
+"parent": "",
+"map": "Emerald Dream"
+},
+{
+"id": 1518,
+"en": "Not Used Deadmines",
+"key": "not used deadmines",
+"parent": "Westfall",
+"map": "Eastern Kingdoms"
+},
+{
+"id": 1582,
+"en": "Ironclad Cove",
+"key": "ironclad cove",
+"parent": "The Deadmines",
+"map": "Deadmines"
+},
+{
+"id": 2366,
+"en": "The Black Morass",
+"key": "black morass",
+"parent": "",
+"map": "Caverns of Time"
+},
+{
+"id": 2367,
+"en": "Old Hillsbrad Foothills",
+"key": "old hillsbrad foothills",
+"parent": "",
+"map": "Caverns of Time"
+},
+{
+"id": 2957,
+"en": "Irondeep Mine",
+"key": "irondeep mine",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 2958,
+"en": "Stonehearth Outpost",
+"key": "stonehearth outpost",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 2959,
+"en": "Dun Baldar",
+"key": "dun baldar",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 2960,
+"en": "Icewing Pass",
+"key": "icewing pass",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 2961,
+"en": "Frostwolf Village",
+"key": "frostwolf village",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 2962,
+"en": "Tower Point",
+"key": "tower point",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 2963,
+"en": "Coldtooth Mine",
+"key": "coldtooth mine",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 2964,
+"en": "Winterax Hold",
+"key": "winterax hold",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 2977,
+"en": "Iceblood Garrison",
+"key": "iceblood garrison",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 2978,
+"en": "Frostwolf Keep",
+"key": "frostwolf keep",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 3017,
+"en": "Frost Dagger Pass",
+"key": "frost dagger pass",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 3057,
+"en": "Field of Strife",
+"key": "field of strife",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 3058,
+"en": "Icewing Cavern",
+"key": "icewing cavern",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 3297,
+"en": "Frostwolf Graveyard",
+"key": "frostwolf graveyard",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 3298,
+"en": "Frostwolf Pass",
+"key": "frostwolf pass",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 3299,
+"en": "Dun Baldar Pass",
+"key": "dun baldar pass",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 3300,
+"en": "Iceblood Graveyard",
+"key": "iceblood graveyard",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 3301,
+"en": "Snowfall Graveyard",
+"key": "snowfall graveyard",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 3302,
+"en": "Stonehearth Graveyard",
+"key": "stonehearth graveyard",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 3303,
+"en": "Stormpike Graveyard",
+"key": "stormpike graveyard",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 3304,
+"en": "Icewing Bunker",
+"key": "icewing bunker",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 3305,
+"en": "Stonehearth Bunker",
+"key": "stonehearth bunker",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 3306,
+"en": "Wildpaw Ridge",
+"key": "wildpaw ridge",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 3318,
+"en": "Rock of Durotan",
+"key": "rock of durotan",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 3320,
+"en": "Warsong Lumber Mill",
+"key": "warsong lumber mill",
+"parent": "Warsong Gulch",
+"map": "Warsong Gulch"
+},
+{
+"id": 3321,
+"en": "Silverwing Hold",
+"key": "silverwing hold",
+"parent": "Warsong Gulch",
+"map": "Warsong Gulch"
+},
+{
+"id": 3337,
+"en": "Wildpaw Cavern",
+"key": "wildpaw cavern",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 3338,
+"en": "The Veiled Cleft",
+"key": "veiled cleft",
+"parent": "Alterac Valley",
+"map": "Alterac Valley"
+},
+{
+"id": 3377,
+"en": "The Coil",
+"key": "coil",
+"parent": "Zul'Gurub",
+"map": "Zul'Gurub"
+},
+{
+"id": 3378,
+"en": "Altar of Hir'eek",
+"key": "altar of hir'eek",
+"parent": "Zul'Gurub",
+"map": "Zul'Gurub"
+},
+{
+"id": 3379,
+"en": "Shadra'zaar",
+"key": "shadra'zaar",
+"parent": "Zul'Gurub",
+"map": "Zul'Gurub"
+},
+{
+"id": 3380,
+"en": "Hakkari Grounds",
+"key": "hakkari grounds",
+"parent": "Zul'Gurub",
+"map": "Zul'Gurub"
+},
+{
+"id": 3381,
+"en": "Naze of Shirvallah",
+"key": "naze of shirvallah",
+"parent": "Zul'Gurub",
+"map": "Zul'Gurub"
+},
+{
+"id": 3382,
+"en": "Temple of Bethekk",
+"key": "temple of bethekk",
+"parent": "Zul'Gurub",
+"map": "Zul'Gurub"
+},
+{
+"id": 3383,
+"en": "The Bloodfire Pit",
+"key": "bloodfire pit",
+"parent": "Zul'Gurub",
+"map": "Zul'Gurub"
+},
+{
+"id": 3384,
+"en": "Altar of the Blood God",
+"key": "altar of the blood god",
+"parent": "Zul'Gurub",
+"map": "Zul'Gurub"
+},
+{
+"id": 3397,
+"en": "Zanza's Rise",
+"key": "zanza's rise",
+"parent": "Zul'Gurub",
+"map": "Zul'Gurub"
+},
+{
+"id": 3398,
+"en": "Edge of Madness",
+"key": "edge of madness",
+"parent": "Zul'Gurub",
+"map": "Zul'Gurub"
+},
+{
+"id": 3417,
+"en": "Trollbane Hall",
+"key": "trollbane hall",
+"parent": "Arathi Basin",
+"map": "Arathi Basin"
+},
+{
+"id": 3418,
+"en": "Defiler's Den",
+"key": "defiler's den",
+"parent": "Arathi Basin",
+"map": "Arathi Basin"
+},
+{
+"id": 3419,
+"en": "Pagle's Pointe",
+"key": "pagle's pointe",
+"parent": "Zul'Gurub",
+"map": "Zul'Gurub"
+},
+{
+"id": 3420,
+"en": "Farm",
+"key": "farm",
+"parent": "Arathi Basin",
+"map": "Arathi Basin"
+},
+{
+"id": 3421,
+"en": "Blacksmith",
+"key": "blacksmith",
+"parent": "Arathi Basin",
+"map": "Arathi Basin"
+},
+{
+"id": 3422,
+"en": "Lumber Mill",
+"key": "lumber mill",
+"parent": "Arathi Basin",
+"map": "Arathi Basin"
+},
+{
+"id": 3423,
+"en": "Gold Mine",
+"key": "gold mine",
+"parent": "Arathi Basin",
+"map": "Arathi Basin"
+},
+{
+"id": 3424,
+"en": "Stables",
+"key": "stables",
+"parent": "Arathi Basin",
+"map": "Arathi Basin"
+},
+{
+"id": 3448,
+"en": "Scarab Terrace",
+"key": "scarab terrace",
+"parent": "Ruins of Ahn'Qiraj",
+"map": "Ruins of Ahn'Qiraj"
+},
+{
+"id": 3449,
+"en": "General's Terrace",
+"key": "general's terrace",
+"parent": "Ruins of Ahn'Qiraj",
+"map": "Ruins of Ahn'Qiraj"
+},
+{
+"id": 3450,
+"en": "The Reservoir",
+"key": "reservoir",
+"parent": "Ruins of Ahn'Qiraj",
+"map": "Ruins of Ahn'Qiraj"
+},
+{
+"id": 3451,
+"en": "The Hatchery",
+"key": "hatchery",
+"parent": "Ruins of Ahn'Qiraj",
+"map": "Ruins of Ahn'Qiraj"
+},
+{
+"id": 3452,
+"en": "The Comb",
+"key": "comb",
+"parent": "Ruins of Ahn'Qiraj",
+"map": "Ruins of Ahn'Qiraj"
+},
+{
+"id": 3453,
+"en": "Watchers' Terrace",
+"key": "watchers' terrace",
+"parent": "Ruins of Ahn'Qiraj",
+"map": "Ruins of Ahn'Qiraj"
+},
+{
+"id": 3459,
+"en": "City",
+"key": "city",
+"parent": "",
+"map": "Eastern Kingdoms"
+},
+{
+"id": 15532,
+"en": "Storm Cliffs",
+"key": "storm cliffs",
+"parent": "",
+"map": "Storm Cliffs"
+},
+{
+"id": 15540,
+"en": "Demon Fall Barrow",
+"key": "demon fall barrow",
+"parent": "Demon Fall Canyon",
+"map": "Demon Fall Canyon"
+},
+{
+"id": 15793,
+"en": "Elsewhen",
+"key": "elsewhen",
+"parent": "",
+"map": "Caverns of Time"
+},
+{
+"id": 15828,
+"en": "The Burning of Andorhal",
+"key": "burning of andorhal",
+"parent": "",
+"map": "Burning of Andorhal"
+},
+{
+"id": 16074,
+"en": "Karazhan Crypts",
+"key": "karazhan crypts",
+"parent": "",
+"map": "Karazhan Crypts"
+},
+{
+"id": 16076,
+"en": "Temple of Ahn'Qiraj",
+"key": "temple of ahn'qiraj",
+"parent": "",
+"map": "Ahn'Qiraj Temple"
+},
+{
+"id": 16236,
+"en": "Scarlet Enclave",
+"key": "scarlet enclave",
+"parent": "",
+"map": "Scarlet Enclave"
+},
+{
+"id": 16369,
+"en": "Prison",
+"key": "prison",
+"parent": "Scarlet Enclave",
+"map": "Scarlet Enclave"
+},
+{
+"id": 16372,
+"en": "The Forbidding Expanse",
+"key": "forbidding expanse",
+"parent": "Scarlet Enclave",
+"map": "Scarlet Enclave"
+},
+{
+"id": 16373,
+"en": "Mine",
+"key": "mine",
+"parent": "Scarlet Enclave",
+"map": "Scarlet Enclave"
+},
+{
+"id": 16374,
+"en": "Arcane Sanctum",
+"key": "arcane sanctum",
+"parent": "Scarlet Enclave",
+"map": "Scarlet Enclave"
+},
+{
+"id": 16537,
+"en": "Northshire Valley - Camelot",
+"key": "northshire valley - camelot",
+"parent": "Elwynn Forest",
+"map": ""
+},
+{
+"id": 16559,
+"en": "Fel Grove",
+"key": "fel grove",
+"parent": "City of Dalaran",
+"map": "City of Dalaran"
+},
+{
+"id": 16607,
+"en": "Ruins",
+"key": "ruins",
+"parent": "Darkspear Islands",
+"map": "Darkspear Islands"
+},
+{
+"id": 16608,
+"en": "Camp",
+"key": "camp",
+"parent": "Darkspear Islands",
+"map": "Darkspear Islands"
+},
+{
+"id": 16609,
+"en": "Shipwreck Cove",
+"key": "shipwreck cove",
+"parent": "Darkspear Islands",
+"map": "Darkspear Islands"
+},
+{
+"id": 16610,
+"en": "Abandoned Tower",
+"key": "abandoned tower",
+"parent": "Darkspear Islands",
+"map": "Darkspear Islands"
+},
+{
+"id": 16612,
+"en": "King's Alley",
+"key": "king's alley",
+"parent": "Ruins of Lordaeron",
+"map": "Ruins of Lordaeron"
+},
+{
+"id": 16614,
+"en": "Lordaeron Graveyard",
+"key": "lordaeron graveyard",
+"parent": "Ruins of Lordaeron",
+"map": "Ruins of Lordaeron"
+},
+{
+"id": 16615,
+"en": "Lordamere Overlook",
+"key": "lordamere overlook",
+"parent": "Ruins of Lordaeron",
+"map": "Ruins of Lordaeron"
+},
+{
+"id": 16617,
+"en": "Market Street",
+"key": "market street",
+"parent": "Ruins of Lordaeron",
+"map": "Ruins of Lordaeron"
+},
+{
+"id": 16619,
+"en": "Excavation Site - Bael Modan",
+"key": "excavation site - bael modan",
+"parent": "",
+"map": "The Shaper's Terrace"
+},
+{
+"id": 16622,
+"en": "Thendal Grove",
+"key": "thendal grove",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 16623,
+"en": "Shen'dar Highlands",
+"key": "shen'dar highlands",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 16624,
+"en": "Shen'dar Village",
+"key": "shen'dar village",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 16625,
+"en": "Windsong Lake",
+"key": "windsong lake",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 16626,
+"en": "Gustberry Lowlands",
+"key": "gustberry lowlands",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 16628,
+"en": "Valanaar Skydocks",
+"key": "valanaar skydocks",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 16629,
+"en": "Shrine of Akir",
+"key": "shrine of akir",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 16630,
+"en": "Rohashi Spires",
+"key": "rohashi spires",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 16631,
+"en": "Shadowgale Forest",
+"key": "shadowgale forest",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 16632,
+"en": "Half-Pint Tavern",
+"key": "half-pint tavern",
+"parent": "",
+"map": ""
+},
+{
+"id": 16635,
+"en": "Thendal Village",
+"key": "thendal village",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 16636,
+"en": "Falaath Village",
+"key": "falaath village",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 16638,
+"en": "Valanaar",
+"key": "valanaar",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 16653,
+"en": "Battle for Gilneas",
+"key": "battle for gilneas",
+"parent": "",
+"map": "Battle for Gilneas"
+},
+{
+"id": 16655,
+"en": "Waterworks",
+"key": "waterworks",
+"parent": "Battle for Gilneas",
+"map": "Battle for Gilneas"
+},
+{
+"id": 16656,
+"en": "Mines",
+"key": "mines",
+"parent": "Battle for Gilneas",
+"map": "Battle for Gilneas"
+},
+{
+"id": 16657,
+"en": "Horde Landing",
+"key": "horde landing",
+"parent": "Battle for Gilneas",
+"map": "Battle for Gilneas"
+},
+{
+"id": 16658,
+"en": "Gilnean Stronghold",
+"key": "gilnean stronghold",
+"parent": "Battle for Gilneas",
+"map": "Battle for Gilneas"
+},
+{
+"id": 16659,
+"en": "The Overlook",
+"key": "overlook",
+"parent": "Battle for Gilneas",
+"map": "Battle for Gilneas"
+},
+{
+"id": 16660,
+"en": "Gilnean Coast",
+"key": "gilnean coast",
+"parent": "Battle for Gilneas",
+"map": "Battle for Gilneas"
+},
+{
+"id": 16661,
+"en": "Beneath the Double Rainbow",
+"key": "beneath the double rainbow",
+"parent": "Battle for Gilneas",
+"map": "Battle for Gilneas"
+},
+{
+"id": 16663,
+"en": "Windfield Orchard",
+"key": "windfield orchard",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 16672,
+"en": "Shriekling Den",
+"key": "shriekling den",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 16673,
+"en": "Thendal Cave",
+"key": "thendal cave",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 16674,
+"en": "Bandit Hideout",
+"key": "bandit hideout",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 16679,
+"en": "Sanctum of Storms",
+"key": "sanctum of storms",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 16720,
+"en": "Nightclaw Cavern",
+"key": "nightclaw cavern",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 16833,
+"en": "Ruins of Ban'aethal",
+"key": "ruins of ban'aethal",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 16877,
+"en": "Lost Marsh",
+"key": "lost marsh",
+"parent": "Excavation Site: Wetlands",
+"map": "Excavation Site: Wetlands"
+},
+{
+"id": 16878,
+"en": "Stalker's Thicket",
+"key": "stalker's thicket",
+"parent": "Excavation Site: Wetlands",
+"map": "Excavation Site: Wetlands"
+},
+{
+"id": 16879,
+"en": "Site of the Guardian",
+"key": "site of the guardian",
+"parent": "Excavation Site: Wetlands",
+"map": "Excavation Site: Wetlands"
+},
+{
+"id": 16880,
+"en": "Lost Dig Site",
+"key": "lost dig site",
+"parent": "Excavation Site: Wetlands",
+"map": "Excavation Site: Wetlands"
+},
+{
+"id": 16928,
+"en": "Shaper's Plateau",
+"key": "shaper's plateau",
+"parent": "The Shaper's Terrace",
+"map": "The Shaper's Terrace"
+},
+{
+"id": 16930,
+"en": "The Verdant Plains",
+"key": "verdant plains",
+"parent": "The Shaper's Terrace",
+"map": "The Shaper's Terrace"
+},
+{
+"id": 16931,
+"en": "Lost Tar Pits",
+"key": "lost tar pits",
+"parent": "The Shaper's Terrace",
+"map": "The Shaper's Terrace"
+},
+{
+"id": 16932,
+"en": "Ruby Spring",
+"key": "ruby spring",
+"parent": "The Shaper's Terrace",
+"map": "The Shaper's Terrace"
+},
+{
+"id": 16933,
+"en": "Walk of Communion",
+"key": "walk of communion",
+"parent": "The Shaper's Terrace",
+"map": "The Shaper's Terrace"
+},
+{
+"id": 16934,
+"en": "The Highlands Causeway",
+"key": "highlands causeway",
+"parent": "The Shaper's Terrace",
+"map": "The Shaper's Terrace"
+},
+{
+"id": 16935,
+"en": "Watcher's Overlook",
+"key": "watcher's overlook",
+"parent": "The Shaper's Terrace",
+"map": "The Shaper's Terrace"
+},
+{
+"id": 16937,
+"en": "Botanical Grounds",
+"key": "botanical grounds",
+"parent": "The Shaper's Terrace",
+"map": "The Shaper's Terrace"
+},
+{
+"id": 16941,
+"en": "Crafting",
+"key": "crafting",
+"parent": "",
+"map": "Eastern Kingdoms"
+},
+{
+"id": 16988,
+"en": "Rise of Spirits",
+"key": "rise of spirits",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 17036,
+"en": "Crystalline Highlands",
+"key": "crystalline highlands",
+"parent": "The Shaper's Terrace",
+"map": "The Shaper's Terrace"
+},
+{
+"id": 17038,
+"en": "Flooded Shrine",
+"key": "flooded shrine",
+"parent": "The Drowned City",
+"map": "The Drowned City"
+},
+{
+"id": 17039,
+"en": "Deep Archives",
+"key": "deep archives",
+"parent": "The Drowned City",
+"map": "The Drowned City"
+},
+{
+"id": 17040,
+"en": "Altar of the Serpent",
+"key": "altar of the serpent",
+"parent": "The Drowned City",
+"map": "The Drowned City"
+},
+{
+"id": 17041,
+"en": "Eternal Amphitheater",
+"key": "eternal amphitheater",
+"parent": "The Drowned City",
+"map": "The Drowned City"
+},
+{
+"id": 17042,
+"en": "Abyssal Dais",
+"key": "abyssal dais",
+"parent": "The Drowned City",
+"map": "The Drowned City"
+},
+{
+"id": 17043,
+"en": "The Unsinkable",
+"key": "unsinkable",
+"parent": "The Drowned City",
+"map": "The Drowned City"
+},
+{
+"id": 17046,
+"en": "Ataal'Byzal",
+"key": "ataal'byzal",
+"parent": "The Drowned City",
+"map": "The Drowned City"
+},
+{
+"id": 17221,
+"en": "Skywall",
+"key": "skywall",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 17309,
+"en": "Defiled Peak",
+"key": "defiled peak",
+"parent": "Blackmaw Hold",
+"map": "Blackmaw Hold"
+},
+{
+"id": 17310,
+"en": "Festering Grotto",
+"key": "festering grotto",
+"parent": "Blackmaw Hold",
+"map": "Blackmaw Hold"
+},
+{
+"id": 17311,
+"en": "Blackmaw Grove",
+"key": "blackmaw grove",
+"parent": "Blackmaw Hold",
+"map": "Blackmaw Hold"
+},
+{
+"id": 17312,
+"en": "Blackmaw Stillwater",
+"key": "blackmaw stillwater",
+"parent": "Blackmaw Hold",
+"map": "Blackmaw Hold"
+},
+{
+"id": 17313,
+"en": "Bonesnout's Thicket",
+"key": "bonesnout's thicket",
+"parent": "Blackmaw Hold",
+"map": "Blackmaw Hold"
+},
+{
+"id": 17674,
+"en": "West Pylon Watchtower",
+"key": "west pylon watchtower",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 17675,
+"en": "East Pylon Watchtower",
+"key": "east pylon watchtower",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 17676,
+"en": "Windsong Standing Stones",
+"key": "windsong standing stones",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 17677,
+"en": "Overlook Standing Stones",
+"key": "overlook standing stones",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 17678,
+"en": "Thendal Standing Stones",
+"key": "thendal standing stones",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 17684,
+"en": "Fairweather Stables",
+"key": "fairweather stables",
+"parent": "Zephras Isle",
+"map": "Zephras Isle"
+},
+{
+"id": 17845,
+"en": "Dreambound Pinnacle",
+"key": "dreambound pinnacle",
+"parent": "",
+"map": ""
+},
+{
+"id": 17852,
+"en": "Hyjal Crater",
+"key": "hyjal crater",
+"parent": "",
+"map": "Hyjal Crater"
+}
+]
+}

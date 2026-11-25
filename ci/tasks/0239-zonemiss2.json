@@ -1,0 +1,1 @@
+{"id":"0239-zonemiss2","kind":"script","why":"owner 25 Nov: also the indoor names (WMOAreaTable: Darkshire Town Hall, Scarlet Raven Tavern) and map POIs","args":{"module":"zone_missing","args":{"build":"1.60.1.71091"}}}

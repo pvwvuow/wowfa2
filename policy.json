@@ -16,7 +16,8 @@
    "tree",
    "zone",
    "npc",
-   "boss"
+   "boss",
+   "itn"
   ]
  },
  "floors": {
@@ -31,7 +32,8 @@
   "names.zone": 1178,
   "quests": 5189,
   "quests_with_title": 5189,
-  "tpl": 1732
+  "tpl": 1732,
+  "names.itn": 2570
  },
  "ratchet": {
   "latin_in_fa": 492,

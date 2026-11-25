@@ -1,0 +1,1 @@
+{"id":"0298-tplfind","kind":"script","why":"owner 25 Nov: key shape of say/dlg templates","args":{"module":"tpl_find","args":{"grep":["!","? ","weary","orders your pet"],"limit":6}}}

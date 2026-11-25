@@ -1,0 +1,1 @@
+{"id":"0292-npcorder-auto","kind":"script","why":"owner 25 Nov: adjective at the end of NPC names, all words","args":{"module":"npc_order","args":{"mode":"auto","min":3,"share":0.55,"per":60}}}

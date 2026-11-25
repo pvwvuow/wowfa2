@@ -1,0 +1,1 @@
+{"id":"0285-k14mirror","kind":"script","why":"owner 25 Nov: put the 14k page live (the publish workflow of wow did not run)","args":{"module":"site_mirror","args":{"src":"pvwvuow/wow","dst":"pvwvuow/wowfarsiir","paths":["14k.html","assets/css/14k.css","assets/js/14k.js","assets/js/nav-menu.js","data/14k.json"],"message":"site: 14k page + live item in the top menu (wow#594)"}}}

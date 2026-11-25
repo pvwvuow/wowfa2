@@ -87,6 +87,9 @@ local function scan(tt)
     if busy or not on() then
         return false
     end
+    if InCombatLockdown and InCombatLockdown() then
+        return false -- 1.1.1: no tooltip rewrite (and no second Show) in combat
+    end
     local name = tt.GetName and tt:GetName()
     if type(name) ~= "string" then
         return false

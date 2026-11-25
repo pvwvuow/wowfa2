@@ -43,6 +43,7 @@ Modules\Questie.lua
 Modules\Taxi.lua
 Modules\Sysmsg.lua
 Modules\Tools.lua
+Modules\Blocked.lua
 Panel.lua
 Dump.lua
 Modules\Harvest.lua

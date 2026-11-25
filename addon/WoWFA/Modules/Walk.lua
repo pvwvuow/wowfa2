@@ -277,6 +277,7 @@ local last = setmetatable({}, { __mode = "k" })   -- fs -> the text we wrote
 local cand = setmetatable({}, { __mode = "k" })   -- rc18: fs -> true once we wrote it (the watch list)
 local seenT = setmetatable({}, { __mode = "k" })  -- rc18: fs -> the text the watch read last
 local writing = {}
+local pendC = setmetatable({}, { __mode = "k" }) -- 1.1.1: lines the game / Questie wrote in combat, done after it
 local memo = {}
 local memo_n = 0 -- rc36: the memo is emptied past 4000 lines (live counts make new keys)
 
@@ -348,6 +349,12 @@ end
 
 local function process(fs, text)
     if writing[fs] or not F.Usable(text) or type(text) ~= "string" or text == "" then
+        return
+    end
+    -- 1.1.1: never write to the game's / Questie's lines in combat (their rows hold protected
+    -- buttons); the line is remembered and done when the combat ends
+    if InCombatLockdown and InCombatLockdown() then
+        pendC[fs] = true
         return
     end
     if last[fs] == text then
@@ -567,6 +574,22 @@ local function soon()
 end
 W.Soon = soon
 
+-- 1.1.1: the lines the game / Questie rewrote in combat get their Persian when it ends
+F:On("PLAYER_REGEN_ENABLED", nil, function()
+    local list = {}
+    for fs in pairs(pendC) do
+        list[#list + 1] = fs
+    end
+    for _, fs in ipairs(list) do
+        pendC[fs] = nil
+        local ok, txt = pcall(fs.GetText, fs)
+        if ok and F.Usable(txt) and type(txt) == "string" then
+            pcall(process, fs, txt)
+        end
+    end
+    soon()
+end)
+
 F:On("QUEST_LOG_UPDATE", nil, function()
     W.RebuildLog()
     memo = {}
@@ -628,6 +651,9 @@ end)
 do
     local fixer = CreateFrame("Frame")
     fixer:SetScript("OnUpdate", function()
+        if InCombatLockdown and InCombatLockdown() then
+            return -- 1.1.1: nothing is touched in combat
+        end
         if next(cand) ~= nil then
             local ok, err = pcall(W.Watch)
             if not ok then

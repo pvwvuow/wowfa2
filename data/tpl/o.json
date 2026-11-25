@@ -3,5 +3,6 @@
 "only one judgement per paladin can be active at any one time":"از هر {{cls:Paladin}} هم‌زمان فقط یک اثر {{sp:Judgement}} می‌تواند فعال باشد.",
 "only one seal can be active on the paladin at any one time":"{{cls:Paladin}} هم‌زمان فقط می‌تواند یک مهر فعال داشته باشد.",
 "only usable on enemies that have #% or less health":"فقط می‌توان آن را علیه دشمنانی به‌کار برد که {0}% یا کمتر {{tm:health|سلامتی}} دارند.",
-"only works against humanoids":"فقط روی {{tm:Humanoids|انسان‌نماها}} اثر دارد."
+"only works against humanoids":"فقط روی {{tm:Humanoids|انسان‌نماها}} اثر دارد.",
+"orders your pet to attack your current target":"به حیوان همراهتان فرمان می‌دهد به هدف فعلی‌تان حمله کند."
 }

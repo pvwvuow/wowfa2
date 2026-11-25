@@ -1,6 +1,7 @@
 {
 "fade out, discouraging enemies from attacking you for # sec":"محو می‌شود و به مدت {0} ثانیه دشمنان را از حمله به تو منصرف می‌کند.",
 "fade out, discouraging enemies from attacking you for # sec. more effective than fade (rank #)":"برای {0} ثانیه محو می‌شوی و دشمنان را از حمله به تو منصرف می‌کنی. اثرش از {{sp:Fade}} (رنک {1}) قوی‌تر است.",
+"fastest gryphons this side of aerie peak. want to take a ride?":"تندترین گریفون‌های این سوی قلهٔ آری! می‌خواهید سواری کنید؟",
 "feed your pet the selected item. feeding your pet increases happiness. using food close to the pet's level will have a better result":"غذای انتخاب‌شده را به {{tm:pet|حیوان خانگی‌ات}} می‌دهد. غذا دادن شادی او را افزایش می‌دهد. استفاده از غذایی نزدیک به لِوِل {{tm:pet|حیوان خانگی}} نتیجهٔ بهتری دارد.",
 "feign death which may trick enemies into ignoring you. lasts # min. if not cancelled, after # min you will actually die":"خودت را به مردن می‌زنی و شاید دشمنان را فریب دهی تا نادیده‌ات بگیرند. {0} دقیقه دوام دارد. اگر لغوش نکنی، پس از {1} دقیقه واقعاً می‌میری.",
 "felhunter: restores #% of your total health every # sec":"{{npc:Felhunter}}: هر {1} ثانیه {0}% از کل {{tm:Health|سلامتی}} شما را بازیابی می‌کند.",

@@ -66,7 +66,7 @@ local function put(fs, fa, en, two)
         orig[fs] = { font = font, size = size, flags = flags }
     end
     local o = orig[fs]
-    fs:SetFont(F.FONT, o.size or 12, o.flags or "")
+    fs:SetFont(F.FONT, o.size or 12, F.Flags("npc", o.flags or "")) -- 1.1.0: the NPC outline switch
     local s = shaped(fa)
     if two and type(en) == "string" then
         s = s .. "\n" .. en
@@ -155,7 +155,7 @@ local function tip(tt)
     if mode() == 2 then
         shown = fa .. "\n" .. name
     end
-    pcall(T.TipSet, tt, fs, shown, nil, "Left")
+    pcall(T.TipSet, tt, fs, shown, nil, "Left", "npc")
     T.Done(tt)
     tt:Show()
 end
@@ -239,6 +239,11 @@ function M.install()
     if type(TargetFrame) == "table" and type(TargetFrame.Update) == "function" then
         hooksecurefunc(TargetFrame, "Update", F:Wrap("npc", target))
     end
+    F:Listen("options", function(key)
+        if key == "fontOutline" then
+            pcall(redo)
+        end
+    end)
     for _, sig in ipairs({ "names", "room", "npcname" }) do
         F:Listen(sig, F:Wrap("npc", redo))
     end

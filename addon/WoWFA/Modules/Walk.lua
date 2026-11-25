@@ -17,6 +17,8 @@ local W = {}
 F.Walk = W
 
 local SEP = "\031"
+-- 1.1.0: the outline family of a line by its role (titles = quest names, spell = spell names)
+local OLFAM = { title = "qs", spell = "sp" }
 
 local SUFFIX = { complete = "تکمیل‌شده", dungeon = "دانجن", raid = "رید", elite = "ایلیت",
     group = "گروهی", daily = "روزانه", pvp = "پی‌وی‌پی" }
@@ -324,7 +326,7 @@ local function put(fs, out, english)
     eng[fs] = english
     writing[fs] = true
     local sz = F.SizeOf(mine[fs].role)
-    fs:SetFont(F.FONT, sz, F.Flags())
+    fs:SetFont(F.FONT, sz, F.Flags(OLFAM[mine[fs].role]))
     fs:SetText(out)
     F.FitLine(fs, sz)
     writing[fs] = nil
@@ -601,7 +603,7 @@ F:Listen("state", function()
     memo = {}
 end)
 F:Listen("options", function(key)
-    if key == "listTitles" then
+    if key == "listTitles" or key == "fontOutline" then
         refresh_all()
     elseif key == 'fontSize' or key == 'szList' then
         F.RelayoutQuests()
@@ -610,7 +612,7 @@ F:Listen("options", function(key)
             local okt, txt = pcall(fs.GetText, fs)
             if okt and F.Usable(txt) and has_fa(txt) then
                 local sz = F.SizeOf(o.role)
-                pcall(fs.SetFont, fs, F.FONT, sz, F.Flags())
+                pcall(fs.SetFont, fs, F.FONT, sz, F.Flags(OLFAM[o.role]))
                 F.FitLine(fs, sz)
             else
                 F.RestoreFont(fs, o) -- rc32: English keeps the game font
@@ -639,7 +641,7 @@ do
                 writing[fs] = true
                 if okt and F.Usable(txt) and has_fa(txt) then
                     local sz = F.SizeOf(o.role)
-                    pcall(fs.SetFont, fs, F.FONT, sz, F.Flags())
+                    pcall(fs.SetFont, fs, F.FONT, sz, F.Flags(OLFAM[o.role]))
                     F.FitLine(fs, sz)
                 else
                     mine[fs], last[fs] = nil, nil -- rc32: English text again: the game font stays

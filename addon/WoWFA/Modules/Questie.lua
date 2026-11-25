@@ -73,12 +73,12 @@ local function title_line(p)
     return lvl .. " " .. shaped(fa)
 end
 
-local function put(tt, fs, text, side)
+local function put(tt, fs, text, side, fam)
     if not fs then
         return
     end
     -- the original font / text / justify are recorded once by the shared in-place path
-    T.TipSet(tt, fs, " ", nil, side)
+    T.TipSet(tt, fs, " ", nil, side, fam)
     fs:SetText(text)
 end
 
@@ -117,15 +117,15 @@ local function scan(tt)
         local lt = e.lt
         if lt and lt ~= "" and not has_fa(lt) then
             local p, c = plain(lt)
-            local out
+            local out, fam
             local tl = title_line(p)
             if tl then
-                out, inQuest = tl, true
+                out, inQuest, fam = tl, true, "qs"
             elseif i >= 2 and F.Walk and F.Walk.LogId and F.Walk.LogId(trim(p)) then
                 inQuest = true
                 local fa = F.Walk.TitleFa and F.Walk.TitleFa(trim(p))
                 if fa then
-                    out = (string.match(p, "^(%s*)") or "") .. shaped(fa)
+                    out, fam = (string.match(p, "^(%s*)") or "") .. shaped(fa), "qs"
                 end
             elseif inQuest and string.find(p, "%d+/%d+") and F.Walk and F.Walk.Objective then
                 local ind, body = string.match(p, "^(%s*)(.-)$")
@@ -137,11 +137,11 @@ local function scan(tt)
                 local k = T.NameKey(trim(p))
                 local fa = (names.npc and names.npc[k]) or (names.boss and names.boss[k])
                 if fa then
-                    out = shaped(fa)
+                    out, fam = shaped(fa), "npc"
                 end
             end
             if out then
-                put(tt, e.l, (c or "") .. out .. (c and "|r" or ""), "Left")
+                put(tt, e.l, (c or "") .. out .. (c and "|r" or ""), "Left", fam)
                 changed = true
             end
         end

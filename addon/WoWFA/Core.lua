@@ -546,6 +546,12 @@ end
 -- a copy box; the next data update translates exactly what the live game
 -- shows. The addon never sends it anywhere.
 F.MISS_CAP = 400
+-- 1.0.9 (the owner: "if the status list grows, does the addon get heavy?"): the list is
+-- capped (400 rows, 300 letters each = well under 150 KB) and a known row only counts up.
+-- NPC talk and books are many and long, so they get their own share (F.MISS_TALK) and never
+-- push the names, alerts and quests out; their full texts are in WoWFA_Harvest anyway.
+F.MISS_TALK = 150
+local TALK = { dlg = true, say = true, book = true }
 function F:Miss(kind, key, sample, ctx)
     local db = F.db
     if not db or type(key) ~= "string" or key == "" then
@@ -564,9 +570,16 @@ function F:Miss(kind, key, sample, ctx)
     if (tonumber(db.missN) or 0) >= F.MISS_CAP then
         return
     end
+    local talk = TALK[tostring(kind)]
+    if talk and (tonumber(db.missTN) or 0) >= F.MISS_TALK then
+        return
+    end
     db.miss[id] = { k = tostring(kind), t = string.sub(tostring(sample or key), 1, 300),
         c = ctx and string.sub(tostring(ctx), 1, 80) or nil, n = 1, b = F.clientBuild or 0 }
     db.missN = (tonumber(db.missN) or 0) + 1
+    if talk then
+        db.missTN = (tonumber(db.missTN) or 0) + 1
+    end
     F:Fire("miss")
 end
 
@@ -575,13 +588,13 @@ end
 function F:MissFresh()
     local db = F.db
     if db and db.missV ~= F.VERSION then
-        db.miss, db.missN, db.missV = {}, 0, F.VERSION
+        db.miss, db.missN, db.missV, db.missTN = {}, 0, F.VERSION, 0
     end
 end
 
 function F:ClearMiss()
     if F.db then
-        F.db.miss, F.db.missN = {}, 0
+        F.db.miss, F.db.missN, F.db.missTN = {}, 0, 0
         F:Fire("miss")
     end
 end

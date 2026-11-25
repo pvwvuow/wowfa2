@@ -201,6 +201,20 @@ function W.Objective(text)
             local iline = T.Digits(T.Prepare(string.format("{{it:%s|%s}}: %d/%d", iname, ifa, tonumber(ig), tonumber(ineed))))
             return (c or "") .. dash .. T.ShapeLine(iline .. (done or ""), T.Mode()) .. (c and "|r" or "")
         end
+        if iname and iname ~= "" and not ifa then
+            -- 1.0.9 (the owner 25 Nov: "0/1 Fang of Bhag'thera", "0/4 Miners' Union Card" were in
+            -- the status list; items named after an NPC must never mix with the NPC): a count line
+            -- without "slain" is an item / object objective. An object we have Persian for is
+            -- drawn; an item stays English by design until the item bank ships, so it is NOT a
+            -- miss, and the name is never looked up in the NPC table (only "slain" lines are).
+            local ob = F.D and F.D.names and F.D.names.obj
+            local ofa = ob and ob[T.NameKey(iname)]
+            if ofa and not string.find(iname, "[|{}]") then
+                local oline = T.Digits(T.Prepare(string.format("{{ob:%s|%s}}: %d/%d", iname, ofa, tonumber(ig), tonumber(ineed))))
+                return (c or "") .. dash .. T.ShapeLine(oline .. (done or ""), T.Mode()) .. (c and "|r" or "")
+            end
+            return nil
+        end
     end
     if not got or not name or name == "" or string.find(name, "[|{}]") then
         -- 1.0.5: an objective line we do not translate ("0/5 Linen Cloth") goes to the list

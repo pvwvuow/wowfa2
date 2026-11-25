@@ -111,7 +111,10 @@ local function add(self, text, ...)
                 return origAdd(self, shaped, ...)
             end
         elseif ok and F.Usable(text) and type(text) == "string" and text ~= ""
-            and not string.find(text, "[\216-\219\239]") then
+            and not string.find(text, "[\216-\219\239]")
+            -- 1.0.9: "Fang of Bhag'thera: 1/1" is an item's progress - the item name stays
+            -- English by design, so it is not a miss
+            and not string.find(text, ":%s*%d+/%d+$") then
             pcall(F.Miss, F, "alert", T.NameKey(text), text)
         end
     end

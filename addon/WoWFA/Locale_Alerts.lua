@@ -109,4 +109,8 @@ L.ALERTS = {
     { "You must be in a group to do that.", "برای این کار باید در گروه باشید." },
     { "That item is not ready yet.", "آن آیتم هنوز آماده نیست." },
     { "Can't do that while moving", "هنگام حرکت نمی" .. Z .. "توانید این کار را انجام دهید." },
+    -- 1.0.9 (the owner's report 25 Nov)
+    { "Objective Complete.", "هدف انجام شد." },
+    { "Resisted", "مقاومت کرد" },
+    { "%s slain: %d/%d", "%s کشته" .. Z .. "شده: %d/%d" },
 }

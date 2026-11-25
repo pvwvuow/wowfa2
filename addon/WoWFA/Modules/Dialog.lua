@@ -19,7 +19,7 @@ local F = WoWFAF
 local T = F.T
 local D = {}
 F.Dialog = D
-D.MAXH = 3000 -- harvested texts kept at most (a full file stays small)
+D.MAXH = 2000 -- harvested texts kept at most (1.0.9: 2000 x 2000 letters, a full file stays small)
 
 local function str(v)
     if type(v) == "string" and v ~= "" and F.Usable(v) then
@@ -131,7 +131,7 @@ local function harvest(kind, key, text, ctx)
         return
     end
     local okz, z = pcall(GetRealZoneText)
-    h.x[id] = { k = kind, key = key, t = string.sub(text, 1, 4000), c = ctx and string.sub(tostring(ctx), 1, 120) or nil,
+    h.x[id] = { k = kind, key = key, t = string.sub(text, 1, 2000), c = ctx and string.sub(tostring(ctx), 1, 120) or nil,
         z = okz and str(z) or nil, n = 1 }
     h.nx = h.nx + 1
     h.v = F.VERSION

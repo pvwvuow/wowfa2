@@ -57,6 +57,7 @@
 "increases movement speed by #% for # sec":"{{tm:movement speed|سرعت حرکت}} را به مدت {1} ثانیه {0}% افزایش می‌دهد.",
 "increases movement speed by #% for # sec. does not break prowling":"{{tm:movement speed|سرعت حرکت}} را به مدت {1} ثانیه {0}% افزایش می‌دهد. حالت پنهان‌روی را از بین نمی‌برد.",
 "increases ranged and melee attack speed by #% for # sec":"برای {1} ثانیه، {{tm:attack speed|سرعت حملهٔ}} نزدیک و دوربرد را {0}% بیشتر می‌کند.",
+"increases ranged attack power by #":"قدرت حملهٔ دوربرد {0} افزایش مییابد.",
 "increases shadow word: death's critical strike chance on targets at or below #% health by #%":"احتمال {{tm:critical strike|ضربهٔ بحرانی}} کلام {{npc:Shadow}}: مرگ را علیه هدف‌هایی که سلامتی‌شان {0}% یا کمتر است، {1}% افزایش می‌دهد.",
 "increases stealth detection and shows hidden units within detection range on the minimap. only one form of tracking can be active at a time":"تشخیص {{tm:stealth|مخفی‌کاری}} را افزایش می‌دهد و واحدهای پنهان را در محدودهٔ تشخیص روی نقشهٔ کوچک نشان می‌دهد. در هر زمان فقط یک نوع ردیابی می‌تواند فعال باشد.",
 "increases the amount healed by your healing wave spell by #%":"میزان شفای {{sp:heal}} با {{tm:spell|اسپل}} {{sp:healing wave}} را {0}% {{tm:increases|افزایش می‌دهد}}.",

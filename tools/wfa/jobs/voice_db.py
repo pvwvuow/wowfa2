@@ -162,9 +162,11 @@ def run(args, rep):
                     text_of.setdefault(f, (en, en1))
     sql = ""
     try:
-        lst = json.loads(cov._get(cov.API))
-        gz = [x for x in lst if x.get("name", "").endswith(".sql.gz")]
-        url = sorted(gz, key=lambda x: x["name"])[-1]["download_url"]
+        url = str(args.get("cmangos") or "")
+        if not url:
+            lst = json.loads(cov._get(cov.API))
+            gz = [x for x in lst if x.get("name", "").endswith(".sql.gz")]
+            url = sorted(gz, key=lambda x: x["name"])[-1]["download_url"]
         sql = gzip.GzipFile(fileobj=io.BytesIO(cov._get(url))).read().decode("utf-8", "replace")
     except Exception as e:  # noqa: BLE001
         rep.fail("cannot read the CMaNGOS dump: %s" % e)

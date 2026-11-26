@@ -131,10 +131,10 @@ local function register_settings()
     title:SetText("WoWFA " .. F.VERSION)
     local b = UI.Button(f, L.open_panel, 200, 28, function()
         if SettingsPanel and SettingsPanel.IsShown and SettingsPanel:IsShown() and HideUIPanel then
-            pcall(HideUIPanel, SettingsPanel)
+            pcall(SettingsPanel.Hide, SettingsPanel) -- 1.1.6: no HideUIPanel (taint)
         end
         if InterfaceOptionsFrame and InterfaceOptionsFrame.IsShown and InterfaceOptionsFrame:IsShown() and HideUIPanel then
-            pcall(HideUIPanel, InterfaceOptionsFrame)
+            pcall(InterfaceOptionsFrame.Hide, InterfaceOptionsFrame) -- 1.1.6: no HideUIPanel (taint)
         end
         F.OpenPanel("home")
     end)

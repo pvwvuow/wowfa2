@@ -194,6 +194,13 @@ local function target()
         if fa then
             put(fs, fa, en, false)
         else
+            -- 1.1.6: switched off = the English name back right away (not on the next target)
+            if orig[fs] and UnitExists and UnitExists("target") then
+                local okn, n = pcall(UnitName, "target")
+                if okn and F.Usable(n) and type(n) == "string" then
+                    pcall(fs.SetText, fs, n)
+                end
+            end
             unput(fs)
         end
     end
@@ -206,8 +213,18 @@ local function redo()
         local okp, plates = pcall(C_NamePlate.GetNamePlates)
         if okp and type(plates) == "table" then
             for _, np in ipairs(plates) do
-                if type(np) == "table" and np.UnitFrame then
-                    pcall(CompactUnitFrame_UpdateName, np.UnitFrame)
+                if type(np) == "table" and type(np.UnitFrame) == "table" then
+                    -- 1.1.6: never call CompactUnitFrame_UpdateName from addon code (taint);
+                    -- put the English back ourselves, then our own plate pass
+                    local uf = np.UnitFrame
+                    local fs = uf.name
+                    if type(fs) == "table" and orig[fs] and F.Usable(uf.unit) then
+                        local okn, en = pcall(UnitName, uf.unit)
+                        if okn and F.Usable(en) and type(en) == "string" then
+                            pcall(fs.SetText, fs, en)
+                        end
+                    end
+                    pcall(plate, uf)
                 end
             end
         end

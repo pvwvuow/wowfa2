@@ -275,16 +275,11 @@ local function restore_all()
     for fs in pairs(original) do
         unapply(fs)
     end
-    -- Brain review #136-3: let the client redraw its own English right away
-    if QuestWatch_Update then
-        pcall(QuestWatch_Update)
-    end
-    if WatchFrame_Update then
-        pcall(WatchFrame_Update)
-    end
-    if ObjectiveTracker_Update and not (InCombatLockdown and InCombatLockdown()) then -- rc36: no taint in combat
-        pcall(ObjectiveTracker_Update)
-    end
+    -- 1.1.6 (the owner's b71139 list: PetActionBar / MultiBar SetShown blocked in combat):
+    -- never call the client's own quest updaters from addon code. Classic QuestWatch_Update
+    -- runs UIParent_ManageFramePositions, so an addon call taints the bar layout and the
+    -- pet / action bars are blocked in the next fight. unapply above already wrote the
+    -- original English back byte-exact; the client's next own update redraws the rest.
 end
 
 local throttleT = {}

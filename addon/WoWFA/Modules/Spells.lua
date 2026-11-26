@@ -47,6 +47,31 @@ local function plain(s)
     return s
 end
 
+-- 1.1.6 (the owner's b71139 list: 60 of 65 misses were Leatherworking recipes): a profession
+-- recipe tooltip ("Leatherworking: Fine Leather Belt", "Reagents: ...", "Equip: ...", the made
+-- item's lines) is ITEM content. Items stay English for now, so it is never logged as a miss.
+local PROF = {
+    alchemy = true, blacksmithing = true, cooking = true, enchanting = true, engineering = true,
+    ["first aid"] = true, leatherworking = true, tailoring = true, smelting = true, mining = true,
+    jewelcrafting = true, inscription = true, fishing = true, skinning = true, herbalism = true,
+    poisons = true,
+}
+local function recipe(name)
+    local p = string.match(string.lower(plain(name or "")), "^%s*([%a ]-)%s*:%s")
+    return p ~= nil and PROF[p] == true
+end
+local ITEM_LINE = { "^reagents:", "^equip:", "^use:", "^chance on hit:", "^you haven't collected", "^set:" }
+local function item_line(text)
+    local t = string.gsub(string.lower(plain(text or "")), "^%s+", "")
+    for _, p in ipairs(ITEM_LINE) do
+        if string.find(t, p) then
+            return true
+        end
+    end
+    return false
+end
+F.IsRecipeTip, F.IsItemLine = recipe, item_line
+
 -- rc6 (rc4 miss list: 27 of 34 "misses" were our OWN Persian read back as a new
 -- line): any line that already holds Arabic-script text is never matched and
 -- never logged. UTF-8: U+0600-06FF = D8-DB xx, presentation forms = EF AD-BB xx.
@@ -200,7 +225,7 @@ local function spell_tip(modId, tt, data)
     local tpl = F.D.tpl or {}
     local faName = names[T.NameKey(name)] -- lane-28 §A3: NameKey on both sides
     -- rc4: a line 1 that starts with a digit is a cost row ("107 Mana"), never a name
-    if faName == nil and not string.find(name, "^%d") and not has_fa(name) then
+    if faName == nil and not string.find(name, "^%d") and not has_fa(name) and not recipe(name) then
         F:Miss("spell", T.NameKey(name), name) -- rc3 update watch (Core F:Miss)
     end
     local found, srcOf = {}, {}
@@ -224,7 +249,7 @@ local function spell_tip(modId, tt, data)
             elseif fa then
                 found[#found + 1] = T.Fill(fa, nums)
                 srcOf[#found] = i
-            elseif #text > 30 then
+            elseif #text > 30 and not recipe(name) and not item_line(text) then
                 -- rc4: description-sized lines only (cost / range / cast header
                 -- rows are short; they belong to the in-place settings v2 work)
                 F:Miss("tpl", key, plain(text), name)

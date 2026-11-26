@@ -1,0 +1,272 @@
+## task 0373-pygrep (script)
+
+**GREEN**
+
+
+### Quests.lua
+
+tools/wfa/build.py:34
+```
+   22     ship = policy["ship"]["names"]
+   23     # Names.lua: shipped kinds only
+   24     parts = [HEAD, "D.names = {\n"]
+   25     for kind in sorted(ship):
+   26         table = store.names.get(kind, {})
+   27         counts["names." + kind] = len(table)
+   28         parts.append("%s = {\n" % kind)
+   29         for k in sorted(table):
+   30             parts.append("[%s]=%s,\n" % (lua_str(k), lua_str(table[k])))
+   31         parts.append("},\n")
+   32     parts.append("}\n")
+   33     _write(os.path.join(out_dir, "Names.lua"), "".join(parts))
+   34     # Quests.lua
+   35     q = [HEAD, "D.quests = {\n"]
+   36     o = ["D.qobj = {\n"]
+   37     nobj = 0
+   38     for qid in sorted(store.quests):
+   39         rec = store.quests[qid]
+   40         q.append("[%d]=%s,\n" % (qid, lua_str(quest_record(rec, store.names))))
+   41         if rec.get("o"):
+   42             nobj += 1
+   43             o.append("[%d]={%s},\n" % (qid, ",".join(lua_str(resolve(x, store.names)) for x in rec["o"])))
+   44     q.append("}\n")
+   45     o.append("}\n")
+   46     counts["quests"] = len(store.quests)
+```
+tools/wfa/build.py:48
+```
+   36     o = ["D.qobj = {\n"]
+   37     nobj = 0
+   38     for qid in sorted(store.quests):
+   39         rec = store.quests[qid]
+   40         q.append("[%d]=%s,\n" % (qid, lua_str(quest_record(rec, store.names))))
+   41         if rec.get("o"):
+   42             nobj += 1
+   43             o.append("[%d]={%s},\n" % (qid, ",".join(lua_str(resolve(x, store.names)) for x in rec["o"])))
+   44     q.append("}\n")
+   45     o.append("}\n")
+   46     counts["quests"] = len(store.quests)
+   47     counts["qobj"] = nobj
+   48     _write(os.path.join(out_dir, "Quests.lua"), "".join(q) + "".join(o))
+   49     # Tpl.lua
+   50     t = [HEAD, "D.tpl = {\n"]
+   51     for k in sorted(store.tpl):
+   52         t.append("[%s]=%s,\n" % (lua_str(k), lua_str(resolve(store.tpl[k], store.names))))
+   53     t.append("}\n")
+   54     counts["tpl"] = len(store.tpl)
+   55     _write(os.path.join(out_dir, "Tpl.lua"), "".join(t))
+   56     # Strings.lua (panel / UI Persian)
+   57     s = [HEAD, "D.ui = {\n"]
+   58     for k in sorted(store.ui):
+   59         s.append("[%s]=%s,\n" % (lua_str(k), lua_str(store.ui[k])))
+   60     s.append("}\n")
+```
+tools/wfa/jobs/dist_peek.py:17
+```
+    5 import re
+    6 
+    7 from wfa import build as B
+    8 from wfa.core import OUT, ROOT, read_json
+    9 from wfa.store import Store
+   10 
+   11 
+   12 def run(args, rep):
+   13     pol = read_json(os.path.join(ROOT, "policy.json"))
+   14     B.build(Store.load(), pol)
+   15     dist = os.path.join(OUT, "dist", "WoWFA")
+   16     head = int(args.get("head", 2500))
+   17     for rel in args.get("files") or ["Data/Quests.lua", "Data/Names.lua"]:
+   18         p = os.path.join(dist, rel)
+   19         b = open(p, "rb").read()
+   20         hi = sum(1 for c in b if c >= 128)
+   21         asc = len(re.findall(rb"[A-Za-z]", b))
+   22         esc = len(re.findall(rb"\\\d{1,3}", b))
+   23         rep.h(rel)
+   24         rep.ok("%d bytes: %d non-ASCII bytes, %d ASCII letters, %d \\ddd escapes, %d lines" % (len(b), hi, asc, esc, b.count(b"\n")))
+   25         txt = b[:head].decode("utf-8", errors="replace")
+   26         rep.add("'''\n" + txt.replace("'''", "'''") + "\n'''")
+   27         mid = len(b) // 2
+   28         txt = b[mid:mid + 1500].decode("utf-8", errors="replace")
+   29         rep.add("middle:\n'''\n" + txt.replace("'''", "'''") + "\n'''")
+```
+- ok: Quests.lua: 3 hits
+
+### def lua_str
+
+tools/wfa/core.py:103
+```
+   91 
+   92 def write_json_map(path, obj, sort_int=False):
+   93     """Canonical form: one entry per line, real UTF-8, sorted keys, one trailing newline."""
+   94     os.makedirs(os.path.dirname(path), exist_ok=True)
+   95     keys = sorted(obj, key=(lambda k: int(k)) if sort_int else None)
+   96     lines = [json.dumps(str(k), ensure_ascii=False) + ":" +
+   97              json.dumps(obj[k], ensure_ascii=False, separators=(",", ":")) for k in keys]
+   98     body = "{\n" + ",\n".join(lines) + "\n}\n" if lines else "{}\n"
+   99     with open(path, "w", encoding="utf-8", newline="\n") as f:
+  100         f.write(body)
+  101 
+  102 
+  103 def lua_str(s):
+  104     """Lua 5.1 string literal; raw UTF-8 bytes kept, control chars as decimal escapes."""
+  105     out = ['"']
+  106     for ch in s:
+  107         o = ord(ch)
+  108         if ch == "\\":
+  109             out.append("\\\\")
+  110         elif ch == '"':
+  111             out.append('\\"')
+  112         elif ch == "\n":
+  113             out.append("\\n")
+  114         elif o < 32 or o == 127:
+  115             out.append("\\%03d" % o)
+```
+- ok: def lua_str: 1 hits
+
+### emit_data
+
+tools/wfa/build.py:19
+```
+    7 from .resolve import resolve
+    8 from .store import QUEST_FIELDS
+    9 
+   10 HEAD = ("-- generated by tools/ci.py build from data/ - never edit by hand\n"
+   11         "WoWFA_FData = WoWFA_FData or {}\nlocal D = WoWFA_FData\n")
+   12 
+   13 
+   14 def quest_record(rec, names):
+   15     return "\x1f".join(resolve(rec.get(f, ""), names) if f != "h" else rec.get("h", "")
+   16                        for f in QUEST_FIELDS)
+   17 
+   18 
+   19 def emit_data(store, policy, out_dir):
+   20     os.makedirs(out_dir, exist_ok=True)
+   21     counts = {}
+   22     ship = policy["ship"]["names"]
+   23     # Names.lua: shipped kinds only
+   24     parts = [HEAD, "D.names = {\n"]
+   25     for kind in sorted(ship):
+   26         table = store.names.get(kind, {})
+   27         counts["names." + kind] = len(table)
+   28         parts.append("%s = {\n" % kind)
+   29         for k in sorted(table):
+   30             parts.append("[%s]=%s,\n" % (lua_str(k), lua_str(table[k])))
+   31         parts.append("},\n")
+```
+tools/wfa/build.py:91
+```
+   79     notes = []
+   80     if os.path.isdir(addon_src):
+   81         shutil.copytree(addon_src, dst, ignore=shutil.ignore_patterns("*.in", ".*"))
+   82         for fn in sorted(os.listdir(addon_src)):
+   83             if not fn.endswith(".toc.in"):
+   84                 continue
+   85             with open(os.path.join(addon_src, fn), encoding="utf-8") as f:
+   86                 toc = f.read()
+   87             toc = toc.replace("@VERSION@", policy["version"]).replace("@INTERFACE@", str(policy["interface"]))
+   88             _write(os.path.join(dst, fn[:-3]), toc)
+   89     else:
+   90         notes.append("addon/WoWFA not present yet: data-only build")
+   91     counts = emit_data(store, policy, os.path.join(dst, "Data"))
+   92     zpath = os.path.join(OUT, "WoWFA-%s.zip" % policy["version"])
+   93     if os.path.exists(zpath):
+   94         os.remove(zpath)
+   95     with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:
+   96         for base, _, files in os.walk(dist):
+   97             for fn in sorted(files):
+   98                 full = os.path.join(base, fn)
+   99                 info = zipfile.ZipInfo(os.path.relpath(full, dist).replace(os.sep, "/"), (2026, 1, 1, 0, 0, 0))
+  100                 info.compress_type = zipfile.ZIP_DEFLATED
+  101                 with open(full, "rb") as f:
+  102                     z.writestr(info, f.read())
+  103     return counts, zpath, notes
+```
+- ok: emit_data: 2 hits
+
+### quest_record
+
+tools/wfa/build.py:14
+```
+    2 import os
+    3 import shutil
+    4 import zipfile
+    5 
+    6 from .core import OUT, ROOT, lua_str
+    7 from .resolve import resolve
+    8 from .store import QUEST_FIELDS
+    9 
+   10 HEAD = ("-- generated by tools/ci.py build from data/ - never edit by hand\n"
+   11         "WoWFA_FData = WoWFA_FData or {}\nlocal D = WoWFA_FData\n")
+   12 
+   13 
+   14 def quest_record(rec, names):
+   15     return "\x1f".join(resolve(rec.get(f, ""), names) if f != "h" else rec.get("h", "")
+   16                        for f in QUEST_FIELDS)
+   17 
+   18 
+   19 def emit_data(store, policy, out_dir):
+   20     os.makedirs(out_dir, exist_ok=True)
+   21     counts = {}
+   22     ship = policy["ship"]["names"]
+   23     # Names.lua: shipped kinds only
+   24     parts = [HEAD, "D.names = {\n"]
+   25     for kind in sorted(ship):
+   26         table = store.names.get(kind, {})
+```
+tools/wfa/build.py:40
+```
+   28         parts.append("%s = {\n" % kind)
+   29         for k in sorted(table):
+   30             parts.append("[%s]=%s,\n" % (lua_str(k), lua_str(table[k])))
+   31         parts.append("},\n")
+   32     parts.append("}\n")
+   33     _write(os.path.join(out_dir, "Names.lua"), "".join(parts))
+   34     # Quests.lua
+   35     q = [HEAD, "D.quests = {\n"]
+   36     o = ["D.qobj = {\n"]
+   37     nobj = 0
+   38     for qid in sorted(store.quests):
+   39         rec = store.quests[qid]
+   40         q.append("[%d]=%s,\n" % (qid, lua_str(quest_record(rec, store.names))))
+   41         if rec.get("o"):
+   42             nobj += 1
+   43             o.append("[%d]={%s},\n" % (qid, ",".join(lua_str(resolve(x, store.names)) for x in rec["o"])))
+   44     q.append("}\n")
+   45     o.append("}\n")
+   46     counts["quests"] = len(store.quests)
+   47     counts["qobj"] = nobj
+   48     _write(os.path.join(out_dir, "Quests.lua"), "".join(q) + "".join(o))
+   49     # Tpl.lua
+   50     t = [HEAD, "D.tpl = {\n"]
+   51     for k in sorted(store.tpl):
+   52         t.append("[%s]=%s,\n" % (lua_str(k), lua_str(resolve(store.tpl[k], store.names))))
+```
+tests/py/test_tools.py:74
+```
+   62     rec = "\x1f".join(["Hogger", "\u0647\u0627\u06af\u0631", "kill {{sp:Blink|%s}}" % FA_BLINK_OLD, "", "", "", ""])
+   63     old_q = {"names": names, "quests": {"176": rec}, "qobj": {"176": ["{{zn:Elwynn Forest|\u0627\u0644\u0648\u06cc\u0646}}"]}}
+   64     old_t = {"tpl": {"teleports # yards": "{0} \u06cc\u0627\u0631\u062f {{sp:Blink|%s}}" % FA_BLINK_OLD}}
+   65     store, rep = M.migrate(old_q, old_t, None)
+   66     assert store.quests[176]["h"] == title_hash("Hogger")
+   67     assert store.quests[176]["obj"] == "kill {{sp:Blink}}"
+   68     assert store.quests[176]["o"] == ["{{zn:Elwynn Forest}}"]
+   69     with tempfile.TemporaryDirectory() as d:
+   70         store.save(d)
+   71         again = Store.load(d)
+   72         assert again.quests == store.quests and again.tpl == store.tpl
+   73         assert again.names["spell"] == store.names["spell"]
+   74     new = {"quests": {"176": B.quest_record(store.quests[176], store.names)},
+   75            "qobj": {"176": [resolve(x, store.names) for x in store.quests[176]["o"]]},
+   76            "tpl": {k: resolve(v, store.names) for k, v in store.tpl.items()}}
+   77     st, diffs = M.verify(old_q, old_t, new, store.names)
+   78     assert not diffs, diffs
+   79     assert st["quests_same"] == 1 and st["tpl_same"] == 1
+   80 
+   81 
+   82 def test_num_key_vectors():
+   83     """tests/numkey_vectors.txt is shared with tests/run.lua: both sides must key identically."""
+   84     from wfa.core import num_key
+   85     path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "numkey_vectors.txt")
+   86     n = 0
+```
+- ok: quest_record: 3 hits

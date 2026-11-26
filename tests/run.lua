@@ -729,7 +729,23 @@ local function panel_suite()
             esc = true
         end
     end
-    check("panel closes on Esc (UISpecialFrames)", esc)
+    check("panel closes on Esc by its own key, never UISpecialFrames (taint)", (not esc) and F.PanelFrame().wfaEsc == true)
+do
+    local hit = false
+    for _, n in ipairs(UISpecialFrames) do
+        if type(n) == "string" and string.find(n, "^WoWFA") then
+            hit = true
+        end
+    end
+    check("no WoWFA frame name in UISpecialFrames (the panel manager reads them: taint)", not hit)
+    local pf = F.PanelFrame()
+    pf:Show()
+    local kd = pf:GetScript("OnKeyDown")
+    if kd then
+        kd(pf, "ESCAPE")
+    end
+    check("Esc closes the panel", kd ~= nil and not pf:IsShown())
+end
     check("panel subtitle is shaped Persian", non_ascii(PF.subtitle:GetText()), PF.subtitle:GetText())
     F.TogglePanel()
     check("toggle hides", not PF:IsShown())

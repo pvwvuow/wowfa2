@@ -784,6 +784,66 @@ local okPanel, errPanel = pcall(panel_suite)
 check("panel suite ran without a crash", okPanel, errPanel)
 
 -- ------------------------------------------------------------- lock + slash
+-- ------------------------------------------------------------------ 1.1.6: the game's own windows
+local okGu, errGu = pcall(function()
+    local G = F.GameUI
+    check("gameui: the module loaded", type(G) == "table" and type(G.Try) == "function")
+    local host = CreateFrame("Frame", "ZzGameUiHost", UIParent)
+    local fs = host:CreateFontString(nil, "OVERLAY")
+    fs:SetText("Reputation")
+    check("gameui: a known window text turns Persian", G.Try(fs) == true and non_ascii(fs:GetText()), fs:GetText())
+    check("gameui: it is drawn in the Persian font", (fs._font or ""):find("Vazirmatn") ~= nil, fs._font)
+    fs:SetText("Skills")
+    check("gameui: the game's next write is swapped too", non_ascii(fs:GetText()), fs:GetText())
+    local col = host:CreateFontString(nil, "OVERLAY")
+    col:SetText("Strength:")
+    check("gameui: a label with the game's colon", G.Try(col) == true and non_ascii(col:GetText()), col:GetText())
+    local other = host:CreateFontString(nil, "OVERLAY")
+    other:SetText("Zzz Player Name")
+    check("gameui: an unknown text stays English", G.Try(other) == false and other:GetText() == "Zzz Player Name", other:GetText())
+    local num = host:CreateFontString(nil, "OVERLAY")
+    num:SetText("5")
+    check("gameui: a bag count stays as it is", G.Try(num) == false and num:GetText() == "5", num:GetText())
+    local pg = host:CreateFontString(nil, "OVERLAY")
+    pg:SetText("Page 3")
+    check("gameui: a text with a number (Page %d)", G.Try(pg) == true and non_ascii(pg:GetText()), pg:GetText())
+    local sk = host:CreateFontString(nil, "OVERLAY")
+    sk:SetText("Mail")
+    G.Try(sk, "SkillFrame")
+    local ml = host:CreateFontString(nil, "OVERLAY")
+    ml:SetText("Mail")
+    G.Try(ml)
+    check("gameui: one word, two windows (Mail = armour in the skills, the mail window elsewhere)",
+        non_ascii(sk:GetText()) and non_ascii(ml:GetText()) and sk:GetText() ~= ml:GetText(),
+        tostring(sk:GetText()) .. " / " .. tostring(ml:GetText()))
+    MOCK.combat = true
+    local cb = host:CreateFontString(nil, "OVERLAY")
+    cb:SetText("Bank")
+    check("gameui: nothing changes in combat", G.Try(cb) == false and cb:GetText() == "Bank", cb:GetText())
+    MOCK.combat = false
+    FireEvent("PLAYER_REGEN_ENABLED")
+    check("gameui: the text written in combat is swapped after it", non_ascii(cb:GetText()), cb:GetText())
+    F.db.gameUi = false
+    F:Fire("options", "gameUi")
+    check("gameui: off puts the English back", fs:GetText() == "Skills" and pg:GetText() == "Page 3" and col:GetText() == "Strength:",
+        tostring(fs:GetText()) .. " / " .. tostring(pg:GetText()) .. " / " .. tostring(col:GetText()))
+    check("gameui: off puts the game font back", (fs._font or ""):find("Vazirmatn") == nil, fs._font)
+    fs:SetText("Reputation")
+    check("gameui: off = the game's writes stay English", fs:GetText() == "Reputation", fs:GetText())
+    F.db.gameUi = nil
+    F:Fire("options", "gameUi")
+    F.OpenPanel("general")
+    local PF = F.PanelFrame()
+    check("gameui: the switch is on the General page", PF and PF.gameUi ~= nil)
+    if PF and PF.gameUi then
+        Click(PF.gameUi)
+        check("gameui: the switch turns it off", F.db.gameUi == false)
+        Click(PF.gameUi)
+        check("gameui: and on again", F.db.gameUi == true)
+        PF:Hide()
+    end
+end)
+check("gameui tests ran", okGu, errGu)
 check("items module not installed (locked)", not (F.mods.items and F.mods.items.active))
 local ok = pcall(SlashCmdList.WOWFAF, "status")
 check("/wowfa status", ok)

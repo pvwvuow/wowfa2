@@ -302,6 +302,14 @@ def run(args, rep):
             thumb = tpl
     rep.ok("thumbnail url: %s" % (thumb or "none worked"))
 
+    try:
+        p2 = pathlib.Path(__file__).with_name("voice_text.py")
+        spec2 = importlib.util.spec_from_file_location("voice_text_db", p2)
+        vt = importlib.util.module_from_spec(spec2)
+        spec2.loader.exec_module(vt)
+        T = vt.merge(L, T, rep)
+    except Exception as e:  # noqa: BLE001 - texts are extra, the database still builds
+        rep.add("heard texts / translations not merged: %s" % e)
     out = {"v": 0, "build": builds[0] if builds else "retail", "L": L, "G": G, "T": T, "C": C, "thumb": thumb}
     body = json.dumps(out, ensure_ascii=True, separators=(",", ":"))
     out["v"] = int(hashlib.sha1(body.encode()).hexdigest()[:8], 16)

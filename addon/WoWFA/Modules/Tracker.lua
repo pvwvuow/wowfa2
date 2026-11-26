@@ -53,7 +53,7 @@ local function get_quest(id)
         return nil
     end
     local p = F.Split(raw, SEP)
-    return { h = p[1] or "", t = p[2] or "" }
+    return { h = p[1] or "", t = F.QRow(p[2] or "") } -- 1.1.6: only the title unpacked
 end
 
 local function simple(s)

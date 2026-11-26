@@ -104,7 +104,7 @@ local function quest_row(title)
         local h = F.TitleHash(title)
         id = h ~= "" and byHash[h] or nil
     end
-    local row = id and F.D.quests[id]
+    local row = id and F.QRow(F.D.quests[id]) -- 1.1.6: the packed row unpacked
     if type(row) ~= "string" then
         -- 1.0.5: a quest of the player's log we have no row for goes to the Status list
         local lid = W.LogId(title)

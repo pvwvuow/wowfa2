@@ -40,7 +40,7 @@ local function get(id)
     if type(raw) ~= "string" then
         return nil
     end
-    local p = F.Split(raw, SEP)
+    local p = F.Split(F.QRow(raw), SEP) -- 1.1.6: the packed row unpacked
     return { h = p[1] or "", t = p[2] or "", obj = p[3] or "", details = p[4] or "", progress = p[5] or "", completion = p[6] or "", desc = p[7] or "" }
 end
 

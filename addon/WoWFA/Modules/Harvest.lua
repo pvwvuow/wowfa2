@@ -61,7 +61,7 @@ local function have(id)
     if type(raw) ~= "string" then
         return nil
     end
-    local p = F.Split(raw, SEP)
+    local p = F.Split(F.QRow(raw), SEP) -- 1.1.6: the packed row unpacked
     return { t = p[2] or "", obj = p[3] or "", det = p[4] or "", pro = p[5] or "", com = p[6] or "" }
 end
 

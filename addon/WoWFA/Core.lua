@@ -100,6 +100,48 @@ function F.Split(s, sep)
     end
 end
 
+-- 1.1.6 RAM: D.quests rows are packed by the build (tools/wfa/build.py quest_pack): every
+-- non-ASCII character is ONE byte 0x80-0xFE (D.qmap) or 0xFF + byte (D.qrare) instead of its 2-3
+-- UTF-8 bytes - about 3 MB less memory. ASCII (the hash, markers, $N, digits, the \031 field
+-- separator) is unchanged, so a packed row splits and hash-matches as before; F.QRow gives
+-- the real UTF-8 back (a packed row or one field of it). The last 64 results are cached.
+local QS, QR
+local qcache, qorder = {}, {}
+function F.QRow(raw)
+    if type(raw) ~= "string" then
+        return raw
+    end
+    local D = F.D
+    if not (D and type(D.qmap) == "table") then
+        return raw -- an unpacked data build
+    end
+    local hit = qcache[raw]
+    if hit then
+        return hit
+    end
+    if not QS then
+        QS, QR = {}, {}
+        for i, ch in ipairs(D.qmap) do
+            QS[string.char(127 + i)] = ch
+        end
+        for i, ch in ipairs(D.qrare or {}) do
+            QR[string.char(127 + i)] = ch
+        end
+    end
+    local out = string.gsub(raw, "(\255?)([\128-\254])", function(a, b)
+        if a ~= "" then
+            return QR[b] or ""
+        end
+        return QS[b] or b
+    end)
+    if #qorder >= 64 then
+        qcache[table.remove(qorder, 1)] = nil
+    end
+    qorder[#qorder + 1] = raw
+    qcache[raw] = out
+    return out
+end
+
 -- djb2 over the bytes of T.NameKey(title), mod 2^32, as 8 lowercase hex chars.
 -- Mirrors tools/wfa/core.py title_hash: the data stores this hash instead of
 -- the English quest title. h * 33 + byte stays below 2^38 (exact in doubles);

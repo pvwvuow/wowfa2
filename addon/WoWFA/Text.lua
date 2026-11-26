@@ -293,7 +293,7 @@ function F.ColPick(fam)
         end
         cpf:Hide()
         if ShowUIPanel then
-            pcall(ShowUIPanel, cpf)
+            cpf:Show() -- 1.1.6: ShowUIPanel from addon code taints the panel layout
         else
             cpf:Show()
         end
@@ -1181,13 +1181,9 @@ function F.RelayoutQuests()
         if InCombatLockdown and InCombatLockdown() then
             return
         end
-        for _, name in ipairs({ 'QuestMapFrame_UpdateAll', 'QuestLogQuests_Update', 'ObjectiveTracker_Update',
-            'QuestWatch_Update', 'WatchFrame_Update' }) do
-            local fn = _G[name]
-            if type(fn) == 'function' then
-                pcall(fn)
-            end
-        end
+        -- 1.1.6: no client quest updater is called from addon code any more (taint: the
+        -- pet / action bars were blocked in combat); our own font strings take the new
+        -- size through the 'options' listeners, the client's next update does the rest
     end)
 end
 

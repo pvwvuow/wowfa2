@@ -879,6 +879,36 @@ local okPv, errPv = pcall(function()
     PF:Hide()
 end)
 check("preview tests ran", okPv, errPv)
+-- ------------------------------------------------------------------ 1.1.6: taint + recipe misses
+local okTt, errTt = pcall(function()
+    check("recipe: a profession recipe name", F.IsRecipeTip("Leatherworking: Embossed Leather Vest") == true)
+    check("recipe: first aid too", F.IsRecipeTip("First Aid: Linen Bandage") == true)
+    check("recipe: a plain spell is no recipe", F.IsRecipeTip("Fireball") == false and F.IsRecipeTip("Leatherworking") == false)
+    check("recipe: a colon spell that is no profession", F.IsRecipeTip("Aspect of the Hawk: Rank 2") == false)
+    check("item line: reagents", F.IsItemLine("Reagents: |nLight Leather (8), Coarse Thread (4)") == true)
+    check("item line: equip / use / appearance", F.IsItemLine("Equip: Improves your chance to get a critical strike by 1.0%.")
+        and F.IsItemLine("Use: Permanently increase the Stamina value by 2") and F.IsItemLine("You haven't collected this appearance"))
+    check("item line: a spell text is not", F.IsItemLine("Hurls a fiery ball that causes 14 to 23 Fire damage.") == false)
+    local calls = 0
+    local keep = {}
+    for _, n in ipairs({ "QuestWatch_Update", "WatchFrame_Update", "ObjectiveTracker_Update", "QuestMapFrame_UpdateAll",
+        "QuestLogQuests_Update", "CompactUnitFrame_UpdateName", "ShowUIPanel", "HideUIPanel" }) do
+        keep[n] = _G[n]
+        _G[n] = function() calls = calls + 1 end
+    end
+    F:Fire("names")
+    F:Fire("surf")
+    F:Fire("npcname")
+    if F.RelayoutQuests then
+        pcall(F.RelayoutQuests)
+    end
+    for _, n in ipairs({ "QuestWatch_Update", "WatchFrame_Update", "ObjectiveTracker_Update", "QuestMapFrame_UpdateAll",
+        "QuestLogQuests_Update", "CompactUnitFrame_UpdateName", "ShowUIPanel", "HideUIPanel" }) do
+        _G[n] = keep[n]
+    end
+    check("taint: no client updater called from addon code (names / surf / sizes)", calls == 0, calls)
+end)
+check("taint + recipe tests ran", okTt, errTt)
 check("items module not installed (locked)", not (F.mods.items and F.mods.items.active))
 local ok = pcall(SlashCmdList.WOWFAF, "status")
 check("/wowfa status", ok)

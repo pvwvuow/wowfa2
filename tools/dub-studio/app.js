@@ -90,7 +90,7 @@ window.wfaStart = function () {
       '<button class="ic" data-act="play" title="پخش صدای اصلی">\u25b6</button><span class="nm" title="' + esc(l[3]) + '">' + esc(l[3]) + '</span>' +
       (l[6] !== 'old' ? '<span class="era">' + (ERA_FA[l[6]] || l[6]) + '</span>' : '') +
       '<span class="ct c' + l[2] + '">' + CAT_FA[CATS[l[2]]] + '</span>' +
-      '<button class="ic" data-act="dl" title="دانلود صدای اصلی">\u2b07</button><button class="ic rc" data-act="rec" title="ضبط دوبله برای همین خط">\u25cf</button></div>';
+      '<button class="ic" data-act="dl" title="دانلود صدای اصلی">\u2b07</button><button class="ic mine" data-act="mine" title="پخش ضبط خودم">\u25b6</button><button class="ic rc" data-act="rec" title="ضبط دوبله برای همین خط">\u25cf</button></div>';
   }
   function render() {
     compute();
@@ -150,6 +150,7 @@ window.wfaStart = function () {
     var i = +b.closest('.row').dataset.i;
     if (act === 'play') playOrig(i);
     else if (act === 'dl') dlOrig(i, b);
+    else if (act === 'mine') playMine(i);
     else openStudio(i);
   });
 
@@ -348,6 +349,7 @@ window.wfaStart = function () {
     $('sgroup').innerHTML = esc(g[0]) + ' \u00b7 ' + CAT_FA[CATS[l[2]]] + (done[l[0]] ? ' \u00b7 <b class="okc">قبلا\u064b ضبط شده (ذخیره\u0654 دوباره جایگزین می\u200cشود)</b>' : '');
     $('sav').innerHTML = avatar(g);
     raw = null; proc = null; origDur = 0; drawWave(); showDur(); setRecUI('idle');
+    crop = { a: 0, b: 1 }; prepOld(i);
     S.classList.add('open'); document.body.classList.add('studio');
     playOrig(i);
   }
@@ -359,9 +361,83 @@ window.wfaStart = function () {
   $('stake').addEventListener('click', function () { playTake(); });
   $('sab').addEventListener('click', function () { if (sline < 0 || !proc) return; playOrig(sline, function () { setTimeout(playTake, 250); }); });
   $('ssave').addEventListener('click', saveTake);
-  $('sredo').addEventListener('click', function () { raw = null; proc = null; drawWave(); showDur(); setRecUI('idle'); });
+  $('sredo').addEventListener('click', function () { crop = { a: 0, b: 1 }; raw = null; proc = null; drawWave(); showDur(); setRecUI('idle'); });
   $('snext').addEventListener('click', nextLine);
 
+  // ---------------------------------------------------------------- earlier takes: play, edit, crop
+  var crop = { a: 0, b: 1 }, oldTake = null;
+  function readTake(i) {
+    var l = L[i], g = G[l[1]];
+    if (!(root && rootOk)) return Promise.reject(new Error('nofolder'));
+    return root.getDirectoryHandle('fa').then(function (d) { return d.getDirectoryHandle(safe(g[0])); })
+      .then(function (d) { return d.getFileHandle(l[3] + '.wav'); })
+      .then(function (fh) { return fh.getFile(); })
+      .then(function (f) { return f.arrayBuffer(); })
+      .then(function (ab) { return getAC().decodeAudioData(ab); })
+      .then(function (buf) {
+        var n = buf.length, x = new Float32Array(n);
+        for (var c = 0; c < buf.numberOfChannels; c++) { var d = buf.getChannelData(c); for (var k = 0; k < n; k++) x[k] += d[k] / buf.numberOfChannels; }
+        return { x: x, sr: buf.sampleRate };
+      });
+  }
+  function playPCM(x, rate) {
+    stopTake();
+    var a = getAC(), b = a.createBuffer(1, x.length, rate); b.getChannelData(0).set(x);
+    srcNode = a.createBufferSource(); srcNode.buffer = b; srcNode.connect(a.destination); srcNode.start();
+  }
+  function playMine(i) {
+    readTake(i).then(function (t) { playPCM(t.x, t.sr); })
+      .catch(function (e) { toast(e && e.message === 'nofolder' ? 'برای شنیدن ضبط‌های قبلی، پوشهٔ دوبله باید انتخاب و اجازه داده شده باشد' : 'فایل این خط توی پوشه پیدا نشد'); });
+  }
+  function prepOld(i) {
+    oldTake = null; $('sold').classList.remove('on'); $('sedit').classList.remove('on');
+    if (!done[L[i][0]] || !(root && rootOk)) return;
+    readTake(i).then(function (t) { if (sline !== i) return; oldTake = t; $('sold').classList.add('on'); $('sedit').classList.add('on'); }).catch(function () {});
+  }
+  $('sold').addEventListener('click', function () { if (oldTake) playPCM(oldTake.x, oldTake.sr); });
+  $('sedit').addEventListener('click', function () {
+    if (!oldTake) return;
+    stopTake(); opt.trim = false; opt.norm = false; $('otrim').checked = false; $('onorm').checked = false;
+    sr = oldTake.sr; crop = { a: 0, b: 1 }; raw = oldTake.x;
+    var nb = $('presets').querySelector('[data-p="none"]'); if (nb) nb.click(); else reprocess(true);
+    toast('ضبط قبلی بارگذاری شد: با دستگیره‌های دو طرف موج برش بزن و ذخیره کن');
+  });
+  function outSamples() {
+    if (!proc) return null;
+    var n = proc.length, s = Math.floor(crop.a * n), e = Math.max(s + 1, Math.floor(crop.b * n));
+    if (s === 0 && e >= n) return proc;
+    var y = proc.slice(s, e), f = Math.min(Math.floor(sr * 0.006), y.length >> 1);
+    for (var k = 0; k < f; k++) { var g = k / f; y[k] *= g; y[y.length - 1 - k] *= g; }
+    return y;
+  }
+  function drawCrop() {
+    var cv = $('wave'), w = cv.width, h = cv.height, c = cv.getContext('2d'), info = $('scrop');
+    if (!proc) { info.textContent = ''; return; }
+    var xa = crop.a * w, xb = crop.b * w, p = window.devicePixelRatio || 1;
+    c.fillStyle = 'rgba(8,11,16,.65)'; c.fillRect(0, 0, xa, h); c.fillRect(xb, 0, w - xb, h);
+    c.fillStyle = '#e9c46a'; c.fillRect(xa - p, 0, 2 * p, h); c.fillRect(xb - p, 0, 2 * p, h);
+    c.fillRect(xa - 4 * p, h / 2 - 14 * p, 8 * p, 28 * p); c.fillRect(xb - 4 * p, h / 2 - 14 * p, 8 * p, 28 * p);
+    var t = proc.length / sr;
+    info.textContent = 'برش: از ' + fa((crop.a * t).toFixed(2)) + ' تا ' + fa((crop.b * t).toFixed(2)) + ' ثانیه (دابل‌کلیک = برگرداندن)';
+  }
+  (function () {
+    var cv = $('wave'), drag = 0;
+    function fx(e) { var r = cv.getBoundingClientRect(); return Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)); }
+    function move(e) {
+      if (!drag || !proc) return;
+      var x = fx(e), min = Math.min(0.5, 0.05 / Math.max(0.05, proc.length / sr));
+      if (drag === 1) crop.a = Math.min(x, crop.b - min); else crop.b = Math.max(x, crop.a + min);
+      drawWave(); showDur();
+    }
+    cv.addEventListener('pointerdown', function (e) {
+      if (!proc) return; var x = fx(e);
+      drag = Math.abs(x - crop.a) <= Math.abs(x - crop.b) ? 1 : 2;
+      try { cv.setPointerCapture(e.pointerId); } catch (x2) {} move(e);
+    });
+    cv.addEventListener('pointermove', move);
+    cv.addEventListener('pointerup', function (e) { drag = 0; try { cv.releasePointerCapture(e.pointerId); } catch (x2) {} });
+    cv.addEventListener('dblclick', function () { crop = { a: 0, b: 1 }; drawWave(); showDur(); });
+  })();
   function setRecUI(s) {
     var b = $('srec');
     b.classList.toggle('on', s === 'rec');
@@ -395,7 +471,7 @@ window.wfaStart = function () {
         blob.arrayBuffer().then(function (ab) { return getAC().decodeAudioData(ab); }).then(function (buf) {
           sr = buf.sampleRate; var n = buf.length, x = new Float32Array(n);
           for (var c = 0; c < buf.numberOfChannels; c++) { var d = buf.getChannelData(c); for (var k = 0; k < n; k++) x[k] += d[k] / buf.numberOfChannels; }
-          raw = x; reprocess(false);
+          crop = { a: 0, b: 1 }; raw = x; reprocess(false);
         }).catch(function () { toast('خواندن ضبط نشد؛ دوباره امتحان کن'); setRecUI('idle'); });
       };
       if (micSrc) { try { micSrc.disconnect(); } catch (e) {} }
@@ -430,16 +506,16 @@ window.wfaStart = function () {
   }
   function playTake() {
     if (!proc) return; stopTake();
-    var a = getAC(), b = a.createBuffer(1, proc.length, sr); b.getChannelData(0).set(proc);
-    srcNode = a.createBufferSource(); srcNode.buffer = b; srcNode.connect(a.destination); srcNode.start();
+    playPCM(outSamples(), sr);
   }
   function stopTake() { if (srcNode) { try { srcNode.stop(); } catch (e) {} srcNode = null; } }
   function showDur() {
-    var t = proc ? proc.length / sr : 0;
+    var t = proc ? (crop.b - crop.a) * proc.length / sr : 0;
     $('sdur').innerHTML = 'اصلی: <b>' + (origDur ? fa(origDur.toFixed(1)) + ' ث' : '\u2014') + '</b> \u00b7 تو: <b>' + (t ? fa(t.toFixed(1)) + ' ث' : '\u2014') + '</b>' +
       (t && origDur && t > origDur * 1.6 ? ' <span class="warn">خیلی بلندتر از اصلی است</span>' : '');
   }
-  function drawWave() {
+  function drawWave() { drawWave0(); drawCrop(); }
+  function drawWave0() {
     var cv = $('wave'), w = cv.width = cv.clientWidth * (window.devicePixelRatio || 1), h = cv.height = cv.clientHeight * (window.devicePixelRatio || 1), c = cv.getContext('2d');
     c.clearRect(0, 0, w, h); c.fillStyle = '#2a3440'; c.fillRect(0, h / 2, w, 1);
     var x = proc; if (!x) return;
@@ -449,7 +525,7 @@ window.wfaStart = function () {
   }
   function saveTake() {
     if (!proc || sline < 0) return;
-    var l = L[sline], g = G[l[1]], wav = new Blob([DSP.encodeWav(proc, sr)], { type: 'audio/wav' }), name = l[3] + '.wav';
+    var l = L[sline], g = G[l[1]], wav = new Blob([DSP.encodeWav(outSamples(), sr)], { type: 'audio/wav' }), name = l[3] + '.wav';
     function ok() { done[l[0]] = 1; save('wfadub_done', done); toast('ذخیره شد: ' + name); var r = list.querySelector('.row[data-i="' + sline + '"]'); if (r) { r.classList.add('ok'); r.querySelector('.st').textContent = '\u2713'; } progress(); nextLine(); }
     if (root && rootOk) {
       root.getDirectoryHandle('fa', { create: true }).then(function (d) { return d.getDirectoryHandle(safe(g[0]), { create: true }); })

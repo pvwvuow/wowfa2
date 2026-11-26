@@ -1,0 +1,1 @@
+{"id": "0398-voice-db", "kind": "script", "why": "owner 26 Nov: rebuild the dub studio database with spoken texts and creatures", "args": {"module": "voice_db", "args": {"cmangos": "https://raw.githubusercontent.com/cmangos/classic-db/13e933726f386399d9820138fbd1123e7cda86c8/Full_DB/ClassicDB_1_12_1_z2815.sql.gz"}}}

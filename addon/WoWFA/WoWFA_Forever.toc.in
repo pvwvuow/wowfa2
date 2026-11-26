@@ -47,6 +47,7 @@ Modules\Sysmsg.lua
 Modules\Tools.lua
 Modules\Blocked.lua
 Modules\GameUI.lua
+Modules\Preview.lua
 Panel.lua
 Dump.lua
 Modules\Harvest.lua

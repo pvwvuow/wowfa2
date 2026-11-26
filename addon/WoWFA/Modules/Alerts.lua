@@ -136,6 +136,21 @@ local function add(self, text, ...)
     end
 end
 
+-- 1.1.6: the settings preview column asks for the Persian of a red line (nil = English)
+function F.AlertPreview(text)
+    if not active() then
+        return nil
+    end
+    local ok, fa = pcall(translate, text)
+    if not ok or not fa then
+        return nil
+    end
+    local oks, s = pcall(function()
+        return T.ShapeLine(T.Digits(fa), T.Mode())
+    end)
+    return oks and type(s) == "string" and s ~= "" and s or nil
+end
+
 local function install()
     local ef = _G.UIErrorsFrame
     if origAdd or type(ef) ~= "table" or type(ef.AddMessage) ~= "function" then

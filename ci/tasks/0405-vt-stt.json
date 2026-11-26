@@ -1,0 +1,1 @@
+{"id": "0405-vt-stt", "kind": "script", "why": "owner 26 Nov: hear the greeting/farewell/pissed/aggro lines (0402 could not decode), then merge the Persian texts", "args": {"module": "voice_text", "args": {"stt": true, "limit": 2500, "minutes": 38}}}

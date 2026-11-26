@@ -69,7 +69,7 @@ local function build()
     end
 end
 
-local function render(tpl, caps)
+local function render(tpl, caps, frame)
     local vals, holds = {}, {}
     for i = 1, #caps do
         local v = caps[i]
@@ -91,7 +91,7 @@ local function render(tpl, caps)
             need[ph] = v
         end
     end
-    local shaped = T.ShapeLine(T.Digits(line), T.Mode())
+    local shaped = T.ChatText(T.Digits(line), frame, 0) -- 1.1.6: wrapped by us
     if type(shaped) ~= 'string' or shaped == '' then
         return nil
     end
@@ -111,7 +111,7 @@ local function render(tpl, caps)
     return shaped
 end
 
-local function translate(text)
+local function translate(text, frame)
     if not rules then
         build()
     end
@@ -120,7 +120,7 @@ local function translate(text)
         if F.db[row[2]] == false then
             return nil
         end
-        return render(row[1], {})
+        return render(row[1], {}, frame)
     end
     for i = 1, #rules do
         local caps = { string.match(text, rules[i][1]) }
@@ -128,17 +128,17 @@ local function translate(text)
             if F.db[rules[i][3]] == false then
                 return nil
             end
-            return render(rules[i][2], caps)
+            return render(rules[i][2], caps, frame)
         end
     end
     return nil
 end
 
-local function filter(_, _, msg, ...)
+local function filter(cf, _, msg, ...)
     if not on() or not F.Usable(msg) or type(msg) ~= 'string' or msg == '' then
         return false
     end
-    local ok, shaped = pcall(translate, msg)
+    local ok, shaped = pcall(translate, msg, cf)
     if ok and type(shaped) == 'string' and shaped ~= '' then
         return false, shaped, ...
     end

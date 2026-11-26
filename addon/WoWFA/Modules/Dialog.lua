@@ -283,11 +283,12 @@ local function say_on()
 end
 
 -- the chat / bubble line: markers -> plain Persian, colour codes out, shaped
-local function line_fa(fa)
+local function line_fa(fa, cf, sender)
     local line = T.Prepare(fa)
     line = string.gsub(line, "|c%x%x%x%x%x%x%x%x", "")
     line = string.gsub(line, "|r", "")
-    local ok, shaped = pcall(T.ShapeLine, T.Digits(line), T.Mode())
+    -- 1.1.6: wrapped by us at the chat window's width (T.ChatText), never by the window
+    local ok, shaped = pcall(T.ChatText, T.Digits(line), cf, #(str(sender) or "") + 8)
     return ok and str(shaped) or nil
 end
 
@@ -307,7 +308,7 @@ function D.BubbleFa(text)
 end
 
 local last -- one watch entry per line (the filter runs once per chat window)
-local function filter(_, _, msg, sender, ...)
+local function filter(cf, _, msg, sender, ...)
     if not say_on() or not str(msg) then
         return false
     end
@@ -316,7 +317,7 @@ local function filter(_, _, msg, sender, ...)
         return false
     end
     if fa then
-        local shaped = line_fa(fa)
+        local shaped = line_fa(fa, cf, sender)
         if shaped then
             return false, shaped, sender, ...
         end

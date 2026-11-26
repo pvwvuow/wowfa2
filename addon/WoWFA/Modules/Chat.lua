@@ -237,7 +237,7 @@ local function apply_font()
     end
 end
 
-local function filter(_, _, msg, ...)
+local function filter(cf, _, msg, ...)
     if not on() then
         return false
     end
@@ -248,8 +248,10 @@ local function filter(_, _, msg, ...)
     if not has_raw_fa(msg) or string.find(msg, "\239[\173-\187]") then
         return false
     end
+    local who = select(1, ...)
+    local plen = #(type(who) == "string" and who or "") + 4
     local ok, shaped = pcall(function()
-        return T.ShapeLine(T.Clean(msg), T.Mode())
+        return T.ChatText(T.Clean(msg), cf, plen) -- 1.1.6: wrapped by us, never by the window
     end)
     if ok and type(shaped) == "string" and shaped ~= "" then
         return false, shaped, ...

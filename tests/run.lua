@@ -1021,6 +1021,29 @@ local okTx, errTx = pcall(function()
     GameTooltip:ClearLines()
 end)
 check("taint tests ran", okTx, errTx)
+local okCw, errCw = pcall(function()
+    local was = F.db.mode
+    F.db.mode = 3
+    local long = string.rep("از آن سوی شهر برایت خبر آورده‌ام ", 6)
+    local out = F.T.ChatText(long, nil, 20)
+    F.db.mode = was
+    check("chat: a long Persian line is wrapped by us, not by the chat window", type(out) == "string" and out:find("\n") ~= nil,
+        type(out) == "string" and #out or tostring(out))
+    local short = F.T.ChatText("سلام", nil, 10)
+    check("chat: a short line stays one line", type(short) == "string" and short:find("\n") == nil, short)
+    local PF = F.PanelFrame and F.PanelFrame()
+    local icons, eyes = 0, 0
+    for _, r in ipairs((PF and PF.allRows) or {}) do
+        if r.wfaEye then
+            eyes = eyes + 1
+            if r.wfaIcon then
+                icons = icons + 1
+            end
+        end
+    end
+    check("panel: every row with a preview shows the small eye", eyes > 0 and icons == eyes, icons .. "/" .. eyes)
+end)
+check("chat wrap tests ran", okCw, errCw)
 check("items module not installed (locked)", not (F.mods.items and F.mods.items.active))
 local ok = pcall(SlashCmdList.WOWFAF, "status")
 check("/wowfa status", ok)

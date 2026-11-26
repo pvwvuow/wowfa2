@@ -279,7 +279,7 @@ local function quest_row(title)
     local h = F.TitleHash(title)
     for id, row in pairs((F.D and F.D.quests) or {}) do
         if type(row) == "string" and string.sub(row, 1, #h) == h and h ~= "" then
-            local p = F.Split(row, "\031")
+            local p = F.Split(F.QRow(row), "\031")
             if (p[2] or "") ~= "" then
                 return p
             end

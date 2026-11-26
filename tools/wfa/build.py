@@ -16,6 +16,44 @@ def quest_record(rec, names):
                        for f in QUEST_FIELDS)
 
 
+def quest_pack(rows):
+    """1.1.6 RAM (the owner: "the addon takes much more memory than the others"): the quest
+    texts were 8.4 of the 12.3 MB. Every non-ASCII character of the rows becomes ONE byte
+    (0x80-0xFE, the 127 most frequent: D.qmap) or two (0xFF + byte: D.qrare) instead of 2-3
+    UTF-8 bytes. ASCII (markers, $N, digits, the hash) is kept, so the hash prefix and the
+    field split still work on the packed row. F.QRow (Core.lua) unpacks. Deterministic."""
+    from collections import Counter
+    freq = Counter(ch for r in rows for ch in r if ord(ch) > 127)
+    order = sorted(freq, key=lambda c: (-freq[c], ord(c)))
+    if len(order) > 254:
+        raise ValueError("quest texts: %d distinct non-ASCII characters (the packing holds 254)" % len(order))
+    single, rare = order[:127], order[127:]
+    code = {c: bytes([0x80 + i]) for i, c in enumerate(single)}
+    code.update({c: b"\xff" + bytes([0x80 + i]) for i, c in enumerate(rare)})
+    return single, rare, code
+
+
+def lua_packed(s, code):
+    """A Lua 5.1 literal of a packed row: raw packed bytes, the same escapes as lua_str."""
+    out = bytearray(b'"')
+    for ch in s:
+        o = ord(ch)
+        if o > 127:
+            out += code[ch]
+        elif ch == "\\":
+            out += b"\\\\"
+        elif ch == '"':
+            out += b'\\"'
+        elif ch == "\n":
+            out += b"\\n"
+        elif o < 32 or o == 127:
+            out += b"\\%03d" % o
+        else:
+            out.append(o)
+    out += b'"'
+    return bytes(out)
+
+
 def emit_data(store, policy, out_dir):
     os.makedirs(out_dir, exist_ok=True)
     counts = {}
@@ -32,20 +70,29 @@ def emit_data(store, policy, out_dir):
     parts.append("}\n")
     _write(os.path.join(out_dir, "Names.lua"), "".join(parts))
     # Quests.lua
-    q = [HEAD, "D.quests = {\n"]
+    rows = {qid: quest_record(store.quests[qid], store.names) for qid in sorted(store.quests)}
+    single, rare, code = quest_pack(list(rows.values()))
+    q = [HEAD.encode("utf-8"),
+         b"-- 1.1.6: the rows are packed (one byte per Persian character); F.QRow unpacks\n",
+         b"D.qmap = {" + b",".join(lua_str(c).encode("utf-8") for c in single) + b"}\n",
+         b"D.qrare = {" + b",".join(lua_str(c).encode("utf-8") for c in rare) + b"}\n",
+         b"D.quests = {\n"]
     o = ["D.qobj = {\n"]
     nobj = 0
     for qid in sorted(store.quests):
         rec = store.quests[qid]
-        q.append("[%d]=%s,\n" % (qid, lua_str(quest_record(rec, store.names))))
+        q.append(b"[%d]=%s,\n" % (qid, lua_packed(rows[qid], code)))
         if rec.get("o"):
             nobj += 1
             o.append("[%d]={%s},\n" % (qid, ",".join(lua_str(resolve(x, store.names)) for x in rec["o"])))
-    q.append("}\n")
+    q.append(b"}\n")
     o.append("}\n")
     counts["quests"] = len(store.quests)
     counts["qobj"] = nobj
-    _write(os.path.join(out_dir, "Quests.lua"), "".join(q) + "".join(o))
+    path = os.path.join(out_dir, "Quests.lua")
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "wb") as f:
+        f.write(b"".join(q) + "".join(o).encode("utf-8"))
     # Tpl.lua
     t = [HEAD, "D.tpl = {\n"]
     for k in sorted(store.tpl):

@@ -81,6 +81,15 @@ for id, raw in pairs(D.quests) do
     end
 end
 check("a quest with title + details", qid ~= nil)
+do
+    local raw = D.quests[qid]
+    local u = F.QRow(raw)
+    check("RAM: quest rows are packed (D.qmap)", type(D.qmap) == "table" and #D.qmap > 30, D.qmap and #D.qmap)
+    check("RAM: a packed row unpacks to real UTF-8 Persian", type(u) == "string" and #u > #raw
+        and string.find(u, "[\216\217\219][\128-\191]") ~= nil and F.QRow(raw) == u, #raw .. " -> " .. #(u or ""))
+    local hp = string.sub(raw, 1, 8)
+    check("RAM: the hash prefix is kept as is", hp == qhash and string.sub(u, 1, 8) == qhash, hp)
+end
 MOCK.questID, MOCK.title = qid, "Some Unrelated Title"
 QuestFrame:Show()
 FireEvent("QUEST_DETAIL")

@@ -70,6 +70,11 @@
 "Adarra"
 ],
 [
+"Do you think that tickles?",
+1,
+"Addie Fizzlebog"
+],
+[
 "Hello there.",
 1,
 "Addie Fizzlebog"
@@ -78,6 +83,61 @@
 "Oh, you're talking to me!",
 1,
 "Addie Fizzlebog"
+],
+[
+"Whoa! And people tell me I'm annoying!",
+1,
+"Addie Fizzlebog"
+],
+[
+"You don't want to see me angry.",
+1,
+"Addie Fizzlebog"
+],
+[
+"How many cups have you had?",
+1,
+"Aegira"
+],
+[
+"I don't like interruptions.",
+1,
+"Aegira"
+],
+[
+"I'm cutting you off.",
+1,
+"Aegira"
+],
+[
+"Keep your sword close and your brew closer.",
+1,
+"Aegira"
+],
+[
+"Pleasant journeys.",
+1,
+"Aegira"
+],
+[
+"That's it. Left call.",
+1,
+"Aegira"
+],
+[
+"Trend carefully.",
+1,
+"Aegira"
+],
+[
+"What journey brings you here?",
+1,
+"Aegira"
+],
+[
+"What's brewing?",
+1,
+"Aegira"
 ],
 [
 "The time has come to shatter this clockwork universe forever. Let us no longer be slaves of the hourglass. I warn you, those who do not embrace this greater path, shall become victims of its passing.",
@@ -431,7 +491,7 @@
 ],
 [
 "Greetings, traveler.",
-4,
+7,
 "Ahabwheathoof"
 ],
 [
@@ -515,7 +575,22 @@
 "Akama"
 ],
 [
+"Light guide you.",
+1,
+"Akama"
+],
+[
+"Light is our strength.",
+1,
+"Akama"
+],
+[
 "Master, we have found the traitor who escaped Varsh, his body lies in front of me lifeless.",
+1,
+"Akama"
+],
+[
+"Never hesitate.",
 1,
 "Akama"
 ],
@@ -576,6 +651,11 @@
 ],
 [
 "You cannot be serious, Ollum. Your sacrifice has already been too great.",
+1,
+"Akama"
+],
+[
+"You cannot break me.",
 1,
 "Akama"
 ],
@@ -856,7 +936,7 @@
 ],
 [
 "Go!",
-6,
+7,
 "Alizabal"
 ],
 [
@@ -923,6 +1003,16 @@
 "My hatred burns!",
 1,
 "Alizabal"
+],
+[
+"We've got its attention!",
+1,
+"Alliancecommander"
+],
+[
+"Don't follow anyone blindly. Think for yourself.",
+1,
+"Altruis The Sufferer"
 ],
 [
 "Yes, I can see you. What do you want?",
@@ -1185,13 +1275,63 @@
 "Aranas"
 ],
 [
+"Are you testing my wrath?",
+1,
+"Arator The Redeemer"
+],
+[
+"Carry on the crusade.",
+1,
+"Arator The Redeemer"
+],
+[
+"Do not give up the fight.",
+1,
+"Arator The Redeemer"
+],
+[
+"Do you have a question?",
+1,
+"Arator The Redeemer"
+],
+[
+"for justice.",
+1,
+"Arator The Redeemer"
+],
+[
+"Honor to you.",
+1,
+"Arator The Redeemer"
+],
+[
+"I'm not usually vengeful, but I may have to make an exception.",
+1,
+"Arator The Redeemer"
+],
+[
+"May your heart be true.",
+1,
+"Arator The Redeemer"
+],
+[
+"Steady travels.",
+1,
+"Arator The Redeemer"
+],
+[
+"Stop or I'll make you disappear.",
+1,
+"Arator The Redeemer"
+],
+[
 "Hahaha!",
-3,
+4,
 "Arcanetitan"
 ],
 [
 "What is it?",
-11,
+17,
 "Arcanetitan"
 ],
 [
@@ -1255,8 +1395,18 @@
 "Archimonde"
 ],
 [
+"Let the echoes of doom resound across this wretched world that all who live may hear them and despair.",
+1,
+"Archimonde"
+],
+[
 "YOU ARE MINE!",
 2,
+"Archimonde"
+],
+[
+"Your foolish crusade ends here, mortals. The Legion comes, and with it, this world breathes its dying breath.",
+1,
 "Archimonde"
 ],
 [
@@ -1530,6 +1680,11 @@
 "Archivumsystem"
 ],
 [
+"Thankfully, the vines, they control us all!",
+1,
+"Archmagesol"
+],
+[
 "Aspects misplaced their trust.",
 1,
 "Arcurion"
@@ -1601,7 +1756,7 @@
 ],
 [
 "Enough of this foolishness.",
-1,
+2,
 "Arion"
 ],
 [
@@ -2015,7 +2170,17 @@
 "Arygos"
 ],
 [
+"Do you rush to meet the afterlife?",
+1,
+"Ashildir"
+],
+[
 "Honor to the Fallen!",
+1,
+"Ashildir"
+],
+[
+"May a year be your wings.",
 1,
 "Ashildir"
 ],
@@ -2035,7 +2200,17 @@
 "Ashtongue Stalker"
 ],
 [
+"Ah, you'll go now!",
+1,
+"Ashtongue Stalker"
+],
+[
 "Leave another day.",
+1,
+"Ashtongue Stalker"
+],
+[
+"Work to you.",
 1,
 "Ashtongue Stalker"
 ],
@@ -2153,6 +2328,11 @@
 "You cannot hide from searing flame!",
 1,
 "Atramedes"
+],
+[
+"I will strike you down.",
+1,
+"Auchindounprotector"
 ],
 [
 "Hurry! She is breaking free!",
@@ -2375,7 +2555,22 @@
 "Azshara"
 ],
 [
+"This world, all worlds shall burn!",
+1,
+"Azzakel"
+],
+[
+"Ah! Ah, ah, ah, ah, ah!",
+1,
+"Babymurloc"
+],
+[
 "Bye, bye, bye, bye, bye.",
+1,
+"Babymurloc"
+],
+[
+"La-la-la!",
 1,
 "Babymurloc"
 ],
@@ -2475,6 +2670,21 @@
 "Baine"
 ],
 [
+"Champion do you have any sugar cubes on you?",
+1,
+"Baine Bloodhoof"
+],
+[
+"For your whole idea.",
+1,
+"Baine Bloodhoof"
+],
+[
+"His mother, watch over you.",
+1,
+"Baine Bloodhoof"
+],
+[
 "I am Bane, High Chieftain of the Torrin.",
 1,
 "Baine Bloodhoof"
@@ -2485,7 +2695,17 @@
 "Baine Bloodhoof"
 ],
 [
+"The war with the Legion has come. I hope you are ready.",
+1,
+"Baine Bloodhoof"
+],
+[
 "There is much we can learn from the high mountain tribes.",
+1,
+"Baine Bloodhoof"
+],
+[
+"These high mountain tribes are, tall, very tall.",
 1,
 "Baine Bloodhoof"
 ],
@@ -2511,7 +2731,7 @@
 ],
 [
 "Ugh!",
-66,
+70,
 "Baleroc"
 ],
 [
@@ -2615,7 +2835,17 @@
 "Baronrivendare"
 ],
 [
+"Ah, I, uh, I hope you intend to pay the stonemasons for this work. That, uh, didn't turn out so well last time.",
+1,
+"Baros"
+],
+[
 "Hello, Commander!",
+1,
+"Baros"
+],
+[
+"I'll call in a few favors.",
 1,
 "Baros"
 ],
@@ -2630,14 +2860,59 @@
 "Baros"
 ],
 [
+"on it.",
+1,
+"Baros"
+],
+[
 "Orders Commander.",
 1,
 "Baros"
 ],
 [
+"We'll get it done.",
+1,
+"Baros"
+],
+[
+"We've got a lot of work to do.",
+1,
+"Baros"
+],
+[
+"Before I kill you, know this, heroes! Akumal will devour this world!",
+1,
+"Bathiel"
+],
+[
 "Hahaha! Hahaha! What you need!",
 1,
 "Battlelord Gaardoun"
+],
+[
+"Roma-hecked Korta",
+1,
+"Battlelord Gaardoun"
+],
+[
+"Yeah, you'll go now.",
+1,
+"Battlelord Gaardoun"
+],
+[
+"You've very strange.",
+1,
+"Battlelord Gaardoun"
+],
+[
+"Hail, friend!",
+1,
+"Beastmaster Hilaire"
+],
+[
+"Keep your aim true.",
+1,
+"Beastmaster Hilaire"
 ],
 [
 "And now, Shaman, you will give the Dragon Soul to me.",
@@ -2745,6 +3020,11 @@
 "Blackknight"
 ],
 [
+"Em and I will be reborn!",
+1,
+"Blackthorn"
+],
+[
 "All hail the sindoorai!",
 1,
 "Bloodelf"
@@ -2761,7 +3041,7 @@
 ],
 [
 "Be well.",
-4,
+6,
 "Bloodelf"
 ],
 [
@@ -3386,7 +3666,7 @@
 ],
 [
 "Yes.",
-27,
+32,
 "Bloodelf"
 ],
 [
@@ -3421,7 +3701,7 @@
 ],
 [
 "AHHH!",
-7,
+8,
 "Bloodelffemalepc"
 ],
 [
@@ -3436,7 +3716,7 @@
 ],
 [
 "Ready!",
-4,
+5,
 "Bloodguard"
 ],
 [
@@ -3610,6 +3890,11 @@
 "Bonegolem"
 ],
 [
+"I got this boss!",
+1,
+"Borkathebrute"
+],
+[
 "By the light, the transporter worked.",
 1,
 "Brandon"
@@ -3696,7 +3981,7 @@
 ],
 [
 "for the Alliance!",
-3,
+6,
 "Brann"
 ],
 [
@@ -4035,6 +4320,56 @@
 "Brann"
 ],
 [
+"Am I dreaming?",
+1,
+"Brightwing"
+],
+[
+"Do it again, and I'll worry about your heart! Friends!",
+1,
+"Brightwing"
+],
+[
+"Fly high!",
+1,
+"Brightwing"
+],
+[
+"He's my happy face. He wouldn't want to see me angry.",
+1,
+"Brightwing"
+],
+[
+"Hi friend!",
+1,
+"Brightwing"
+],
+[
+"Justin.",
+1,
+"Brightwing"
+],
+[
+"What a beautiful day!",
+1,
+"Brightwing"
+],
+[
+"Yes, friend?",
+1,
+"Brightwing"
+],
+[
+"You're leaving?",
+1,
+"Brightwing"
+],
+[
+"You're poking me.",
+1,
+"Brightwing"
+],
+[
 "Akal Hekta.",
 2,
 "Brokennpc1"
@@ -4051,7 +4386,7 @@
 ],
 [
 "Go on then.",
-1,
+3,
 "Brokennpc1"
 ],
 [
@@ -4091,7 +4426,7 @@
 ],
 [
 "Peace for you.",
-2,
+4,
 "Brokennpc1"
 ],
 [
@@ -4101,7 +4436,7 @@
 ],
 [
 "See you.",
-1,
+3,
 "Brokennpc1"
 ],
 [
@@ -4121,7 +4456,7 @@
 ],
 [
 "What do you want?",
-2,
+6,
 "Brokennpc1"
 ],
 [
@@ -4131,22 +4466,22 @@
 ],
 [
 "What?",
-30,
+34,
 "Brokennpc1"
 ],
 [
 "Why you do this?",
-2,
+4,
 "Brokennpc1"
 ],
 [
 "Yes, yes, what?",
-1,
+3,
 "Brokennpc1"
 ],
 [
 "You'll come back sometime.",
-1,
+3,
 "Brokennpc1"
 ],
 [
@@ -4161,7 +4496,7 @@
 ],
 [
 "You're very strange.",
-2,
+3,
 "Brokennpc1"
 ],
 [
@@ -4181,7 +4516,7 @@
 ],
 [
 "luck to you.",
-1,
+2,
 "Brokennpc2"
 ],
 [
@@ -4208,6 +4543,46 @@
 "You're come back some time.",
 1,
 "Brokennpc2"
+],
+[
+"DON'T UNLEASH THE BEAST!",
+1,
+"Broll Bearmantle"
+],
+[
+"Find your strength.",
+1,
+"Broll Bearmantle"
+],
+[
+"Greetings, Dreamer.",
+1,
+"Broll Bearmantle"
+],
+[
+"How can I help you?",
+1,
+"Broll Bearmantle"
+],
+[
+"I'm warning you.",
+1,
+"Broll Bearmantle"
+],
+[
+"is the grove in peril.",
+1,
+"Broll Bearmantle"
+],
+[
+"Nature serves.",
+1,
+"Broll Bearmantle"
+],
+[
+"Peace to you, friend.",
+1,
+"Broll Bearmantle"
 ],
 [
 "I will sever your soul from your body.",
@@ -4521,7 +4896,7 @@
 ],
 [
 "time",
-1,
+2,
 "Cenarionhatchling"
 ],
 [
@@ -4890,6 +5265,11 @@
 "Chogall"
 ],
 [
+"We have waited long for this moment. The true power of the stones will be realized at last. None shall survive. We shall be the unmaking. Destroy them. Wash over this world.",
+1,
+"Chogall"
+],
+[
 "Welcome, Mortars. Free, little children. Few have laid eyes on this inner center. They reach out to touch the fire.",
 1,
 "Chogall"
@@ -4970,7 +5350,32 @@
 "Cliffwalker"
 ],
 [
+"Are you fishing for compliments?",
+2,
+"Coilskar Sea Caller"
+],
+[
+"Don't be so shallow.",
+3,
+"Coilskar Sea Caller"
+],
+[
+"Fight well, slay many demons, try not to die.",
+3,
+"Coilskar Sea Caller"
+],
+[
 "How can I aid you, little one?",
+3,
+"Coilskar Sea Caller"
+],
+[
+"How long would you say you can hold your breath? I'm just asking for a friend.",
+2,
+"Coilskar Sea Caller"
+],
+[
+"I think we need to scale back our relationship.",
 3,
 "Coilskar Sea Caller"
 ],
@@ -4985,14 +5390,44 @@
 "Coilskar Sea Caller"
 ],
 [
+"In the depths, no one can hear you scream. Well, they can, but it's really muffled.",
+3,
+"Coilskar Sea Caller"
+],
+[
+"Is that all?",
+3,
+"Coilskar Sea Caller"
+],
+[
 "Let's make this quick.",
 3,
 "Coilskar Sea Caller"
 ],
 [
-"What is it now?",
+"Lord Illidan is the one true master of the Illidari.",
 3,
 "Coilskar Sea Caller"
+],
+[
+"Well, at least this place beats Outland. Any place beats Outland.",
+1,
+"Coilskar Sea Caller"
+],
+[
+"What is it now?",
+4,
+"Coilskar Sea Caller"
+],
+[
+"You are not giving me a leg to stand on here.",
+2,
+"Coilskar Sea Caller"
+],
+[
+"Do you have something to say?",
+2,
+"Commander Jarod Shadowsong"
 ],
 [
 "Hail Soldier.",
@@ -5010,7 +5445,17 @@
 "Commander Jarod Shadowsong"
 ],
 [
+"Stop fooling around. Time is wasting.",
+1,
+"Commander Jarod Shadowsong"
+],
+[
 "We protect those we love.",
+1,
+"Commander Jarod Shadowsong"
+],
+[
+"Yes, can I help you?",
 1,
 "Commander Jarod Shadowsong"
 ],
@@ -5050,8 +5495,28 @@
 "Conflagratus"
 ],
 [
+"Always vigilant.",
+1,
+"Cordanafelsong"
+],
+[
+"Azaroth depends on us.",
+1,
+"Cordanafelsong"
+],
+[
 "Commander.",
 2,
+"Cordanafelsong"
+],
+[
+"don't let down your guard",
+1,
+"Cordanafelsong"
+],
+[
+"Don't let the arc mage down.",
+1,
 "Cordanafelsong"
 ],
 [
@@ -5061,6 +5526,11 @@
 ],
 [
 "Isnuala.",
+1,
+"Cordanafelsong"
+],
+[
+"Stay alert.",
 1,
 "Cordanafelsong"
 ],
@@ -5148,6 +5618,21 @@
 "Toxitrov unit activated.",
 1,
 "Council"
+],
+[
+"Me? Me?",
+1,
+"Cow1"
+],
+[
+"Moo.",
+1,
+"Cow1"
+],
+[
+"MOVE!",
+1,
+"Cow2"
 ],
 [
 "My lady, should I order my men to stop the deployment of the plague? Or are we to continue as planned?",
@@ -5735,6 +6220,11 @@
 "Deathwing"
 ],
 [
+"Ah! Hello, do you think you are?",
+1,
+"Dentarg"
+],
+[
 "into the abyss, and to see your e-",
 1,
 "Devourerofsouls"
@@ -5763,6 +6253,11 @@
 "Yeah, yeah, yeah, yeah, yeah.",
 1,
 "Diablofetish"
+],
+[
+"They come for us. They will not find what they seek.",
+1,
+"Diadarkwhisper"
 ],
 [
 "At least enough so that you can prove yourself.",
@@ -5835,6 +6330,11 @@
 "Djinn"
 ],
 [
+"Who dares interrupt my sacrifice? Slade him!",
+1,
+"Domina"
+],
+[
 "Do not call on me again.",
 1,
 "Doomguardvo"
@@ -5866,6 +6366,11 @@
 ],
 [
 "Rip the flesh from your bones.",
+1,
+"Doomlordkazzak"
+],
+[
+"Who faced the might of the Burning Legion?",
 1,
 "Doomlordkazzak"
 ],
@@ -6076,7 +6581,7 @@
 ],
 [
 "May the light guide you.",
-1,
+2,
 "Draenei"
 ],
 [
@@ -6335,8 +6840,23 @@
 "Draeneicivfemale"
 ],
 [
+"Clear skies and safe journeys.",
+1,
+"Draeneicivfemale"
+],
+[
+"Dionysa Ka",
+1,
+"Draeneicivfemale"
+],
+[
 "How can I help?",
-2,
+3,
+"Draeneicivfemale"
+],
+[
+"Please be careful, friend.",
+1,
 "Draeneicivfemale"
 ],
 [
@@ -6350,7 +6870,17 @@
 "Draeneicivmale"
 ],
 [
+"Long life, my friend.",
+1,
+"Draeneicivmale"
+],
+[
 "Or the Jar Traveler.",
+1,
+"Draeneicivmale"
+],
+[
+"See if Journeys.",
 1,
 "Draeneicivmale"
 ],
@@ -6358,6 +6888,11 @@
 "Welcome, welcome.",
 2,
 "Draeneicivmale"
+],
+[
+"Be brave. You are not alone.",
+1,
+"Draeneiwarfemale"
 ],
 [
 "Have you any news?",
@@ -6375,14 +6910,49 @@
 "Draeneiwarfemale"
 ],
 [
+"Melonora a car.",
+1,
+"Draeneiwarfemale"
+],
+[
+"The stronger spirit will always triumph.",
+1,
+"Draeneiwarfemale"
+],
+[
 "Come, speak with me.",
 2,
+"Draeneiwarmale"
+],
+[
+"Manu ikta, my friend.",
+1,
+"Draeneiwarmale"
+],
+[
+"Never buck down.",
+1,
+"Draeneiwarmale"
+],
+[
+"This too shall pass.",
+1,
+"Draeneiwarmale"
+],
+[
+"We will endure.",
+1,
 "Draeneiwarmale"
 ],
 [
 "You bring news?",
 1,
 "Draeneiwarmale"
+],
+[
+"RRRRRRRRRRRRRRRRRRRRRRRR",
+1,
+"Draenorwolf"
 ],
 [
 "An easy kill!",
@@ -6415,12 +6985,42 @@
 "Drahga"
 ],
 [
+"Be Brave.",
+1,
+"Draka"
+],
+[
+"for the honor of the clan.",
+1,
+"Draka"
+],
+[
 "I am here for you.",
 1,
 "Draka"
 ],
 [
+"I like you. You're bold.",
+1,
+"Draka"
+],
+[
+"Maybe too bold.",
+1,
+"Draka"
+],
+[
 "Our power comes from one another.",
+1,
+"Draka"
+],
+[
+"Protect the week.",
+1,
+"Draka"
+],
+[
+"Strength comes from the heart.",
 1,
 "Draka"
 ],
@@ -6570,12 +7170,47 @@
 "Drakuru"
 ],
 [
+"Speak up!",
+1,
+"Dread Captain Tattersail"
+],
+[
+"Yeah, moving.",
+1,
+"Dread Captain Tattersail"
+],
+[
+"And keep it up!",
+1,
+"Dread Rider Cullen"
+],
+[
 "Good day for flying",
 1,
 "Dread Rider Cullen"
 ],
 [
+"Good luck out there.",
+1,
+"Dread Rider Cullen"
+],
+[
+"Keep it up and you're back food",
+1,
+"Dread Rider Cullen"
+],
+[
+"Nice off",
+1,
+"Dread Rider Cullen"
+],
+[
 "Ready to fly!",
+1,
+"Dread Rider Cullen"
+],
+[
+"Stay lofty",
 1,
 "Dread Rider Cullen"
 ],
@@ -6590,9 +7225,39 @@
 "Dread Rider Cullen"
 ],
 [
+"You are such a drag.",
+1,
+"Dread Rider Cullen"
+],
+[
 "You get air sick?",
 1,
 "Dread Rider Cullen"
+],
+[
+"Be cautious.",
+1,
+"Drekthar"
+],
+[
+"for the thrust moves.",
+1,
+"Drekthar"
+],
+[
+"I didn't know you felt that way about me.",
+1,
+"Drekthar"
+],
+[
+"Perhaps we should take this somewhere more private.",
+1,
+"Drekthar"
+],
+[
+"spirits walk with you.",
+1,
+"Drekthar"
 ],
 [
 "Tell me, what do you see?",
@@ -6606,6 +7271,11 @@
 ],
 [
 "Who is there?",
+1,
+"Drekthar"
+],
+[
+"You bring honor to our clan.",
 1,
 "Drekthar"
 ],
@@ -6641,6 +7311,31 @@
 ],
 [
 "Frost Wolf Blood Runstick.",
+1,
+"Durotan"
+],
+[
+"In one another, we find strength.",
+1,
+"Durotan"
+],
+[
+"Make us proud.",
+1,
+"Durotan"
+],
+[
+"Never leave a wolf behind.",
+1,
+"Durotan"
+],
+[
+"Run with the back.",
+2,
+"Durotan"
+],
+[
+"Stay Frosty, friend.",
 1,
 "Durotan"
 ],
@@ -6731,7 +7426,7 @@
 ],
 [
 "Goodbye.",
-5,
+8,
 "Dwarf"
 ],
 [
@@ -6881,7 +7576,7 @@
 ],
 [
 "So long.",
-2,
+4,
 "Dwarf"
 ],
 [
@@ -6976,7 +7671,7 @@
 ],
 [
 "Hello.",
-18,
+19,
 "Dwarffemaleguardnpc"
 ],
 [
@@ -7001,7 +7696,7 @@
 ],
 [
 "Safe travels!",
-7,
+9,
 "Dwarffemaleguardnpc"
 ],
 [
@@ -7071,7 +7766,7 @@
 ],
 [
 "Watch your back!",
-19,
+20,
 "Dwarffemalematernalnpc"
 ],
 [
@@ -7121,7 +7816,7 @@
 ],
 [
 "No!",
-23,
+24,
 "Dwarfmaleguardnpc"
 ],
 [
@@ -7240,12 +7935,37 @@
 "Ebbert"
 ],
 [
+"Be one with nature.",
+1,
+"Elothir"
+],
+[
+"If I fell down, and there was no one to hear it... ...or treat things...",
+1,
+"Elothir"
+],
+[
+"May your...",
+1,
+"Elothir"
+],
+[
 "The forest creates you.",
 1,
 "Elothir"
 ],
 [
 "The forest greets you.",
+1,
+"Elothir"
+],
+[
+"The forest is with you.",
+2,
+"Elothir"
+],
+[
+"The forest speaks, stay a while and listen.",
 1,
 "Elothir"
 ],
@@ -7450,6 +8170,46 @@
 "Erunak"
 ],
 [
+"Can't you see I'm busy?",
+1,
+"Esara Verrinde"
+],
+[
+"Don't test my patients.",
+1,
+"Esara Verrinde"
+],
+[
+"Farewell. Let me know if you come across anything interesting.",
+1,
+"Esara Verrinde"
+],
+[
+"Greetings, what's new?",
+1,
+"Esara Verrinde"
+],
+[
+"Hello? Have you found anything interesting lately?",
+1,
+"Esara Verrinde"
+],
+[
+"Keep it up, and I'll show you my sword skills.",
+1,
+"Esara Verrinde"
+],
+[
+"Keep your eyes open, friend.",
+1,
+"Esara Verrinde"
+],
+[
+"Magical accidents happen all the time.",
+1,
+"Esara Verrinde"
+],
+[
 "Beware, I live.",
 1,
 "Essenceofanger"
@@ -7590,6 +8350,16 @@
 "Exarchmaladaar"
 ],
 [
+"Never hesitate to do what is right.",
+1,
+"Exarchmaladaar"
+],
+[
+"Remember",
+1,
+"Exarchmaladaar"
+],
+[
 "Rise my fallen brothers, take form, and fight!",
 1,
 "Exarchmaladaar"
@@ -7605,9 +8375,24 @@
 "Exarchmaladaar"
 ],
 [
+"There is no turning back now.",
+1,
+"Exarchmaladaar"
+],
+[
+"Tradition binds my people.",
+1,
+"Exarchmaladaar"
+],
+[
 "We must preserve the sanctity of the fallen.",
 1,
 "Exarchmaladaar"
+],
+[
+"I was hoping you would make it to me. Now I get the pleasure of removing your hands.",
+1,
+"Executionergore"
 ],
 [
 "Focus your energies!",
@@ -7960,6 +8745,11 @@
 "Femalefrostwolforc"
 ],
 [
+"for the clan.",
+1,
+"Femalefrostwolforc"
+],
+[
 "I am here.",
 1,
 "Femalefrostwolforc"
@@ -7968,6 +8758,16 @@
 "It is a good day to fight.",
 1,
 "Femalefrostwolforc"
+],
+[
+"We fight together.",
+1,
+"Femalefrostwolforc"
+],
+[
+"Beware the wilds.",
+1,
+"Femalefrostwolforcciv"
 ],
 [
 "Do you need supplies?",
@@ -8245,6 +9045,11 @@
 "Fuelrobot"
 ],
 [
+"I will reduce you.",
+1,
+"Fury"
+],
+[
 "Ain't gonna be nothin' left after this!",
 1,
 "Galdarah"
@@ -8380,6 +9185,46 @@
 "Gallywix"
 ],
 [
+"Finish it.",
+1,
+"Ganar"
+],
+[
+"Hm, I didn't think so.",
+1,
+"Ganar"
+],
+[
+"I'm the only one here!",
+1,
+"Ganar"
+],
+[
+"Make them suffer.",
+1,
+"Ganar"
+],
+[
+"Now go.",
+1,
+"Ganar"
+],
+[
+"Who else are you? You talking to me?",
+1,
+"Ganar"
+],
+[
+"You talking to me?",
+1,
+"Ganar"
+],
+[
+"You, you talking to me?",
+1,
+"Ganar"
+],
+[
 "Bad news, Sire.",
 1,
 "Garona"
@@ -8420,6 +9265,11 @@
 "Garona"
 ],
 [
+"I will hunt you. I will kill you. I will kill all your followers. I will burn down your garrison!",
+1,
+"Garona"
+],
+[
 "I'm here to hunt, not to chat.",
 1,
 "Garona"
@@ -8455,6 +9305,16 @@
 "Garona"
 ],
 [
+"Let the hunt begin.",
+1,
+"Garona"
+],
+[
+"Make them pay.",
+1,
+"Garona"
+],
+[
 "My knives are ready.",
 1,
 "Garona"
@@ -8466,6 +9326,11 @@
 ],
 [
 "No one can know I'm here.",
+1,
+"Garona"
+],
+[
+"That's enough.",
 1,
 "Garona"
 ],
@@ -8491,6 +9356,11 @@
 ],
 [
 "To goal will pay.",
+1,
+"Garona"
+],
+[
+"We will finish this.",
 1,
 "Garona"
 ],
@@ -8795,12 +9665,22 @@
 "Gathiostheshatterer"
 ],
 [
+"Are we done here? Stop. I have a hero's and a storm match coming up. Okay. Thank you. Bye. Bye",
+1,
+"Gazlowe"
+],
+[
 "Heh heh, Commander!",
 1,
 "Gazlowe"
 ],
 [
 "Hey there, just passing through.",
+1,
+"Gazlowe"
+],
+[
+"I LOVE IT!",
 1,
 "Gazlowe"
 ],
@@ -8815,7 +9695,22 @@
 "Gazlowe"
 ],
 [
+"I'm on it!",
+1,
+"Gazlowe"
+],
+[
 "Keep it quick kid, I ain't got all day.",
+1,
+"Gazlowe"
+],
+[
+"Precision Goblin Engineering.",
+1,
+"Gazlowe"
+],
+[
+"Right away.",
 1,
 "Gazlowe"
 ],
@@ -8836,6 +9731,11 @@
 ],
 [
 "What you need.",
+1,
+"Gazlowe"
+],
+[
+"Yeah, yeah, yeah, I'll take care of it, geez.",
 1,
 "Gazlowe"
 ],
@@ -8885,6 +9785,11 @@
 "Generalvezax"
 ],
 [
+"a burning sky.",
+1,
+"Genericarakkoaoutcast"
+],
+[
 "A dark wind is blowing.",
 1,
 "Genericarakkoaoutcast"
@@ -8895,12 +9800,32 @@
 "Genericarakkoaoutcast"
 ],
 [
+"Dread Carefully.",
+1,
+"Genericarakkoaoutcast"
+],
+[
 "His curse has not broken me yet. Ahhhhhhhhhhhhhh.",
 1,
 "Genericarakkoaoutcast"
 ],
 [
+"Keep to the shadows!",
+1,
+"Genericarakkoaoutcast"
+],
+[
+"Oh great, now I'm molding. Happy with yourself.",
+1,
+"Genericarakkoaoutcast"
+],
+[
 "shadows gather.",
+1,
+"Genericarakkoaoutcast"
+],
+[
+"The Talon King will guide us.",
 1,
 "Genericarakkoaoutcast"
 ],
@@ -8913,6 +9838,36 @@
 "Lord, Elijah knows the way.",
 1,
 "Genericdhbloodelffemale"
+],
+[
+"Deaf to the Legion.",
+1,
+"Genericdhbloodelfmale"
+],
+[
+"Trust in Lord Elegant's plan.",
+1,
+"Genericdhbloodelfmale"
+],
+[
+"Don't give in to the power of the Legion.",
+6,
+"Genericdhnightelfmale"
+],
+[
+"Hehehe, you're no demon, but I'll put you in the ground, just the same!",
+1,
+"Genericdhnightelfmale"
+],
+[
+"How long would you say you can hold your breath, and just asking for a friend?",
+1,
+"Genericnagamale"
+],
+[
+"You're fishing for compliments!",
+1,
+"Genericnagamale"
 ],
 [
 "Eh?",
@@ -9046,7 +10001,7 @@
 ],
 [
 "What can I do for you?",
-10,
+12,
 "Gilneancivf"
 ],
 [
@@ -9211,7 +10166,7 @@
 ],
 [
 "You have my attention.",
-9,
+10,
 "Gilneanguardf"
 ],
 [
@@ -9536,7 +10491,7 @@
 ],
 [
 "HEY!",
-8,
+10,
 "Gnomefemalehappynpc"
 ],
 [
@@ -9596,7 +10551,7 @@
 ],
 [
 "Good day to you.",
-4,
+5,
 "Gnomefemalenerdynpc"
 ],
 [
@@ -9751,7 +10706,7 @@
 ],
 [
 "Be careful out there.",
-3,
+4,
 "Goblincivf"
 ],
 [
@@ -9986,7 +10941,7 @@
 ],
 [
 "I don't have time for this.",
-5,
+6,
 "Goblinfemalezanynpc"
 ],
 [
@@ -10485,6 +11440,11 @@
 "Goldrinn"
 ],
 [
+"Each death has given me untold power. Now I unleash it upon you.",
+1,
+"Gorefiend"
+],
+[
 "I have no love for the intruder's stone mother, but these fleshlings went well out of their way to cleanse the filth from the crimson expanse.",
 1,
 "Gorsik"
@@ -10513,6 +11473,26 @@
 "You built your dwelling upon our very rock face, your ignorance shall be.",
 1,
 "Gorsik"
+],
+[
+"All this attention might go to my hand.",
+1,
+"Grand Warlock Alythess"
+],
+[
+"Hmm, I think I'd like you more if you were silent and unseen.",
+1,
+"Grand Warlock Alythess"
+],
+[
+"Leaving so soon.",
+1,
+"Grand Warlock Alythess"
+],
+[
+"Ugh, how can something so small be such a bother?",
+1,
+"Grand Warlock Alythess"
 ],
 [
 "I will see you weaklings in Ice Crown, if you live that long.",
@@ -10566,6 +11546,11 @@
 ],
 [
 "Let's gap in more step in!",
+1,
+"Granny Marl"
+],
+[
+"That's nice love.",
 1,
 "Granny Marl"
 ],
@@ -10901,7 +11886,7 @@
 ],
 [
 "Hah!",
-1,
+2,
 "Hagara"
 ],
 [
@@ -11230,6 +12215,11 @@
 "Hamuul"
 ],
 [
+"I'm going to take you down!",
+1,
+"Hansgar"
+],
+[
 "Flea in terror!",
 1,
 "Harbingerskyriss"
@@ -11340,9 +12330,29 @@
 "Hataaru"
 ],
 [
+"The Dranai will rebuild.",
+1,
+"Hataaru"
+],
+[
 "We have lost so much.",
 1,
 "Hataaru"
+],
+[
+"We will forge a new world.",
+1,
+"Hataaru"
+],
+[
+"All right, all right, that's enough.",
+1,
+"Havi"
+],
+[
+"I will feed your eyes to the heavens!",
+1,
+"Havi"
 ],
 [
 "I've been expecting you.",
@@ -11355,7 +12365,32 @@
 "Havi"
 ],
 [
+"Oh, good bye then.",
+1,
+"Havi"
+],
+[
+"See you again soon!",
+1,
+"Havi"
+],
+[
+"Seek your fate!",
+1,
+"Havi"
+],
+[
 "This land is ancient.",
+1,
+"Havi"
+],
+[
+"Walk with purpose.",
+1,
+"Havi"
+],
+[
+"Well, are you an eager one?",
 1,
 "Havi"
 ],
@@ -11475,6 +12510,61 @@
 "Helix"
 ],
 [
+"Soon you will burn with the rest of Azeroth.",
+1,
+"Hellblazemistress"
+],
+[
+"Happy hunting!",
+1,
+"Hemet Nesingwary"
+],
+[
+"Hey, be safe out there.",
+1,
+"Hemet Nesingwary"
+],
+[
+"I don't have time for your nonsense!",
+1,
+"Hemet Nesingwary"
+],
+[
+"I hope you'll like to hunt!",
+1,
+"Hemet Nesingwary"
+],
+[
+"It's a fine day for a hunt!",
+1,
+"Hemet Nesingwary"
+],
+[
+"Keep that up, and I'll be hunting you next.",
+1,
+"Hemet Nesingwary"
+],
+[
+"May your aim be true.",
+1,
+"Hemet Nesingwary"
+],
+[
+"Oh, the thrill of a hunt!",
+1,
+"Hemet Nesingwary"
+],
+[
+"Ugh, ya canny beat the smell of fresh pain in a breeze.",
+1,
+"Hemet Nesingwary"
+],
+[
+"You're trying my patience!",
+1,
+"Hemet Nesingwary"
+],
+[
 "Onward.",
 2,
 "Hero Moon Priestess"
@@ -11541,7 +12631,7 @@
 ],
 [
 "Oh no.",
-1,
+2,
 "Highbornemage03"
 ],
 [
@@ -11580,29 +12670,154 @@
 "Highkingmaulgar"
 ],
 [
-"Do you feel the change in the wind?",
-1,
-"Highmountain Brave Male"
-],
-[
-"High-mountain stands.",
-1,
-"Highmountain Brave Male"
-],
-[
-"It is a day for flying.",
-1,
-"Highmountain Brave Male"
-],
-[
-"The river provides.",
+"Are you staring at my rack?",
 2,
 "Highmountain Brave Male"
 ],
 [
-"What has the wind brought?",
+"Do you feel the change in the wind?",
+4,
+"Highmountain Brave Male"
+],
+[
+"High-mountain stands.",
+6,
+"Highmountain Brave Male"
+],
+[
+"It is a day for flying.",
+4,
+"Highmountain Brave Male"
+],
+[
+"Look to the skies.",
+4,
+"Highmountain Brave Male"
+],
+[
+"May your rivers be ever bountiful.",
+3,
+"Highmountain Brave Male"
+],
+[
+"Ride the winds.",
+4,
+"Highmountain Brave Male"
+],
+[
+"The river provides.",
+6,
+"Highmountain Brave Male"
+],
+[
+"Together, we are High Mountain.",
+5,
+"Highmountain Brave Male"
+],
+[
+"Wanna closer look? Headbutt!",
 1,
 "Highmountain Brave Male"
+],
+[
+"What has the wind brought?",
+4,
+"Highmountain Brave Male"
+],
+[
+"Beware the deep places of the Earth.",
+2,
+"Highmountain Civilian Male"
+],
+[
+"Go get lost in a cave.",
+2,
+"Highmountain Civilian Male"
+],
+[
+"Have you come to trade?",
+1,
+"Highmountain Civilian Male"
+],
+[
+"How do you feel about a hoof to the feast?",
+1,
+"Highmountain Civilian Male"
+],
+[
+"How do you feel about a hope to the face?",
+1,
+"Highmountain Civilian Male"
+],
+[
+"I have just a thing for you.",
+2,
+"Highmountain Civilian Male"
+],
+[
+"It's a long way to fall off this mountain.",
+1,
+"Highmountain Civilian Male"
+],
+[
+"It's a wrong way to fall off this mountain.",
+1,
+"Highmountain Civilian Male"
+],
+[
+"May unshay guide you.",
+1,
+"Highmountain Civilian Male"
+],
+[
+"May your rivers be ever-boundiful.",
+1,
+"Highmountain Civilian Male"
+],
+[
+"Oh, have you come to trade?",
+1,
+"Highmountain Civilian Male"
+],
+[
+"This rack isn't just for show, you know.",
+1,
+"Highmountain Civilian Male"
+],
+[
+"This rack isn't just for sure, you know.",
+1,
+"Highmountain Civilian Male"
+],
+[
+"Yeah, you're worse than a drug bar.",
+1,
+"Highmountain Civilian Male"
+],
+[
+"You're worse than a drop bar.",
+1,
+"Highmountain Civilian Male"
+],
+[
+"Be aware of the deep places of the Earth.",
+1,
+"Highmountain Warbrave"
+],
+[
+"Hmmm.",
+1,
+"Highmountain Warbrave"
+],
+[
+"My eyes are down here.",
+1,
+"Highmountain Warbrave"
+],
+[
+"Wanna close your look? Headbutt!",
+1,
+"Highmountain Warbrave"
 ],
 [
 "shall more seen upon all.",
@@ -11670,6 +12885,26 @@
 "Hoodwolf"
 ],
 [
+"I am home high mountain of the Eagle Spear. I speak for the Torlin.",
+1,
+"Huln Highmountain"
+],
+[
+"Only together can we save this world.",
+1,
+"Huln Highmountain"
+],
+[
+"The torrent shall honor our promise.",
+1,
+"Huln Highmountain"
+],
+[
+"Together, we are strong.",
+1,
+"Huln Highmountain"
+],
+[
 "Go with honor, friend.",
 2,
 "Humanfemaleofficialnpc"
@@ -11686,7 +12921,7 @@
 ],
 [
 "Light bless you.",
-2,
+3,
 "Humanfemaleofficialnpc"
 ],
 [
@@ -11726,7 +12961,7 @@
 ],
 [
 "See you later.",
-2,
+3,
 "Humanfemalestandardnpc"
 ],
 [
@@ -12141,7 +13376,7 @@
 ],
 [
 "DEATH TO THE LEGION!",
-1,
+20,
 "Illidan"
 ],
 [
@@ -12171,7 +13406,7 @@
 ],
 [
 "Ha!",
-11,
+19,
 "Illidan"
 ],
 [
@@ -12530,6 +13765,11 @@
 "Isiset"
 ],
 [
+"Afraid I'm busy at the moment, with who? Shadow stuff!",
+1,
+"Iskar"
+],
+[
 "Do not believe your eyes.",
 1,
 "Iskar"
@@ -12538,6 +13778,46 @@
 "Draw back the veil.",
 1,
 "Iskar"
+],
+[
+"It's you again",
+1,
+"Iskar"
+],
+[
+"So, go on then, chew.",
+1,
+"Iskar"
+],
+[
+"The shadows are restless.",
+1,
+"Iskar"
+],
+[
+"We hide no longer.",
+1,
+"Iskar"
+],
+[
+"Yes, yes, lots of important shadowy business to attend to, only so many hours in the day.",
+1,
+"Iskar"
+],
+[
+"Normally I hunt demons, but for you, I will make an exception.",
+1,
+"Izal Whitemoon"
+],
+[
+"Normally I hunt demons, but for you mmm, I'll make an exception",
+1,
+"Jace Darkweaver"
+],
+[
+"You're no demon, but I'll put you in the ground just the same!",
+7,
+"Jace Darkweaver"
 ],
 [
 "A little eye sought to quench the fire in your hearts.",
@@ -12615,6 +13895,11 @@
 "Jainaproudmoore"
 ],
 [
+"Good luck champion. Be careful in that foundry.",
+1,
+"Jainaproudmoore"
+],
+[
 "He is too powerful. We must leave this place at once. My magic can hold him in place for only a short time. Come quickly, heroes!",
 1,
 "Jainaproudmoore"
@@ -12676,6 +13961,11 @@
 ],
 [
 "I wish you'd surrendered.",
+1,
+"Jainaproudmoore"
+],
+[
+"I'll be keeping my eyes on you.",
 1,
 "Jainaproudmoore"
 ],
@@ -12935,6 +14225,56 @@
 "Jainaproudmoore"
 ],
 [
+"Back in my day we showed respect for our elders.",
+1,
+"Jale Rivermane"
+],
+[
+"I really am getting too old for this.",
+1,
+"Jale Rivermane"
+],
+[
+"If you get lost, just follow the river.",
+1,
+"Jale Rivermane"
+],
+[
+"May the Earth Mother flow you in the right direction.",
+1,
+"Jale Rivermane"
+],
+[
+"May your rivers flow ever bountiful.",
+1,
+"Jale Rivermane"
+],
+[
+"Onshay guide you.",
+1,
+"Jale Rivermane"
+],
+[
+"or at least showed respect for those who were taller than us?",
+1,
+"Jale Rivermane"
+],
+[
+"or some other watch over you.",
+1,
+"Jale Rivermane"
+],
+[
+"Speak up, my ears aren't what they used to be.",
+1,
+"Jale Rivermane"
+],
+[
+"You people from distant lands are very small, aren't you?",
+1,
+"Jale Rivermane"
+],
+[
 "Calm strangers. The spirit and a dragon hawk be hungry for wordy souls.",
 1,
 "Janalai"
@@ -13065,6 +14405,11 @@
 "Julianne"
 ],
 [
+"Fight well, Commander.",
+1,
+"Juliannetremblade"
+],
+[
 "Greetings, Commander.",
 1,
 "Juliannetremblade"
@@ -13080,7 +14425,32 @@
 "Juliannetremblade"
 ],
 [
+"Never leave a man behind.",
+1,
+"Juliannetremblade"
+],
+[
+"Our fortifications must stand.",
+1,
+"Juliannetremblade"
+],
+[
+"Surely you have more important things to do, Commander.",
+1,
+"Juliannetremblade"
+],
+[
+"They must never take this bastion.",
+1,
+"Juliannetremblade"
+],
+[
 "What's going on out there?",
+1,
+"Juliannetremblade"
+],
+[
+"Your advance stops here!",
 1,
 "Juliannetremblade"
 ],
@@ -13375,6 +14745,11 @@
 "Kalecgos"
 ],
 [
+"You owe me a fight, cowards!",
+1,
+"Kargath"
+],
+[
 "Bodies to test my armaments upon!",
 1,
 "Karsh"
@@ -13400,8 +14775,38 @@
 "Kayn Sunfury"
 ],
 [
+"Did you just touch me?",
+18,
+"Kayn Sunfury"
+],
+[
+"Do it again, and your skull will be my wetstone!",
+1,
+"Kayn Sunfury"
+],
+[
+"Do not give in to the power of the Legion.",
+13,
+"Kayn Sunfury"
+],
+[
 "I have sacrificed everything. What have you given?",
 3,
+"Kayn Sunfury"
+],
+[
+"I will feast on your soul!",
+18,
+"Kayn Sunfury"
+],
+[
+"I WOULDN'T IF I WERE YOU!",
+19,
+"Kayn Sunfury"
+],
+[
+"If we do not meet again, die well.",
+9,
 "Kayn Sunfury"
 ],
 [
@@ -13415,8 +14820,23 @@
 "Kayn Sunfury"
 ],
 [
+"Normally I hunt demons, but for you, I'll make an exception.",
+16,
+"Kayn Sunfury"
+],
+[
+"Trust in Lord Illidan's plan.",
+17,
+"Kayn Sunfury"
+],
+[
 "We are all that stands between the Legion and Annihilation.",
 19,
+"Kayn Sunfury"
+],
+[
+"You're no demon, but I will put you in the ground just the same!",
+10,
 "Kayn Sunfury"
 ],
 [
@@ -13425,7 +14845,17 @@
 "Kaz"
 ],
 [
+"Die laughing!",
+1,
+"Kaz"
+],
+[
 "Laughing Skull! Laughing Skull! Laughing Skull!",
+1,
+"Kaz"
+],
+[
+"Learn the bodies but keep the skulls.",
 1,
 "Kaz"
 ],
@@ -13495,12 +14925,47 @@
 "Keristrasza"
 ],
 [
+"Be vigilant, friend.",
+1,
+"Khadgar"
+],
+[
+"Come back in one piece.",
+1,
+"Khadgar"
+],
+[
+"Farewell, my friend, until we meet again.",
+1,
+"Khadgar"
+],
+[
+"for Azeroth.",
+1,
+"Khadgar"
+],
+[
 "Gul'dan and the Legion must be stopped.",
 1,
 "Khadgar"
 ],
 [
 "Hail and well met, champion.",
+1,
+"Khadgar"
+],
+[
+"I do parties.",
+1,
+"Khadgar"
+],
+[
+"In fact, I am the party.",
+1,
+"Khadgar"
+],
+[
+"Keep your guard up.",
 1,
 "Khadgar"
 ],
@@ -13515,7 +14980,32 @@
 "Khadgar"
 ],
 [
+"No, I'm not kidding.",
+1,
+"Khadgar"
+],
+[
+"Not that, that tickles.",
+1,
+"Khadgar"
+],
+[
+"nothing up my sleeves",
+1,
+"Khadgar"
+],
+[
 "Observe and Reflect.",
+1,
+"Khadgar"
+],
+[
+"Oh, look, there's a copper piece behind your ear. Ooh!",
+1,
+"Khadgar"
+],
+[
+"Stop that!",
 1,
 "Khadgar"
 ],
@@ -13531,6 +15021,26 @@
 ],
 [
 "We will find a way through this.",
+1,
+"Khadgar"
+],
+[
+"Well, now I have to go change my robes. Thanks.",
+1,
+"Khadgar"
+],
+[
+"Where you lead, we will follow.",
+1,
+"Khadgar"
+],
+[
+"Without you, Azeroth will surely fall.",
+1,
+"Khadgar"
+],
+[
+"You are our last best hope.",
 1,
 "Khadgar"
 ],
@@ -13675,7 +15185,17 @@
 "Kingterenas"
 ],
 [
+"A new Dora.",
+1,
+"Koda Steelclaw"
+],
+[
 "I'm awake. I'm awake.",
+2,
+"Koda Steelclaw"
+],
+[
+"in Tsunarius' name.",
 1,
 "Koda Steelclaw"
 ],
@@ -13745,8 +15265,23 @@
 "Korkron"
 ],
 [
+"Do it again, and your skull will be my wet stone.",
+17,
+"Korvas Bloodthorn"
+],
+[
 "I've sacrificed everything. What have you given?",
 16,
+"Korvas Bloodthorn"
+],
+[
+"If we don't meet again, die well.",
+8,
+"Korvas Bloodthorn"
+],
+[
+"Remember, nothing is more important than the Legion's destruction.",
+15,
 "Korvas Bloodthorn"
 ],
 [
@@ -13960,6 +15495,86 @@
 "Kurdran"
 ],
 [
+"All this attention might go to my head.",
+1,
+"Lady Sacrolash"
+],
+[
+"An entire world at your fingertips yet you choose to pester me.",
+2,
+"Lady Sacrolash"
+],
+[
+"Careful now, you don't want to make my sister jealous.",
+2,
+"Lady Sacrolash"
+],
+[
+"Do you enjoy this?",
+2,
+"Lady Sacrolash"
+],
+[
+"How can I be of service?",
+2,
+"Lady Sacrolash"
+],
+[
+"How can something so small be such a bother?",
+1,
+"Lady Sacrolash"
+],
+[
+"I think I'd like you more if you were silent and unseen.",
+1,
+"Lady Sacrolash"
+],
+[
+"I will await your return.",
+2,
+"Lady Sacrolash"
+],
+[
+"If you can't play nice, we can always play my way.",
+2,
+"Lady Sacrolash"
+],
+[
+"It is my pleasure to serve.",
+2,
+"Lady Sacrolash"
+],
+[
+"Living so soon.",
+1,
+"Lady Sacrolash"
+],
+[
+"Surely you have better things to do.",
+2,
+"Lady Sacrolash"
+],
+[
+"Your presence will be missed.",
+2,
+"Lady Sacrolash"
+],
+[
+"Your wish is my command.",
+2,
+"Lady Sacrolash"
+],
+[
+"You are giving me a leg to stand on here.",
+1,
+"Lady Stheno"
+],
+[
+"Zenashari Adore.",
+2,
+"Lady Stheno"
+],
+[
 "Blessed ancestors, I feel it, so much love, so much grace. There are no words impossible to describe.",
 1,
 "Ladyliadrin"
@@ -14013,6 +15628,56 @@
 "You may want to take cover.",
 1,
 "Ladyvashj"
+],
+[
+"Death from above.",
+1,
+"Lasan Skyhorn"
+],
+[
+"Ever fly so fast that sounds around you couldn't keep up?",
+1,
+"Lasan Skyhorn"
+],
+[
+"Ever get knocked off your mount when you are so high you get a nosebleed?",
+1,
+"Lasan Skyhorn"
+],
+[
+"ever saw between a waterfall and the cliff it was falling off of.",
+1,
+"Lasan Skyhorn"
+],
+[
+"I'll say guide you.",
+1,
+"Lasan Skyhorn"
+],
+[
+"Remember, most enemies forget to Roke Up!",
+1,
+"Lasan Skyhorn"
+],
+[
+"The skies call to me.",
+1,
+"Lasan Skyhorn"
+],
+[
+"Well then, I shall show you how to properly break wind.",
+1,
+"Lasan Skyhorn"
+],
+[
+"What wind did you ride it on?",
+1,
+"Lasan Skyhorn"
+],
+[
+"You are ruffling my feathers, little one.",
+1,
+"Lasan Skyhorn"
 ],
 [
 "Engage the enemy!",
@@ -15140,6 +16805,66 @@
 "Lorthuna"
 ],
 [
+"Be strong.",
+1,
+"Lothraxion"
+],
+[
+"Fight on!",
+1,
+"Lothraxion"
+],
+[
+"I have met many in my travels, so far you are the most annoying!",
+1,
+"Lothraxion"
+],
+[
+"My patience wears thin.",
+1,
+"Lothraxion"
+],
+[
+"Speak now.",
+1,
+"Lothraxion"
+],
+[
+"The Army will come.",
+1,
+"Lothraxion"
+],
+[
+"This must be why the Napa regime joined the Legion!",
+1,
+"Lothraxion"
+],
+[
+"to the light.",
+1,
+"Lothraxion"
+],
+[
+"We already regret coming here!",
+1,
+"Lothraxion"
+],
+[
+"We stand together.",
+1,
+"Lothraxion"
+],
+[
+"We will not yield.",
+1,
+"Lothraxion"
+],
+[
+"You'll be found this place.",
+1,
+"Luena"
+],
+[
 "No gloves on Shandai Martin. Only death is eternal. You will be undone.",
 1,
 "Lycanthoth"
@@ -15265,6 +16990,46 @@
 "Maiev"
 ],
 [
+"Back to your duties.",
+3,
+"Maiev Shadowsong"
+],
+[
+"Do you wish for death?",
+4,
+"Maiev Shadowsong"
+],
+[
+"Don't test my patience.",
+3,
+"Maiev Shadowsong"
+],
+[
+"I would hate to be your warden.",
+3,
+"Maiev Shadowsong"
+],
+[
+"My glaive is very, very sharp.",
+3,
+"Maiev Shadowsong"
+],
+[
+"My vigil continues.",
+3,
+"Maiev Shadowsong"
+],
+[
+"Serious business only.",
+3,
+"Maiev Shadowsong"
+],
+[
+"Stay sharp.",
+3,
+"Maiev Shadowsong"
+],
+[
 "The burning legion will fall.",
 3,
 "Maiev Shadowsong"
@@ -15335,6 +17100,26 @@
 "Male"
 ],
 [
+"for the frost walls.",
+1,
+"Malefrostwolforc"
+],
+[
+"Fright as one.",
+1,
+"Malefrostwolforc"
+],
+[
+"Run with the pack.",
+3,
+"Malefrostwolforc"
+],
+[
+"Honor our clan.",
+1,
+"Malefrostwolforcciv"
+],
+[
 "I have goods for sale.",
 1,
 "Malefrostwolforcciv"
@@ -15346,6 +17131,16 @@
 ],
 [
 "Maybe we can trade.",
+1,
+"Malefrostwolforcciv"
+],
+[
+"Off, right in the sugzags!",
+1,
+"Malefrostwolforcciv"
+],
+[
+"Stay safe.",
 1,
 "Malefrostwolforcciv"
 ],
@@ -15600,6 +17395,36 @@
 "Malfurion Stormrage"
 ],
 [
+"May nature guide your path.",
+1,
+"Malfurion Stormrage"
+],
+[
+"May the winds be at your back.",
+1,
+"Malfurion Stormrage"
+],
+[
+"Nature stands with you.",
+1,
+"Malfurion Stormrage"
+],
+[
+"Time waits for no one.",
+1,
+"Malfurion Stormrage"
+],
+[
+"Time wears thin.",
+1,
+"Malfurion Stormrage"
+],
+[
+"You tempt nature's wrath.",
+1,
+"Malfurion Stormrage"
+],
+[
 "I spent too much time in that weak little show.",
 1,
 "Malganis"
@@ -15850,12 +17675,37 @@
 "Mandokir"
 ],
 [
+"Do it again, and your skull will be my whetstone.",
+1,
+"Mannethrel Darkstar"
+],
+[
+"If we do not meet again, I will.",
+1,
+"Mannethrel Darkstar"
+],
+[
+"Normally I have demons, but for you, I will make an exception.",
+1,
+"Mannethrel Darkstar"
+],
+[
+"You are no demon, but I will put you in the ground just the same.",
+1,
+"Mannethrel Darkstar"
+],
+[
 "Hahaha! Fall and die before me!",
 1,
 "Mannoroth"
 ],
 [
 "Here I live!",
+1,
+"Mannoroth"
+],
+[
+"I will not fall again!",
 1,
 "Mannoroth"
 ],
@@ -15940,6 +17790,31 @@
 "Maraad"
 ],
 [
+"Never again.",
+1,
+"Maraad"
+],
+[
+"Our enemies must fall.",
+1,
+"Maraad"
+],
+[
+"This is war.",
+1,
+"Maraad"
+],
+[
+"Walk with the light.",
+1,
+"Maraad"
+],
+[
+"We must not fail.",
+1,
+"Maraad"
+],
+[
 "What news from the front?",
 1,
 "Maraad"
@@ -15960,6 +17835,11 @@
 "Marnak"
 ],
 [
+"So, you wish to test the might of the fell horde? Come warriors, show them how we treat unwanted guests.",
+1,
+"Martak"
+],
+[
 "Waste away into nothingness!",
 1,
 "Marwyn"
@@ -15968,6 +17848,16 @@
 "Your flesh held a key before your very eyes!",
 1,
 "Marwyn"
+],
+[
+"Hey! That one hurt. I don't take pain. I deliver it.",
+2,
+"Matron Mother Malevolence"
+],
+[
+"I always love our little chance.",
+1,
+"Matron Mother Malevolence"
 ],
 [
 "I live to serve the illadari.",
@@ -15980,8 +17870,43 @@
 "Matron Mother Malevolence"
 ],
 [
+"I'm starting to think that I need to put you over my knee. A six-armed spanking is in order.",
+2,
+"Matron Mother Malevolence"
+],
+[
+"Let's do this again real soon.",
+2,
+"Matron Mother Malevolence"
+],
+[
+"Next time, eyes all the way up here.",
+2,
+"Matron Mother Malevolence"
+],
+[
+"No hug before you go.",
+2,
+"Matron Mother Malevolence"
+],
+[
+"Oh, no, you did not.",
+2,
+"Matron Mother Malevolence"
+],
+[
+"Try not to forget that the Legion wants to burn all worlds, especially yours.",
+2,
+"Matron Mother Malevolence"
+],
+[
 "Well, hello there.",
 2,
+"Matron Mother Malevolence"
+],
+[
+"Well, this is wholly inappropriate. I'm hardly dressed for a POCOR.",
+1,
 "Matron Mother Malevolence"
 ],
 [
@@ -16000,7 +17925,22 @@
 "Mayla Highmountain"
 ],
 [
+"How can we hope to weather the coming storm?",
+1,
+"Mayla Highmountain"
+],
+[
 "I am Mela. I stand as high chieftain.",
+1,
+"Mayla Highmountain"
+],
+[
+"I heard stories of your deeds. I thought you would be taller.",
+1,
+"Mayla Highmountain"
+],
+[
+"I like you. It is a shame you are so small and tiny.",
 1,
 "Mayla Highmountain"
 ],
@@ -16011,6 +17951,16 @@
 ],
 [
 "Now that we stand united, we turn our eyes to the Legion.",
+1,
+"Mayla Highmountain"
+],
+[
+"our tribes stand as one.",
+1,
+"Mayla Highmountain"
+],
+[
+"Want to impress me? Come back when you grow another foot.",
 1,
 "Mayla Highmountain"
 ],
@@ -16041,6 +17991,11 @@
 ],
 [
 "These are rough times.",
+1,
+"Mayor Heathrow"
+],
+[
+"TRIG LIGHTLY!",
 1,
 "Mayor Heathrow"
 ],
@@ -16536,7 +18491,7 @@
 ],
 [
 "How dare you!",
-1,
+2,
 "Moira"
 ],
 [
@@ -16600,6 +18555,11 @@
 "Morchok"
 ],
 [
+"Your bones will be added to this pile! BURN!",
+1,
+"Mordresh"
+],
+[
 "Face me here, coward!",
 1,
 "Morghor"
@@ -16613,6 +18573,16 @@
 "This pathetic revolution ends here!",
 1,
 "Morghor"
+],
+[
+"I'll call you in the dust where you stand.",
+1,
+"Morkurk"
+],
+[
+"You are full for silencing me.",
+1,
+"Morkurk"
 ],
 [
 "I hope you can fly, Pipsquake!",
@@ -17025,6 +18995,11 @@
 "Murozond"
 ],
 [
+"My strong plan with Scratchy Scratchy!",
+1,
+"Mushlump"
+],
+[
 "Ah, you are never in any danger, sweetheart. My friend's down below with a kotcha. You're worth far too much to us alive.",
 1,
 "Mylra"
@@ -17056,7 +19031,7 @@
 ],
 [
 "May the ancestors watch over you.",
-1,
+2,
 "Mylra"
 ],
 [
@@ -17100,12 +19075,37 @@
 "Naga"
 ],
 [
+"Ever get a hoof to the crotch, hmm? Want to know what that feels like?",
+1,
+"Naielle"
+],
+[
+"Fight on your own terms.",
+1,
+"Naielle"
+],
+[
+"Know your enemy.",
+1,
+"Naielle"
+],
+[
 "None can hide from their own gallery.",
 1,
 "Naielle"
 ],
 [
+"the drama I shall overcome.",
+1,
+"Naielle"
+],
+[
 "This is such a puzzling world.",
+1,
+"Naielle"
+],
+[
+"travel light and move quickly.",
 1,
 "Naielle"
 ],
@@ -17180,12 +19180,67 @@
 "Narthalas Citizen"
 ],
 [
+"I have all eternity to get my revenge.",
+2,
+"Narthalas Citizen"
+],
+[
+"I'm a ghost, genius. You can't touch me.",
+2,
+"Narthalas Citizen"
+],
+[
+"That really is getting annoying.",
+2,
+"Narthalas Citizen"
+],
+[
 "We were betrayed by our prince.",
 2,
 "Narthalas Citizen"
 ],
 [
+"Whew! Hahaha!",
+1,
+"Narthalas Citizen"
+],
+[
+"You can stop anytime now.",
+2,
+"Narthalas Citizen"
+],
+[
 "Do not test me.",
+1,
+"Nathanos Blightcaller"
+],
+[
+"for the dark lady.",
+1,
+"Nathanos Blightcaller"
+],
+[
+"Get moving!",
+1,
+"Nathanos Blightcaller"
+],
+[
+"I shall will your entrails as a necklace!",
+1,
+"Nathanos Blightcaller"
+],
+[
+"If you run now, you may live.",
+1,
+"Nathanos Blightcaller"
+],
+[
+"Make yourself useful.",
+1,
+"Nathanos Blightcaller"
+],
+[
+"Try not to get yourself killed.",
 1,
 "Nathanos Blightcaller"
 ],
@@ -17800,6 +19855,11 @@
 "Neptulon"
 ],
 [
+"The shadow moon cannot be defeated, we walk in the realm of death itself!",
+1,
+"Nerzhul"
+],
+[
 "Don't waste your time on that one. He's weak.",
 1,
 "Nethekurse"
@@ -17833,6 +19893,11 @@
 "I have such fascinating things to show you.",
 1,
 "Nexusprinceshafar"
+],
+[
+"Yes, come closer, your souls are strong and proud. I will feast on your terror.",
+1,
+"Nhalish"
 ],
 [
 "Aid me.",
@@ -17886,7 +19951,7 @@
 ],
 [
 "Good bye.",
-5,
+6,
 "Nightelf"
 ],
 [
@@ -18201,7 +20266,7 @@
 ],
 [
 "Ishnu Allah.",
-1,
+3,
 "Nightelffemalestandardnpc"
 ],
 [
@@ -18308,6 +20373,16 @@
 "You know those ancient protectors in Darnassus? They're not that old.",
 1,
 "Nightelfvocalmale"
+],
+[
+"for you!",
+1,
+"Nighttwistedpale"
+],
+[
+"Start the funeral, Piers!",
+1,
+"Nokgar"
 ],
 [
 "A slippery little stone-trog!",
@@ -18626,7 +20701,7 @@
 ],
 [
 "You waste my time.",
-3,
+4,
 "Npcbloodelffemalemilitary"
 ],
 [
@@ -18681,7 +20756,7 @@
 ],
 [
 "Stay the course.",
-2,
+3,
 "Npcbloodelffemalenoble"
 ],
 [
@@ -18721,7 +20796,7 @@
 ],
 [
 "We will persevere.",
-3,
+4,
 "Npcbloodelffemalestandard"
 ],
 [
@@ -18806,7 +20881,7 @@
 ],
 [
 "We are done here.",
-9,
+10,
 "Npcdeathknightfemalegnome01"
 ],
 [
@@ -18831,7 +20906,7 @@
 ],
 [
 "Leave me be.",
-7,
+8,
 "Npcdeathknightfemalelow01"
 ],
 [
@@ -19051,22 +21126,22 @@
 ],
 [
 "Do not lose faith.",
-5,
+7,
 "Npcdraeneifemalemilitary"
 ],
 [
 "Good fortune.",
-4,
+5,
 "Npcdraeneifemalemilitary"
 ],
 [
 "good health, long life.",
-4,
+5,
 "Npcdraeneifemalemilitary"
 ],
 [
 "I believe I hear someone calling you.",
-4,
+5,
 "Npcdraeneifemalemilitary"
 ],
 [
@@ -19076,7 +21151,7 @@
 ],
 [
 "Is this how you amuse yourself?",
-4,
+5,
 "Npcdraeneifemalemilitary"
 ],
 [
@@ -19096,22 +21171,22 @@
 ],
 [
 "Remain vigilant.",
-3,
-"Npcdraeneifemalemilitary"
-],
-[
-"Remember the lessons of the past.",
 4,
 "Npcdraeneifemalemilitary"
 ],
 [
+"Remember the lessons of the past.",
+5,
+"Npcdraeneifemalemilitary"
+],
+[
 "The Legion will fall.",
-2,
+3,
 "Npcdraeneifemalemilitary"
 ],
 [
 "The Naru have not forgotten us.",
-2,
+3,
 "Npcdraeneifemalemilitary"
 ],
 [
@@ -19126,17 +21201,17 @@
 ],
 [
 "Who taught you to act like this?",
-5,
+6,
 "Npcdraeneifemalemilitary"
 ],
 [
 "You behave like a child.",
-2,
+3,
 "Npcdraeneifemalemilitary"
 ],
 [
 "You have other matters to attend to, yes?",
-4,
+5,
 "Npcdraeneifemalemilitary"
 ],
 [
@@ -19271,7 +21346,7 @@
 ],
 [
 "The Legion's End draws near.",
-2,
+3,
 "Npcdraeneimalemilitary"
 ],
 [
@@ -19286,7 +21361,7 @@
 ],
 [
 "Favour the road, travelled by few.",
-1,
+2,
 "Npcdraeneimalenoble"
 ],
 [
@@ -19366,7 +21441,7 @@
 ],
 [
 "Good hunting.",
-5,
+6,
 "Npctuskarrfemalemagicuser"
 ],
 [
@@ -19830,6 +21905,11 @@
 "Npcvrykulmalestandard"
 ],
 [
+"May your stars be aligned.",
+1,
+"Nyandra Springbloom"
+],
+[
 "Scenarius welcomes you.",
 1,
 "Nyandra Springbloom"
@@ -19846,6 +21926,16 @@
 ],
 [
 "Greetings, champion.",
+2,
+"Oakin Ironbull"
+],
+[
+"High Mountain Stans.",
+1,
+"Oakin Ironbull"
+],
+[
+"I will never forget my life, Dad, to you.",
 1,
 "Oakin Ironbull"
 ],
@@ -20066,7 +22156,7 @@
 ],
 [
 "Stay strong.",
-3,
+6,
 "Orc"
 ],
 [
@@ -20091,7 +22181,7 @@
 ],
 [
 "Until next time.",
-1,
+4,
 "Orc"
 ],
 [
@@ -20385,6 +22475,16 @@
 "Ornekka"
 ],
 [
+"Oh, cut that out.",
+1,
+"Ornekka"
+],
+[
+"You're ruffling my feathers!",
+1,
+"Ornekka"
+],
+[
 "Beware the Twilight Hammer.",
 1,
 "Ortell"
@@ -20415,7 +22515,22 @@
 "Ortell"
 ],
 [
+"Death could not stop me. How do you hope to? Yeah!",
+1,
+"Othaar"
+],
+[
+"Never forget.",
+1,
+"Othaar"
+],
+[
 "Our power is supreme.",
+1,
+"Othaar"
+],
+[
+"Someday we will recreate the glory of Argos.",
 1,
 "Othaar"
 ],
@@ -20425,7 +22540,17 @@
 "Othaar"
 ],
 [
+"We will rise again.",
+1,
+"Othaar"
+],
+[
 "What brings you to the XRX?",
+1,
+"Othaar"
+],
+[
+"You killed me once, mortals. It will not happen again!",
 1,
 "Othaar"
 ],
@@ -20505,6 +22630,136 @@
 "Pathaleonthecalculator"
 ],
 [
+"Being a conduit for chaos is terrible for my hair.",
+1,
+"Pcdhbloodelffemale"
+],
+[
+"Fight fire with fire! Unless it's really fire, then you should probably use water.",
+1,
+"Pcdhbloodelffemale"
+],
+[
+"I only wear black and very, very dark gray.",
+1,
+"Pcdhbloodelffemale"
+],
+[
+"Of course these are real, you mean the tattoos, right?",
+1,
+"Pcdhbloodelffemale"
+],
+[
+"Well, what do you know? Your other senses do get stronger. You really need to shower by the way.",
+1,
+"Pcdhbloodelffemale"
+],
+[
+"A dreadlord, an inferno, and a doomguard walked into a bar. So I killed them all.",
+1,
+"Pcdhbloodelfmale"
+],
+[
+"darkness called, but I wasn't home. So he left a message.",
+1,
+"Pcdhbloodelfmale"
+],
+[
+"Do these horns make me look evil?",
+1,
+"Pcdhbloodelfmale"
+],
+[
+"I actually got these tattoos before I went to prison.",
+1,
+"Pcdhbloodelfmale"
+],
+[
+"I eat demons for breakfast, and vengeance for lunch. But I usually skip dinner because vengeance has a lot of calories.",
+1,
+"Pcdhbloodelfmale"
+],
+[
+"In a blind taste test, people said I tasted like charcoal and vengeance.",
+1,
+"Pcdhbloodelfmale"
+],
+[
+"Oh, it's all fun and games until someone pokes an eye out.",
+1,
+"Pcdhbloodelfmale"
+],
+[
+"You know, I could really use a manicure.",
+1,
+"Pcdhbloodelfmale"
+],
+[
+"All right, all right, I'm blind, not deaf.",
+1,
+"Pcdhnightelffemale"
+],
+[
+"Demon's souls taste delicious, though some do have an on-cineman aftertaste.",
+1,
+"Pcdhnightelffemale"
+],
+[
+"Fight fire with fire. Unless it's an actual fire, then use water.",
+1,
+"Pcdhnightelffemale"
+],
+[
+"I don't hunt demons just for sport. I make sure to use all their body parts.",
+1,
+"Pcdhnightelffemale"
+],
+[
+"No, Mom, this is not just a phase.",
+1,
+"Pcdhnightelffemale"
+],
+[
+"Spectral sites not everything it's cracked up to be. Did you know that dwarves wear absolutely no undergarments?",
+1,
+"Pcdhnightelffemale"
+],
+[
+"Demon blood is thicker than regular blood.",
+1,
+"Pcdhnightelfmale"
+],
+[
+"It's all fun and games until someone pokes an eye out.",
+1,
+"Pcdhnightelfmale"
+],
+[
+"Shaving without a mirror is the only tricky part about this gig.",
+1,
+"Pcdhnightelfmale"
+],
+[
+"Ten years in stasis will give you such a crick in the neck.",
+1,
+"Pcdhnightelfmale"
+],
+[
+"This tattoo here, well, that's the power of darkness. Over here, you've got your demonic scourge. And this one says, Mom.",
+1,
+"Pcdhnightelfmale"
+],
+[
+"True love? No, I distinctly said, to glaive. And as we all know, to glaive means to slice apart into a million pieces.",
+1,
+"Pcdhnightelfmale"
+],
+[
+"You are not propelled. Sorry. Thought you were someone else.",
+1,
+"Pcdhnightelfmale"
+],
+[
 "AHHHHHHH",
 1,
 "Pcgilneanfemale"
@@ -20556,7 +22811,7 @@
 ],
 [
 "Farewell.",
-31,
+36,
 "Pcgilneanfemale"
 ],
 [
@@ -20581,7 +22836,7 @@
 ],
 [
 "Greetings.",
-27,
+28,
 "Pcgilneanfemale"
 ],
 [
@@ -21441,7 +23696,7 @@
 ],
 [
 "See ya!",
-3,
+4,
 "Pcgoblinmale"
 ],
 [
@@ -21511,7 +23766,7 @@
 ],
 [
 "Hm.",
-2,
+3,
 "Pcworgenfemale"
 ],
 [
@@ -21683,6 +23938,11 @@
 "Wha-",
 1,
 "Peasant"
+],
+[
+"Come back soon!",
+1,
+"Penelope Heathrow"
 ],
 [
 "I'm scared.",
@@ -21900,7 +24160,17 @@
 "Prince Farondis"
 ],
 [
+"Don't blindly trust in anyone, especially your leaders.",
+3,
+"Prince Farondis"
+],
+[
 "I failed my people.",
+1,
+"Prince Farondis"
+],
+[
+"I should have you flogged!",
 1,
 "Prince Farondis"
 ],
@@ -21910,8 +24180,33 @@
 "Prince Farondis"
 ],
 [
+"I'm really not in the mood.",
+1,
+"Prince Farondis"
+],
+[
+"May the power of the arcane be with you.",
+3,
+"Prince Farondis"
+],
+[
+"Until we meet again.",
+4,
+"Prince Farondis"
+],
+[
 "We are cursed to spend eternity as ghosts.",
 3,
+"Prince Farondis"
+],
+[
+"We are not amused.",
+1,
+"Prince Farondis"
+],
+[
+"You dare touch my royal person?",
+1,
 "Prince Farondis"
 ],
 [
@@ -22305,6 +24600,11 @@
 "Rajh"
 ],
 [
+"Beware of the plants that have eyes.",
+1,
+"Rangarikaalya"
+],
+[
 "Never underestimate the wilds.",
 1,
 "Rangarikaalya"
@@ -22313,6 +24613,71 @@
 "Survival requires many difficult choices.",
 1,
 "Rangarikaalya"
+],
+[
+"Watch the shadows.",
+1,
+"Rangarikaalya"
+],
+[
+"I will slice the fish from your bones! Aah!",
+1,
+"Ranjit"
+],
+[
+"Are you as excited as I am to be here?",
+1,
+"Ravandwyr"
+],
+[
+"Hmm, don't you have somewhere else to be?",
+1,
+"Ravandwyr"
+],
+[
+"I mastered a new spell today.",
+1,
+"Ravandwyr"
+],
+[
+"I suppose persistence is a good thing.",
+1,
+"Ravandwyr"
+],
+[
+"I'm getting a headache.",
+1,
+"Ravandwyr"
+],
+[
+"It's a great day to practice magic.",
+1,
+"Ravandwyr"
+],
+[
+"It's good to see you.",
+1,
+"Ravandwyr"
+],
+[
+"Let me know if you need my help with anything.",
+1,
+"Ravandwyr"
+],
+[
+"Take care, friend.",
+1,
+"Ravandwyr"
+],
+[
+"Well met, friend.",
+1,
+"Ravandwyr"
+],
+[
+"You must have better things to do",
+1,
+"Ravandwyr"
 ],
 [
 "Razz. Tired.",
@@ -22355,12 +24720,37 @@
 "Renataki"
 ],
 [
+"Aah, very well for now.",
+1,
+"Reshad"
+],
+[
+"Farewell, my friend.",
+1,
+"Reshad"
+],
+[
+"I will see you again.",
+1,
+"Reshad"
+],
+[
+"I'M ALREADY!",
+1,
+"Reshad"
+],
+[
 "It's about time.",
 1,
 "Reshad"
 ],
 [
 "Let me tell you a story.",
+1,
+"Reshad"
+],
+[
+"What is it? What is it? What is it? What is it? What is it? WHAT IS IT THAT YOU WANT?!",
 1,
 "Reshad"
 ],
@@ -22575,6 +24965,16 @@
 "Rotface"
 ],
 [
+"Ancestors forgive us.",
+1,
+"Rulkan"
+],
+[
+"Do what must be done.",
+1,
+"Rulkan"
+],
+[
 "of people deserve better.",
 1,
 "Rulkan"
@@ -22590,6 +24990,11 @@
 "Rulkan"
 ],
 [
+"Do let me know if you find more sources of manna.",
+1,
+"Runas The Shamed"
+],
+[
 "Elison will pay for banishing us.",
 1,
 "Runas The Shamed"
@@ -22600,12 +25005,47 @@
 "Runas The Shamed"
 ],
 [
+"I look forward to our continued cooperation.",
+1,
+"Runas The Shamed"
+],
+[
 "I will free take my rightful place.",
 1,
 "Runas The Shamed"
 ],
 [
+"I'm not accustomed to such touching.",
+1,
+"Runas The Shamed"
+],
+[
+"If you don't stop, I'll drink every last drop of energy out of your corpse. Plopian.",
+1,
+"Runas The Shamed"
+],
+[
+"Know your place or be put in it.",
+1,
+"Runas The Shamed"
+],
+[
 "The Nightborne are not what they seem.",
+1,
+"Runas The Shamed"
+],
+[
+"Two can play at this game, except my touch actually hurts.",
+1,
+"Runas The Shamed"
+],
+[
+"We don't know each other well enough for this.",
+1,
+"Runas The Shamed"
+],
+[
+"You and I make a great team, wouldn't you agree?",
 1,
 "Runas The Shamed"
 ],
@@ -22648,6 +25088,46 @@
 "What an explosive ending! No!",
 1,
 "Rupert"
+],
+[
+"Can the Nara aid you?",
+1,
+"Saara"
+],
+[
+"Careful, I can be shocked.",
+1,
+"Saara"
+],
+[
+"In the light we are reborn.",
+1,
+"Saara"
+],
+[
+"Light reveal your path.",
+1,
+"Saara"
+],
+[
+"Please don't smudge me.",
+1,
+"Saara"
+],
+[
+"Walk in light.",
+1,
+"Saara"
+],
+[
+"will help you",
+1,
+"Saara"
+],
+[
+"Would you like to see the temple, say, from the outside?",
+1,
+"Saara"
 ],
 [
 "Blood, destruction, exhilarating!",
@@ -22960,7 +25440,22 @@
 "Senegos"
 ],
 [
+"Get off my lawn. The island!",
+1,
+"Senegos"
+],
+[
+"Have you no respect for your elders?",
+1,
+"Senegos"
+],
+[
 "I am the oldest of my kind.",
+1,
+"Senegos"
+],
+[
+"I believe it is time.",
 1,
 "Senegos"
 ],
@@ -22970,7 +25465,37 @@
 "Senegos"
 ],
 [
+"I can use my frost breath more than three times a day, you know.",
+1,
+"Senegos"
+],
+[
+"In all my millennia, I have never met one as impertinent as you.",
+1,
+"Senegos"
+],
+[
+"May the wisdom of the Titans guide you.",
+1,
+"Senegos"
+],
+[
+"Must you act like a child?",
+1,
+"Senegos"
+],
+[
 "The blue dragon flight is but a shadow of its former glory.",
+1,
+"Senegos"
+],
+[
+"The dragonflights will rise again.",
+1,
+"Senegos"
+],
+[
+"There is great power within you. Use it wisely.",
 1,
 "Senegos"
 ],
@@ -23070,12 +25595,22 @@
 "Shannox"
 ],
 [
+"I always love our little chats.",
+1,
+"Shivarra Destroyer"
+],
+[
 "I live to serve the Illidari.",
 1,
 "Shivarra Destroyer"
 ],
 [
 "I'd sooner kill you than look at you, but let's start with luck.",
+1,
+"Shivarra Destroyer"
+],
+[
+"Well, this is wholly inappropriate. I'm hardly dressed for a poke war.",
 1,
 "Shivarra Destroyer"
 ],
@@ -23210,7 +25745,17 @@
 "Sira Moonwarden"
 ],
 [
+"May the night shroud you in shadow and the moon illuminate your foes.",
+2,
+"Sira Moonwarden"
+],
+[
 "Speak plainly.",
+2,
+"Sira Moonwarden"
+],
+[
+"vision, strength, perseverance.",
 2,
 "Sira Moonwarden"
 ],
@@ -23410,7 +25955,17 @@
 "Skycaptainswayze"
 ],
 [
+"I'm the best variance.",
+1,
+"Sologroark"
+],
+[
 "I'm yours to command.",
+1,
+"Sologroark"
+],
+[
+"Let's get this done!",
 1,
 "Sologroark"
 ],
@@ -23421,6 +25976,11 @@
 ],
 [
 "And why do you think we need your help, Blood Elf? We Auk and I are sworn to Auk and Dune's protection.",
+1,
+"Soulbindernyami"
+],
+[
+"I will coil your souls into darkness.",
 1,
 "Soulbindernyami"
 ],
@@ -23443,6 +26003,36 @@
 "What more can we do?",
 1,
 "Spellbinderbrokenmale"
+],
+[
+"Do not stand so close, my breath is... potent.",
+1,
+"Spiritwalker Ebonhorn"
+],
+[
+"Don't make me burn your face off. I mean, greetings, traveler.",
+1,
+"Spiritwalker Ebonhorn"
+],
+[
+"I counsel the high chieftain.",
+1,
+"Spiritwalker Ebonhorn"
+],
+[
+"I knew you would come.",
+1,
+"Spiritwalker Ebonhorn"
+],
+[
+"I serve the descendants of home.",
+1,
+"Spiritwalker Ebonhorn"
+],
+[
+"You have been warned.",
+1,
+"Spiritwalker Ebonhorn"
 ],
 [
 "That makes sense, I suppose. Just doesn't feel right.",
@@ -23500,6 +26090,11 @@
 "Steelbreaker"
 ],
 [
+"Ah, annoying mortals. Don't you ever run out of energy?",
+1,
+"Stellagosa"
+],
+[
 "Azuna was once the center of magic research.",
 1,
 "Stellagosa"
@@ -23510,7 +26105,37 @@
 "Stellagosa"
 ],
 [
+"How strange it is to have visitors after so much time.",
+1,
+"Stellagosa"
+],
+[
 "I fear that grandfather doesn't have much time left.",
+1,
+"Stellagosa"
+],
+[
+"I'm glad you're here. I can tell you'll help.",
+1,
+"Stellagosa"
+],
+[
+"Just remember, I can fly, and you can't.",
+1,
+"Stellagosa"
+],
+[
+"No matter how long we live, it doesn't seem long enough.",
+1,
+"Stellagosa"
+],
+[
+"Oh, are we going to play a game?",
+1,
+"Stellagosa"
+],
+[
+"Ouch! That hurt!",
 1,
 "Stellagosa"
 ],
@@ -23520,7 +26145,17 @@
 "Stellagosa"
 ],
 [
+"Tag, you're it, no tagbacks.",
+1,
+"Stellagosa"
+],
+[
 "There's old, and then there's Senecos.",
+1,
+"Stellagosa"
+],
+[
+"Until we meet again, my friend.",
 1,
 "Stellagosa"
 ],
@@ -23618,6 +26253,51 @@
 "based or by me, kill them at once.",
 1,
 "Swamplordmuselek"
+],
+[
+"Come and be restored.",
+1,
+"Sylendra Gladesong"
+],
+[
+"for the Grove.",
+1,
+"Sylendra Gladesong"
+],
+[
+"Listen to the wind. What does it say?",
+1,
+"Sylendra Gladesong"
+],
+[
+"Peace to you.",
+1,
+"Sylendra Gladesong"
+],
+[
+"Peaceful journey to you.",
+1,
+"Sylendra Gladesong"
+],
+[
+"See if I heal you again.",
+1,
+"Sylendra Gladesong"
+],
+[
+"swift travels",
+1,
+"Sylendra Gladesong"
+],
+[
+"This is getting us nowhere.",
+1,
+"Sylendra Gladesong"
+],
+[
+"Where is the danger?",
+1,
+"Sylendra Gladesong"
 ],
 [
 "A similar fate befell all that would die to the Scourge War Machine.",
@@ -24351,7 +27031,7 @@
 ],
 [
 "Always glad to help.",
-1,
+2,
 "Tauren"
 ],
 [
@@ -24496,7 +27176,7 @@
 ],
 [
 "May the wind be at your back.",
-1,
+2,
 "Tauren"
 ],
 [
@@ -24606,7 +27286,7 @@
 ],
 [
 "Peace, friend.",
-3,
+4,
 "Taurenfemaleofficialnpc"
 ],
 [
@@ -24666,7 +27346,7 @@
 ],
 [
 "You are testing my patience.",
-1,
+2,
 "Taurenmaleeldernpc"
 ],
 [
@@ -24711,7 +27391,7 @@
 ],
 [
 "Mess with the bull, you get the horns.",
-1,
+2,
 "Taurenvocalmale"
 ],
 [
@@ -24930,7 +27610,22 @@
 "Terokk"
 ],
 [
+"Leave the past behind.",
+1,
+"Terokk"
+],
+[
 "My people will find their way.",
+1,
+"Terokk"
+],
+[
+"Our burdens do not define us.",
+1,
+"Terokk"
+],
+[
+"Raven watch over you.",
 1,
 "Terokk"
 ],
@@ -24938,6 +27633,11 @@
 "Ruke Mar has forgotten us.",
 1,
 "Terokk"
+],
+[
+"Hey, this power, you will be the first to know it.",
+1,
+"Terongor"
 ],
 [
 "Death... really isn't so bad.",
@@ -25055,7 +27755,17 @@
 "Thaon Moonclaw"
 ],
 [
+"Move swiftly.",
+1,
+"Thaon Moonclaw"
+],
+[
 "My guard the wild.",
+1,
+"Thaon Moonclaw"
+],
+[
+"The wrath of nature is upon them.",
 1,
 "Thaon Moonclaw"
 ],
@@ -25625,6 +28335,11 @@
 "Thrall"
 ],
 [
+"Fight with honor!",
+1,
+"Thrall"
+],
+[
 "For all my supposed wisdom, there have been moments that I've barely been able to hold the horde together. The Wrathgate and Undercity displayed that clearly enough.",
 1,
 "Thrall"
@@ -25636,6 +28351,11 @@
 ],
 [
 "For so long as I live, I will stand at your side, as you have stood at mine.",
+1,
+"Thrall"
+],
+[
+"FOR THE WHOLE AT!",
 1,
 "Thrall"
 ],
@@ -25785,6 +28505,11 @@
 "Thrall"
 ],
 [
+"Is this what the Horde has come to? I need to speak to voting about this.",
+1,
+"Thrall"
+],
+[
 "It ends like it began.",
 1,
 "Thrall"
@@ -25875,6 +28600,11 @@
 "Thrall"
 ],
 [
+"Our spirit will triumph.",
+1,
+"Thrall"
+],
+[
 "Our world groans in agony, besieged by an adversary of unspeakable power.",
 1,
 "Thrall"
@@ -25886,6 +28616,16 @@
 ],
 [
 "Raised as a slave, to kill for human amusement, death was too good for black more. Anyone who would enslave another deserves worse than death. All are guilty, all must pay.",
+1,
+"Thrall"
+],
+[
+"run our enemies into the ground.",
+1,
+"Thrall"
+],
+[
+"Seriously, are we gonna do this?",
 1,
 "Thrall"
 ],
@@ -26071,6 +28811,11 @@
 ],
 [
 "We shall, Sylvanas.",
+1,
+"Thrall"
+],
+[
+"We will not be broken.",
 1,
 "Thrall"
 ],
@@ -26280,7 +29025,32 @@
 "Thrymjaris"
 ],
 [
+"The storm will prevail.",
+1,
+"Thrymjaris"
+],
+[
+"We will strike the leg lightning.",
+1,
+"Thrymjaris"
+],
+[
+"Raccoon! Let's give them hell!",
+1,
+"Thunderlordgeneral"
+],
+[
+"Good luck!",
+1,
+"Tinkmaster Overspark"
+],
+[
 "Need something fixed?",
+1,
+"Tinkmaster Overspark"
+],
+[
+"SASSINATING!",
 1,
 "Tinkmaster Overspark"
 ],
@@ -27141,7 +29911,7 @@
 ],
 [
 "I'm listening.",
-3,
+4,
 "Undeadfemalemagicnpc"
 ],
 [
@@ -27796,7 +30566,7 @@
 ],
 [
 "You don't want to see my angry side.",
-1,
+2,
 "Varianwrynn"
 ],
 [
@@ -27981,7 +30751,7 @@
 ],
 [
 "an unwise decision.",
-1,
+2,
 "Velen"
 ],
 [
@@ -27996,12 +30766,12 @@
 ],
 [
 "How unfortunate for you.",
-1,
+2,
 "Velen"
 ],
 [
 "I foresaw this.",
-1,
+2,
 "Velen"
 ],
 [
@@ -28010,7 +30780,17 @@
 "Velen"
 ],
 [
+"Just",
+1,
+"Velen"
+],
+[
 "Just as this day marks an ending, so too does it herald a new beginning.",
+1,
+"Velen"
+],
+[
+"Many depend on you.",
 1,
 "Velen"
 ],
@@ -28040,6 +30820,11 @@
 "Velen"
 ],
 [
+"The light will guide your way.",
+1,
+"Velen"
+],
+[
 "then fortunate it is that I have reclaimed the noble Naru's spark from where it fell, where faith dwells, hoop, is never lost, young blood elf.",
 1,
 "Velen"
@@ -28063,6 +30848,16 @@
 "Without faith, the battle is lost.",
 1,
 "Velen"
+],
+[
+"You are the instrument of change.",
+1,
+"Velen"
+],
+[
+"The Eredar are no strangers to war. Are you so eager to meet your end?",
+1,
+"Velhar"
 ],
 [
 "He swerved fills me! My blood is venom! And have a snake! YAAAAAAH!",
@@ -28140,6 +30935,26 @@
 "Vernecrew01"
 ],
 [
+"I'll never let Ashameen's legacy be desecrated.",
+1,
+"Verstok Darkbough"
+],
+[
+"in Ashameen's name.",
+1,
+"Verstok Darkbough"
+],
+[
+"May you walk in shadow.",
+1,
+"Verstok Darkbough"
+],
+[
+"We must never hesitate.",
+1,
+"Verstok Darkbough"
+],
+[
 "Aren't you tricky? I have a few tricks of my own.",
 1,
 "Vesperon"
@@ -28160,7 +30975,17 @@
 "Vesperon"
 ],
 [
+"Fear not the storm!",
+1,
+"Vethir"
+],
+[
 "I stand with you!",
+2,
+"Vethir"
+],
+[
+"May the tailwinds carry you.",
 1,
 "Vethir"
 ],
@@ -28173,6 +30998,11 @@
 "The storm's fury awakens!",
 1,
 "Vethir"
+],
+[
+"We will cast you down like the mongrels you are.",
+1,
+"Viryx"
 ],
 [
 "Alternative Measure Commencing.",
@@ -28455,7 +31285,42 @@
 "Volkhan"
 ],
 [
+"Break them.",
+1,
+"Volrath"
+],
+[
+"FOR THE HORN!",
+1,
+"Volrath"
+],
+[
+"for Vol'jin.",
+1,
+"Volrath"
+],
+[
 "Good to see you, Commander.",
+1,
+"Volrath"
+],
+[
+"Hey, I don't come to your garrison in Tokyo now, do I? No, I don't.",
+1,
+"Volrath"
+],
+[
+"hurt them.",
+1,
+"Volrath"
+],
+[
+"Let's finish this.",
+1,
+"Volrath"
+],
+[
+"Slade em all!",
 1,
 "Volrath"
 ],
@@ -28471,6 +31336,11 @@
 ],
 [
 "We got to keep fighting!",
+1,
+"Volrath"
+],
+[
+"You are foolish to challenge me.",
 1,
 "Volrath"
 ],
@@ -28520,7 +31390,17 @@
 "Vrykul Female"
 ],
 [
+"Judgment awaits.",
+1,
+"Vrykul Female"
+],
+[
 "Spit it out!",
+2,
+"Vrykul Female"
+],
+[
+"to glory.",
 2,
 "Vrykul Female"
 ],
@@ -28533,6 +31413,36 @@
 "Buy, sell, or be gone.",
 1,
 "Vrykul Male"
+],
+[
+"Glory and Death!",
+1,
+"Vulgor"
+],
+[
+"I was over long in finding you.",
+1,
+"Warbrave Oro"
+],
+[
+"In High Mountain, we remember our ancient promise.",
+1,
+"Warbrave Oro"
+],
+[
+"nor did it say anything about me not breaking that poking finger.",
+1,
+"Warbrave Oro"
+],
+[
+"Our people will stand with you against the Burning Legion.",
+1,
+"Warbrave Oro"
+],
+[
+"The prophecy did not say anything about me getting poked.",
+1,
+"Warbrave Oro"
 ],
 [
 "But, he's almost dead!",
@@ -28588,6 +31498,26 @@
 "You stay here, me go kill someone else.",
 1,
 "Warbringeromrogg"
+],
+[
+"How can a virgin help you?",
+1,
+"Warchief Voljin"
+],
+[
+"Spirits be with ya!",
+1,
+"Warchief Voljin"
+],
+[
+"The dog spear never gonna give up.",
+1,
+"Warchief Voljin"
+],
+[
+"These be the dark times.",
+1,
+"Warchief Voljin"
 ],
 [
 "Anaki, Bedlam! Oh, you are so wise! Yes, I see it now, of course!",
@@ -28671,7 +31601,7 @@
 ],
 [
 "Take care.",
-1,
+3,
 "Warlordzonozz"
 ],
 [
@@ -29375,6 +32305,11 @@
 "Wushoolay"
 ],
 [
+"You are not welcome here.",
+1,
+"Xela"
+],
+[
 "Back in business, now, to execute an exit strategy.",
 1,
 "Xevozz"
@@ -29383,6 +32318,16 @@
 "I'm so tired. I'll rest for just a moment.",
 1,
 "Xt002deconstructor"
+],
+[
+"I have so much.",
+1,
+"Xulhorac"
+],
+[
+"No matter how it all ends, you will die here.",
+1,
+"Xulhorac"
 ],
 [
 "Destroy the answers!",
@@ -29460,6 +32405,11 @@
 "Yorsahj"
 ],
 [
+"ardoncha cicaldos in the light we triumph.",
+1,
+"Yrel"
+],
+[
 "Faith is my mirror, but will is my weapon.",
 1,
 "Yrel"
@@ -29485,7 +32435,17 @@
 "Yrel"
 ],
 [
+"Please be careful.",
+1,
+"Yrel"
+],
+[
 "The Prophet guides us.",
+1,
+"Yrel"
+],
+[
+"The Prophet's faith was not misplaced.",
 1,
 "Yrel"
 ],
@@ -29500,7 +32460,27 @@
 "Yrel"
 ],
 [
+"Victory will be ours.",
+1,
+"Yrel"
+],
+[
+"We must hold on to our faith.",
+1,
+"Yrel"
+],
+[
+"We must never rest.",
+1,
+"Yrel"
+],
+[
 "We must unite.",
+1,
+"Yrel"
+],
+[
+"We will answer the prayers of my people.",
 1,
 "Yrel"
 ],
@@ -29515,7 +32495,17 @@
 "Yrel"
 ],
 [
+"With faith, we may triumph.",
+1,
+"Yrel"
+],
+[
 "another soul lost to the destroyer.",
+1,
+"Ysera"
+],
+[
+"Courage, young one. Hope is never lost.",
 1,
 "Ysera"
 ],
@@ -29526,6 +32516,11 @@
 ],
 [
 "During my stay in the dream, I made a vital discovery. The rift that weakens the boundaries of this world, as he's in the return of powerful allies.",
+1,
+"Ysera"
+],
+[
+"Every dream has its nightmare, and every nightmare has an end.",
 1,
 "Ysera"
 ],
@@ -29633,6 +32628,11 @@
 "We must hold off the enemy for just a while longer. In mere moments, scenarios will walk among us.",
 1,
 "Ysera"
+],
+[
+"Good! I have been waiting for a fight!",
+1,
+"Zaela"
 ],
 [
 "Ha! You don't even know how to use that finger!",
@@ -29838,6 +32838,26 @@
 "You press on to your depths, fools.",
 1,
 "Zinjatar"
+],
+[
+"Consider it handled.",
+1,
+"Zipfizzle"
+],
+[
+"Everything's under control here.",
+1,
+"Zipfizzle"
+],
+[
+"Heh heh heh heh",
+1,
+"Zipfizzle"
+],
+[
+"I'm all over it!",
+1,
+"Zipfizzle"
 ],
 [
 "Well, hello there, Commander!",

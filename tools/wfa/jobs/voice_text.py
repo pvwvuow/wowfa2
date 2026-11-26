@@ -24,6 +24,7 @@ import subprocess
 import sys
 import tempfile
 import time
+import traceback
 import urllib.error
 import urllib.request
 
@@ -160,6 +161,14 @@ def _fetch(fid, d):
     return fid, None, err
 
 
+def _pcm(p):
+    """16 kHz mono float32 through ffmpeg, for files the built-in decoder cannot read."""
+    import numpy
+    r = subprocess.run(["ffmpeg", "-v", "error", "-i", p, "-ac", "1", "-ar", "16000", "-f", "f32le", "-"],
+                       capture_output=True, check=True)
+    return numpy.frombuffer(r.stdout, dtype=numpy.float32)
+
+
 def hear(out, args, rep):
     L, G, T = out["L"], out["G"], out["T"]
     stt = _load(STT, {})
@@ -185,13 +194,17 @@ def hear(out, args, rep):
     model = WhisperModel(str(args.get("model", "base.en")), device="cpu", compute_type="int8",
                          cpu_threads=os.cpu_count() or 2)
     rep.add("model %s loaded in %.0f s" % (args.get("model", "base.en"), time.time() - t0))
-    heard, miss, n, samples = 0, {}, 0, []
+    heard, miss, n, samples, errs = 0, {}, 0, [], []
+    opts = {"language": "en", "beam_size": 5, "vad_filter": True, "condition_on_previous_text": False}
     grp = {x[0]: G[x[1]][0] for x in cand}
     with tempfile.TemporaryDirectory() as d, concurrent.futures.ThreadPoolExecutor(8) as ex:
         futs = [ex.submit(_fetch, x[0], d) for x in cand]
         for fu in futs:
             if time.time() - t0 > budget:
                 rep.add("time budget reached; the next run goes on")
+                break
+            if n >= 40 and miss.get("error", 0) >= n - 5:
+                rep.add("every file fails to decode; stopping")
                 break
             fid, p, err = fu.result()
             n += 1
@@ -200,13 +213,20 @@ def hear(out, args, rep):
                 stt[str(fid)] = ["", 0, 1, err]
                 continue
             try:
-                segs, _ = model.transcribe(p, language="en", beam_size=5, vad_filter=True,
-                                           condition_on_previous_text=False)
-                segs = list(segs)
-            except Exception as e:  # noqa: BLE001
-                miss[type(e).__name__] = miss.get(type(e).__name__, 0) + 1
-                stt[str(fid)] = ["", 0, 1, type(e).__name__]
-                continue
+                segs = None
+                for src, kw in ((p, opts), (p, {"language": "en", "beam_size": 5}), (None, opts)):
+                    try:
+                        if src is None:
+                            src = _pcm(p)
+                        segs = list(model.transcribe(src, **kw)[0])
+                        break
+                    except Exception as e:  # noqa: BLE001 - try the plain call, then report
+                        if len(errs) < 4:
+                            errs.append("%d %s: %s | %s" % (fid, type(e).__name__, e,
+                                        traceback.format_exc().strip().splitlines()[-3:]))
+                if segs is None:
+                    miss["error"] = miss.get("error", 0) + 1
+                    continue  # not saved: a later run hears it again
             finally:
                 try:
                     os.remove(p)
@@ -227,6 +247,8 @@ def hear(out, args, rep):
     open(STT, "a").write("\n")
     rep.ok("heard %d files in %.0f s: %d usable texts; not on the CDN or unreadable: %s" %
            (n, time.time() - t0, heard, miss or "none"))
+    for s in errs:
+        rep.add("error: " + s)
     for s in samples:
         rep.add(s)
     left = len([x for x in L if x[2] in cats and str(x[0]) not in T and str(x[0]) not in stt])

@@ -425,10 +425,13 @@ local function opt_tog(key, label, desc, signal, eye)
 end
 
 -- a room switch (one of the name / text families)
+-- what the red pulse of the preview marks for a row (Preview.lua: a word family / a quest part)
+local ROOM_HI = { namesClass = "cls", terms = "tm", faDigits = "dig", namesQuest = "qtitle", questText = "qobj" }
 local function room_tog(k, eye)
     local t = tog(PN[k] or k, PN[k .. "_d"],
         function() return F.Room.On(k) end,
         function(v) F.Room.Set(k, v) end, eye)
+    t.wfaHi = ROOM_HI[k]
     panel.room[k] = t
     return t
 end
@@ -685,6 +688,7 @@ local function build()
             F.db.questDock = v
             F:Fire("options", "questDock")
         end)
+    panel.mods.quests.wfaHi = "qpane"
     panel.dock.dimIf = function() return not mods_on("quests") end
     panel.questAuto = opt_tog("questAuto", PN.questAuto, PN.questAuto_d, true)
     panel.questAuto.dimIf = function() return not mods_on("quests") end
@@ -692,6 +696,7 @@ local function build()
     panel.mods.tracker = tog(PN.tracker, nil,
         function() return mods_on("tracker") end,
         function(v) F:SetModule("tracker", v) end, "quest")
+    panel.mods.tracker.wfaHi = "qtrack"
     panel.listTitles = tog(PN.listTitles, nil,
         function() return F.db.listTitles ~= false end,
         function(v)
@@ -952,6 +957,7 @@ local function build()
         row.dimOnMaster = true
         row.dimIf = col_off
         row.wfaEye = "text"
+        row.wfaHi = fam
         row:Update()
         panel.col[fam] = place(row, 32, 2)
     end

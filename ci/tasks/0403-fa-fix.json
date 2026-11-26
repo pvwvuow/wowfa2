@@ -1,0 +1,1 @@
+{"id": "0403-fa-fix", "kind": "script", "why": "owner 26 Nov: one Persian line in vo_fa.json has two replacement characters instead of alef-madda", "args": {"module": "patch_src", "args": {"ops": [{"file": "ci/data/vo_fa.json", "old": "%s \ufffd\ufffd", "new": "%s \u0622", "count": 1}]}}}

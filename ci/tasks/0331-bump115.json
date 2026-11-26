@@ -1,0 +1,1 @@
+{"id":"0331-bump115","kind":"script","why":"owner 26 Nov: 1.1.5-beta (CPU: the two every-frame fixers)","args":{"module":"patch_src","args":{"ops":[{"file":"policy.json","old":"\"version\": \"1.1.4-beta\"","new":"\"version\": \"1.1.5-beta\"","count":1}]}}}

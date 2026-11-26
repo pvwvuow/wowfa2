@@ -1,6 +1,7 @@
 {
 "wards the friendly target against fear. the next fear effect used against the target will fail, using up the ward. lasts # min":"از هدف متحد در برابر ترس محافظت می‌کند. اثر ترس بعدی که علیه هدف به کار رود، ناکام می‌ماند و حفاظ مصرف می‌شود. به مدت {0} دقیقه باقی می‌ماند.",
 "warm, wholesome bread!":"نان گرم و خوش‌خوراک!",
+"wasn't that the night we had to pick up my thumb and carry it in your smoke pouch?":"مگر همان شبی نبود که مجبور شدیم شستم را از زمین برداریم و در کیسهٔ توتونت ببریمش؟",
 "we need arathor. allied forces. -friendly":"نیازمند جایگاه {{tm:Friendly|دوستانه}} در {{fac:Arathor Allied forces|اتحاد آراثور}}.",
 "we need blasting fuses. harbor friendly":"به فیوزهای انفجاری نیاز داریم. شهرت {{tm:friendly|دوستانه}} در بندر.",
 "weakens the target enemy, reducing melee attack power by # and reducing the effectiveness of any healing by #%. lasts # min":"دشمن را ضعیف می‌کند و {{tm:melee attack power|قدرت حملهٔ نزدیک‌زن}} او را {0} کاهش می‌دهد؛ همچنین کارایی هرگونه {{tm:healing|شفا}} را {1}% کم می‌کند. به مدت {2} دقیقه باقی می‌ماند.",

@@ -155,5 +155,6 @@
 "returns your totems to the earth, giving you #% of the mana required to cast each totem destroyed by totemic recall":"توتم‌هایت را به زمین بازمی‌گرداند و {0}% از {{tm:mana|مانای}} لازم برای اجرای هر توتمی را که {{sp:Totemic Recall}} نابود کرده است به تو بازمی‌گرداند.",
 "revive pet's casting time is reduced by # sec, mana cost is reduced by #%, and increases the health your pet returns with by an additional #%":"برای {{sp:revive pet}}، {{tm:casting time|زمان اجرا}} به‌اندازهٔ {0} ثانیه و {{tm:mana cost|هزینهٔ مانا}} به‌اندازهٔ {1}% کاهش می‌یابد و {{tm:health|سلامتی}}ِ که {{tm:pet|حیوان خانگی}} با آن بازمی‌گردد را {2}% دیگر افزایش می‌دهد.",
 "revive your pet, returning it to life with #% of its health":"{{tm:pet|حیوان خانگی‌ات}} را احیا می‌کند و با {0}% از سلامتی‌اش به زندگی بازمی‌گرداند.",
+"rolls, buns and bread. baked fresh!":"نان رول، نان شیرین و نان. تازه پخته شده!",
 "roots the target in place and causes # nature damage over # sec. damage caused may interrupt the effect. you may only have # target rooted at a time":"هدف را در جا دچار بی‌حرکتی می‌کند و طی {1} ثانیه {0} {{tm:Nature damage|آسیب طبیعت}} وارد می‌کند. {{tm:damage|آسیب}}ِ واردشده ممکن است اثر را قطع کند. هم‌زمان فقط می‌توانی {2} هدف بی‌حرکت داشته باشی."
 }

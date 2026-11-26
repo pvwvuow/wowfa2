@@ -1,0 +1,1 @@
+{"id":"0353-dump-panel","kind":"script","why":"owner 26 Nov: full settings audit (wrong previews, useless buttons, unclear texts) - read every panel string","args":{"module":"src_dump","args":{"files":["Locale.lua","Locale_Opt.lua","Locale_Dlg.lua","Locale_Sys.lua","Locale_Alerts.lua","Locale_UI.lua"],"grep":["L.","lbl","k =","= {","}","ex"],"limit":900}}}

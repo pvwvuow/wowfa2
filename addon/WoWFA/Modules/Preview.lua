@@ -23,7 +23,7 @@ end
 
 local TX = {
     title = fa("نمونهٔ زنده"),
-    hint = fa("آیکون چشم کنار هر تنظیم را بزن تا همین~جا ببینی در بازی چه شکلی می~شود."),
+    hint = fa("هر تنظیمی را عوض کنی، همین~جا می~بینی در بازی چه شکلی می~شود."),
     orig = fa("اصل بازی (انگلیسی):"),
     nofa = fa("برای این نمونه هنوز ترجمه~ای نیست؛ بازی همان انگلیسی را نشان می~دهد."),
     off = fa("این بخش خاموش است: بازی متن انگلیسی خودش را نشان می~دهد."),
@@ -753,12 +753,12 @@ function P.Show(id, row)
         return
     end
     cur = id
-    if curRow and curRow.eye and curRow.eye.icon then
-        curRow.eye.icon:SetVertexColor(1, 1, 1)
+    if curRow and curRow.wfaSel then
+        curRow.wfaSel:Hide()
     end
     curRow = row
-    if row and row.eye and row.eye.icon then
-        row.eye.icon:SetVertexColor(C.gold[1], C.gold[2], C.gold[3])
+    if row and row.wfaSel then
+        row.wfaSel:Show()
     end
     pane.hint:Hide()
     local lbl = row and row.label and row.label.GetText and row.label:GetText()
@@ -771,42 +771,34 @@ function P.Show(id, row)
     P.Update()
 end
 
+-- v4.2 (the owner 26 Nov: "remove the eye; when the player switches something, the preview
+-- shows what that switch changes"): no button on the row any more. A click on the row (the
+-- switch itself, a choice, a colour pick) draws its sample. row.eye stays as a hidden handle
+-- (the same Show, for the tests); the row being shown gets a soft gold background.
 local function eye(row, id)
     if not row or row.eye then
         return
     end
-    local b = CreateFrame("Button", nil, row)
-    b:SetSize(20, 20)
-    if row.box then
-        b:SetPoint("TOPLEFT", row, "TOPLEFT", 96, -5) -- a toggle: between its state word and its label
-    elseif row.pick then
-        -- a colour row: [pick button][eye][value]
-        b:SetPoint("TOPLEFT", row, "TOPLEFT", 92, -5)
-        if row.val then
-            row.val:ClearAllPoints()
-            row.val:SetPoint("TOPLEFT", row, "TOPLEFT", 118, -6)
-            row.val:SetWidth(110)
-        end
-    else
-        b:SetPoint("TOPLEFT", row, "TOPLEFT", 4, -5) -- a choice: the value moves right to make room
-        if row.val then
-            row.val:ClearAllPoints()
-            row.val:SetPoint("TOPLEFT", row, "TOPLEFT", 30, -6)
-            row.val:SetWidth(126)
-        end
-    end
-    local t = b:CreateTexture(nil, "ARTWORK")
-    t:SetAllPoints()
-    t:SetTexture("Interface\\Icons\\INV_Misc_Eye_01")
-    t:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-    b.icon = t
-    local h = b:CreateTexture(nil, "HIGHLIGHT")
-    h:SetAllPoints()
-    h:SetColorTexture(1, 1, 1, 0.25)
-    b:SetScript("OnClick", function()
+    local function show()
         P.Show(id, row)
-    end)
+    end
+    local b = CreateFrame("Button", nil, row)
+    b:SetSize(1, 1)
+    b:SetPoint("TOPLEFT", row, "TOPLEFT", 0, 0)
+    b:SetScript("OnClick", show)
+    b:Hide()
     row.eye = b
+    local sel = row:CreateTexture(nil, "BACKGROUND")
+    sel:SetAllPoints()
+    sel:SetColorTexture(C.gold[1], C.gold[2], C.gold[3], 0.10)
+    sel:Hide()
+    row.wfaSel = sel
+    if row.HookScript then
+        pcall(row.HookScript, row, "OnClick", show)
+    end
+    if row.pick and row.pick.HookScript then
+        pcall(row.pick.HookScript, row.pick, "OnClick", show)
+    end
 end
 P.Eye = eye
 

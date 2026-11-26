@@ -60,7 +60,7 @@ window.wfaStart = function () {
   }
   function txHTML(fid) {
     var x = textOf(fid); if (!x) return '';
-    return '<span class="en">' + esc(x[0]) + '</span>' + (x[1] ? '<span class="fa">' + esc(x[1]) + '</span>' : '<span class="fa no">\u062a\u0631\u062c\u0645\u0647 \u0647\u0646\u0648\u0632 \u0646\u06cc\u0633\u062a</span>');
+    return '<span class="en">' + esc(x[0]) + (x[2] ? ' <i class="st" title="\u0645\u062a\u0646 \u0627\u0632 \u0631\u0648\u06cc \u062e\u0648\u062f \u0635\u062f\u0627 \u0634\u0646\u06cc\u062f\u0647 \u0634\u062f\u0647 \u0648 \u0634\u0627\u06cc\u062f \u06a9\u0627\u0645\u0644 \u062f\u0642\u06cc\u0642 \u0646\u0628\u0627\u0634\u062f">~</i>' : '') + '</span>' + (x[1] ? '<span class="fa">' + esc(x[1]) + '</span>' : '<span class="fa no">\u062a\u0631\u062c\u0645\u0647 \u0647\u0646\u0648\u0632 \u0646\u06cc\u0633\u062a</span>');
   }
 
   // ---------------------------------------------------------------- avatars

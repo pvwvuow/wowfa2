@@ -4,8 +4,10 @@
 "we need arathor. allied forces. -friendly":"نیازمند جایگاه {{tm:Friendly|دوستانه}} در {{fac:Arathor Allied forces|اتحاد آراثور}}.",
 "we need blasting fuses. harbor friendly":"به فیوزهای انفجاری نیاز داریم. شهرت {{tm:friendly|دوستانه}} در بندر.",
 "weakens the target enemy, reducing melee attack power by # and reducing the effectiveness of any healing by #%. lasts # min":"دشمن را ضعیف می‌کند و {{tm:melee attack power|قدرت حملهٔ نزدیک‌زن}} او را {0} کاهش می‌دهد؛ همچنین کارایی هرگونه {{tm:healing|شفا}} را {1}% کم می‌کند. به مدت {2} دقیقه باقی می‌ماند.",
+"weary of one of your demonic charges? hoping for one with a more pleasing name? for a price, i can assist you in the obliteration of a current minion so that you may summon an entirely new one..":"از یکی از اهریمن‌های زیر فرمانت خسته شده‌ای؟ دلت یکی با اسم دلنشین‌تر می‌خواهد؟ در ازای بهایی کمکت می‌کنم خدمتکار فعلی‌ات را نابود کنی تا بتوانی یکی کاملاً تازه احضار کنی...",
 "welcome to my inn, weary traveler. what can i do for you?":"به مهمان‌خانهٔ من خوش آمدی، مسافر خسته. چه کاری از دستم برمی‌آید؟",
 "well, you're still here. i'd say that is something worth drinking to":"خب، هنوز اینجایی. به‌نظرم همین هم ارزش نوشیدن دارد.",
+"what? why are you bothering me? why, i bet you can't even create a high quality robe! go talk to snang and come back when you're worthy of my talents!":"چی؟ چرا مزاحمم می‌شوی؟ شرط می‌بندم حتی یک ردای باکیفیت هم نمی‌توانی بدوزی! برو با {{npc:Snang}} حرف بزن و وقتی لایق استعدادهای من شدی برگرد!",
 "when activated, gives your next flash of light, holy light, or holy shock spell a #% critical effect chance":"هنگام فعال‌شدن، به {{tm:spell|اسپل}} {{sp:flash of light}}، {{sp:holy light}} یا {{sp:holy shock}} بعدی تو {0}% شانس {{tm:critical effect|اثر بحرانی}} می‌دهد.",
 "when activated, increases the critical strike chance of your next sinister strike, backstab, ambush, eviscerate, or mutilate by #%":"هنگام فعال‌شدن، {{tm:critical strike chance|شانس ضربهٔ بحرانی}} ضربهٔ شوم، {{sp:backstab}}، کمین، {{sp:eviscerate}} یا {{sp:Mutilate|مثله‌کردن}} بعدی تو را {0}% افزایش می‌دهد.",
 "when activated, increases your dodge and parry chance by #% for # sec":"هنگام فعال‌شدن، شانس {{tm:Dodge|جاخالی}} و {{tm:Parry|پری}} تو را به مدت {1} ثانیه، {0}% افزایش می‌دهد.",
@@ -43,5 +45,6 @@
 "while your pet is active, you and your pet will regenerate #% of total health every # sec":"تا وقتی {{tm:pet|حیوان خانگی}} تو فعال است، تو و {{tm:pet|حیوان خانگی‌ات}} هر {1} ثانیه {0}% از کل {{tm:Health|سلامتی}} بازیابی می‌کنید.",
 "will affect up to # targets":"حداکثر {0} هدف را تحت تأثیر قرار می‌دهد.",
 "will you help us in our time of great need at arathi basin, hunter? the chance for increased honor and standing is greater than ever, and your assistance is sure to help to turn the tide against the defilers. can we count on you?":"در این ساعت نیاز بزرگمان در {{zn:Arathi Basin|حوضچه آراتی}} به ما کمک می‌کنی، ای شکارچی؟ فرصت افزایش افتخار و جایگاه از همیشه بیشتر است و یاری تو حتماً به برگرداندن بخت جنگ علیه {{fac:The Defilers|ناپاکان}} کمک می‌کند. می‌توانیم روی تو حساب کنیم؟",
-"wounds the target causing them to bleed for # damage over # sec":"هدف را زخمی می‌کند و باعث خونریزی می‌شود که طی {1} ثانیه {0} {{tm:damage|آسیب}} وارد می‌کند."
+"wounds the target causing them to bleed for # damage over # sec":"هدف را زخمی می‌کند و باعث خونریزی می‌شود که طی {1} ثانیه {0} {{tm:damage|آسیب}} وارد می‌کند.",
+"wulan in shadowprey village can sell you the \"expert cookbook\". you will need that if you are to better yourself":"{{npc:Wulan}} در {{zn:Shadowprey Village}} می‌تواند «{{it:Expert Cookbook}}» را به تو بفروشد. اگر می‌خواهی پیشرفت کنی، به آن نیاز داری."
 }

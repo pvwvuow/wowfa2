@@ -1,0 +1,827 @@
+[
+{
+"key": "it seems like love is drifting on the wind. i hope that i won't be left out",
+"en": "It seems like love is drifting on the wind. I hope that I won't be left out.",
+"n": 44,
+"npcs": [
+"Auld Stonespire",
+"Bluffwatcher",
+"Bounty Hunter Kolark"
+]
+},
+{
+"key": "sorry, but my services are only of use to warlocks",
+"en": "Sorry, but my services are only of use to warlocks.",
+"n": 11,
+"npcs": [
+"Cylina Darkheart",
+"Dane Winslow",
+"Dannie Fizzwizzle"
+]
+},
+{
+"key": "weary of one of your demonic charges? hoping for one with a more pleasing name? for a price, i can assist you in the obliteration of a current minion so that you may summon an entirely new one..",
+"en": "Weary of one of your demonic charges? Hoping for one with a more pleasing name? For a price, I can assist you in the obliteration of a current minion so that you may summon an entirely new one...",
+"n": 11,
+"npcs": [
+"Cylina Darkheart",
+"Dane Winslow",
+"Dannie Fizzwizzle"
+]
+},
+{
+"key": "it has been years since i have thought with my heart, but it's all flooding back",
+"en": "It has been years since I have thought with my heart, but it's all flooding back.",
+"n": 9,
+"npcs": [
+"Doyo'da",
+"Jin'sora",
+"Kor'ghan"
+]
+},
+{
+"key": "i can instruct you in mining. interested?",
+"en": "I can instruct you in mining. Interested?",
+"n": 7,
+"npcs": [
+"Brek Stonehoof",
+"Brom Killian",
+"Dank Drizzlecut"
+]
+},
+{
+"key": "wulan in shadowprey village can sell you the \"expert cookbook\". you will need that if you are to better yourself",
+"en": "Wulan in Shadowprey Village can sell you the \"Expert Cookbook\". You will need that if you are to better yourself.",
+"n": 7,
+"npcs": [
+"Aska Mistrunner",
+"Duhng",
+"Eunice Burch"
+]
+},
+{
+"key": "looking for a tabard?",
+"en": "Looking for a tabard?",
+"n": 4,
+"npcs": [
+"Garyl",
+"Merill Pleasance",
+"Shalumon"
+]
+},
+{
+"key": "missing us text",
+"en": "Missing US text",
+"n": 4,
+"npcs": [
+"Baron Longshore",
+"Ravenholdt Assassin",
+"Ravenholdt Guard"
+]
+},
+{
+"key": "after all these years of fighting, now everyone's falling in love!",
+"en": "After all these years of fighting, now everyone's falling in love!",
+"n": 2,
+"npcs": [
+"Kozish",
+"Rilli Greasygob"
+]
+},
+{
+"key": "good! i can tell that my efforts will not be wasted!",
+"en": "Good! I can tell that my efforts will not be wasted!",
+"n": 2,
+"npcs": [
+"Georgio Bolero",
+"Josef Gregorian"
+]
+},
+{
+"key": "how may i help you?",
+"en": "How may I help you?",
+"n": 2,
+"npcs": [
+"Grimtak",
+"Varg Windwhisper"
+]
+},
+{
+"key": "i'm afraid you're out of my league, friend! you should go see nogg in orgrimmar, he'll take you to the next level!",
+"en": "I'm afraid you're out of my league, friend! You should go see Nogg in Orgrimmar, he'll take you to the next level!",
+"n": 2,
+"npcs": [
+"Tinkerwiz",
+"Twizwick Sprocketgrind"
+]
+},
+{
+"key": "i'm sorry, $n, but i have no time to spend on novices. you want someone closer to your own skill level. try the night elf milla fairancora, in the craftsmen's terrace of darnassus",
+"en": "I'm sorry, $n, but I have no time to spend on novices. You want someone closer to your own skill level. Try the night elf Milla Fairancora, in the Craftsmen's Terrace of Darnassus.",
+"n": 2,
+"npcs": [
+"Alchemist Narett",
+"Kylanna"
+]
+},
+{
+"key": "what? why are you bothering me? why, i bet you can't even create a high quality robe! go talk to snang and come back when you're worthy of my talents!",
+"en": "What? Why are you bothering me? Why, I bet you can't even create a high quality robe! Go talk to Snang and come back when you're worthy of my talents!",
+"n": 2,
+"npcs": [
+"Grarnik Goodstitch",
+"Magar"
+]
+},
+{
+"key": "ye've got a little skill on ye. enough to learn ye a few things i wager. let's see what i can teach ye, shall we?",
+"en": "Ye've got a little skill on ye. Enough to learn ye a few things I wager. Let's see what I can teach ye, shall we?",
+"n": 2,
+"npcs": [
+"Delfrum Flintbeard",
+"Groum Stonebeard"
+]
+},
+{
+"key": "yeah, i'll show you a few things. we'll see how you do, maybe you'll surprise me!",
+"en": "Yeah, I'll show you a few things. We'll see how you do, maybe you'll surprise me!",
+"n": 2,
+"npcs": [
+"Tinkerwiz",
+"Twizwick Sprocketgrind"
+]
+},
+{
+"key": "you need to learn from someone who knows more than i do. go talk to josef gregorian in undercity. well, what are you still doing here?",
+"en": "You need to learn from someone who knows more than I do. Go talk to Josef Gregorian in Undercity. Well, what are you still doing here?",
+"n": 2,
+"npcs": [
+"Grarnik Goodstitch",
+"Magar"
+]
+},
+{
+"key": "\"darnassae?\" the night elf druid looks at you expectantly, but it is clear you cannot verbally communicate with her. undaunted, she points to herself and smiles. she points at you and smiles once more. she finally motions several times down the path to the north. perhaps she is indicating that there is a druid you can speak to further up the road?",
+"en": "\"Darnassae?\" The night elf druid looks at you expectantly, but it is clear you cannot verbally communicate with her. Undaunted, she points to herself and smiles. She points at you and smiles once more. She finally motions several times down the path to the north. Perhaps she is indicating that there is a druid you can speak to further up the road?",
+"n": 1,
+"npcs": [
+"Arathandris Silversky"
+]
+},
+{
+"key": "$n, it is good to see you. our war with the other elemental lords yet rages, but your efforts help ensure our victory",
+"en": "$n, it is good to see you. Our war with the other elemental lords yet rages, but your efforts help ensure our victory.",
+"n": 1,
+"npcs": [
+"Duke Hydraxis"
+]
+},
+{
+"key": "$n, it's good to see you again! are you having fun at the faire? want to arm wrestle? no, of course not... you want to keep your arm!",
+"en": "$n, it's good to see you again! Are you having fun at the Faire? Want to arm wrestle? No, of course not... you want to keep your arm!",
+"n": 1,
+"npcs": [
+"Kerri Hicks"
+]
+},
+{
+"key": "$n, was it? that is a mighty fine piece of work ye have there. i'll take ye on, train ye how to make armor fit fer king magni himself",
+"en": "$n, was it? That is a mighty fine piece of work ye have there. I'll take ye on, train ye how to make armor fit fer King Magni himself.",
+"n": 1,
+"npcs": [
+"Grumnus Steelshaper"
+]
+},
+{
+"key": "(sniff, sniff) you smell that? don't you just love the smell of grease?",
+"en": "(Sniff, sniff) You smell that? Don't you just LOVE the smell of grease?",
+"n": 1,
+"npcs": [
+"Twizwick Sprocketgrind"
+]
+},
+{
+"key": "a darkness had fallen over my eyes, but you tore me from my unholy reverie. you saved me, $n. and now i beg you... to forgive me",
+"en": "A darkness had fallen over my eyes, but you tore me from my unholy reverie. You saved me, $n. And now I beg you... to forgive me.",
+"n": 1,
+"npcs": [
+"Joseph Redpath"
+]
+},
+{
+"key": "a fine display of worthiness. your instruction may now continue",
+"en": "A fine display of worthiness. Your instruction may now continue.",
+"n": 1,
+"npcs": [
+"Sellandus"
+]
+},
+{
+"key": "a treasure hunter's life is a treacherous one. don't be foolin' yerself",
+"en": "A treasure hunter's life is a treacherous one. Don't be foolin' yerself.",
+"n": 1,
+"npcs": [
+"Gorbold Steelhand"
+]
+},
+{
+"key": "ach, it's hard enough keeping order around here without all these new troubles popping up! i hope you have good news, $n..",
+"en": "Ach, it's hard enough keeping order around here without all these new troubles popping up! I hope you have good news, $n...",
+"n": 1,
+"npcs": [
+"Marshal Dughan"
+]
+},
+{
+"key": "across the lands our fires burn strong and true!",
+"en": "Across the lands our fires burn strong and true!",
+"n": 1,
+"npcs": [
+"Midsummer Celebrant"
+]
+},
+{
+"key": "ah, one of my favorite customers. you look to be of a warlock of some power, $n. i am pleased to meet you. if there is anything i can do for you, please, just ask. my brother and i feel that it will be your kind who lead us into the next great era. one with such power... such control... it's only a matter of time before the legion itself bends to your will. i am but a little envious",
+"en": "Ah, one of my favorite customers. You look to be of a warlock of some power, $n. I am pleased to meet you. If there is anything I can do for you, please, just ask. My brother and I feel that it will be your kind who lead us into the next great era. One with such power... such control... it's only a matter of time before the Legion itself bends to your will. I am but a little envious.",
+"n": 1,
+"npcs": [
+"Xizk Goodstitch"
+]
+},
+{
+"key": "ah, very good. i am satisfied that you are a worthy student. now, your training with me may begin???",
+"en": "Ah, very good. I am satisfied that you are a worthy student. Now, your training with me may begin???",
+"n": 1,
+"npcs": [
+"Teg Dawnstrider"
+]
+},
+{
+"key": "ahoy, $n! not a pretty picture, is it? the horizon scout at the bottom of the sea, my crew in shambles, and our cargo and passengers strewn about like so much debris that you'd think this was one of stormwind's canals after a festival. and that's not where the trouble ends..",
+"en": "Ahoy, $n! Not a pretty picture, is it? The Horizon Scout at the bottom of the sea, my crew in shambles, and our cargo and passengers strewn about like so much debris that you'd think this was one of Stormwind's canals after a festival. And that's not where the trouble ends...",
+"n": 1,
+"npcs": [
+"Captain Vanessa Beltis"
+]
+},
+{
+"key": "and you are?",
+"en": "And you are?",
+"n": 1,
+"npcs": [
+"Haughty Modiste"
+]
+},
+{
+"key": "another hero? the fates smile upon us on this day, $n",
+"en": "Another hero? The fates smile upon us on this day, $n.",
+"n": 1,
+"npcs": [
+"Vol'jin"
+]
+},
+{
+"key": "another new face? it's so good to meet you. i'm dellylah",
+"en": "Another new face? It's so good to meet you. I'm Dellylah.",
+"n": 1,
+"npcs": [
+"Dellylah"
+]
+},
+{
+"key": "another student. wonderful. this is why lydon belongs to the royal society of snobs and gets to do research, and i'm stuck being an instructor. if i win another teaching award, i'll never live it down!",
+"en": "Another student. Wonderful. This is why Lydon belongs to the Royal Society of Snobs and gets to do research, and I'm stuck being an instructor. If I win another teaching award, I'll never live it down!",
+"n": 1,
+"npcs": [
+"Serge Hinott"
+]
+},
+{
+"key": "are you... here to save me?",
+"en": "Are you... here to save me?",
+"n": 1,
+"npcs": [
+"Slave Worker"
+]
+},
+{
+"key": "as you inspect the cage and the night elf inside, you get an odd sense of deja vu. for some reason she does not make eye contact with you--it is almost as if you are not there to her",
+"en": "As you inspect the cage and the Night elf inside, you get an odd sense of deja vu. For some reason she does not make eye contact with you--it is almost as if you are not there to her.",
+"n": 1,
+"npcs": [
+"Captured Arko'narin"
+]
+},
+{
+"key": "at dis point you know as much as i do, mon. maybe you go see magar in orgrimmar. he not be da happiest tailor around, but he help you anyway",
+"en": "At dis point you know as much as I do, mon. Maybe you go see Magar in Orgrimmar. He not be da happiest tailor around, but he help you anyway.",
+"n": 1,
+"npcs": [
+"Kil'hala"
+]
+},
+{
+"key": "can you not see that i am busy here?",
+"en": "Can you not see that I am busy here?",
+"n": 1,
+"npcs": [
+"Haughty Modiste"
+]
+},
+{
+"key": "can you not sense the anguish of the earth mother for her lost children, the undead? speak quickly, $n. every second costs me dearly. we must help them find their way back to her!",
+"en": "Can you not sense the anguish of the Earth Mother for her lost children, the undead? Speak quickly, $n. Every second costs me dearly. We must help them find their way back to her!",
+"n": 1,
+"npcs": [
+"Bena Winterhoof"
+]
+},
+{
+"key": "care to purchase some piratey items?",
+"en": "Care to purchase some piratey items?",
+"n": 1,
+"npcs": [
+"Narkk"
+]
+},
+{
+"key": "close, but no cigar! i'm afraid you'll have to talk to my sis, jemma first. after she's gone over the basics with you, come see me and i'll show you the juicy stuff!",
+"en": "Close, but no cigar! I'm afraid you'll have to talk to my sis, Jemma first. After she's gone over the basics with you, come see me and I'll show you the juicy stuff!",
+"n": 1,
+"npcs": [
+"Trixie Quikswitch"
+]
+},
+{
+"key": "dat's da attitude! grab a needle and thread and let's get jammin'!",
+"en": "Dat's da attitude! Grab a needle and thread and let's get jammin'!",
+"n": 1,
+"npcs": [
+"Kil'hala"
+]
+},
+{
+"key": "derak nightfall, at your service!",
+"en": "Derak Nightfall, at your service!",
+"n": 1,
+"npcs": [
+"Derak Nightfall"
+]
+},
+{
+"key": "dig rats make some surprisingly tasty stew",
+"en": "Dig rats make some surprisingly tasty stew.",
+"n": 1,
+"npcs": [
+"Grub"
+]
+},
+{
+"key": "do not waste my time. what is it you want?",
+"en": "Do not waste my time. What is it you want?",
+"n": 1,
+"npcs": [
+"Haughty Modiste"
+]
+},
+{
+"key": "do you mock me while i am unable to defend myself, bound to this ball of iron?",
+"en": "Do you mock me while I am unable to defend myself, bound to this ball of iron?",
+"n": 1,
+"npcs": [
+"Drull"
+]
+},
+{
+"key": "don't waste my time. i have research projects older than you. go talk to doctor martin felben in the apothecarium of the undercity. he's a forsaken who can probably manage to teach you the basics",
+"en": "Don't waste my time. I have research projects older than you. Go talk to Doctor Martin Felben in the Apothecarium of the Undercity. He's a Forsaken who can probably manage to teach you the basics.",
+"n": 1,
+"npcs": [
+"Serge Hinott"
+]
+},
+{
+"key": "eh, well you've made it this far... go see lavinia crowe by the other bookshelf there. if you don't mess things up with her, maybe you can learn some more",
+"en": "Eh, well you've made it this far... go see Lavinia Crowe by the other bookshelf there. If you don't mess things up with her, maybe you can learn some more.",
+"n": 1,
+"npcs": [
+"Malcomb Wynn"
+]
+},
+{
+"key": "elune's grace upon you. how can i serve?",
+"en": "Elune's grace upon you. How can I serve?",
+"n": 1,
+"npcs": [
+"Lysheana"
+]
+},
+{
+"key": "engineering will provide you with the skills and knowledge to dismantle your opponents! let me show you how..",
+"en": "Engineering will provide you with the skills and knowledge to dismantle your opponents! Let me show you how...",
+"n": 1,
+"npcs": [
+"Graham Van Talen"
+]
+},
+{
+"key": "even i have my limitations! go talk to lavinia crowe in undercity if you wish to further your training",
+"en": "Even I have my limitations! Go talk to Lavinia Crowe in Undercity if you wish to further your training.",
+"n": 1,
+"npcs": [
+"Vance Undergloom"
+]
+},
+{
+"key": "even in this remote corner of the world, know that hellscream's eyes are upon you",
+"en": "Even in this remote corner of the world, know that Hellscream's eyes are upon you.",
+"n": 1,
+"npcs": [
+"Far Seer Mok'thardin"
+]
+},
+{
+"key": "expertly accomplished! now, let us continue your education..",
+"en": "Expertly accomplished! Now, let us continue your education...",
+"n": 1,
+"npcs": [
+"Mahani"
+]
+},
+{
+"key": "fantastic! aren't you the industrious one? well, let's get started, shall we?",
+"en": "Fantastic! Aren't you the industrious one? Well, let's get started, shall we?",
+"n": 1,
+"npcs": [
+"Finbus Geargrind"
+]
+},
+{
+"key": "get out of here, before the slavers see you!",
+"en": "Get out of here, before the slavers see you!",
+"n": 1,
+"npcs": [
+"Slave Worker"
+]
+},
+{
+"key": "gordo like picking flowers. pick flowers kind of like killing",
+"en": "Gordo like picking flowers. Pick flowers kind of like killing.",
+"n": 1,
+"npcs": [
+"Gordo"
+]
+},
+{
+"key": "gosh, i'm sorry. i don't have anything new to teach you. how about you go talk to simon tanner in the old town section of stormwind? he's a human with big muscles and dreamy red hair",
+"en": "Gosh, I'm sorry. I don't have anything new to teach you. How about you go talk to Simon Tanner in the Old Town section of Stormwind? He's a human with big muscles and dreamy red hair.",
+"n": 1,
+"npcs": [
+"Adele Fielder"
+]
+},
+{
+"key": "have you danced at the ribbon pole yet?",
+"en": "Have you danced at the ribbon pole yet?",
+"n": 1,
+"npcs": [
+"Midsummer Celebrant"
+]
+},
+{
+"key": "have you seen watcher backus? so brave... i think he's the toughest of all the night watch. i wonder if he even notices i'm around...",
+"en": "Have you seen Watcher Backus? So brave... I think he's the toughest of all the Night Watch. I wonder if he even notices I'm around....",
+"n": 1,
+"npcs": [
+"Watcher Brownell"
+]
+},
+{
+"key": "have you spoken to either of my acolytes inside the tower yet, $n? we cannot complete your orb until you've done one of their tasks. speak to them now, if you're ready",
+"en": "Have you spoken to either of my acolytes inside the tower yet, $n? We cannot complete your orb until you've done one of their tasks. Speak to them now, if you're ready.",
+"n": 1,
+"npcs": [
+"Menara Voidrender"
+]
+},
+{
+"key": "here for the rod? or, maybe you're simply stocking up on runes? wait a minute! are you just trying to offload a whole bunch of junk on me?! curse my never-ending compulsion to buy, buy, buy!",
+"en": "Here for the rod? Or, maybe you're simply stocking up on runes? Wait a minute! Are you just trying to offload a whole bunch of junk on me?! Curse my never-ending compulsion to buy, buy, buy!",
+"n": 1,
+"npcs": [
+"Vi'el"
+]
+},
+{
+"key": "here for training eh? just began my training meself, but i would be glad ta teach ye what i can",
+"en": "Here for training eh? Just began my training meself, but I would be glad ta teach ye what I can.",
+"n": 1,
+"npcs": [
+"Tognus Flintfire"
+]
+},
+{
+"key": "here's to you! here's to me! may we never disagree. but if we do... blast you! here's to me",
+"en": "Here's to you! Here's to me! May we never disagree. But if we do... BLAST YOU! Here's to me.",
+"n": 1,
+"npcs": [
+"Whiskey Slim"
+]
+},
+{
+"key": "hey there, cutie! mind rubbing some lotion on my exposed areas?",
+"en": "Hey there, cutie! Mind rubbing some lotion on my exposed areas?",
+"n": 1,
+"npcs": [
+"Winkey"
+]
+},
+{
+"key": "hmm well, i can't help you quite yet! you have to learn the basics first. why don't you go see sprite jumpsprocket in stormwind!",
+"en": "Hmm well, I can't help you quite yet! You have to learn the basics first. Why don't you go see Sprite Jumpsprocket in Stormwind!",
+"n": 1,
+"npcs": [
+"Finbus Geargrind"
+]
+},
+{
+"key": "hmm, your work is allright but it's nowhere near the quality i look for in a student. go talk with smith argus in goldshire, i'm sure he can teach you some basics. then when you're done, come on back to me and i'll give you a little test to make sure you are ready",
+"en": "Hmm, your work is allright but it's nowhere near the quality I look for in a student. Go talk with Smith Argus in Goldshire, I'm sure he can teach you some basics. Then when you're done, come on back to me and I'll give you a little test to make sure you are ready.",
+"n": 1,
+"npcs": [
+"Clarise Gnarltree"
+]
+},
+{
+"key": "hmm... well you seem capable enough. if you truly desire to learn, then nothing will stand in your way! i will guide you through your first steps on what i hope will be a long and fulfilling path",
+"en": "Hmm... well you seem capable enough. If you truly desire to learn, then nothing will stand in your way! I will guide you through your first steps on what I hope will be a long and fulfilling path.",
+"n": 1,
+"npcs": [
+"Betty Quin"
+]
+},
+{
+"key": "how can i share my secrets with a beginner? try speaking with victor ward first",
+"en": "How can I share my secrets with a beginner? Try speaking with Victor Ward first.",
+"n": 1,
+"npcs": [
+"Rhiannon Davis"
+]
+},
+{
+"key": "how dare you ask me for training, maggot? what were you hoping for, you slack-jawed yokel, a lecture on the proper uses of silverleaf? out! you're lucky i don't thrash you senseless for wasting my time",
+"en": "How dare you ask me for training, maggot? What were you hoping for, you slack-jawed yokel, a lecture on the proper uses of silverleaf? Out! You're lucky I don't thrash you senseless for wasting my time.",
+"n": 1,
+"npcs": [
+"Rogvar"
+]
+},
+{
+"key": "how's it going? i love the smell of leather; don't you?",
+"en": "How's it going? I love the smell of leather; don't you?",
+"n": 1,
+"npcs": [
+"Adele Fielder"
+]
+},
+{
+"key": "hurry! you should talk to mekkatorque! if we don't start the assault soon, we're going to be late. and my boss hates it when we're late!",
+"en": "Hurry! You should talk to Mekkatorque! If we don't start the assault soon, we're going to be late. And my boss HATES it when we're late!",
+"n": 1,
+"npcs": [
+"Skullsplitter Speaker"
+]
+},
+{
+"key": "i admire the skill that torch jugglers have",
+"en": "I admire the skill that torch jugglers have.",
+"n": 1,
+"npcs": [
+"Midsummer Celebrant"
+]
+},
+{
+"key": "i can't say enough about yer work, truly amazing things that ye can do with a hammer and an anvil. now, don't be tellin anyone that i suggested ye go find a goblin to teach ye but that's exactly what i'm gonna do. brikk keencraft is his name, and last i heard he was operating a shop down in booty bay",
+"en": "I can't say enough about yer work, truly amazing things that ye can do with a hammer and an anvil. Now, don't be tellin anyone that I suggested ye go find a goblin to teach ye but that's exactly what I'm gonna do. Brikk Keencraft is his name, and last I heard he was operating a shop down in Booty bay.",
+"n": 1,
+"npcs": [
+"Bengus Deepforge"
+]
+},
+{
+"key": "i can't teach what i don't know! if only there was someone else who knew more than i do... wait, there is! go see buzzek bracketswing in gadgetzan!",
+"en": "I can't teach what I don't know! If only there was someone else who knew more than I do... wait, there is! Go see Buzzek Bracketswing in Gadgetzan!",
+"n": 1,
+"npcs": [
+"Roxxik"
+]
+},
+{
+"key": "i cannot help you until you have learned more of the essentials. come back to me when you are ready",
+"en": "I cannot help you until you have learned more of the essentials. Come back to me when you are ready.",
+"n": 1,
+"npcs": [
+"Timothy Worthington"
+]
+},
+{
+"key": "i cannot in good conscience spend time training novices while our allies, the undead, are suffering so terribly. please speak with kray over there instead; he can help you for now",
+"en": "I cannot in good conscience spend time training novices while our allies, the undead, are suffering so terribly. Please speak with Kray over there instead; he can help you for now.",
+"n": 1,
+"npcs": [
+"Bena Winterhoof"
+]
+},
+{
+"key": "i don't suppose you're here to talk about my lovely kali. fine, then. potions it is. anyone ever tell ye you've got a one-track mind?",
+"en": "I don't suppose you're here to talk about my lovely Kali. Fine, then. Potions it is. Anyone ever tell ye you've got a one-track mind?",
+"n": 1,
+"npcs": [
+"Ghak Healtouch"
+]
+},
+{
+"key": "i have suffered, but now i can feel it slowly fading from me. i feel... free",
+"en": "I have suffered, but now I can feel it slowly fading from me. I feel... free.",
+"n": 1,
+"npcs": [
+"Arei"
+]
+},
+{
+"key": "i know a few things. you want me to show you?",
+"en": "I know a few things. You want me to show you?",
+"n": 1,
+"npcs": [
+"Mukdrak"
+]
+},
+{
+"key": "i know many things, stranger, but your knowledge rivals my own. enchanters who wish to hone their skills further are known to travel to the tower of azora, where an artisan named kitta firewind resides",
+"en": "I know many things, stranger, but your knowledge rivals my own. Enchanters who wish to hone their skills further are known to travel to the Tower of Azora, where an artisan named Kitta Firewind resides.",
+"n": 1,
+"npcs": [
+"Xylinnia Starshine"
+]
+},
+{
+"key": "i love a good challenge; don't you? aye, of course ye do. an' that's why you're about to do exactly what i say",
+"en": "I love a good challenge; don't you? Aye, of course ye do. An' that's why you're about to do exactly what I say.",
+"n": 1,
+"npcs": [
+"Drakk Stonehand"
+]
+},
+{
+"key": "i must have broken hundreds of vials when i first began brewing potions. the glass was so fragile in my clumsy hands. i hope you are more cautious than i was",
+"en": "I must have broken hundreds of vials when I first began brewing potions. The glass was so fragile in my clumsy hands. I hope you are more cautious than I was.",
+"n": 1,
+"npcs": [
+"Kray"
+]
+},
+{
+"key": "i must have lived a charmed life, $n. to return to the world as a member of the forsaken and the apothecary society... i couldn't have asked for a more suitable fate",
+"en": "I must have lived a charmed life, $n. To return to the world as a member of the Forsaken and the Apothecary Society... I couldn't have asked for a more suitable fate.",
+"n": 1,
+"npcs": [
+"Junior Apothecary Holland"
+]
+},
+{
+"key": "i only teach students who have already mastered the basics. you must seek out the night elf darianna in the craftsmen's terrace of darnassus. her skills will be a perfect complement to yours",
+"en": "I only teach students who have already mastered the basics. You must seek out the night elf Darianna in the Craftsmen's Terrace of Darnassus. Her skills will be a perfect complement to yours.",
+"n": 1,
+"npcs": [
+"Aayndia Floralwind"
+]
+},
+{
+"key": "i only wish i had more students like you. not many will venture so far into enemy territory. i salute your courage",
+"en": "I only wish I had more students like you. Not many will venture so far into enemy territory. I salute your courage.",
+"n": 1,
+"npcs": [
+"Hahrana Ironhide"
+]
+},
+{
+"key": "i remember when my brother and i would camp alone in the azshara wilderness. look at it now",
+"en": "I remember when my brother and I would camp alone in the Azshara wilderness. Look at it now.",
+"n": 1,
+"npcs": [
+"Haggrum Bloodfist"
+]
+},
+{
+"key": "i will never call brackenwall village my home. to do so is to give up hope of reclaiming our rightful lands",
+"en": "I will never call Brackenwall Village my home. To do so is to give up hope of reclaiming our rightful lands.",
+"n": 1,
+"npcs": [
+"Draz'Zilb"
+]
+},
+{
+"key": "i will teach you what i can",
+"en": "I will teach you what I can.",
+"n": 1,
+"npcs": [
+"Snang"
+]
+},
+{
+"key": "i will teach you what i can. each lesson is a gift from the goddess herself. use her gifts wisely, and you shall not falter",
+"en": "I will teach you what I can. Each lesson is a gift from the Goddess herself. Use her gifts wisely, and you shall not falter.",
+"n": 1,
+"npcs": [
+"Lalina Summermoon"
+]
+},
+{
+"key": "i would be delighted to aid you in the commencement of your pursuit! let me grab my spinner and we'll get started..",
+"en": "I would be delighted to aid you in the commencement of your pursuit! Let me grab my spinner and we'll get started...",
+"n": 1,
+"npcs": [
+"Deek Fizzlebizz"
+]
+},
+{
+"key": "i would be happy to take you under my wing. let us begin",
+"en": "I would be happy to take you under my wing. Let us begin.",
+"n": 1,
+"npcs": [
+"Grondal Moonbreeze"
+]
+},
+{
+"key": "i would train ye if i could, but ye need the services of someone a bit more... what's the word? brainy! look for trixie quickswitch in ironforge. tell 'er bronk sent ye!",
+"en": "I would train ye if I could, but ye need the services of someone a bit more... what's the word? Brainy! Look for Trixie Quickswitch in Ironforge. Tell 'er Bronk sent ye!",
+"n": 1,
+"npcs": [
+"Bronk Guzzlegear"
+]
+},
+{
+"key": "i'm a simple man who knows a few things about tailoring, but you need more assistance than i can provide. i have heard of a night elf who is quite an accomplished tailor. he resides in stormwind, in the magic district",
+"en": "I'm a simple man who knows a few things about tailoring, but you need more assistance than I can provide. I have heard of a Night Elf who is quite an accomplished tailor. He resides in Stormwind, in the Magic District.",
+"n": 1,
+"npcs": [
+"Eldrin"
+]
+},
+{
+"key": "i'm not amused by your audacity in coming to me for training. go through the archway and down the ramp to the southeast, and talk to doctor martin felben. he is a forsaken who can teach you the basics",
+"en": "I'm not amused by your audacity in coming to me for training. Go through the archway and down the ramp to the southeast, and talk to Doctor Martin Felben. He is a Forsaken who can teach you the basics.",
+"n": 1,
+"npcs": [
+"Doctor Marsh"
+]
+},
+{
+"key": "i'm sick of sittin' in this hole. i hope whatever sorry pencil-pusher is holdin' up danath's return gets a punch in the jimmies",
+"en": "I'm sick of sittin' in this hole. I hope whatever sorry pencil-pusher is holdin' up Danath's return gets a punch in the jimmies.",
+"n": 1,
+"npcs": [
+"Skuerto"
+]
+},
+{
+"key": "i've got plenty of great recipes for you to take a look at, and at discounted prices, too!",
+"en": "I've got plenty of great recipes for you to take a look at, and at discounted prices, too!",
+"n": 1,
+"npcs": [
+"Jaxin Chong"
+]
+},
+{
+"key": "if you are seeking a truly rewarding pursuit, then a life of enchanting is for you!",
+"en": "If you are seeking a truly rewarding pursuit, then a life of enchanting is for you!",
+"n": 1,
+"npcs": [
+"Xylinnia Starshine"
+]
+},
+{
+"key": "if you insert tab a into slot b then of course it's going to go boom! here, let me show you what i have and then you can ask lilliam about how to put it together so it doesn't blow up",
+"en": "If you insert tab A into slot B then of course it's going to go BOOM! Here, let me show you what I have and then you can ask Lilliam about how to put it together so it doesn't blow up.",
+"n": 1,
+"npcs": [
+"Shoni the Shilent"
+]
+},
+{
+"key": "if you're looking for a flight back to rut'theran village, then you should talk to my night elven counterpart, silva fil'naveth",
+"en": "If you're looking for a flight back to Rut'theran Village, then you should talk to my night elven counterpart, Silva Fil'naveth.",
+"n": 1,
+"npcs": [
+"Bunthen Plainswind"
+]
+},
+{
+"key": "if you're looking for a flight back to thunder bluff, then you should talk to my tauren counterpart, bunthen plainswind",
+"en": "If you're looking for a flight back to Thunder Bluff, then you should talk to my tauren counterpart, Bunthen Plainswind.",
+"n": 1,
+"npcs": [
+"Silva Fil'naveth"
+]
+}
+]

@@ -125,7 +125,10 @@ def run(args, rep):
     cdi = _csv(cov, "CreatureDisplayInfo", builds, rep)
     nps = _csv(cov, "NPCSounds", builds, rep)
     ske = _csv(cov, "SoundKitEntry", builds, rep)
-    bct = _csv(cov, "BroadcastText", builds, rep)
+    bct = []
+    for bb in [x for x in builds if not x.startswith("1.60")] + [""]:
+        part = _csv(cov, "BroadcastText", [bb] if bb else [], rep) if bb else _csv(cov, "BroadcastText", [], rep)
+        bct += part
     if not (cdi and nps and ske):
         rep.fail("a client table is missing")
         return changed
@@ -157,6 +160,34 @@ def run(args, rep):
             for c in kcols:
                 for f in kit_files.get(_int(r[c]), []):
                     text_of.setdefault(f, (en, en1))
+    sql = ""
+    try:
+        lst = json.loads(cov._get(cov.API))
+        gz = [x for x in lst if x.get("name", "").endswith(".sql.gz")]
+        url = sorted(gz, key=lambda x: x["name"])[-1]["download_url"]
+        sql = gzip.GzipFile(fileobj=io.BytesIO(cov._get(url))).read().decode("utf-8", "replace")
+    except Exception as e:  # noqa: BLE001
+        rep.fail("cannot read the CMaNGOS dump: %s" % e)
+    nb = len(text_of)
+    for table in ("script_texts", "creature_ai_texts", "dbscript_string", "custom_texts", "broadcast_text"):
+        cols, rs = cov.parse(sql, table) if sql else ([], [])
+        scol = [c for c in cols if re.fullmatch(r"sound(id|entriesid)?_?\d?", c)]
+        tcol = _col(cols, r"content_default", r"maletext", r"text")
+        fcol = _col(cols, r"femaletext", r"text1")
+        if not (scol and tcol):
+            if cols:
+                rep.add("%s: no sound/text column (%s)" % (table, ", ".join(cols[:12])))
+            continue
+        k = 0
+        for r in rs:
+            en, en1 = cov.clean(r.get(tcol)), cov.clean(r.get(fcol)) if fcol else ""
+            for c in scol:
+                for f in kit_files.get(_int(r.get(c)), []):
+                    if f not in text_of and (en or en1):
+                        text_of[f] = (en, en1)
+                        k += 1
+        rep.add("%s: %d sound files got a text (columns %s / %s)" % (table, k, scol, tcol))
+    rep.ok("texts: %d from BroadcastText, %d from CMaNGOS" % (nb, len(text_of) - nb))
     table_files = set(f for fs in set_files.values() for f in fs) | set(text_of)
     rep.ok("%d voice sets, %d displays with a voice, %d files with a spoken text" % (len(set_files), len(disp_set), len(text_of)))
 
@@ -221,15 +252,7 @@ def run(args, rep):
     rep.h("Creatures")
     group_of = {x[0]: x[1] for x in L}
     C = {}
-    try:
-        lst = json.loads(cov._get(cov.API))
-        gz = [x for x in lst if x.get("name", "").endswith(".sql.gz")]
-        url = sorted(gz, key=lambda x: x["name"])[-1]["download_url"]
-        sql = gzip.GzipFile(fileobj=io.BytesIO(cov._get(url))).read().decode("utf-8", "replace")
-        cols, rows = cov.parse(sql, "creature_template")
-    except Exception as e:  # noqa: BLE001
-        rep.fail("cannot read the CMaNGOS dump: %s" % e)
-        rows, cols = [], []
+    cols, rows = cov.parse(sql, "creature_template") if sql else ([], [])
     mcols = [c for c in cols if re.fullmatch(r"(model|display)_?id_?\d", c)]
     npc_fa = store.names.get("npc", {})
     boss_fa = store.names.get("boss", {})

@@ -52,6 +52,18 @@ select option{background:#151b24}
 .gi{flex:1;min-width:0}
 .gn{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right;direction:ltr}
 .gm{color:var(--mut);font-size:.8em}
+.gc{color:#cfd8e3;font-size:.8em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;padding:3px 0}
+.tx .nm{flex:none}
+.tx .en,.say .en{direction:ltr;text-align:left;font-size:.84em;color:var(--fg);white-space:normal}
+.tx .fa,.say .fa{font-size:.86em;color:#e9c46a;white-space:normal}
+.tx .fa.no,.say .fa.no{color:var(--mut);font-size:.76em}
+#stext{margin-top:4px;white-space:normal}
+#stext .gc{white-space:normal}
+.say{display:flex;flex-direction:column;gap:3px;margin-top:6px;padding:8px 10px;border-radius:10px;background:rgba(233,196,106,.07)}
+.say .en{font-size:1em}.say .fa{font-size:1.02em}
+.say.none{color:var(--mut);font-size:.8em;background:none;padding:2px 0}
+.av.np img{object-position:50% 20%;transform:scale(1.25)}
 .gm .f{color:var(--f)}.gm .m{color:var(--m)}
 .gp{color:var(--mut);font-size:.82em;font-variant-numeric:tabular-nums;min-width:44px;text-align:left}
 .gp.full{color:var(--ok);font-size:1.1em}
@@ -159,7 +171,7 @@ details.adv summary{cursor:pointer;color:var(--mut);font-size:.84em}
 <audio id="au" preload="none"></audio>
 <section id="studio" aria-label="استودیوی ضبط">
 <div class="sin">
-<div class="shead"><div class="av" id="sav"></div><div style="min-width:0"><div id="sname"></div><div id="sgroup"></div></div>
+<div class="shead"><div class="av" id="sav"></div><div style="min-width:0"><div id="sname"></div><div id="sgroup"></div><div id="stext"></div></div>
 <div class="sx2"><button class="btn" id="snext" title="خط ضبط&#x200c;نشده&#x654; بعدی (N)">بعدی</button><button class="btn" id="sclose" title="Esc">بستن</button></div></div>
 <div>
 <p class="ptitle">ضبط</p>
@@ -179,6 +191,7 @@ details.adv summary{cursor:pointer;color:var(--mut);font-size:.84em}
 </div>
 </section>
 <div id="toast"></div>
+<script src="voice_db.js"></script>
 <script src="dsp.js"></script>
 <script src="loader.js"></script>
 <script src="app.js"></script>

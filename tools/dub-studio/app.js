@@ -44,15 +44,29 @@ window.wfaStart = function () {
     if (st.status === 'done' && !done[l[0]]) return false;
     return true;
   }
+  var TX = D.T || {}, CR = D.C || {}, THUMB = D.thumb || '', crText = {};
+  Object.keys(CR).forEach(function (k) { crText[k] = CR[k].map(function (c) { return (c[1] + ' ' + (c[2] || '')).toLowerCase(); }).join(' | '); });
+  function textOf(fid) { return TX[String(fid)] || null; }
   function qOk(gi, i) {
     if (!st.q) return true;
-    var t = st.q, l = L[i];
-    return G[gi][0].toLowerCase().indexOf(t) >= 0 || l[3].toLowerCase().indexOf(t) >= 0 || String(l[0]) === t;
+    var t = st.q, l = L[i], x = textOf(l[0]);
+    return G[gi][0].toLowerCase().indexOf(t) >= 0 || l[3].toLowerCase().indexOf(t) >= 0 || String(l[0]) === t ||
+      (crText[gi] || '').indexOf(t) >= 0 || (x && ((x[0] || '').toLowerCase().indexOf(t) >= 0 || (x[1] || '').indexOf(t) >= 0));
+  }
+  function crNames(gi, n) {
+    var c = CR[gi] || [], seen = {}, out = [];
+    for (var k = 0; k < c.length && out.length < n; k++) { var s = c[k][2] || c[k][1]; if (!seen[s]) { seen[s] = 1; out.push(s); } }
+    return { list: out, more: Math.max(0, c.length - out.length) };
+  }
+  function txHTML(fid) {
+    var x = textOf(fid); if (!x) return '';
+    return '<span class="en">' + esc(x[0]) + '</span>' + (x[1] ? '<span class="fa">' + esc(x[1]) + '</span>' : '<span class="fa no">\u062a\u0631\u062c\u0645\u0647 \u0647\u0646\u0648\u0632 \u0646\u06cc\u0633\u062a</span>');
   }
 
   // ---------------------------------------------------------------- avatars
   function avatar(g) {
-    var src = '';
+    var src = '', fb = '', gi0 = G.indexOf(g), cr0 = CR[gi0] || [];
+    if (THUMB) for (var q = 0; q < cr0.length; q++) if (cr0[q][3]) { fb = THUMB.split('{m}').join(String(cr0[q][3] & 255)).split('{d}').join(String(cr0[q][3])); break; }
     if (g[3]) src = ICON + 'race_' + g[3] + '_' + (g[2] === 'f' ? 'female' : 'male') + '.jpg';
     else {
       var n = g[0].toLowerCase();
@@ -60,7 +74,9 @@ window.wfaStart = function () {
     }
     var ch = esc((g[0].match(/[A-Za-z0-9]/) || ['?'])[0].toUpperCase());
     var hue = 0; for (var i = 0; i < g[0].length; i++) hue = (hue * 31 + g[0].charCodeAt(i)) % 360;
-    return '<div class="av" style="--h:' + hue + '"><span>' + ch + '</span>' + (src ? '<img loading="lazy" alt="" src="' + src + '" onerror="this.remove()">' : '') + '</div>';
+    var np = !!fb;
+    if (fb) { var s2 = src; src = fb; fb = s2; }
+    return '<div class="av' + (np ? ' np' : '') + '" style="--h:' + hue + '"><span>' + ch + '</span>' + (src ? '<img loading="lazy" alt="" src="' + src + '"' + (fb ? ' data-fb="' + fb + '"' : '') + ' onerror="if(this.dataset.fb){this.src=this.dataset.fb;this.removeAttribute(\'data-fb\');this.parentNode.classList.remove(\'np\')}else this.remove()">' : '') + '</div>';
   }
 
   // ---------------------------------------------------------------- list
@@ -81,13 +97,14 @@ window.wfaStart = function () {
     var sx = g[2] === 'f' ? '<span class="f">زن</span>' : g[2] === 'm' ? '<span class="m">مرد</span>' : '';
     var meta = [sx, g[3] ? (RACE_FA[g[3]] || g[3]) : '', g[1] === 'h' ? 'نژاد بازیکن' : '', fa(v[1].length) + ' خط'].filter(Boolean).join(' \u00b7 ');
     var full = t && d === t;
-    return '<details class="g" data-g="' + gi + '"><summary>' + avatar(g) + '<div class="gi"><div class="gn">' + esc(g[0]) + '</div><div class="gm">' + meta + '</div></div>' +
+    var cn = crNames(gi, 3), cnh = cn.list.length ? '<div class="gc">' + cn.list.map(esc).join('\u060c ') + (cn.more ? ' \u0648 ' + fa(cn.more) + ' \u062a\u0627\u06cc \u062f\u06cc\u06af\u0631' : '') + '</div>' : '';
+    return '<details class="g" data-g="' + gi + '"><summary>' + avatar(g) + '<div class="gi"><div class="gn">' + esc(g[0]) + '</div>' + cnh + '<div class="gm">' + meta + '</div></div>' +
       '<button class="ic" data-act="gplay" title="پخش اولین خط این گروه">\u25b6</button><span class="gp' + (full ? ' full' : '') + '">' + (full ? '\u2713' : fa(d) + '/' + fa(t)) + '</span></summary><div class="rows"></div></details>';
   }
   function rowHTML(i) {
     var l = L[i];
     return '<div class="row' + (done[l[0]] ? ' ok' : '') + '" data-i="' + i + '"><span class="st">' + (done[l[0]] ? '\u2713' : '') + '</span>' +
-      '<button class="ic" data-act="play" title="پخش صدای اصلی">\u25b6</button><span class="nm" title="' + esc(l[3]) + '">' + esc(l[3]) + '</span>' +
+      '<button class="ic" data-act="play" title="پخش صدای اصلی">\u25b6</button><span class="tx"><span class="nm" title="' + esc(l[3]) + '">' + esc(l[3]) + '</span>' + txHTML(l[0]) + '</span>' +
       (l[6] !== 'old' ? '<span class="era">' + (ERA_FA[l[6]] || l[6]) + '</span>' : '') +
       '<span class="ct c' + l[2] + '">' + CAT_FA[CATS[l[2]]] + '</span>' +
       '<button class="ic" data-act="dl" title="دانلود صدای اصلی">\u2b07</button><button class="ic mine" data-act="mine" title="پخش ضبط خودم">\u25b6</button><button class="ic rc" data-act="rec" title="ضبط دوبله برای همین خط">\u25cf</button></div>';
@@ -348,6 +365,9 @@ window.wfaStart = function () {
     $('sname').textContent = l[3];
     $('sgroup').innerHTML = esc(g[0]) + ' \u00b7 ' + CAT_FA[CATS[l[2]]] + (done[l[0]] ? ' \u00b7 <b class="okc">قبلا\u064b ضبط شده (ذخیره\u0654 دوباره جایگزین می\u200cشود)</b>' : '');
     $('sav').innerHTML = avatar(g);
+    var cn2 = crNames(l[1], 6);
+    $('stext').innerHTML = (cn2.list.length ? '<div class="gc">' + cn2.list.map(esc).join('\u060c ') + (cn2.more ? ' \u0648 ' + fa(cn2.more) + ' \u062a\u0627\u06cc \u062f\u06cc\u06af\u0631' : '') + '</div>' : '') +
+      (textOf(l[0]) ? '<div class="say">' + txHTML(l[0]) + '</div>' : '<div class="say none">\u0628\u0631\u0627\u06cc \u0627\u06cc\u0646 \u0635\u062f\u0627 \u0645\u062a\u0646\u06cc \u062f\u0631 \u0628\u0627\u0632\u06cc \u0646\u06cc\u0633\u062a\u061b \u0635\u062f\u0627\u06cc \u0627\u0635\u0644\u06cc \u0631\u0627 \u06af\u0648\u0634 \u0628\u062f\u0647</div>');
     raw = null; proc = null; origDur = 0; drawWave(); showDur(); setRecUI('idle');
     crop = { a: 0, b: 1 }; prepOld(i);
     S.classList.add('open'); document.body.classList.add('studio');

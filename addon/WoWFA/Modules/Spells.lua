@@ -260,7 +260,7 @@ local function spell_tip(modId, tt, data)
     -- lane-b16: the sp family switch off = the English name stays on the
     -- spell/talent tooltip. A hit still counts (the data matches the game).
     -- rc8: the section's own (or General's) display of the name and the description
-    local sec = section_of(modId)
+    local sec = (tt and tt.wfaSec) or section_of(modId) -- 1.1.6: the settings preview names its section
     local tmod = F.mods and F.mods.talents -- rc36: the Talents switch also holds the fallback path
     if sec == "talents" and tmod and not tmod.active then
         return

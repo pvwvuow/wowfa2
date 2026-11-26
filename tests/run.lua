@@ -345,14 +345,27 @@ local okRc8, errRc8 = pcall(function()
     check("every section has a side menu button", allNav)
     Click(PF.nav.map)
     check("the side menu switches the section", F.PanelPage() == "map", F.PanelPage())
-    Click(PF.dispTitle.spellbook)
-    check("a section's own title choice turns custom on",
-        F.DispCustom("spellbook") and F.Disp("spellbook", "title") == 3 and F.Disp("talents", "title") == 2,
-        F.Disp("spellbook", "title") .. "/" .. F.Disp("talents", "title"))
-    Click(PF.dispCustom.spellbook)
-    check("custom off: the section follows General again", not F.DispCustom("spellbook") and F.Disp("spellbook", "title") == 2)
-    Click(PF.dispTitleAll)
-    check("the General default drives the sections that are not custom", F.Disp("talents", "title") == 3, F.Disp("talents", "title"))
+    -- panel v4: one name row and one description row for the spells, the talents may differ
+    local wasSp = F.Room.On("namesSpell")
+    F.Room.Set("namesSpell", true)
+    Click(PF.spName)
+    check("v4: the spell name choice 2 -> 3 = the spell names English", not F.Room.On("namesSpell"))
+    Click(PF.spName)
+    check("v4: 3 -> 1 = Persian only, in the tooltip too", F.Room.On("namesSpell") and F.Disp("spellbook", "title") == 1,
+        F.Disp("spellbook", "title"))
+    check("v4: the talents follow the spells", not F.DispCustom("talents") and F.Disp("talents", "title") == 1)
+    check("v4: the talent rows are hidden while they follow", not PF.tlName:IsShown())
+    Click(PF.talentOwn)
+    check("v4: talents on their own", F.DispCustom("talents") and PF.tlName:IsShown())
+    Click(PF.tlName)
+    check("v4: the talents' own name display", F.Disp("talents", "title") == 2 and F.Disp("spellbook", "title") == 1,
+        F.Disp("talents", "title") .. "/" .. F.Disp("spellbook", "title"))
+    Click(PF.talentOwn)
+    check("v4: own off = like the spells again", not F.DispCustom("talents") and F.Disp("talents", "title") == 1)
+    Click(PF.spDesc)
+    check("v4: the description choice cycles", F.Disp("spellbook", "desc") == 3 or not F.Room.On("textDesc"))
+    F.Room.Set("textDesc", true)
+    F.Room.Set("namesSpell", wasSp)
     F.db.disp = nil
     PF:Hide()
 end)
@@ -909,6 +922,79 @@ local okTt, errTt = pcall(function()
     check("taint: no client updater called from addon code (names / surf / sizes)", calls == 0, calls)
 end)
 check("taint + recipe tests ran", okTt, errTt)
+-- ------------------------------------------------------------------ 1.1.6: settings panel v4
+local okV4, errV4 = pcall(function()
+    F.OpenPanel("general")
+    local PF = F.PanelFrame()
+    local P = F.Preview
+    local n, bad = 0, {}
+    for _, r in ipairs(PF.allRows or {}) do
+        if r.wfaEye then
+            n = n + 1
+            if not (r.eye and P.SAMPLES[r.wfaEye]) then
+                bad[#bad + 1] = tostring(r.wfaEye)
+            end
+        end
+    end
+    check("v4: every marked row has its eye and its sample", n >= 25 and #bad == 0, n .. " / " .. table.concat(bad, ","))
+    local unnamed = 0
+    for _, r in ipairs(PF.allRows or {}) do
+        if r.label and r.label.GetText then
+            local t = r.label:GetText()
+            if type(t) ~= "string" or t == "" or t:find("^[%w_]+$") then
+                unnamed = unnamed + 1
+            end
+        end
+    end
+    check("v4: every row has a real label (no missing text)", unnamed == 0, unnamed)
+    local stats = false
+    for _, id in ipairs(F.Room.PRESET_IDS) do
+        if id == "stats" then
+            stats = true
+        end
+    end
+    check("v4: the item-only preset is no choice", not stats)
+    local was = F.Room.On("terms")
+    F.Room.Set("terms", true)
+    P.Show("text", nil)
+    local a = P.Frame("text").t:GetText() or ""
+    F.Room.Set("terms", false)
+    P.Update()
+    local b = P.Frame("text").t:GetText() or ""
+    F.Room.Set("terms", was)
+    check("v4: the text sample follows the terms switch", a ~= b and b:find("Hearthstone", 1, true) ~= nil
+        and a:find("Hearthstone", 1, true) == nil, a .. " | " .. b)
+    -- the talk switches: turning one on while their master is off turns only that one on
+    local wasSay = F.Room.On("npcSay")
+    F.Room.Set("npcSay", false)
+    F.db.dlgGossip, F.db.dlgSay, F.db.dlgBook = true, true, true
+    Click(PF.dlgSay)
+    check("v4: one talk switch on while the master was off", F.Room.On("npcSay") and F.db.dlgSay == true
+        and F.db.dlgGossip == false and F.db.dlgBook == false)
+    F.db.dlgGossip, F.db.dlgBook = true, true
+    F.Room.Set("npcSay", wasSay)
+    F.db.sysmsg = false
+    Click(PF.sysXp)
+    check("v4: one system group on while the master was off", F.db.sysmsg == true and F.db.sysXp == true
+        and F.db.sysLoot == false)
+    F.db.sysLoot, F.db.sysRep, F.db.sysGroup = true, true, true
+    -- the talent eye draws the talents' own display
+    F.OpenPanel("spellbook")
+    Click(PF.talentOwn)
+    Click(PF.talentOwn.eye)
+    check("v4: the talent eye draws the talent display", P.Current() == "spell" and P.Frame("spell").tip.wfaSec == "talents")
+    Click(PF.talentOwn)
+    -- the NPC name row is the module + the family + the display
+    F.OpenPanel("npc")
+    F.Room.Set("namesNpc", true)
+    F.db.npcName = 2
+    Click(PF.npcName)
+    check("v4: NPC names English = the family off", not F.Room.On("namesNpc") and F.NpcMode() == 3)
+    Click(PF.npcName)
+    check("v4: NPC names Persian again", F.Room.On("namesNpc") and F.NpcMode() == 1)
+    PF:Hide()
+end)
+check("panel v4 tests ran", okV4, errV4)
 check("items module not installed (locked)", not (F.mods.items and F.mods.items.active))
 local ok = pcall(SlashCmdList.WOWFAF, "status")
 check("/wowfa status", ok)

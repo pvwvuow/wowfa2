@@ -23,7 +23,7 @@ end
 
 local TX = {
     title = fa("نمونهٔ زنده"),
-    hint = fa("روی آیکون چشم کنار هر تنظیم بزن تا همین~جا ببینی در بازی دقیقاً چه شکلی می~شود. بعد روشن و خاموشش کن: نمونه همان لحظه عوض می~شود."),
+    hint = fa("آیکون چشم کنار هر تنظیم را بزن تا همین~جا ببینی در بازی چه شکلی می~شود."),
     orig = fa("اصل بازی (انگلیسی):"),
     nofa = fa("برای این نمونه هنوز ترجمه~ای نیست؛ بازی همان انگلیسی را نشان می~دهد."),
     off = fa("این بخش خاموش است: بازی متن انگلیسی خودش را نشان می~دهد."),
@@ -31,10 +31,10 @@ local TX = {
         zone = fa("اسم منطقه وسط صفحه وقتی واردش می~شوی، و بالای نقشهٔ کوچک"),
         map = fa("اسم منطقه روی نقشهٔ دنیا، وقتی ماوس را رویش می~بری"),
         npc = fa("تولتیپ NPC، وقتی ماوس را رویش می~بری"),
-        quest = fa("ردیاب کوئست کنار صفحه: عنوان و هدف~ها"),
-        questpane = fa("پنجرهٔ کوئست بازی و پنل فارسی کنارش"),
+        quest = fa("ردیاب کوئست، و پنجرهٔ کوئست با پنل فارسی کنارش"),
         spell = fa("تولتیپ واقعی یک اسپل؛ دقیقاً همانی که در بازی می~بینی"),
-        class = fa("بالای پنجرهٔ کاراکتر، زیر اسم"),
+        talent = fa("تولتیپ واقعی یک تلنت، با تنظیم تلنت~ها"),
+        text = fa("یک خط از متن کوئست: اسم~ها، اصطلاح~ها، عددها و رنگ~ها"),
         gossip = fa("پنجرهٔ گفتگوی NPC و پنل فارسی کنارش"),
         say = fa("حرف NPC در چت"),
         chat = fa("پیام بازیکن~ها در چت"),
@@ -42,12 +42,12 @@ local TX = {
         alert = fa("پیام قرمز وسط صفحه"),
         gameui = fa("تب~ها و دکمه~های پنجره~های خود بازی"),
         font = fa("متنی که خود بازی با فونت خودش می~نویسد: اسم~ها، نامه، دوستان"),
-        col = fa("رنگ اسم~ها در متن کوئست"),
     },
     chatmsg = fa("سلام، کسی برای سیاه~چال میاد؟"),
     fontmsg = fa("علی: سلام دوستان"),
-    col = fa("{{npc:Hogger}} را در {{zn:Elwynn Forest}} پیدا کن و با {{sp:Fireball}} شکستش بده."),
-    lvl = fa("سطح"),
+    -- the sentence of the "text" sample: {1} NPC, {2} zone, {3} spell, {4} class (Persian from the data)
+    text = fa("{1} در {2} منتظر توست. 10 {{it:Linen Cloth|پارچهٔ کتان}} بیاور، با {3} جلوی {{fac:Defias Brotherhood|برادری دفایاس}} بایست و با {{tm:Hearthstone|سنگ راهخانه}} برگرد. این کار مخصوص {4} است."),
+    texten = "%s waits in %s. Bring 10 Linen Cloth, face the Defias Brotherhood with %s and come back with your Hearthstone. A task for a %s.",
 }
 
 local GAMEFONT = "Fonts\\FRIZQT__.TTF"
@@ -275,32 +275,6 @@ S.npc = {
     end,
 }
 
-S.quest = {
-    build = function(f)
-        solid(f, 0, 0, 0, 0.25)
-        f.title = slot(f, 13, GOLD, "", "LEFT")
-        f.title:Point("TOPLEFT", f, "TOPLEFT", 8, -20)
-        f.o1 = slot(f, 12, WHITE, "", "LEFT")
-        f.o1:Point("TOPLEFT", f, "TOPLEFT", 8, -44)
-        f.o2 = slot(f, 12, WHITE, "", "LEFT")
-        f.o2:Point("TOPLEFT", f, "TOPLEFT", 8, -64)
-    end,
-    update = function(f)
-        local title = "The Defias Brotherhood"
-        local mob = pick("npc", { "Kobold Vermin", "Defias Thug", "Mottled Boar", "Young Wolf" })
-        local o1 = "3/10 " .. mob .. " slain"
-        local o2 = "Ready for turn-in"
-        local tr = active("tracker") and F.Walk
-        local t = tr and F.Walk.Quest(title) or nil
-        local a = tr and F.Walk.Objective(o1) or nil
-        local b = tr and F.Walk.Objective(o2) or nil
-        f.title:Set(t or title, t ~= nil, true)
-        f.o1:Set(a or ("- " .. o1), a ~= nil, true)
-        f.o2:Set(b or ("- " .. o2), b ~= nil, true)
-        return title .. "  /  " .. o1
-    end,
-}
-
 local function quest_row(title)
     local h = F.TitleHash(title)
     for id, row in pairs((F.D and F.D.quests) or {}) do
@@ -321,18 +295,28 @@ local function cut(s, n)
     return at and (string.sub(s, 1, at - 1) .. " ...") or s
 end
 
-S.questpane = {
+-- v4: ONE quest sample for every quest switch: the tracker (title + objectives, at the tracker
+-- size), the game's quest window and the Persian pane beside it
+S.quest = {
     build = function(f)
-        f.qf = box(f, SW, 70, 0, 0)
+        local tr = box(f, SW, 76, 0, 0)
+        solid(tr, 0, 0, 0, 0.25)
+        f.title = slot(tr, 13, GOLD, "", "LEFT")
+        f.title:Point("TOPLEFT", tr, "TOPLEFT", 8, -8)
+        f.o1 = slot(tr, 12, WHITE, "", "LEFT")
+        f.o1:Point("TOPLEFT", tr, "TOPLEFT", 8, -32)
+        f.o2 = slot(tr, 12, WHITE, "", "LEFT")
+        f.o2:Point("TOPLEFT", tr, "TOPLEFT", 8, -52)
+        f.qf = box(f, SW, 56, 0, -84)
         solid(f.qf, 0.85, 0.76, 0.56, 1)
         f.qt = en_fs(f.qf, 14, BROWN, "", "LEFT")
-        f.qt:SetPoint("TOPLEFT", f.qf, "TOPLEFT", 10, -10)
+        f.qt:SetPoint("TOPLEFT", f.qf, "TOPLEFT", 10, -8)
         f.qt:SetWidth(SW - 20)
         f.qb = en_fs(f.qf, 11, BROWN, "", "LEFT")
-        f.qb:SetPoint("TOPLEFT", f.qf, "TOPLEFT", 10, -32)
+        f.qb:SetPoint("TOPLEFT", f.qf, "TOPLEFT", 10, -30)
         f.qb:SetWidth(SW - 20)
-        f.qb:SetText("Bring me the head of Edwin VanCleef ... (the game's English text)")
-        f.fp = box(f, SW, 200, 0, -78)
+        f.qb:SetText("Bring me the head of Edwin VanCleef ...")
+        f.fp = box(f, SW, 150, 0, -146)
         UI.Glass(f.fp, 0.94)
         f.ft = UI.Text(f.fp, 14, C.gold)
         f.ft:SetPoint("TOPRIGHT", f.fp, "TOPRIGHT", -10, -10)
@@ -343,22 +327,44 @@ S.questpane = {
     end,
     update = function(f)
         local title = "The Defias Brotherhood"
+        local mob = pick("npc", { "Kobold Vermin", "Defias Thug", "Mottled Boar", "Young Wolf" })
+        local o1 = "3/10 " .. mob .. " slain"
+        local o2 = "Ready for turn-in"
+        -- the tracker size slider (F.SizeOf) and the font of our lines
+        local ts, osz = F.SizeOf and F.SizeOf("title") or 13, F.SizeOf and F.SizeOf("obj") or 12
+        for _, s in ipairs({ { f.title, ts }, { f.o1, osz }, { f.o2, osz } }) do
+            pcall(s[1].fa.SetFont, s[1].fa, F.FONT, s[2], F.Flags and F.Flags(s[1] == f.title and "qs" or nil) or "")
+        end
+        local tr = active("tracker") and F.Walk
+        local t = tr and F.Walk.Quest(title) or nil
+        local a = tr and F.Walk.Objective(o1) or nil
+        local b = tr and F.Walk.Objective(o2) or nil
+        f.title:Set(t or title, t ~= nil, true)
+        f.o1:Set(a or ("- " .. o1), a ~= nil, true)
+        f.o2:Set(b or ("- " .. o2), b ~= nil, true)
         f.qt:SetText(title)
         local p = quest_row(title)
         if p and active("quests") and on("questText") then
             f.fp:Show()
-            f.ft:SetFa(T.Prepare(p[2]), SW - 20)
+            local tt = on("namesQuest") and T.Prepare(p[2]) or title
+            if on("namesQuest") then
+                f.ft:SetFa(tt, SW - 20)
+            else
+                f.ft:SetText(title)
+            end
             f.fb:SetFa(cut(T.Prepare(p[4] or ""), 300), SW - 20)
         else
             f.fp:Hide()
         end
-        return title
+        return title .. "  /  " .. o1, p == nil
     end,
 }
 
 local CLASS_SPELL = { WARRIOR = 78, PALADIN = 635, HUNTER = 1978, ROGUE = 1752, PRIEST = 585, SHAMAN = 403,
     MAGE = 133, WARLOCK = 686, DRUID = 5176 }
 
+-- a REAL tooltip the spell hooks translate; wfaSec tells Modules/Spells.lua which section's
+-- display to use (the spellbook default, or the talents' own)
 S.spell = {
     build = function(f)
         f.tip = CreateFrame("GameTooltip", "WoWFAF_PreviewTip", f, "GameTooltipTemplate")
@@ -367,6 +373,7 @@ S.spell = {
         local _, cls = UnitClass("player")
         local id = CLASS_SPELL[cls or ""] or 133
         local tip = f.tip
+        tip.wfaSec = (curRow and curRow.wfaSec) or "spellbook"
         tip:SetOwner(f, "ANCHOR_NONE")
         tip:ClearAllPoints()
         tip:SetPoint("TOPLEFT", f, "TOPLEFT", 4, -4)
@@ -384,31 +391,6 @@ S.spell = {
         end
         local name = (C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(id)) or (GetSpellInfo and GetSpellInfo(id))
         return type(name) == "string" and name or ("spell " .. id)
-    end,
-}
-
-S.class = {
-    build = function(f)
-        solid(f, 0.12, 0.05, 0.03, 1)
-        f.name = en_fs(f, 15, GOLD, "", "CENTER")
-        f.name:SetPoint("TOP", f, "TOP", 0, -24)
-        f.name:SetWidth(SW)
-        f.line = slot(f, 12, WHITE, "", "CENTER")
-        f.line:Point("TOP", f, "TOP", 0, -48)
-    end,
-    update = function(f)
-        local nm = UnitName and UnitName("player") or "Player"
-        f.name:SetText(F.Usable(nm) and nm or "Player")
-        local cls = UnitClass and UnitClass("player") or "Hunter"
-        local lvl = UnitLevel and UnitLevel("player") or 20
-        local en = "Level " .. tostring(lvl) .. " " .. tostring(cls)
-        local m = T.Markers("{{cls:" .. tostring(cls) .. "}}")
-        if has_fa(m) then
-            f.line:Set(TX.lvl .. " " .. T.Digits(tostring(lvl)) .. " " .. m, true)
-        else
-            f.line:Set(en, false)
-        end
-        return en
     end,
 }
 
@@ -497,22 +479,26 @@ S.chat = {
 S.sys = {
     build = function(f)
         chatbox(f)
-        f.l1 = slot(f, 12, { 0, 0.67, 0 }, "", "LEFT")
-        f.l1:Point("TOPLEFT", f, "TOPLEFT", 8, -12)
-        f.l2 = slot(f, 12, { 0.44, 0.44, 1 }, "", "LEFT")
-        f.l2:Point("TOPLEFT", f, "TOPLEFT", 8, -34)
-        f.l3 = slot(f, 12, { 1, 1, 0 }, "", "LEFT")
-        f.l3:Point("TOPLEFT", f, "TOPLEFT", 8, -56)
+        local cols = { { 0, 0.67, 0 }, { 0.44, 0.44, 1 }, { 0.5, 0.5, 1 }, { 1, 1, 0 } }
+        f.l = {}
+        for i = 1, 4 do
+            f.l[i] = slot(f, 12, cols[i], "", "LEFT")
+            f.l[i]:Point("TOPLEFT", f, "TOPLEFT", 8, -12 - (i - 1) * 24)
+        end
     end,
     update = function(f)
-        local a = gfmt("LOOT_ITEM_SELF", "You receive loot: %s.", "[Linen Cloth]")
-        local b = gfmt("COMBATLOG_XPGAIN_FIRSTPERSON", "%s dies, you gain %d experience.", "Kobold Vermin", 45)
-        local c = gfmt("LEVEL_UP", "Congratulations, you have reached level %d!", 10)
-        for i, pair in ipairs({ { f.l1, a }, { f.l2, b }, { f.l3, c } }) do
-            local out = F.SysmsgPreview and F.SysmsgPreview(pair[2]) or nil
-            pair[1]:Set(out or pair[2], out ~= nil, true)
+        -- one line of each group switch: loot / experience / reputation / group
+        local lines = {
+            gfmt("LOOT_ITEM_SELF", "You receive loot: %s.", "[Linen Cloth]"),
+            gfmt("COMBATLOG_XPGAIN_FIRSTPERSON", "%s dies, you gain %d experience.", "Kobold Vermin", 45),
+            gfmt("FACTION_STANDING_INCREASED", "Your %s reputation has increased by %d.", "Stormwind", 25),
+            gfmt("ERR_JOINED_GROUP_S", "%s joins the party.", "Ali"),
+        }
+        for i, en in ipairs(lines) do
+            local out = F.SysmsgPreview and F.SysmsgPreview(en) or nil
+            f.l[i]:Set(out or en, out ~= nil, true)
         end
-        return a
+        return lines[1]
     end,
 }
 
@@ -588,28 +574,38 @@ S.font = {
     end,
 }
 
-S.col = {
+-- v4: one line of quest text with every name family + a term + a number: the presets, the
+-- class / term / digit switches, the colours and the text outline all show here
+S.text = {
     build = function(f)
         solid(f, 0.85, 0.76, 0.56, 1)
         f.t = UI.Text(f, 13, BROWN)
-        f.t:SetPoint("TOPRIGHT", f, "TOPRIGHT", -10, -16)
+        f.t:SetPoint("TOPRIGHT", f, "TOPRIGHT", -10, -14)
         f.t:SetWidth(SW - 20)
     end,
     update = function(f)
-        f.t:SetFa(T.Markers(TX.col), SW - 20)
-        return "Find Hogger in Elwynn Forest and defeat him with Fireball."
+        local function mk(fam, kind, list)
+            local en, v = pick(kind, list)
+            if type(v) ~= "string" or v == "" then
+                return en, en
+            end
+            return en, "{{" .. fam .. ":" .. en .. "|" .. v .. "}}"
+        end
+        local nen, nm = mk("npc", "npc", { "Marshal Dughan", "Gornek", "Innkeeper Farley" })
+        local zen, zm = mk("zn", "zone", { "Elwynn Forest", "Durotar", "Westfall" })
+        local sen, sm = mk("sp", "spell", { "Fireball", "Frostbolt", "Charge", "Smite" })
+        local cen = (UnitClass and UnitClass("player")) or "Hunter"
+        if not F.Usable(cen) or type(cen) ~= "string" then
+            cen = "Hunter"
+        end
+        local cfa = names("class")[key(cen)]
+        local cm = (type(cfa) == "string" and cfa ~= "") and ("{{cls:" .. cen .. "|" .. cfa .. "}}") or cen
+        local s = string.gsub(TX.text, "{(%d)}", { ["1"] = nm, ["2"] = zm, ["3"] = sm, ["4"] = cm })
+        local out = T.Digits(T.Markers(s))
+        pcall(f.t.SetFont, f.t, F.FONT, 13, F.Flags and F.Flags() or "")
+        f.t:SetFa(out, SW - 20)
+        return string.format(TX.texten, nen, zen, sen, cen)
     end,
-}
-
--- which sample each setting shows (room keys, module ids, the option keys of the panel rows)
-P.MAP = {
-    namesZone = "zone", namesNpc = "npc", namesQuest = "quest", questText = "quest", faDigits = "quest",
-    namesClass = "class", terms = "spell", namesSpell = "spell", textDesc = "spell", npcSay = "gossip",
-    quests = "questpane", tracker = "quest", dungeons = "zone", npc = "npc", spellbook = "spell", talents = "spell",
-    chatFa = "chat", sysmsg = "sys", sysLoot = "sys", sysXp = "sys", sysRep = "sys", sysGroup = "sys",
-    alerts = "alert", gameUi = "gameui", fontAll = "font", npcName = "npc", zoneMap = "map", colOn = "col",
-    preset = "col", listTitles = "quest", dlgGossip = "gossip", dlgSay = "say", dlgBook = "gossip",
-    dispTitleAll = "spell", dispDescAll = "spell",
 }
 
 -- ------------------------------------------------------------ the column
@@ -670,7 +666,11 @@ function P.Show(id, row)
     pane.hint:Hide()
     local lbl = row and row.label and row.label.GetText and row.label:GetText()
     pane.name:SetText(type(lbl) == "string" and lbl or "")
-    pane.cap:SetFa(TX.cap[id] or " ", SW)
+    local cap = TX.cap[id]
+    if id == "spell" and row and row.wfaSec == "talents" then
+        cap = TX.cap.talent
+    end
+    pane.cap:SetFa(cap or " ", SW)
     P.Update()
 end
 
@@ -682,6 +682,14 @@ local function eye(row, id)
     b:SetSize(20, 20)
     if row.box then
         b:SetPoint("TOPLEFT", row, "TOPLEFT", 96, -5) -- a toggle: between its state word and its label
+    elseif row.pick then
+        -- a colour row: [pick button][eye][value]
+        b:SetPoint("TOPLEFT", row, "TOPLEFT", 92, -5)
+        if row.val then
+            row.val:ClearAllPoints()
+            row.val:SetPoint("TOPLEFT", row, "TOPLEFT", 118, -6)
+            row.val:SetWidth(110)
+        end
     else
         b:SetPoint("TOPLEFT", row, "TOPLEFT", 4, -5) -- a choice: the value moves right to make room
         if row.val then
@@ -740,25 +748,10 @@ function F.PreviewAttach(panel)
     vl:SetPoint("TOPLEFT", panel, "TOPLEFT", F.PREVIEW_W + 2, -64)
     vl:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", F.PREVIEW_W + 2, 14)
     P.pane = pane
-    -- the eyes: every row with something to see
-    for k, row in pairs(panel.room or {}) do
-        if P.MAP[k] then
-            eye(row, P.MAP[k])
-        end
-    end
-    for k, row in pairs(panel.mods or {}) do
-        if P.MAP[k] then
-            eye(row, P.MAP[k])
-        end
-    end
-    for k, id in pairs(P.MAP) do
-        if type(panel[k]) == "table" and panel[k].GetObjectType then
-            eye(panel[k], id)
-        end
-    end
-    for _, t in ipairs({ panel.dispCustom, panel.dispTitle, panel.dispDesc }) do
-        for _, row in pairs(t or {}) do
-            eye(row, "spell")
+    -- the eyes: exactly the rows the panel marked (row.wfaEye = the sample that changes with it)
+    for _, row in ipairs(panel.allRows or {}) do
+        if type(row) == "table" and row.wfaEye and S[row.wfaEye] then
+            eye(row, row.wfaEye)
         end
     end
 end

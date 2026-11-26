@@ -12,7 +12,7 @@ window.wfaStart = function () {
   function load(k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }
   function save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
   var done = load('wfadub_done', {});
-  var st = { q: '', cat: -1, sex: 'all', era: 'old', kind: 'all', todo: false, sort: 'name', page: 60 };
+  var st = { q: '', cat: -1, sex: 'all', era: 'old', kind: 'all', status: 'all', sort: 'name', page: 60 };
   var root = null, rootOk = false;
   var $ = function (id) { return document.getElementById(id); };
   var FD = '۰۱۲۳۴۵۶۷۸۹';
@@ -25,13 +25,23 @@ window.wfaStart = function () {
   var nat = (window.Intl && Intl.Collator) ? new Intl.Collator('en', { numeric: true, sensitivity: 'base' }) : { compare: function (a, b) { return a < b ? -1 : a > b ? 1 : 0; } };
   byG.forEach(function (a) { a.sort(function (x, y) { return L[x][2] - L[y][2] || nat.compare(L[x][3], L[y][3]); }); });
 
-  function lineOk(i) {
+  var PK = 'wfadub_f';
+  (function () { var p = load(PK, null); if (p) ['cat', 'sex', 'era', 'kind', 'status', 'sort'].forEach(function (k) { if (p[k] !== undefined) st[k] = p[k]; }); })();
+  function savePrefs() { save(PK, { cat: st.cat, sex: st.sex, era: st.era, kind: st.kind, status: st.status, sort: st.sort }); }
+  // scope = what the numbers count (era, kind, sex); lineOk adds category and recorded-state
+  function inScope(i) {
     var l = L[i], g = G[l[1]];
-    if (st.cat >= 0 && l[2] !== st.cat) return false;
     if (st.era === 'old' && l[6] !== 'old') return false;
     if (st.kind !== 'all' && g[1] !== st.kind) return false;
     if (st.sex !== 'all') { var sx = l[5] || g[2] || 'u'; if (sx !== st.sex) return false; }
-    if (st.todo && done[l[0]]) return false;
+    return true;
+  }
+  function lineOk(i) {
+    var l = L[i];
+    if (!inScope(i)) return false;
+    if (st.cat >= 0 && l[2] !== st.cat) return false;
+    if (st.status === 'todo' && done[l[0]]) return false;
+    if (st.status === 'done' && !done[l[0]]) return false;
     return true;
   }
   function qOk(gi, i) {
@@ -52,7 +62,6 @@ window.wfaStart = function () {
     var hue = 0; for (var i = 0; i < g[0].length; i++) hue = (hue * 31 + g[0].charCodeAt(i)) % 360;
     return '<div class="av" style="--h:' + hue + '"><span>' + ch + '</span>' + (src ? '<img loading="lazy" alt="" src="' + src + '" onerror="this.remove()">' : '') + '</div>';
   }
-  function sexTag(s) { return s === 'f' ? '<span class="tag sx f" title="زن">\u2640 زن</span>' : s === 'm' ? '<span class="tag sx m" title="مرد">\u2642 مرد</span>' : ''; }
 
   // ---------------------------------------------------------------- list
   var list = $('list'), view = [];
@@ -67,26 +76,21 @@ window.wfaStart = function () {
     else view.sort(function (a, b) { return nat.compare(G[a[0]][0], G[b[0]][0]); });
   }
   function cardHTML(v) {
-    var gi = v[0], a = v[1], g = G[gi], d = 0;
-    byG[gi].forEach(function (i) { if (done[L[i][0]]) d++; });
-    var pct = Math.round(d * 100 / byG[gi].length);
-    return '<details class="card" data-g="' + gi + '"><summary>' + avatar(g) +
-      '<div class="ci"><div class="gn" dir="ltr">' + esc(g[0]) + '</div><div class="tags">' + sexTag(g[2]) +
-      (g[3] ? '<span class="tag">' + (RACE_FA[g[3]] || g[3]) + '</span>' : '') +
-      '<span class="tag">' + (g[1] === 'h' ? 'صدای شخصیت' : 'NPC / موجود') + '</span><span class="tag num">' + fa(a.length) + ' خط</span></div></div>' +
-      '<button class="ib play gp" data-act="gplay" title="پخش اولین خط این گروه">\u25b6</button>' +
-      '<div class="ring" style="--p:' + pct + '" title="ضبط\u200cشده: ' + fa(d) + ' از ' + fa(byG[gi].length) + '"><b>' + fa(pct) + '\u066a</b></div></summary><div class="rows"></div></details>';
+    var gi = v[0], g = G[gi], t = 0, d = 0;
+    byG[gi].forEach(function (i) { if (inScope(i)) { t++; if (done[L[i][0]]) d++; } });
+    var sx = g[2] === 'f' ? '<span class="f">زن</span>' : g[2] === 'm' ? '<span class="m">مرد</span>' : '';
+    var meta = [sx, g[3] ? (RACE_FA[g[3]] || g[3]) : '', g[1] === 'h' ? 'نژاد بازیکن' : '', fa(v[1].length) + ' خط'].filter(Boolean).join(' \u00b7 ');
+    var full = t && d === t;
+    return '<details class="g" data-g="' + gi + '"><summary>' + avatar(g) + '<div class="gi"><div class="gn">' + esc(g[0]) + '</div><div class="gm">' + meta + '</div></div>' +
+      '<button class="ic" data-act="gplay" title="پخش اولین خط این گروه">\u25b6</button><span class="gp' + (full ? ' full' : '') + '">' + (full ? '\u2713' : fa(d) + '/' + fa(t)) + '</span></summary><div class="rows"></div></details>';
   }
   function rowHTML(i) {
     var l = L[i];
-    return '<div class="row' + (done[l[0]] ? ' ok' : '') + '" data-i="' + i + '">' +
-      '<button class="ib play" data-act="play" title="پخش صدای اصلی">\u25b6</button>' +
-      '<div class="nm" dir="ltr" title="' + esc(l[3]) + '">' + esc(l[3]) + '</div>' +
-      '<span class="badge c' + l[2] + '">' + CAT_FA[CATS[l[2]]] + '</span>' +
-      (l[6] !== 'old' ? '<span class="badge era">' + (ERA_FA[l[6]] || l[6]) + '</span>' : '<span></span>') +
-      '<button class="ib dl" data-act="dl" title="دانلود صدای اصلی">\u2b07</button>' +
-      '<button class="ib rec" data-act="rec" title="ضبط دوبله برای همین خط">\ud83c\udf99</button>' +
-      '<span class="st">' + (done[l[0]] ? '\u2713' : '') + '</span></div>';
+    return '<div class="row' + (done[l[0]] ? ' ok' : '') + '" data-i="' + i + '"><span class="st">' + (done[l[0]] ? '\u2713' : '') + '</span>' +
+      '<button class="ic" data-act="play" title="پخش صدای اصلی">\u25b6</button><span class="nm" title="' + esc(l[3]) + '">' + esc(l[3]) + '</span>' +
+      (l[6] !== 'old' ? '<span class="era">' + (ERA_FA[l[6]] || l[6]) + '</span>' : '') +
+      '<span class="ct c' + l[2] + '">' + CAT_FA[CATS[l[2]]] + '</span>' +
+      '<button class="ic" data-act="dl" title="دانلود صدای اصلی">\u2b07</button><button class="ic rc" data-act="rec" title="ضبط دوبله برای همین خط">\u25cf</button></div>';
   }
   function render() {
     compute();
@@ -94,33 +98,50 @@ window.wfaStart = function () {
     $('count').textContent = fa(view.length) + ' گروه \u00b7 ' + fa(tot) + ' خط';
     var h = '';
     for (var k = 0; k < Math.min(view.length, st.page); k++) h += cardHTML(view[k]);
-    if (!view.length) h = '<p class="empty">با این فیلترها چیزی نماند.</p>';
+    if (!view.length) h = '<p class="empty">چیزی با این فیلترها پیدا نشد.</p>';
     if (view.length > st.page) h += '<div class="more"><button class="btn" id="more">' + fa(Math.min(60, view.length - st.page)) + ' گروه دیگر</button></div>';
     list.innerHTML = h;
-    if (st.q && view.length <= 3) [].forEach.call(list.querySelectorAll('details.card'), function (d) { d.open = true; fill(d); });
+    if (st.q && view.length <= 3) [].forEach.call(list.querySelectorAll('details.g'), function (d) { d.open = true; fill(d); });
     progress();
   }
   function fill(d) {
     var gi = +d.dataset.g, v = null;
     for (var k = 0; k < view.length; k++) if (view[k][0] === gi) { v = view[k]; break; }
     var arr = v ? v[1] : byG[gi];
-    d.querySelector('.rows').innerHTML = '<div class="ghead"><button class="btn" data-act="gdl" data-g="' + gi + '">\u2b07 دانلود همه\u0654 صداهای اصلی این گروه (' + fa(arr.length) + ')</button> <button class="btn" data-act="glinks" data-g="' + gi + '" title="برای IDM، wget یا هر دانلودر">فهرست لینک\u200cها (txt)</button></div>' + arr.map(rowHTML).join('');
+    d.querySelector('.rows').innerHTML = '<div class="gh"><button class="btn" data-act="gdl" data-g="' + gi + '">\u2b07 دانلود همه\u0654 صداهای اصلی (' + fa(arr.length) + ')</button><button class="btn" data-act="glinks" data-g="' + gi + '" title="برای IDM، wget یا هر دانلودر">فهرست لینک\u200cها</button></div>' + arr.map(rowHTML).join('');
     if (cur >= 0) mark();
   }
+  // top numbers, category tabs and every group's "3/12" or tick
+  var nums = $('nums');
   function progress() {
-    var tot = 0, d = 0;
-    L.forEach(function (l) { if (st.era === 'all' || l[6] === 'old') { tot++; if (done[l[0]]) d++; } });
-    $('pbar').style.width = (tot ? d * 100 / tot : 0) + '%';
-    $('ptext').textContent = 'ضبط\u200cشده: ' + fa(d) + ' از ' + fa(tot);
+    var tot = 0, rec = 0, pc = CATS.map(function () { return [0, 0]; }), gs = {};
+    for (var i = 0; i < L.length; i++) {
+      if (!inScope(i)) continue;
+      var l = L[i], d = done[l[0]] ? 1 : 0;
+      tot++; rec += d; pc[l[2]][0]++; pc[l[2]][1] += d;
+      var c = gs[l[1]] || (gs[l[1]] = [0, 0]); c[0]++; c[1] += d;
+    }
+    var gt = 0, gd = 0; for (var k in gs) { gt++; if (gs[k][0] === gs[k][1]) gd++; }
+    nums.innerHTML = '<div><b>' + fa(tot) + '</b><span>خط صدا</span></div><div class="ok"><b>' + fa(rec) + '</b><span>ضبط\u200cشده \u2713</span></div><div><b>' + fa(tot - rec) + '</b><span>مانده</span></div><div><b>' + fa(gd) + ' / ' + fa(gt) + '</b><span>گروه کامل</span></div><div><b>' + fa(tot ? Math.round(rec * 100 / tot) : 0) + '\u066a</b><span>پیشرفت</span></div>';
+    $('pbar').style.width = (tot ? rec * 100 / tot : 0) + '%';
+    var h = '<button data-v="-1" aria-selected="' + (st.cat < 0) + '">همه<small>' + fa(rec) + '/' + fa(tot) + '</small></button>';
+    CATS.forEach(function (c, i) { h += '<button data-v="' + i + '" aria-selected="' + (st.cat === i) + '">' + CAT_FA[c] + '<small>' + fa(pc[i][1]) + '/' + fa(pc[i][0]) + '</small></button>'; });
+    $('fcat').innerHTML = h;
+    [].forEach.call(list.querySelectorAll('details.g'), function (el) {
+      var gi = +el.dataset.g, t = 0, dd = 0;
+      byG[gi].forEach(function (j) { if (inScope(j)) { t++; if (done[L[j][0]]) dd++; } });
+      var p = el.querySelector('.gp'), full = t && dd === t;
+      p.className = 'gp' + (full ? ' full' : ''); p.textContent = full ? '\u2713' : fa(dd) + '/' + fa(t);
+    });
   }
-  list.addEventListener('toggle', function (e) { var d = e.target; if (d.classList && d.classList.contains('card') && d.open) fill(d); }, true);
+  list.addEventListener('toggle', function (e) { var d = e.target; if (d.classList && d.classList.contains('g') && d.open) fill(d); }, true);
   list.addEventListener('click', function (e) {
     if (e.target.id === 'more') { st.page += 60; render(); return; }
     var b = e.target.closest('[data-act]'); if (!b) return;
     var act = b.dataset.act;
     if (act === 'gplay') {
       e.preventDefault(); e.stopPropagation();
-      var gi = +b.closest('.card').dataset.g, v = null;
+      var gi = +b.closest('.g').dataset.g, v = null;
       for (var k = 0; k < view.length; k++) if (view[k][0] === gi) { v = view[k]; break; }
       var arr = v ? v[1] : byG[gi]; if (arr.length) playOrig(arr[0]); return;
     }
@@ -133,23 +154,27 @@ window.wfaStart = function () {
   });
 
   // ---------------------------------------------------------------- filters
-  function seg(id, key, conv) {
-    var el = $(id);
-    el.addEventListener('click', function (e) {
-      var b = e.target.closest('button'); if (!b) return;
-      st[key] = conv ? conv(b.dataset.v) : b.dataset.v; st.page = 60;
-      [].forEach.call(el.querySelectorAll('button'), function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
-      render();
-    });
+  function bindSel(id, key) {
+    var el = $(id); el.value = st[key]; if (el.value !== st[key]) { st[key] = el.options[0].value; el.value = st[key]; }
+    el.addEventListener('change', function () { st[key] = el.value; st.page = 60; savePrefs(); render(); });
   }
-  (function cats() {
-    var h = '<button data-v="-1" aria-pressed="true">همه</button>';
-    CATS.forEach(function (c, i) { h += '<button data-v="' + i + '" aria-pressed="false">' + CAT_FA[c] + '</button>'; });
-    $('fcat').innerHTML = h;
-  })();
-  seg('fcat', 'cat', function (v) { return +v; }); seg('fsex', 'sex'); seg('fera', 'era'); seg('fkind', 'kind'); seg('fsort', 'sort');
-  $('ftodo').addEventListener('change', function () { st.todo = this.checked; render(); });
+  bindSel('fsex', 'sex'); bindSel('fkind', 'kind'); bindSel('fera', 'era'); bindSel('fsort', 'sort'); bindSel('fstatus', 'status');
+  $('fcat').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; st.cat = +b.dataset.v; st.page = 60; savePrefs(); render(); });
   var tq; $('q').addEventListener('input', function () { var v = this.value; clearTimeout(tq); tq = setTimeout(function () { st.q = v.trim().toLowerCase().replace(/[۰-۹]/g, function (d) { return FD.indexOf(d); }); st.page = 60; render(); }, 180); });
+  // jump to the first line that is not recorded yet (inside the current filters)
+  $('resume').addEventListener('click', function () {
+    compute();
+    for (var k = 0; k < view.length; k++) {
+      var a = view[k][1].filter(function (i) { return !done[L[i][0]]; });
+      if (!a.length) continue;
+      if (k >= st.page) { st.page = k + 1; render(); }
+      var d = list.querySelector('details.g[data-g="' + view[k][0] + '"]'); if (!d) return;
+      d.open = true; fill(d); cur = a[0]; mark();
+      var r = d.querySelector('.row[data-i="' + a[0] + '"]'); if (r) r.scrollIntoView({ block: 'center' });
+      return;
+    }
+    toast('همه\u0654 خط\u200cهای این فیلتر ضبط شده\u200cاند \u2713');
+  });
 
   // ---------------------------------------------------------------- original playback
   var au = $('au'), cur = -1, origDur = 0;
@@ -257,9 +282,9 @@ window.wfaStart = function () {
   function folderUI() {
     var b = $('folder'), s = $('fstate');
     if (!canFS) { b.textContent = '\u2913 بدون پوشه: فایل\u200cها دانلود می\u200cشوند'; b.disabled = true; s.textContent = 'ذخیره\u0654 مستقیم در پوشه فقط در Chrome یا Edge کار می\u200cکند.'; return; }
-    if (root && rootOk) { b.textContent = '\ud83d\udcc1 ' + root.name; s.textContent = 'ذخیره در: ' + root.name + '/fa/<گروه>/<اسم خط>.wav'; }
-    else if (root) { b.textContent = '\ud83d\udcc1 اجازه\u0654 دوباره برای «' + root.name + '»'; s.textContent = 'مرورگر برای نوشتن در پوشه دوباره اجازه می\u200cخواهد.'; }
-    else { b.textContent = '\ud83d\udcc1 انتخاب پوشه\u0654 دوبله'; s.textContent = 'یک بار پوشه را انتخاب کن؛ هر ضبط تأییدشده همان\u200cجا ذخیره می\u200cشود.'; }
+    if (root && rootOk) { b.textContent = '' + root.name; s.textContent = 'ذخیره در: ' + root.name + '/fa/<گروه>/<اسم خط>.wav'; }
+    else if (root) { b.textContent = 'اجازه\u0654 دوباره برای «' + root.name + '»'; s.textContent = 'مرورگر برای نوشتن در پوشه دوباره اجازه می\u200cخواهد.'; }
+    else { b.textContent = 'انتخاب پوشه\u0654 دوبله'; s.textContent = 'یک بار پوشه را انتخاب کن؛ هر ضبط تأییدشده همان\u200cجا ذخیره می\u200cشود.'; }
   }
   $('folder').addEventListener('click', function () {
     if (root && !rootOk) { root.requestPermission({ mode: 'readwrite' }).then(function (p) { rootOk = p === 'granted'; folderUI(); if (rootOk) scan(); }); return; }
@@ -448,7 +473,7 @@ window.wfaStart = function () {
     var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['\ufeff' + rows.join('\n')], { type: 'text/csv' })); a.download = 'wowfa-dub-list.csv'; a.click();
   });
   document.addEventListener('keydown', function (e) {
-    if (!S.classList.contains('open') || e.target.tagName === 'INPUT') return;
+    if (!S.classList.contains('open') || e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
     var k = e.key.toLowerCase();
     if (k === 'r' || k === 'ق') { e.preventDefault(); $('srec').click(); }
     else if (k === ' ') { e.preventDefault(); playTake(); }

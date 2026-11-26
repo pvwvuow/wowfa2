@@ -14,7 +14,7 @@ local L = F.L
 local UI = F.UI
 local C = F.C
 
-local W, H = 700, 600         -- the window
+local W, H = 700 + (F.PREVIEW_W or 0), 600 -- the window (1.1.6: + the live preview column, Modules/Preview.lua)
 local NAVW = 164              -- the side menu
 local PW = 486                -- the scroll page width
 local panel, page, rows, health
@@ -116,7 +116,7 @@ end
 
 local function begin_page(id)
     local sf = UI.ScrollPage(panel, PW, H - 76)
-    sf:SetPoint("TOPLEFT", panel, "TOPLEFT", 14, -64)
+    sf:SetPoint("TOPLEFT", panel, "TOPLEFT", 14 + (F.PREVIEW_W or 0), -64)
     sf:Hide()
     pages[id] = sf
     sf.items = {}
@@ -1218,6 +1218,13 @@ local function build()
     place(resetRow, 30, 8)
     end_page()
 
+    -- 1.1.6: the live preview column + an eye next to every setting with something to see
+    if F.PreviewAttach then
+        local okp, errp = pcall(F.PreviewAttach, panel)
+        if not okp then
+            F:LogError("ui", errp)
+        end
+    end
     panel.page = pages.general
     panel:SetScript("OnShow", function()
         refresh()

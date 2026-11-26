@@ -413,7 +413,20 @@ local function after_combat()
     end
 end
 
-F.GameUI = { Try = try, Scan = scan, Attach = attach, Restore = restore }
+-- 1.1.6: the settings preview column asks for the Persian of one window text (nil = English)
+local function preview(text, scope)
+    if not on() or type(text) ~= "string" then
+        return nil
+    end
+    local ok, fa = pcall(translate, text, scope)
+    if not ok or not fa then
+        return nil
+    end
+    local oks, s = pcall(shape, fa)
+    return oks and type(s) == "string" and s ~= "" and s or nil
+end
+
+F.GameUI = { Try = try, Scan = scan, Attach = attach, Restore = restore, Preview = preview }
 
 F:On("ADDON_LOADED", nil, function()
     pcall(attach)

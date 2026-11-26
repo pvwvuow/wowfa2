@@ -844,6 +844,41 @@ local okGu, errGu = pcall(function()
     end
 end)
 check("gameui tests ran", okGu, errGu)
+-- ------------------------------------------------------------------ 1.1.6: the live preview column
+local okPv, errPv = pcall(function()
+    local P = F.Preview
+    check("preview: the module loaded", type(P) == "table" and type(F.PreviewAttach) == "function")
+    F.OpenPanel("general")
+    local PF = F.PanelFrame()
+    check("preview: the window grew by the column", (PF._w or 0) >= 1000, PF._w)
+    check("preview: the column is built", P.pane ~= nil)
+    local zr = PF.room and PF.room.namesZone
+    check("preview: an eye next to the zone-name switch", zr ~= nil and zr.eye ~= nil)
+    check("preview: eyes on the other rows too",
+        PF.gameUi and PF.gameUi.eye ~= nil and PF.sysmsg and PF.sysmsg.eye ~= nil and PF.npcName and PF.npcName.eye ~= nil
+        and PF.mods.tracker and PF.mods.tracker.eye ~= nil, "gameUi/sysmsg/npcName/tracker")
+    local wasZ = F.Room.On("namesZone")
+    F.Room.Set("namesZone", true)
+    F.OpenPanel("map")
+    Click(zr.eye)
+    check("preview: the eye opens the zone sample", P.Current() == "zone", P.Current())
+    local zf = P.Frame("zone")
+    check("preview: zone names on = the sample is Persian", zf and zf.big.fa:IsShown() and non_ascii(zf.big.fa:GetText()),
+        zf and zf.big.fa:GetText())
+    F.Room.Set("namesZone", false)
+    P.Update()
+    check("preview: zone names off = the game's English", zf and zf.big.en:IsShown() and not non_ascii(zf.big.en:GetText()),
+        zf and zf.big.en:GetText())
+    F.Room.Set("namesZone", wasZ)
+    local errs = #(F.db.errors or {})
+    for id in pairs(P.SAMPLES) do
+        P.Show(id, nil)
+    end
+    check("preview: every sample draws without an error", #(F.db.errors or {}) == errs,
+        F.db.errors and F.db.errors[1] and F.db.errors[1].e)
+    PF:Hide()
+end)
+check("preview tests ran", okPv, errPv)
 check("items module not installed (locked)", not (F.mods.items and F.mods.items.active))
 local ok = pcall(SlashCmdList.WOWFAF, "status")
 check("/wowfa status", ok)

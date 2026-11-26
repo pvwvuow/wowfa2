@@ -145,6 +145,15 @@ local function filter(_, _, msg, ...)
     return false
 end
 
+-- 1.1.6: the settings preview column asks for the Persian of a system line (nil = English)
+function F.SysmsgPreview(text)
+    if not on() then
+        return nil
+    end
+    local ok, s = pcall(translate, text)
+    return ok and type(s) == "string" and s ~= "" and s or nil
+end
+
 local function install()
     if registered then
         return

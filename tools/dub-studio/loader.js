@@ -61,7 +61,7 @@
       var sex = gender(gname, keep.map(function (r) { return r[2]; }));
       var mn = Infinity; keep.forEach(function (r) { if (r[0] < mn) mn = r[0]; });
       gidx[gi] = groups.length;
-      groups.push([gname, kind, sex, race(gname), mn]);
+      groups.push([gname, kind, sex, race(gname), mn, gi]);
       keep.forEach(function (r) { out.push([r[0], gidx[gi], r[1], r[2], r[3]]); });
     });
     var cnt = {}; groups.forEach(function (g) { cnt[g[0]] = (cnt[g[0]] || 0) + 1; });
@@ -132,6 +132,14 @@
     inp.addEventListener('change', function () { if (inp.files[0]) onFile(inp.files[0]); });
     var again = document.getElementById('reimport');
     if (again) again.addEventListener('click', function (e) { e.preventDefault(); showImport(); });
+    if (window.VO_RAW && window.VO_RAW.L) {
+      // full database shipped with the studio (voice_db.js): no import needed
+      var R = window.VO_RAW, D = build(R.L, R.G);
+      D.T = R.T || {}; D.C = {}; D.thumb = R.thumb || '';
+      D.groups.forEach(function (g, i) { var c = R.C && R.C[String(g[5])]; if (c) D.C[i] = c; });
+      start(D);
+      return;
+    }
     kvGet('vo').then(function (D) { if (D && D.lines && D.lines.length && D.v === 1) start(D); else showImport(); });
   });
 })();

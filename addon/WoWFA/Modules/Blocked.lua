@@ -56,14 +56,9 @@ local function taint_scan(fn)
     end
     scan("GameTooltip", _G.GameTooltip)
     scan("UIErrorsFrame", _G.UIErrorsFrame)
-    for k in pairs(_G) do
-        if #hits >= 12 then
-            break
-        end
-        if type(k) == "string" and not string.find(k, "^WoWFA") and ours(_G, k) then
-            hits[#hits + 1] = k
-        end
-    end
+    -- no sweep over every global any more: with the game's taint log on it wrote one line per
+    -- global read (40 MB in a minute, the owner's crash); the frame, its bar and the tooltip
+    -- are enough to name the cause
     return #hits > 0 and (" | tainted: " .. table.concat(hits, ", ")) or " | tainted: none found"
 end
 
@@ -100,7 +95,7 @@ ev:SetScript("OnEvent", function(_, event, addon, fn)
             end
         end
         local okw, who = true, ""
-        if total <= 6 then
+        if total <= 2 then
             okw, who = pcall(taint_scan, key)
         end
         who = okw and type(who) == "string" and who or ""

@@ -142,6 +142,47 @@ function F.QRow(raw)
     return out
 end
 
+-- 1.1.6 taint, the real cause (the owner's level-2 taint.log: "Execution tainted by WoWFA while
+-- reading global WoWFAF_Panel - UIParentPanelManager.lua:1109"): a frame name put in
+-- UISpecialFrames is a global WoWFA wrote, and the game's panel manager reads every name in that
+-- list on Esc and when a game window opens. From there the action bar layout ran tainted
+-- (MultiBarBottomLeft.snappedToFrame) and the bars were blocked in combat. So NO WoWFA frame is
+-- in UISpecialFrames: the frame takes Esc itself. Out of combat it keeps the key (the game menu
+-- does not open too); in combat it only closes and the key goes on to the game, because
+-- SetPropagateKeyboardInput is protected there.
+function F.EscClose(f)
+    if not f or f.wfaEsc then
+        return
+    end
+    f.wfaEsc = true
+    local function free()
+        return not (InCombatLockdown and InCombatLockdown())
+    end
+    local function pass(self)
+        if free() then
+            pcall(self.SetPropagateKeyboardInput, self, true)
+        end
+    end
+    pcall(f.EnableKeyboard, f, true)
+    pass(f)
+    pcall(f.HookScript, f, "OnShow", pass)
+    pcall(f.HookScript, f, "OnKeyDown", function(self, key)
+        if key == "ESCAPE" then
+            if free() then
+                pcall(self.SetPropagateKeyboardInput, self, false)
+                if C_Timer and C_Timer.After then
+                    C_Timer.After(0, function()
+                        pass(self)
+                    end)
+                end
+            end
+            self:Hide()
+            return
+        end
+        pass(self)
+    end)
+end
+
 -- djb2 over the bytes of T.NameKey(title), mod 2^32, as 8 lowercase hex chars.
 -- Mirrors tools/wfa/core.py title_hash: the data stores this hash instead of
 -- the English quest title. h * 33 + byte stays below 2^38 (exact in doubles);

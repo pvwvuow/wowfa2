@@ -300,6 +300,7 @@ end
 S.quest = {
     build = function(f)
         local tr = box(f, SW, 76, 0, 0)
+        f.tr = tr
         solid(tr, 0, 0, 0, 0.25)
         f.title = slot(tr, 13, GOLD, "", "LEFT")
         f.title:Point("TOPLEFT", tr, "TOPLEFT", 8, -8)
@@ -355,6 +356,22 @@ S.quest = {
             f.fb:SetFa(cut(T.Prepare(p[4] or ""), 300), SW - 20)
         else
             f.fp:Hide()
+        end
+        -- the part the row changes (the red pulse): its title, objectives, pane or the tracker
+        local h = curRow and curRow.wfaHi
+        local function vis(s)
+            return (s.fa and s.fa:IsShown()) and s.fa or s.en
+        end
+        if h == "qtitle" then
+            f.hi = vis(f.title)
+        elseif h == "qobj" then
+            f.hi = vis(f.o1)
+        elseif h == "qpane" then
+            f.hi = f.fp:IsShown() and f.fp or f.qf
+        elseif h == "qtrack" then
+            f.hi = f.tr
+        else
+            f.hi = nil
         end
         return title .. "  /  " .. o1, p == nil
     end,
@@ -578,8 +595,10 @@ S.font = {
 -- class / term / digit switches, the colours and the text outline all show here
 S.text = {
     build = function(f)
-        solid(f, 0.85, 0.76, 0.56, 1)
-        f.t = UI.Text(f, 13, BROWN)
+        -- the dark glass of the Persian quest pane (the owner: the tan parchment read badly)
+        local bg = box(f, SW, 130, 0, 0)
+        UI.Glass(bg, 0.94)
+        f.t = UI.Text(bg, 13, C.text)
         f.t:SetPoint("TOPRIGHT", f, "TOPRIGHT", -10, -14)
         f.t:SetWidth(SW - 20)
     end,
@@ -602,8 +621,45 @@ S.text = {
         local cm = (type(cfa) == "string" and cfa ~= "") and ("{{cls:" .. cen .. "|" .. cfa .. "}}") or cen
         local s = string.gsub(TX.text, "{(%d)}", { ["1"] = nm, ["2"] = zm, ["3"] = sm, ["4"] = cm })
         local out = T.Digits(T.Markers(s))
+        -- the word the row changes blinks red (row.wfaHi: a marker family, or "dig")
+        local h = curRow and curRow.wfaHi
+        local hi
+        if h == "dig" then
+            hi = T.Digits(T.Markers((string.gsub(s, "10", "|cffff2020%0|r", 1))))
+        elseif h then
+            local found = false
+            local hs = string.gsub(s, "{{" .. h .. ":[^}]-}}", function(m)
+                if found then
+                    return m
+                end
+                found = true
+                local w = T.Markers(m)
+                w = string.gsub(w, "|c%x%x%x%x%x%x%x%x", "")
+                w = string.gsub(w, "|r", "")
+                return "|cffff2020" .. w .. "|r"
+            end)
+            if found then
+                hi = T.Digits(T.Markers(hs))
+            end
+        end
         pcall(f.t.SetFont, f.t, F.FONT, 13, F.Flags and F.Flags() or "")
         f.t:SetFa(out, SW - 20)
+        f.outs = hi and { out, hi } or nil
+        f.k, f.el = 1, 0
+        if hi and not f.blinking then
+            f.blinking = true
+            f:SetScript("OnUpdate", function(self, el)
+                if not self.outs then
+                    return
+                end
+                self.el = (self.el or 0) + (el or 0)
+                if self.el >= 0.45 then
+                    self.el = 0
+                    self.k = 3 - (self.k or 1)
+                    self.t:SetFa(self.outs[self.k], SW - 20)
+                end
+            end)
+        end
         return string.format(TX.texten, nen, zen, sen, cen)
     end,
 }
@@ -629,6 +685,45 @@ function P.Frame(id)
     return built[id]
 end
 
+-- v4.1 (the owner 26 Nov: "the player can not tell what he is looking at; make the thing the
+-- option changes blink red"): a red frame pulses around the part of the sample the row changes
+-- (f.hi, set by the sample from curRow.wfaHi); the text sample makes the word itself blink
+local halo
+local function hi_place(region)
+    if not halo then
+        halo = CreateFrame("Frame", nil, stage)
+        halo:SetFrameLevel((stage:GetFrameLevel() or 1) + 20)
+        local edges = {
+            { "TOPLEFT", "TOPRIGHT", false }, { "BOTTOMLEFT", "BOTTOMRIGHT", false },
+            { "TOPLEFT", "BOTTOMLEFT", true }, { "TOPRIGHT", "BOTTOMRIGHT", true },
+        }
+        for _, e in ipairs(edges) do
+            local t = halo:CreateTexture(nil, "OVERLAY")
+            t:SetColorTexture(1, 0.13, 0.13, 1)
+            t:SetPoint(e[1])
+            t:SetPoint(e[2])
+            if e[3] then
+                t:SetWidth(2)
+            else
+                t:SetHeight(2)
+            end
+        end
+        local tt = 0
+        halo:SetScript("OnUpdate", function(self, el)
+            tt = tt + (el or 0)
+            self:SetAlpha(0.25 + 0.75 * math.abs(math.sin(tt * 4)))
+        end)
+    end
+    if region then
+        halo:ClearAllPoints()
+        halo:SetPoint("TOPLEFT", region, "TOPLEFT", -3, 3)
+        halo:SetPoint("BOTTOMRIGHT", region, "BOTTOMRIGHT", 3, -3)
+        halo:Show()
+    else
+        halo:Hide()
+    end
+end
+
 function P.Update()
     if not pane or not cur or not S[cur] then
         return
@@ -641,7 +736,9 @@ function P.Update()
         end
         local f = frame_of(cur)
         f:Show()
+        f.hi = nil
         local en, missing = S[cur].update(f)
+        hi_place(f.hi)
         pane.orig:SetText(tostring(en or ""))
         pane.note:SetFa(missing and TX.nofa or " ", SW)
     end)

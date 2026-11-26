@@ -14,6 +14,59 @@ function F.BlockedTotal()
     return total
 end
 
+-- 1.1.6 (the block came back on MultiBarBottomLeft buttons): WHICH variable did WoWFA write?
+-- issecurevariable names the addon that last wrote a key. The frame the game blocked, its
+-- parent, the game tooltip, the error frame and every global are checked once per kind of
+-- block, and the keys WoWFA wrote (not its own wfa* fields) are named in the report line.
+local function ours(t, k)
+    local ok, sec, by = pcall(issecurevariable, t, k)
+    return ok and not sec and by == F.ADDON
+end
+
+local function taint_scan(fn)
+    if type(issecurevariable) ~= "function" then
+        return ""
+    end
+    local hits, seen = {}, {}
+    local function scan(label, t)
+        if type(t) ~= "table" or seen[t] then
+            return
+        end
+        seen[t] = true
+        for k in pairs(t) do
+            if #hits >= 12 then
+                return
+            end
+            if type(k) == "string" and not string.find(k, "^wfa") and ours(t, k) then
+                hits[#hits + 1] = label .. "." .. k
+            end
+        end
+    end
+    local fname = string.match(tostring(fn), "^([%w_]+)[:%.]")
+    local f = fname and _G[fname]
+    if type(f) == "table" then
+        scan(fname, f)
+        if type(f.GetParent) == "function" then
+            local okp, p = pcall(f.GetParent, f)
+            if okp and type(p) == "table" then
+                local okn, pn = pcall(p.GetName, p)
+                scan(okn and type(pn) == "string" and pn or "parent", p)
+            end
+        end
+    end
+    scan("GameTooltip", _G.GameTooltip)
+    scan("UIErrorsFrame", _G.UIErrorsFrame)
+    for k in pairs(_G) do
+        if #hits >= 12 then
+            break
+        end
+        if type(k) == "string" and not string.find(k, "^WoWFA") and ours(_G, k) then
+            hits[#hits + 1] = k
+        end
+    end
+    return #hits > 0 and (" | tainted: " .. table.concat(hits, ", ")) or " | tainted: none found"
+end
+
 local ev = CreateFrame("Frame")
 pcall(ev.RegisterEvent, ev, "ADDON_ACTION_BLOCKED")
 pcall(ev.RegisterEvent, ev, "ADDON_ACTION_FORBIDDEN")
@@ -46,9 +99,14 @@ ev:SetScript("OnEvent", function(_, event, addon, fn)
                 where = table.concat(parts, " < ")
             end
         end
-        F:LogError("blocked", string.sub(tostring(event) .. " " .. key .. " (" .. combat .. ") " .. where, 1, 400))
+        local okw, who = true, ""
+        if total <= 6 then
+            okw, who = pcall(taint_scan, key)
+        end
+        who = okw and type(who) == "string" and who or ""
+        F:LogError("blocked", string.sub(tostring(event) .. " " .. key .. " (" .. combat .. ") " .. where .. who, 1, 400))
         if total <= 4 then
-            F.Chat("WoWFA: the game blocked " .. key .. " (" .. combat .. ") " .. where .. " - please send this line")
+            F.Chat("WoWFA: the game blocked " .. key .. " (" .. combat .. ") " .. where .. who .. " - please send this line")
         end
     end)
 end)

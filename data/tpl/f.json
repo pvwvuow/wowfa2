@@ -36,5 +36,6 @@
 "forces all nearby enemies within # yards to focus attacks on you for # sec":"همهٔ دشمنان نزدیک را در شعاع {0} یاردی وادار می‌کند به مدت {1} ثانیه حمله‌هایشان را روی تو متمرکز کنند.",
 "forces the enemy target to sleep for up to # sec. any damage will awaken the target. only one target can be forced to hibernate at a time. only works on beasts and dragonkin":"هدف دشمن را تا {0} ثانیه به {{tm:sleep|خواب}} می‌برد. هرگونه {{tm:damage|آسیب}} او را بیدار می‌کند. هم‌زمان فقط می‌توان یک هدف را به {{tm:sleep|خواب}} برد. فقط روی {{tm:Beasts|جانوران}} و {{tm:Dragonkin|اژدهازاد}} اثر دارد.",
 "forces the target to speak in demonic, increasing the casting time of all spells by #%. only one curse per warlock can be active on any one target. lasts # sec":"هدف را وادار می‌کند به زبان اهریمنی حرف بزند و زمان اجرای همهٔ اسپل‌هایش را {0}% افزایش می‌دهد. هر {{cls:Warlock}} فقط می‌تواند یک {{tm:Curse|نفرین}} را هم‌زمان روی هر هدف فعال نگه دارد. به مدت {1} ثانیه ادامه دارد.",
-"fresh bread for sale!":"نان تازه، بفرمایید!"
+"fresh bread for sale!":"نان تازه، بفرمایید!",
+"freshly baked bread for sale!":"نان تازه‌پخت برای فروش!"
 }

@@ -1,0 +1,1 @@
+{"id":"0326-raw-71139","kind":"script","why":"owner 26 Nov: the game updated to 1.60.1.71139, capture it into wow-raw","args":{"module":"raw_fetch_now","args":{"build":"1.60.1.71139","push":true}}}

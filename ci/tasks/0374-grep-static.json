@@ -1,0 +1,1 @@
+{"id":"0374-grep-static","kind":"script","why":"owner 26 Nov: RAM - the quest readers' exact code","args":{"module":"src_grep","args":{"grep":["staticTitle = {}","local function get_quest(id)","local function get(id)","local function have(id)","function F.Split","F.D = "],"ctx":16,"limit":3}}}

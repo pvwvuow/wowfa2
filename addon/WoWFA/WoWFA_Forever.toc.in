@@ -20,6 +20,7 @@ Locale_Sys.lua
 Locale_Opt.lua
 Locale_Dlg.lua
 Locale_Panel.lua
+Locale_UI.lua
 Core.lua
 Text.lua
 Room.lua
@@ -45,6 +46,7 @@ Modules\Taxi.lua
 Modules\Sysmsg.lua
 Modules\Tools.lua
 Modules\Blocked.lua
+Modules\GameUI.lua
 Panel.lua
 Dump.lua
 Modules\Harvest.lua

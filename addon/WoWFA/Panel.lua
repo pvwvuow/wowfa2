@@ -563,6 +563,16 @@ local function build()
     panel.dispDescAll = place(UI.Choice(page.child, PW - 16, L.d_desc, nil, L.opt_desc,
         function() return F.Disp("*", "desc") end,
         function(v) F.DispSetDefault("desc", v) end), 32, 2)
+    -- 1.1.6: the game's own windows in Persian (Modules/GameUI.lua)
+    if L.gu_on then
+        header(L.gu_hdr or L.gu_on)
+        panel.gameUi = place(UI.Toggle(page.child, PW - 16, L.gu_on, L.gu_on_d,
+            function() return F.db.gameUi ~= false end,
+            function(v)
+                F.db.gameUi = v and true or false
+                F:Fire("options", "gameUi")
+            end), 50, 2)
+    end
     header(L.tab_display)
     panel.minimap = place(UI.Toggle(page.child, PW - 16, L.d_minimap, nil,
         function() return not F.db.minimap.hide end,

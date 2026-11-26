@@ -1,0 +1,1 @@
+{"id":"0369-grep-tipline","kind":"script","why":"owner 26 Nov: tooltip lines created by WoWFA are tainted globals - read T.TipLine / hook_tooltip","args":{"module":"src_grep","args":{"grep":["local function hook_tooltip","function T.TipLine","function T.Once","GameTooltip = "],"ctx":45,"limit":3}}}

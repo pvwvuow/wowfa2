@@ -1,0 +1,1 @@
+{"id": "0411-lua-check", "kind": "script", "why": "owner 26 Nov: syntax check of the test addon source", "args": {"module": "lua_check", "args": {"files": ["tools/dub-studio/addon/Voice.lua"]}}}

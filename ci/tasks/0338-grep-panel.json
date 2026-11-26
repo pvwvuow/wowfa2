@@ -1,0 +1,1 @@
+{"id":"0338-grep-panel","kind":"script","why":"owner 26 Nov: reorganise the settings panel; what do the tests and Locale expect","args":{"module":"src_grep","args":{"grep":["PANEL_SECTIONS","OpenPanel(","PanelPage","sec_","pages.","panel.","ROOM_ROWS","dl_intro","npcSay"],"ctx":1,"limit":60}}}

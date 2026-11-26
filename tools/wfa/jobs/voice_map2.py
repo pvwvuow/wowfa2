@@ -120,4 +120,10 @@ def run(args, rep):
         json.dump(out, fh, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
         fh.write("\n")
     rep.table([(m, "/".join(str(x) for x in sorted(ss))) for m, ss in sorted(models.items())][:40], ["model file id", "sets"])
-    return ["ci/work/voice/addon_map.json"]
+    mlist = sorted(models)
+    parts = []
+    for ent, (nm, prs) in sorted(npc.items(), key=lambda kv: int(kv[0])):
+        parts.append("%s:%s" % (ent, "/".join("%d.%d" % (p[0], mlist.index(p[1]) if p[1] in mlist else 9) for p in prs)))
+    with open("ci/work/voice/addon_map.txt", "w", encoding="utf-8", newline="\n") as fh:
+        fh.write("models=" + ",".join(str(m) for m in mlist) + "\n" + ",".join(parts) + "\n")
+    return ["ci/work/voice/addon_map.json", "ci/work/voice/addon_map.txt"]

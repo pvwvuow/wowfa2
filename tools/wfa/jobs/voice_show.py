@@ -22,7 +22,7 @@ def run(args, rep):
         for l in L:
             if l[1] in gi:
                 t = T.get(str(l[0])) or ["", ""]
-                rows.append((l[0], cats[l[2]], l[3], l[6], (t[0] or "")[:50]))
+                rows.append((l[0], cats[l[2]], l[3], l[6] if len(l) > 6 else "", (t[0] if t else "")[:50]))
         rows.sort(key=lambda r: (r[1], r[2]))
         rep.table(rows, ["file id", "category", "name", "era", "text"])
     return []

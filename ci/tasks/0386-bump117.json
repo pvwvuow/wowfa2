@@ -1,0 +1,1 @@
+{"id": "0386-bump117", "kind": "edit", "why": "owner 26 Nov: release 1.1.7 (UISpecialFrames taint fix)", "args": {"ops": [{"file": "policy.json", "old": "\"version\": \"1.1.6-beta\"", "new": "\"version\": \"1.1.7-beta\"", "count": 1}]}}

@@ -1,0 +1,1 @@
+{"id":"0359-fear-word","kind":"script","why":"owner 26 Nov screenshot: Bestial Wrath shows the spell name Fear in English; there it is the emotion","args":{"module":"tpl_replace","args":{"edits":[{"key":"send your pet into a rage causing","old":"{{sp:fear}}","new":"ترس","count":1}]}}}

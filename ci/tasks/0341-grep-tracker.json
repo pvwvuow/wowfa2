@@ -1,0 +1,1 @@
+{"id":"0341-grep-tracker","kind":"script","why":"owner 26 Nov: the NPC talk switch also rules quest titles; read where","args":{"module":"src_grep","args":{"grep":["inbox/29 D2","L.ROOM_EX = ","L.ROOM_ROWS = {","L.al_hdr","L.sy_on ","L.ch_on ","L.tab_display","L.n_tracker"],"ctx":14,"limit":4}}}

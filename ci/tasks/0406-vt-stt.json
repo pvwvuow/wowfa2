@@ -1,0 +1,1 @@
+{"id": "0406-vt-stt", "kind": "script", "why": "owner 26 Nov: hear the next batch of greeting/farewell/pissed/aggro lines", "args": {"module": "voice_text", "args": {"stt": true, "limit": 6000, "minutes": 44}}}

@@ -42,6 +42,11 @@ F.PANEL_SECTIONS = SECTIONS
 -- (a saved "stats" room still works and shows as "custom").
 if F.Room then
     F.Room.PRESET_IDS = { "recommended", "fa", "story", "spells", "en" }
+    -- the terms are plain words inside the Persian sentences (damage, pet, health): the story
+    -- preset keeps them Persian, an English word mid-sentence read as a bug
+    if F.Room.PRESETS and F.Room.PRESETS.story and F.Room.PRESETS.story.d then
+        F.Room.PRESETS.story.d.terms = true
+    end
     for id, s in pairs(PN.preset_lbl or {}) do
         F.Room.PRESET_LBL[id] = s
     end

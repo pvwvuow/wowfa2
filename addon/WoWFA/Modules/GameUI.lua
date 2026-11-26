@@ -163,6 +163,13 @@ local function swap(fs, text, scope)
     if not okt or not fa then
         if rec then
             rec.en = nil -- the game wrote a text we do not know: it stays as it is
+            if rec.font and rec.size then
+                -- ... and in the game's own font and size again (an English text left in our
+                -- font, 0.92 smaller, was the owner's "English sometimes too small")
+                busy = true
+                pcall(fs.SetFont, fs, rec.font, rec.size, rec.flags or "")
+                busy = false
+            end
         end
         return false
     end

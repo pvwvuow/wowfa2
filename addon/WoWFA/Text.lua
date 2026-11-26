@@ -1002,6 +1002,36 @@ function T.TipPair(tt, first, second, color)
     style(tt, "Right")
 end
 
+-- 1.1.6 (the owner: an NPC yell in the chat showed "سوی شهر برایت خبر آورده ام" on the first
+-- line and "از آن" under it - the start of the sentence went to the end): a chat window wraps
+-- a long line by itself, left to right, and a shaped (visual order) Persian line wrapped that
+-- way reads last-part-first. So a chat line is wrapped HERE, by our own measure at the
+-- window's width and font size, every line shaped on its own (T.Lines, the tooltip rule). A
+-- text that does not fit after the "Name says:" prefix (prefixLen letters) starts on its
+-- own line. frame = the chat window (nil: a 420 px default).
+function T.ChatText(text, frame, prefixLen)
+    local mode = T.Mode()
+    local w, size = 420, 14
+    if frame then
+        local okw, fw = pcall(frame.GetWidth, frame)
+        if okw and F.Usable(fw) and type(fw) == "number" and fw > 60 then
+            w = fw
+        end
+        local okf, _, fsz = pcall(frame.GetFont, frame)
+        if okf and F.Usable(fsz) and type(fsz) == "number" and fsz > 4 then
+            size = fsz
+        end
+    end
+    local avail = (w - 12) * 0.94
+    local pre = (tonumber(prefixLen) or 0) * size * 0.5
+    local one = T.Lines(text, math.max(80, avail - pre), size, mode)
+    if type(one) ~= "table" or #one <= 1 then
+        return (type(one) == "table" and one[1]) or T.ShapeLine(text, mode)
+    end
+    local lines = T.Lines(text, avail, size, mode)
+    return (pre > 0 and "\n" or "") .. table.concat(lines, "\n")
+end
+
 -- inbox/27 (0.6.0): IN-PLACE tooltip replacement - rewrite an EXISTING tooltip
 -- font string with Persian text instead of adding lines under it. The touched
 -- font string keeps its live colour (never re-coloured) and its original

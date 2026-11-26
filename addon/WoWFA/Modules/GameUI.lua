@@ -138,14 +138,55 @@ local function translate(text, scope)
     return nil
 end
 
-local function shape(fa)
+-- 1.1.6 (the owner: a long Persian text the game wraps by itself reads last-part-first): a
+-- fontstring that wraps (CanWordWrap) and has a width gets its lines wrapped HERE, each one
+-- shaped on its own (T.Lines); a one-line string keeps one shaped line as before
+local function wrap_width(fs)
+    if not fs then
+        return nil
+    end
+    local okc, can = pcall(function()
+        return fs.CanWordWrap and fs:CanWordWrap()
+    end)
+    if not (okc and F.Usable(can) and can == true) then
+        return nil
+    end
+    local okw, w = pcall(fs.GetWidth, fs)
+    if okw and F.Usable(w) and type(w) == "number" and w > 40 then
+        return w
+    end
+    return nil
+end
+
+local function shape(fa, fs)
     local out = {}
-    for line in string.gmatch(fa .. "\n", "(.-)\n") do
-        local s = T.ShapeLine(T.Digits(line), T.Mode())
-        if type(s) ~= "string" then
-            return nil
+    local w = wrap_width(fs)
+    local size = 12
+    if w then
+        local okf, _, sz = pcall(fs.GetFont, fs)
+        if okf and F.Usable(sz) and type(sz) == "number" and sz > 4 then
+            size = sz
         end
-        out[#out + 1] = s
+    end
+    for line in string.gmatch(fa .. "\n", "(.-)\n") do
+        if w then
+            local ls = T.Lines(T.Digits(line), w * 0.94, size, T.Mode())
+            if type(ls) ~= "table" then
+                return nil
+            end
+            if #ls == 0 then
+                out[#out + 1] = ""
+            end
+            for _, s in ipairs(ls) do
+                out[#out + 1] = s
+            end
+        else
+            local s = T.ShapeLine(T.Digits(line), T.Mode())
+            if type(s) ~= "string" then
+                return nil
+            end
+            out[#out + 1] = s
+        end
     end
     return table.concat(out, "\n")
 end
@@ -173,7 +214,7 @@ local function swap(fs, text, scope)
         end
         return false
     end
-    local oks, shaped = pcall(shape, fa)
+    local oks, shaped = pcall(shape, fa, fs)
     if not oks or type(shaped) ~= "string" or shaped == "" then
         return false
     end

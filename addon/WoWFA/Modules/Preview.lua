@@ -793,6 +793,30 @@ local function eye(row, id)
     sel:SetColorTexture(C.gold[1], C.gold[2], C.gold[3], 0.10)
     sel:Hide()
     row.wfaSel = sel
+    -- 1.1.6 (the owner: "a small eye at the right of the rows that have a preview, not
+    -- clickable, only so the player knows"): a 12 px eye right of the label, no mouse
+    if row.label and not row.wfaIcon then
+        local pts = {}
+        local okn, n = pcall(function()
+            return row.label.GetNumPoints and row.label:GetNumPoints()
+        end)
+        for i = 1, ((okn and type(n) == "number") and n or 0) do
+            pts[i] = { row.label:GetPoint(i) }
+        end
+        if #pts > 0 then
+            row.label:ClearAllPoints()
+            for _, p in ipairs(pts) do
+                row.label:SetPoint(p[1], p[2], p[3], (tonumber(p[4]) or 0) - 16, tonumber(p[5]) or 0)
+            end
+        end
+        local ic = row:CreateTexture(nil, "OVERLAY")
+        ic:SetSize(12, 12)
+        ic:SetTexture("Interface\\Icons\\INV_Misc_Eye_01")
+        ic:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+        ic:SetAlpha(0.85)
+        ic:SetPoint("TOPLEFT", row.label, "TOPRIGHT", 3, -1)
+        row.wfaIcon = ic
+    end
     if row.HookScript then
         pcall(row.HookScript, row, "OnClick", show)
     end

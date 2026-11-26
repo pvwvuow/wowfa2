@@ -1,0 +1,1 @@
+{"id":"0358-tpl-latin","kind":"script","why":"owner 26 Nov: Bestial Wrath shows pet / Damage / fear in English inside the Persian","args":{"module":"tpl_find","args":{"grep":["into a rage causing"," pet ","Damage"],"limit":40}}}

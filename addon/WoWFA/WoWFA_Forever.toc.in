@@ -19,6 +19,7 @@ Locale_Alerts.lua
 Locale_Sys.lua
 Locale_Opt.lua
 Locale_Dlg.lua
+Locale_Panel.lua
 Core.lua
 Text.lua
 Room.lua

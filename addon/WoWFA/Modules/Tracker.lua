@@ -568,7 +568,7 @@ local function update_gossip()
                 break
             end
             local txt = b.GetText and b:GetText()
-            if F.Usable(txt) and txt ~= "" and F.Room.On("npcSay") then -- inbox/29 D2
+            if F.Usable(txt) and txt ~= "" and F.Room.On("namesQuest") then -- 1.1.6: quest titles follow «quest titles», not the NPC talk switch
                 local id = title_id_of(txt)
                 if id then
                     local fa = title_fa(id)

@@ -1,0 +1,1 @@
+{"id": "0396-voice-db", "kind": "script", "why": "owner 26 Nov: rebuild the dub studio database with spoken texts (BroadcastText classic/retail + CMaNGOS)", "args": {"module": "voice_db", "args": {}}}

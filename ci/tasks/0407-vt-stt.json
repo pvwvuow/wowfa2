@@ -1,0 +1,1 @@
+{"id": "0407-vt-stt", "kind": "script", "why": "owner 26 Nov: hear the next batch of voice lines (about 8400 left)", "args": {"module": "voice_text", "args": {"stt": true, "limit": 6000, "minutes": 44}}}

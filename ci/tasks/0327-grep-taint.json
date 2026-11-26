@@ -1,0 +1,1 @@
+{"id":"0327-grep-taint","kind":"script","why":"owner 26 Nov: blocked MultiBar6 SetShown from ActionButton.lua:1719 in combat, and CPU spikes","args":{"module":"src_grep","args":{"grep":[".SetText =",".SetFont ="," = function(self","STANDARD_TEXT_FONT","_G[","rawset","OnUpdate","NewTicker","NewTimer","hooksecurefunc("],"ctx":1,"limit":40}}}

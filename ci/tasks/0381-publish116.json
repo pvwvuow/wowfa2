@@ -1,0 +1,1 @@
+{"id":"0381-publish116","kind":"script","why":"owner 26 Nov: release 1.1.6 (GitHub + CurseForge)","args":{"module":"cf_retry","args":{"tag":"forever-v1.1.6-beta","retag":true,"notes_replace":[[";",","]]}}}

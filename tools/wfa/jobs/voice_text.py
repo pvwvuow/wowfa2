@@ -162,10 +162,30 @@ def _fetch(fid, d):
 
 
 def _pcm(p):
-    """16 kHz mono float32 through ffmpeg, for files the built-in decoder cannot read."""
+    """16 kHz mono float32 decoded here with PyAV (any version; faster-whisper's own decoder breaks on
+    PyAV 15+), with ffmpeg as the fallback when it exists."""
     import numpy
-    r = subprocess.run(["ffmpeg", "-v", "error", "-i", p, "-ac", "1", "-ar", "16000", "-f", "f32le", "-"],
-                       capture_output=True, check=True)
+    first = None
+    try:
+        import av
+        out = []
+        with av.open(p) as c:
+            rs = av.AudioResampler(format="flt", layout="mono", rate=16000)
+            for fr in c.decode(audio=0):
+                for f2 in rs.resample(fr) or []:
+                    out.append(f2.to_ndarray().reshape(-1))
+            for f2 in rs.resample(None) or []:
+                out.append(f2.to_ndarray().reshape(-1))
+        if out:
+            return numpy.concatenate(out).astype(numpy.float32)
+        first = ValueError("PyAV decoded no audio")
+    except Exception as e:  # noqa: BLE001 - try ffmpeg next
+        first = e
+    try:
+        r = subprocess.run(["ffmpeg", "-v", "error", "-i", p, "-ac", "1", "-ar", "16000", "-f", "f32le", "-"],
+                           capture_output=True, check=True)
+    except FileNotFoundError:
+        raise first from None
     return numpy.frombuffer(r.stdout, dtype=numpy.float32)
 
 
@@ -214,7 +234,7 @@ def hear(out, args, rep):
                 continue
             try:
                 segs = None
-                for src, kw in ((p, opts), (p, {"language": "en", "beam_size": 5}), (None, opts)):
+                for src, kw in ((None, opts), (None, {"language": "en", "beam_size": 5}), (p, opts)):
                     try:
                         if src is None:
                             src = _pcm(p)

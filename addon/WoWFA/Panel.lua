@@ -21,9 +21,14 @@ local panel, page, rows, health
 local pages, navbtns, active = {}, {}, nil
 local SHIPPED = { "quests", "tracker", "dungeons", "npc", "spellbook", "talents" }
 local ROOM_KEYS = { "namesZone", "namesSpell", "namesClass", "namesQuest", "terms", "questText", "npcSay", "faDigits", "namesNpc" }
-local SECTIONS = { "general", "sizes", "quests", "tracker", "map", "npc", "dialog", "spellbook", "talents", "colors", "share", "health", "about" }
--- the ids of the one-page panel still work (F.OpenPanel("health") from the toast, the tests)
-local ALIAS = { room = "general", mods = "general", display = "general", home = "general", welcome = "general" }
+-- 1.1.6 (the owner: "the panel must stay ordered and simple; NPC talk is not part of the
+-- quests"): 11 sections, one topic each. Quests + tracker, NPC names + NPC talk and
+-- Spellbook + Talents are one page each; the chat, the red alerts and the system lines
+-- left General for their own page.
+local SECTIONS = { "general", "quests", "map", "npc", "chat", "spellbook", "sizes", "colors", "share", "health", "about" }
+-- the ids of the one-page panel and of the 1.1.5 pages still work (F.OpenPanel("health"), the tests)
+local ALIAS = { room = "general", mods = "general", display = "general", home = "general", welcome = "general",
+    tracker = "quests", dialog = "npc", talents = "spellbook" }
 local STATE_L = { ok = "st_ok", warn = "st_warn", off = "st_off", master = "st_master", nodata = "st_nodata",
     schema = "st_schema", noapi = "st_noapi", update = "st_update", fault = "st_fault", locked = "st_off" }
 local STATE_C = { ok = "green", warn = "orange", update = "orange", fault = "red", noapi = "red", schema = "red", nodata = "red" }
@@ -498,7 +503,7 @@ local function build()
     -- the side menu
     panel.nav = navbtns
     for i, id in ipairs(SECTIONS) do
-        local b = UI.Button(panel, L["sec_" .. id], NAVW - 8, 30, function()
+        local b = UI.Button(panel, L["sec_" .. id] or id, NAVW - 8, 30, function()
             select_page(id)
         end)
         b:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -14, -68 - (i - 1) * 36)
@@ -574,15 +579,21 @@ local function build()
             F.db.onUpdate = v
             F:Refresh()
         end), 32, 2)
-    -- the red messages in the middle of the screen (Modules/Alerts.lua)
-    header(L.al_hdr)
-    panel.alerts = place(UI.Toggle(page.child, PW - 16, L.al_on, L.al_on_d,
-        function() return F.db.alerts ~= false end,
+    end_page()
+
+    -- ===================================================== Chat and messages (1.1.6: out of General)
+    begin_page("chat")
+    note(L.pg_chat or "")
+    -- Persian in the game chat (Modules/Chat.lua): first, the system lines need it
+    header(L.h_chat or L.ch_on)
+    panel.chatFa = place(UI.Toggle(page.child, PW - 16, L.ch_on, L.ch_on_d,
+        function() return F.db.chatFa ~= false end,
         function(v)
-            F.db.alerts = v and true or false
-            F:Fire("options", "alerts")
+            F.db.chatFa = v and true or false
+            F:Fire("options", "chatFa")
         end), 50, 2)
     -- the system lines of the chat (Modules/Sysmsg.lua)
+    header(L.h_sys or L.sy_on)
     panel.sysmsg = place(UI.Toggle(page.child, PW - 16, L.sy_on, L.sy_on_d,
         function() return F.db.sysmsg ~= false end,
         function(v)
@@ -597,12 +608,13 @@ local function build()
                 F:Fire('options', 'sysmsg')
             end), 32, 2)
     end
-    -- Persian in the game chat (Modules/Chat.lua)
-    panel.chatFa = place(UI.Toggle(page.child, PW - 16, L.ch_on, L.ch_on_d,
-        function() return F.db.chatFa ~= false end,
+    -- the red messages in the middle of the screen (Modules/Alerts.lua)
+    header(L.al_hdr)
+    panel.alerts = place(UI.Toggle(page.child, PW - 16, L.al_on, L.al_on_d,
+        function() return F.db.alerts ~= false end,
         function(v)
-            F.db.chatFa = v and true or false
-            F:Fire("options", "chatFa")
+            F.db.alerts = v and true or false
+            F:Fire("options", "alerts")
         end), 50, 2)
     end_page()
 
@@ -687,11 +699,11 @@ local function build()
 
     -- ===================================================== Quests
     begin_page("quests")
+    note(L.pg_quests or "")
     mod_toggle("quests")
-    header(L.sec_quests)
+    header(L.h_qtext or L.sec_quests)
     room_toggle("namesQuest")
     room_toggle("questText")
-    room_toggle("npcSay")
     panel.dock = place(UI.Choice(page.child, PW - 16, L.d_dock, nil, L.opt_dock,
         function() return F.db.questDock end,
         function(v)
@@ -701,6 +713,7 @@ local function build()
     panel.questAuto = opt_toggle("questAuto", L.d_qauto, true)
     panel.listTitles = opt_toggle("listTitles", L.d_listtitles, true)
     -- 1.1.0: Questie's tooltips and tracker (Modules/Questie.lua)
+    header(L.h_questie or "Questie")
     panel.questie = place(UI.Toggle(page.child, PW - 16, L.qz_on, L.qz_on_d,
         function() return F.db.questie ~= false end,
         function(v)
@@ -710,10 +723,8 @@ local function build()
                 F.Walk.Refresh()
             end
         end), 50, 2)
-    end_page()
-
-    -- ===================================================== Quest tracker
-    begin_page("tracker")
+    -- the quest tracker (1.1.6: on the quests page)
+    header(L.h_tracker or L.m_tracker)
     mod_toggle("tracker")
     note(L.n_tracker)
     end_page()
@@ -734,8 +745,9 @@ local function build()
 
     -- ===================================================== NPC names
     begin_page("npc")
+    note(L.pg_npc or "")
+    header(L.h_npcnames or L.sec_npc)
     mod_toggle("npc")
-    header(L.sec_npc)
     room_toggle("namesNpc")
     -- F.db.npcName: 1 Persian / 2 Persian + English under it / 3 English (Modules/Npc.lua)
     panel.npcName = place(UI.Choice(page.child, PW - 16, L.d_npcname, nil, L.opt_npc,
@@ -745,12 +757,10 @@ local function build()
             F:Fire("npcname")
         end), 32, 2)
     note(L.n_npc)
-    end_page()
-
-    -- ===================================================== NPC talk and books (1.0.7, Modules/Dialog.lua)
-    begin_page("dialog")
+    -- NPC talk and books (1.0.7, Modules/Dialog.lua; 1.1.6: here, not on the quests page)
+    header(L.h_npctalk or L.sec_dialog)
     note(L.dl_intro)
-    room_toggle("npcSay", true)
+    room_toggle("npcSay")
     panel.dlgGossip = opt_toggle("dlgGossip", L.dl_gossip, true)
     panel.dlgSay = opt_toggle("dlgSay", L.dl_say, true)
     panel.dlgBook = opt_toggle("dlgBook", L.dl_book, true)
@@ -759,24 +769,18 @@ local function build()
 
     -- ===================================================== Spellbook
     begin_page("spellbook")
-    mod_toggle("spellbook")
-    header(L.sec_spellbook)
+    note(L.pg_spells or "")
+    header(L.h_spnames or L.sec_spellbook)
     room_toggle("namesSpell")
     if room_label("textDesc") ~= "textDesc" then
         room_toggle("textDesc")
     end
+    -- 1.1.6: the spellbook and the talents share this page, each with its own display
+    header(L.h_spellbook or L.sec_spellbook)
+    mod_toggle("spellbook")
     disp_section("spellbook")
-    note(L.n_disp)
-    end_page()
-
-    -- ===================================================== Talents
-    begin_page("talents")
+    header(L.h_talents or L.sec_talents)
     mod_toggle("talents")
-    header(L.sec_talents)
-    room_toggle("namesSpell", true)
-    if room_label("textDesc") ~= "textDesc" then
-        room_toggle("textDesc", true)
-    end
     disp_section("talents")
     note(L.n_disp)
     end_page()

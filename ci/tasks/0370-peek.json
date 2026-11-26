@@ -1,0 +1,1 @@
+{"id":"0370-peek","kind":"script","why":"owner 26 Nov: RAM - Data/Quests.lua is 8.4 MB of the 12.3 MB; see its shape","args":{"module":"dist_peek","args":{"files":["Data/Quests.lua","Data/Names.lua"],"head":2500}}}

@@ -807,6 +807,14 @@ local function restore(tt)
             list[i] = nil
         end
     end
+    local x = tt.wfaX -- the glued box of lines (T.TipLine past the tooltip's own strings)
+    if x then
+        for i = 1, (x.n or 0) do
+            x.lines[i]:Hide()
+        end
+        x.n = 0
+        x:Hide()
+    end
     tt.wfaSeen = nil
     tt.wfaKey = nil
     tt.wfaOurs = nil -- Brain 59: the post-layout re-wrap records (T.TipRecheck)
@@ -820,6 +828,11 @@ local function hook_tooltip(tt)
     tt.wfaHooked = true
     pcall(tt.HookScript, tt, "OnTooltipCleared", restore)
     pcall(tt.HookScript, tt, "OnHide", restore)
+    pcall(tt.HookScript, tt, "OnSizeChanged", function(self)
+        if self.wfaX and (self.wfaX.n or 0) > 0 and T.TipExtraLayout then
+            T.TipExtraLayout(self)
+        end
+    end)
 end
 
 -- true when this content was not added to this tooltip yet
@@ -857,8 +870,96 @@ local function style(tt, side)
     end
 end
 
+-- 1.1.6 taint fix (the owner's block report: the scan named GameTooltipTextLeft7/8 and
+-- MultiBar6Button1.action as tainted by WoWFA). The client creates a tooltip's line strings
+-- on demand: AddLine past the last existing one creates NEW GLOBALS (GameTooltipTextLeftN /
+-- RightN). Created from our code they stay tainted for the whole session, and the action
+-- bars' secure tooltip code reads them in combat -> "MultiBar...:SetShown() blocked". So a
+-- line goes into a NAMED game tooltip only when its strings already exist; past that our
+-- lines go into a plain box of ours glued under the tooltip (same font), never a new global.
+local function can_add(tt)
+    local name = tt.GetName and tt:GetName()
+    if type(name) ~= "string" or string.find(name, "^WoWFA") then
+        return true -- unnamed (no globals) or our own tooltips (preview, scan)
+    end
+    local n = (tt.NumLines and tt:NumLines()) or 0
+    if type(n) ~= "number" then
+        return false
+    end
+    return _G[name .. "TextLeft" .. (n + 1)] ~= nil and _G[name .. "TextRight" .. (n + 1)] ~= nil
+end
+T.TipCanAdd = can_add
+
+local function extra_layout(tt)
+    local x = tt.wfaX
+    if not x then
+        return
+    end
+    if (x.n or 0) == 0 then
+        x:Hide()
+        return
+    end
+    local w = tonumber(tt.GetWidth and tt:GetWidth()) or 0
+    for i = 1, x.n do
+        local sw = tonumber(x.lines[i]:GetStringWidth()) or 0
+        if sw + 20 > w then
+            w = sw + 20
+        end
+    end
+    w = math.max(w, 120)
+    local y = -6
+    for i = 1, x.n do
+        local fs = x.lines[i]
+        fs:ClearAllPoints()
+        fs:SetWidth(w - 20)
+        fs:SetPoint("TOPLEFT", x, "TOPLEFT", 10, y)
+        y = y - ((tonumber(fs:GetStringHeight()) or 14) + 2)
+    end
+    local h = -y + 4
+    x:SetSize(w, h)
+    x:ClearAllPoints()
+    local bottom = tonumber(tt.GetBottom and tt:GetBottom())
+    if bottom and bottom < h + 4 then
+        x:SetPoint("BOTTOMLEFT", tt, "TOPLEFT", 0, -1) -- no room under it: above
+    else
+        x:SetPoint("TOPLEFT", tt, "BOTTOMLEFT", 0, 1)
+    end
+    pcall(x.SetScale, x, tonumber(tt.GetScale and tt:GetScale()) or 1)
+    x:Show()
+end
+T.TipExtraLayout = extra_layout
+
+local function extra_add(tt, text, color, size)
+    local x = tt.wfaX
+    if not x then
+        x = CreateFrame("Frame", nil, UIParent)
+        x:SetFrameStrata("TOOLTIP")
+        local bg = x:CreateTexture(nil, "BACKGROUND")
+        bg:SetAllPoints()
+        bg:SetColorTexture(0.02, 0.02, 0.04, 0.92)
+        x.lines = {}
+        x.n = 0
+        x:Hide()
+        tt.wfaX = x
+    end
+    x.n = x.n + 1
+    local fs = x.lines[x.n]
+    if not fs then
+        fs = x:CreateFontString(nil, "OVERLAY")
+        x.lines[x.n] = fs
+    end
+    fs:SetFont(F.FONT, size, F.Flags())
+    fs:SetSpacing(T.Spacing(size))
+    fs:SetJustifyH("RIGHT")
+    fs:SetTextColor(color[1], color[2], color[3])
+    fs:SetText(text)
+    fs:Show()
+    extra_layout(tt)
+end
+
 function T.TipLine(tt, text, color, wrapWidth)
     color = color or F.C.text
+    hook_tooltip(tt)
     local mode = T.Mode()
     local size = T.Size()
     -- lane-b12: tooltips keep size*22 as the width, but with the same 94%
@@ -878,8 +979,12 @@ function T.TipLine(tt, text, color, wrapWidth)
         seen[text] = true
     end
     for _, ln in ipairs(T.Lines(text, wrap, size, mode)) do
-        tt:AddLine(ln, color[1], color[2], color[3], mode ~= 3)
-        style(tt, "Left")
+        if can_add(tt) then
+            tt:AddLine(ln, color[1], color[2], color[3], mode ~= 3)
+            style(tt, "Left")
+        else
+            extra_add(tt, ln, color, size)
+        end
     end
 end
 
@@ -887,6 +992,11 @@ end
 function T.TipPair(tt, first, second, color)
     color = color or F.C.text
     local mode = T.Mode()
+    hook_tooltip(tt)
+    if not can_add(tt) then
+        extra_add(tt, T.ShapeLine(T.Clean(second), mode) .. "    " .. T.ShapeLine(T.Clean(first), mode), color, T.Size())
+        return
+    end
     tt:AddDoubleLine(T.ShapeLine(T.Clean(second), mode), T.ShapeLine(T.Clean(first), mode), color[1], color[2], color[3], color[1], color[2], color[3])
     style(tt, "Left")
     style(tt, "Right")

@@ -245,6 +245,15 @@ UIParent:SetSize(1920, 1080) -- inbox/44 D: the panel clamps in UIParent units
 Minimap = new("Frame", "Minimap"); Minimap:SetSize(140, 140)
 GameTooltip = new("GameTooltip", "GameTooltip")
 ItemRefTooltip = new("GameTooltip", "ItemRefTooltip")
+-- 1.1.6: the client creates tooltip line strings on demand (globals); the mock pre-creates
+-- 40 for the two game tooltips, like a client that already showed long tooltips. A tooltip
+-- without them: the taint tests (WoWFA must never create them).
+for _, tn in ipairs({ "GameTooltip", "ItemRefTooltip" }) do
+    for i = 1, 40 do
+        new("FontString", tn .. "TextLeft" .. i)
+        new("FontString", tn .. "TextRight" .. i)
+    end
+end
 QuestFrame = new("Frame", "QuestFrame"); QuestFrame:SetSize(384, 512); QuestFrame._shown = false
 QuestLogFrame = new("Frame", "QuestLogFrame"); QuestLogFrame:SetSize(384, 512); QuestLogFrame._shown = false
 SubZoneTextString = new("FontString", "SubZoneTextString")

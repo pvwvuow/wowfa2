@@ -569,7 +569,7 @@ local function build()
     panel:SetScale(F.db.scale or 1)
     UI.Glass(panel, 0.97)
     if UISpecialFrames then
-        table.insert(UISpecialFrames, "WoWFAF_Panel") -- Esc closes it
+        F.EscClose(panel) -- Esc closes it (never UISpecialFrames: taint, see Core)
     end
 
     local title = UI.Latin(panel, 20, C.gold, "LEFT")

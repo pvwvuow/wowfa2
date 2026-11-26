@@ -650,7 +650,16 @@ end)
 -- checked ten times a second (the table holds only those lines)
 do
     local fixer = CreateFrame("Frame")
-    fixer:SetScript("OnUpdate", function()
+    local acc = 0
+    fixer:SetScript("OnUpdate", function(_, el)
+        -- 1.1.5: twenty times a second, not every frame (the CPU the owner saw, 26 Nov)
+        if el then
+            acc = acc + el
+            if acc < 0.05 then
+                return
+            end
+            acc = 0
+        end
         if InCombatLockdown and InCombatLockdown() then
             return -- 1.1.1: nothing is touched in combat
         end

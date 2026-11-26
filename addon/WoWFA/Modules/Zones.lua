@@ -577,8 +577,18 @@ function M.install()
     -- game resets the font of its buttons without a Lua call we can hook, so the font is
     -- checked ten times a second (the table holds only the strings we wrote)
     local fixer = CreateFrame("Frame")
-    fixer:SetScript("OnUpdate", function()
-        -- rc18: every frame (the tables hold only the strings we wrote)
+    local acc = 0
+    fixer:SetScript("OnUpdate", function(_, el)
+        -- rc18: every frame while the map is open (the tables hold only the strings we wrote).
+        -- 1.1.5: with the map closed only five times a second (the CPU the owner saw, 26 Nov)
+        local wm = WorldMapFrame
+        if el and not (type(wm) == "table" and wm.IsShown and wm:IsShown()) then
+            acc = acc + el
+            if acc < 0.2 then
+                return
+            end
+            acc = 0
+        end
         if M.active and next(zwatch) ~= nil then
             local ok, err = pcall(M.watch)
             if not ok then

@@ -1,0 +1,1 @@
+{"id":"0368-mem","kind":"script","why":"owner 26 Nov: the addon uses much more RAM than other addons - measure where it goes","args":{"module":"mem_profile","args":{}}}

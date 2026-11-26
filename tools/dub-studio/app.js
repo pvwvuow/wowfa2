@@ -345,16 +345,26 @@ window.wfaStart = function () {
     $('sstate').textContent = s === 'rec' ? 'در حال ضبط\u2026' : s === 'proc' ? 'در حال اعمال افکت\u2026' : proc ? 'آماده: گوش بده، افکت بزن، بعد ذخیره کن' : 'دکمه\u0654 ضبط یا کلید R';
   }
   function getAC() { if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)(); if (ac.state === 'suspended') ac.resume(); return ac; }
+  // the mic is asked for once and kept for the page: on a file:// page Chrome forgets the answer, so
+  // reopening the stream for every take asked for permission every time. Between takes it is muted.
+  var micStream = null, micSrc = null;
+  function getMic() {
+    if (micStream && micStream.getTracks().every(function (t) { return t.readyState === 'live'; })) {
+      micStream.getTracks().forEach(function (t) { t.enabled = true; });
+      return Promise.resolve(micStream);
+    }
+    return navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: true, autoGainControl: false, channelCount: 1 } }).then(function (m) { micStream = m; return m; });
+  }
   function startRec() {
     stopTake();
     if (!navigator.mediaDevices || !window.MediaRecorder) { toast('این مرورگر ضبط صدا را پشتیبانی نمی\u200cکند'); return; }
-    navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: true, autoGainControl: false, channelCount: 1 } }).then(function (m) {
+    getMic().then(function (m) {
       media = m; chunks = [];
       rec = new MediaRecorder(m);
       rec.ondataavailable = function (e) { if (e.data && e.data.size) chunks.push(e.data); };
       rec.onstop = function () {
         var blob = new Blob(chunks, { type: rec.mimeType || 'audio/webm' });
-        media.getTracks().forEach(function (t) { t.stop(); }); media = null;
+        media.getTracks().forEach(function (t) { t.enabled = false; }); media = null;
         if (rec.wfaCancel) return;
         setRecUI('proc');
         blob.arrayBuffer().then(function (ab) { return getAC().decodeAudioData(ab); }).then(function (buf) {
@@ -363,7 +373,8 @@ window.wfaStart = function () {
           raw = x; reprocess(false);
         }).catch(function () { toast('خواندن ضبط نشد؛ دوباره امتحان کن'); setRecUI('idle'); });
       };
-      var a = getAC(), s = a.createMediaStreamSource(m), an = a.createAnalyser(); an.fftSize = 1024; s.connect(an);
+      if (micSrc) { try { micSrc.disconnect(); } catch (e) {} }
+      var a = getAC(), s = a.createMediaStreamSource(m), an = a.createAnalyser(); an.fftSize = 1024; s.connect(an); micSrc = s;
       var buf = new Float32Array(an.fftSize);
       (function meter() {
         an.getFloatTimeDomainData(buf); var p = 0; for (var k = 0; k < buf.length; k++) p = Math.max(p, Math.abs(buf[k]));

@@ -1,0 +1,1 @@
+{"id": "0432-vt-stt", "kind": "script", "why": "owner 27 Nov: finish hearing the lines that have no text", "args": {"module": "voice_text", "args": {"stt": true, "limit": 4200, "minutes": 44}}}

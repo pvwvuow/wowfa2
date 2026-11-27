@@ -1,11 +1,16 @@
 (function () {
   'use strict';
   // ------------------------------------------------------------ builder (port of the data pipeline)
-  var CATS = ['greeting', 'farewell', 'pissed', 'aggro', 'speech'];
+  var CATS = ['greeting', 'farewell', 'pissed', 'aggro', 'speech', 'player', 'combat'];
   var GRUNT = /wound|attack|death|(^|_)dies?(_|\d|$)|dying|pain|hurt|injur|grunt|roar|breath|footstep|windup|(^|_)cast|jump|(^|_)land|effort|exert|battleshout|battlecry|warcry|emote|laugh|cheer|chuckle|sigh|yawn|cough|sneeze|whistle|snore|knock|choochoo|clap|kiss|giggle|flirt|fidget|loop|idle|stand|bored|footfall|swim|fall|parry|dodge|block|crit|spell|precast|channel|mount|growl|snarl|howl|bark|hiss|chirp|squawk|purr|whine|moo|oink|neigh|bleat|screech|shriek|scream|gasp|stun|knockdown|sleep|yell_?pain/;
   var SPEECH = /slay|kill|intro|yell|(^|_)say|speech|speak|taunt|summon|berserk|engage|event|quest|(^|_)line|vo_qe|vo_quest|order|command|special|phase|talk|whisper|warn|alert|chat|greet|bye|farewell|(^|_)\d{2,3}_[mf]$|(^|_)[mf]$|response|reply|story|lore|intro|outro|victory|defeat|win|lose|thank|help|question|vendor|trainer|flight|innkeeper|guard/;
   var RACES = [['bloodelf', 'bloodelf'], ['nightelf', 'nightelf'], ['highelf', 'bloodelf'], ['dwarf', 'dwarf'], ['darkiron', 'dwarf'], ['gnome', 'gnome'], ['human', 'human'], ['kultiran', 'human'], ['orc', 'orc'], ['troll', 'troll'], ['tauren', 'tauren'], ['undead', 'scourge'], ['scourge', 'scourge'], ['forsaken', 'scourge'], ['draenei', 'draenei'], ['goblin', 'goblin'], ['worgen', 'worgen'], ['gilnean', 'worgen'], ['pandaren', 'pandaren']];
   var RLAB = { human: 'Human', dwarf: 'Dwarf', gnome: 'Gnome', nightelf: 'Night Elf', orc: 'Orc', troll: 'Troll', tauren: 'Tauren', scourge: 'Undead', bloodelf: 'Blood Elf', draenei: 'Draenei', goblin: 'Goblin', worgen: 'Worgen', pandaren: 'Pandaren' };
+  // player-race voices (kind h): the lines the game says for the player's own character - errors (not enough mana),
+  // commands, vocal emotes - are category 5; pain, attack, death and battle shouts are category 6
+  var NOISE_H = /footstep|footfall|swim|breath|loop|(^|_)jump|(^|_)land|(^|_)fall|drown|knock|choochoo|mount|giant|horse|snore|sleep|idle|fidget|whistle|bored/;
+  var CMD_H = /(^|_)err|attackmytarget|attacktarget|incomingdanger|openfire|help|healme|followme|waithere|flee|outofmana|congratulat|thank|welcome|hello|(^|_)(yes|no|nod|cry|laugh|cheer|kiss|flirt|silly|chicken|beg|raspberry|sigh|yawn|train|follow|rude|joke)/;
+  var COMBAT_H = /wound|attack|death|(^|_)dies?(_|\d|$)|dying|pain|hurt|crit|windup|casterrelease|battleshout|battlecry|warcry|(^|_)charge|(^|_)cast|exert|effort|grunt|roar|stun|parry|dodge|block/;
   function rep(s, a, b) { return s.split(a).join(b); }
   function clean(name, gname) {
     var n = name.toLowerCase(), g = rep(gname.toLowerCase(), ' ', '');
@@ -13,12 +18,18 @@
     for (var i = 0; i < vs.length; i++) if (vs[i].length >= 4) n = rep(n, vs[i], '_');
     return n;
   }
-  function catOf(name, gname, vo) {
+  function catOf(name, gname, vo, kind) {
     var n = clean(name, gname);
     if (/greet/.test(n)) return 0;
     if (/farewell|goodbye|(^|_)bye/.test(n)) return 1;
     if (/pissed|annoy/.test(n)) return 2;
     if (/aggro/.test(n)) return 3;
+    if (kind === 'h') {
+      var hn = n.replace(/(fe)?male/g, '_');
+      if (NOISE_H.test(hn)) return null;
+      if (CMD_H.test(hn)) return 5;
+      if (COMBAT_H.test(hn)) return 6;
+    }
     if (GRUNT.test(n)) return null;
     if (SPEECH.test(n) || vo) return 4;
     return null;
@@ -56,7 +67,7 @@
     L0.forEach(function (x) { (byg[x[1]] = byg[x[1]] || []).push(x); });
     G0.forEach(function (gk, gi) {
       var gname = gk[0], kind = gk[1], rows = byg[gi] || [], keep = [];
-      rows.forEach(function (r) { var c = catOf(r[3], gname, r[4]); if (c !== null) keep.push([r[0], c, r[3], r[4]]); });
+      rows.forEach(function (r) { var c = catOf(r[3], gname, r[4], kind); if (c !== null) keep.push([r[0], c, r[3], r[4]]); });
       if (!keep.length) return;
       var sex = gender(gname, keep.map(function (r) { return r[2]; }));
       var mn = Infinity; keep.forEach(function (r) { if (r[0] < mn) mn = r[0]; });

@@ -3,7 +3,7 @@ window.wfaStart = function () {
   var D = window.VO_DATA, CATS = D.cats, G = D.groups, L = D.lines;
   var CDN = 'https://wow.zamimg.com/wowsounds/';
   var ICON = 'https://wow.zamimg.com/images/wow/icons/large/';
-  var CAT_FA = { greeting: 'سلام', farewell: 'خداحافظی', pissed: 'عصبانی (کلیک زیاد)', aggro: 'شروع نبرد', speech: 'دیالوگ / فریاد' };
+  var CAT_FA = { player: '\u0635\u062f\u0627 \u0648 \u067e\u06cc\u0627\u0645 \u0628\u0627\u0632\u06cc\u06a9\u0646 (\u062e\u0637\u0627\u060c \u0627\u06cc\u0645\u0648\u062a)', combat: '\u0635\u062f\u0627\u06cc \u0646\u0628\u0631\u062f \u0628\u0627\u0632\u06cc\u06a9\u0646', greeting: 'سلام', farewell: 'خداحافظی', pissed: 'عصبانی (کلیک زیاد)', aggro: 'شروع نبرد', speech: 'دیالوگ / فریاد' };
   var RACE_FA = { human: 'انسان', dwarf: 'دورف', gnome: 'گنوم', nightelf: 'نایت\u200cالف', orc: 'اورک', troll: 'ترول', tauren: 'تائورن', scourge: 'آندد', bloodelf: 'بلادالف', draenei: 'درنای', goblin: 'گابلین', worgen: 'ورگن', pandaren: 'پانداران' };
   var ERA_FA = { old: 'قدیمی', new: 'جدید', WoD: 'WoD', Legion: 'Legion', BfA: 'BfA', SL: 'Shadowlands', DF: 'Dragonflight', TWW: 'War Within' };
   var CREATURE_ICON = [[/dragon|drake|whelp|wyrm|onyx|nefar|deathwing|alexstr|malygos|sindragosa/, 'inv_misc_head_dragon_01'], [/elemental|ragnaros|golem|geode|earth|fire|water|air|wind/, 'spell_fire_elemental_totem'], [/lich|ghoul|zombie|skelet|banshee|ghost|wraith|abomin|scourge|undead|kelthuzad|arthas/, 'spell_shadow_raisedead'], [/demon|dreadlord|doomguard|felhound|imp|succubus|archimonde|kazzak|eredar|pitlord|mannoroth|illidan/, 'spell_shadow_summonfelguard'], [/wolf|worg|hound/, 'ability_mount_whitedirewolf'], [/bear/, 'ability_racial_bearform'], [/cat|tiger|lion|panther/, 'ability_druid_catform'], [/spider|crawler|nerub|anub/, 'inv_misc_monsterspidercarapace_01'], [/murloc/, 'inv_misc_head_murloc_01'], [/gnoll/, 'inv_misc_head_gnoll_01'], [/kobold/, 'inv_misc_head_kobold_01'], [/ogre|ettin|gronn|giant/, 'inv_misc_head_ogre_01'], [/centaur/, 'inv_misc_head_centaur_01'], [/naga|vashj/, 'inv_misc_head_naga_01'], [/tauren|cairne|baine/, 'race_tauren_male'], [/orc|thrall|garrosh|grom|durotan/, 'race_orc_male'], [/troll|zul|voljin/, 'race_troll_male'], [/dwarf|bronzebeard|muradin|magni/, 'race_dwarf_male'], [/gnome|mekkatorque/, 'race_gnome_male'], [/elf|tyrande|malfurion|sylvanas|kael/, 'race_nightelf_male'], [/human|king|varian|anduin|jaina|bolvar|guard|soldier|peasant/, 'race_human_male']];
@@ -128,7 +128,7 @@ window.wfaStart = function () {
     if (view.length > st.page) h += '<div class="more"><button class="btn" id="more">' + fa(Math.min(60, view.length - st.page)) + ' گروه دیگر</button></div>';
     list.innerHTML = h;
     if (st.q && view.length <= 3) [].forEach.call(list.querySelectorAll('details.g'), function (d) { d.open = true; fill(d); });
-    progress();
+    progress(); summary();
   }
   function fill(d) {
     var gi = +d.dataset.g, v = null;
@@ -159,6 +159,18 @@ window.wfaStart = function () {
       var p = el.querySelector('.gp'), full = t && dd === t;
       p.className = 'gp' + (full ? ' full' : ''); p.textContent = full ? '\u2713' : fa(dd) + '/' + fa(t);
     });
+  }
+  // the whole database at a glance: lines per category, NPC voices and player-race voices, old and all eras, recorded
+  function summary() {
+    var el = $('sumtab'); if (!el) return;
+    var rows = {};
+    function add(k, l) { var r = rows[k] || (rows[k] = [0, 0, 0]); r[0]++; if (l[6] === 'old') r[1]++; if (done[l[0]]) r[2]++; }
+    for (var i = 0; i < L.length; i++) { var l = L[i], kd = G[l[1]][1] === 'h' ? 'p' : 'n'; add(kd + l[2], l); add(kd + '*', l); add('*' + l[2], l); add('**', l); }
+    function cell(k) { var r = rows[k] || [0, 0, 0]; return '<td><b>' + fa(r[0]) + '</b> <small>' + fa(r[1]) + ' \u0642\u062f\u06cc\u0645\u06cc \u00b7 ' + fa(r[2]) + ' \u0636\u0628\u0637</small></td>'; }
+    var h = '<table><tr><th>\u062f\u0633\u062a\u0647</th><th>NPC \u0648 \u0645\u0648\u062c\u0648\u062f\u0627\u062a</th><th>\u0646\u0698\u0627\u062f\u0647\u0627\u06cc \u0628\u0627\u0632\u06cc\u06a9\u0646</th><th>\u0647\u0645\u0647</th></tr>';
+    CATS.forEach(function (c, i) { h += '<tr><th>' + CAT_FA[c] + '</th>' + cell('n' + i) + cell('p' + i) + cell('*' + i) + '</tr>'; });
+    h += '<tr class="tot"><th>\u062c\u0645\u0639</th>' + cell('n*') + cell('p*') + cell('**') + '</tr></table>';
+    el.innerHTML = h;
   }
   list.addEventListener('toggle', function (e) { var d = e.target; if (d.classList && d.classList.contains('g') && d.open) fill(d); }, true);
   list.addEventListener('click', function (e) {

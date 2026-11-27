@@ -84,13 +84,14 @@ select option{background:#151b24}
 .row.ok .nm{color:#b4e8cf}.row .mine{display:none}.row.ok .mine{display:inline-block;color:#7fd6a8}#wave{cursor:ew-resize;touch-action:none}#scrop{font-size:12px;color:var(--mut);min-height:16px;margin-top:4px}#sold,#sedit{display:none}#sold.on,#sedit.on{display:inline-block}
 .ct{color:var(--mut);font-size:.76em;white-space:nowrap}
 .ct::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;margin-inline-end:6px;background:var(--cc,#888)}
-.c0{--cc:#7fe0b0}.c1{--cc:#8bb6ff}.c2{--cc:#ffab7a}.c3{--cc:#ff7b7b}.c4{--cc:#d3b0ff}
+.c0{--cc:#7fe0b0}.c1{--cc:#8bb6ff}.c2{--cc:#ffab7a}.c3{--cc:#ff7b7b}.c4{--cc:#d3b0ff}.c5{--cc:#7fd0e0}.c6{--cc:#c8a878}
 .era{color:var(--mut);font-size:.72em}
 .empty{color:var(--mut);text-align:center;padding:50px 0}
 .more{text-align:center;padding:14px}
 .about{margin-top:40px;color:var(--mut);font-size:.82em}
 .about summary{cursor:pointer}
 .about p{margin:8px 0}
+#sumtab table{border-collapse:collapse;width:100%;font-size:.86em}#sumtab th,#sumtab td{padding:5px 10px;text-align:right;border-bottom:1px solid var(--line);font-weight:400}#sumtab th{color:var(--mut)}#sumtab b{color:var(--fg);font-variant-numeric:tabular-nums}#sumtab small{color:var(--mut)}#sumtab .tot th,#sumtab .tot td{border-bottom:0;padding-top:9px}
 .about a{color:var(--acc)}
 #ostate{font-size:.8em;color:var(--mut);min-height:1.2em}#ostate.bad{color:var(--bad)}
 #studio{position:fixed;inset-inline:0;bottom:0;z-index:30;background:#10151cf5;backdrop-filter:blur(10px);border-radius:22px 22px 0 0;box-shadow:0 -16px 50px rgba(0,0,0,.5);transform:translateY(105%);transition:transform .22s ease;max-height:88vh;overflow:auto}
@@ -164,6 +165,7 @@ details.adv summary{cursor:pointer;color:var(--mut);font-size:.84em}
 <button class="lnk" id="export">فهرست ضبط&#x200c;ها (CSV)</button>
 </div>
 <main id="list"></main>
+<details class="about" id="sumbox"><summary>&#x622;&#x645;&#x627;&#x631; &#x6a9;&#x644;&#x6cc; &#x647;&#x645;&#x647;&#x654; &#x635;&#x62f;&#x627;&#x647;&#x627;</summary><div id="sumtab"></div></details>
 <details class="about"><summary>درباره&#x654; داده&#x200c;ها</summary>
 <p><span id="stats"></span> فقط «حرف» NPCها آمده است؛ صدای زخم، مرگ، حمله و غرش حذف شده. دسته&#x200c;ها از اسم فایل ساخته شده&#x200c;اند. «قدیمی» یعنی شماره&#x654; فایل زیر ۶۰۰٬۰۰۰ (نسخه&#x200c;های اولیه&#x654; بازی).</p>
 <p>صدای اصلی از سرور Wowhead پخش می&#x200c;شود و حدود یک&#x200c;سوم فایل&#x200c;ها آنجا نیستند. عکس&#x200c;ها آیکون نژاد و جنس یا نوع موجودند، نه چهره&#x654; خود NPC.</p>

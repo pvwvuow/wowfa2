@@ -1,0 +1,1 @@
+{"id": "0433-races", "kind": "script", "why": "owner 27 Nov: all voice lines of every player race (error messages like not enough mana), a total count of lines", "args": {"module": "voice_races", "args": {"top": 500}}}

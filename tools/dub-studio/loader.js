@@ -137,6 +137,7 @@
       var R = window.VO_RAW, D = build(R.L, R.G);
       D.T = R.T || {}; D.C = {}; D.thumb = R.thumb || '';
       D.groups.forEach(function (g, i) { var c = R.C && R.C[String(g[5])]; if (c) D.C[i] = c; });
+      D.M = {}; D.groups.forEach(function (g, i) { var m = R.M && R.M[String(g[5])]; if (m) D.M[i] = m; });
       start(D);
       return;
     }

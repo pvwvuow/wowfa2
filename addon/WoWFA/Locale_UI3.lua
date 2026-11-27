@@ -74,6 +74,8 @@ end
 
 -- a system line only the server sends (no GlobalStrings name): the row is named by its English text
 L.SYSMSG = L.SYSMSG or {}
+L.SYSMSG[#L.SYSMSG + 1] = { "You feel rested.", fa("احساس می~کنی استراحت کرده~ای.") }
+L.ALERTS[#L.ALERTS + 1] = { "Only Reagents can be placed in Reagent Bags.", fa("فقط ریجنت را می~شود در کیف ریجنت گذاشت.") }
 L.SYSMSG[#L.SYSMSG + 1] = { "You are no longer rested.", fa("دیگر در حالت استراحت نیستید.") }
 
 -- the red line of the fishing hint

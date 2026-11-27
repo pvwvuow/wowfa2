@@ -192,6 +192,32 @@ local function hook_box(eb)
     end)
 end
 
+-- 1.2.2 (the owner's 27 Nov report: the chat font of a window went back and forth between the game's and
+-- ours in fights): when the game puts its own font back on a window that shows Persian, ours is set again one
+-- frame later (and never while we set it ourselves)
+local reapply, guarding = nil, false
+local function guard_font(f)
+    if f.wfaFontGuard or type(f.SetFont) ~= "function" then
+        return
+    end
+    f.wfaFontGuard = true
+    hooksecurefunc(f, "SetFont", function(self, font)
+        if guarding or not need[self] or not on() or type(font) ~= "string" then
+            return
+        end
+        if string.find(string.lower(font), "wowfachat", 1, true) or font == F.FONT then
+            return
+        end
+        F.After(0, function()
+            if reapply then
+                guarding = true
+                pcall(reapply)
+                guarding = false
+            end
+        end)
+    end)
+end
+
 local function apply_font()
     for _, f in ipairs(chat_frames()) do
         local nm = f.GetName and f:GetName()
@@ -207,6 +233,9 @@ local function apply_font()
                     pcall(apply_font)
                 end
             end)
+        end
+        if not isBox then
+            pcall(guard_font, f)
         end
         if f.GetFont and f.SetFont then
             local font, size, flags = f:GetFont()
@@ -236,6 +265,8 @@ local function apply_font()
         pcall(refresh_box, eb)
     end
 end
+
+reapply = apply_font
 
 local function filter(cf, _, msg, ...)
     if not on() then

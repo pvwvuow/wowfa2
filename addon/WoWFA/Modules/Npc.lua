@@ -127,13 +127,15 @@ local function tip(tt)
         return
     end
     local isp = UnitIsPlayer(unit)
-    if F.Usable(isp) and isp then
+    -- 1.1.8: a unit we cannot tell for sure is a player (a value the game hides) is never
+    -- looked up and never logged: a player's name must not reach the NPC miss list
+    if not F.Usable(isp) or isp then
         return
     end
     -- 1.0.3: a player's pet (the owner saw "Huntard" in the miss list) is named by its
     -- player: never translated, never a miss
     local okc, ctl = pcall(UnitPlayerControlled, unit)
-    if okc and F.Usable(ctl) and ctl then
+    if not okc or not F.Usable(ctl) or ctl then
         return
     end
     local fa = lookup(name)

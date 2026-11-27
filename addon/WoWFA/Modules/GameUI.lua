@@ -48,13 +48,12 @@ local GROUPS = {
     social = { "FriendsFrame", "FriendsListFrame", "IgnoreListFrame", "WhoFrame", "GuildFrame", "RaidFrame",
         "GuildRegistrarFrame" },
     mail = { "MailFrame", "InboxFrame", "SendMailFrame", "OpenMailFrame", "TradeFrame" },
-    shops = { "MerchantFrame", "AuctionFrame", "AuctionFrameBrowse", "AuctionFrameBid",
-        "AuctionFrameAuctions", "AuctionHouseFrame", "ClassTrainerFrame", "TradeSkillFrame", "CraftFrame",
-        "LootFrame" },
+    shops = { "MerchantFrame", "ClassTrainerFrame", "TradeSkillFrame", "CraftFrame", "LootFrame" },
+    ah = { "AuctionFrame", "AuctionFrameBrowse", "AuctionFrameBid", "AuctionFrameAuctions", "AuctionHouseFrame" },
     finder = { "LFGParentFrame", "PVEFrame", "PVPFrame", "BattlefieldFrame", "ArenaFrame",
         "WorldStateScoreFrame" },
 }
-local GROUP_IDS = { "menu", "char", "bags", "social", "mail", "shops", "finder" }
+local GROUP_IDS = { "menu", "char", "bags", "social", "mail", "shops", "ah", "finder" }
 local GROUP_OF = {}
 for gid, list in pairs(GROUPS) do
     for _, n in ipairs(list) do
@@ -327,6 +326,13 @@ local function on_fmt(self)
     end
 end
 
+-- 1.2.2 (the owner 27 Nov, auction house: on every click the texts were English, then Persian): the
+-- text of a Button is written by Button:SetText, which the engine sends to the button's own string
+-- without calling the string's SetText, so the hook below never saw it and the English stood until
+-- the next scan. The button's own SetText / SetFormattedText are post-hooked too: the same frame
+-- puts the Persian back, no English is ever drawn.
+local hookedBtn = setmetatable({}, { __mode = "k" })
+
 local function hook(fs, scope)
     if hooked[fs] or type(hooksecurefunc) ~= "function" then
         return
@@ -334,6 +340,19 @@ local function hook(fs, scope)
     hooked[fs] = scope or true
     pcall(hooksecurefunc, fs, "SetText", on_set)
     pcall(hooksecurefunc, fs, "SetFormattedText", on_fmt)
+    local okp, parent = pcall(fs.GetParent, fs)
+    if okp and type(parent) == "table" and type(parent.GetFontString) == "function" and not hookedBtn[parent] then
+        local okf, own = pcall(parent.GetFontString, parent)
+        if okf and own == fs then
+            hookedBtn[parent] = true
+            pcall(hooksecurefunc, parent, "SetText", function(_, t)
+                on_set(fs, t)
+            end)
+            pcall(hooksecurefunc, parent, "SetFormattedText", function()
+                on_fmt(fs)
+            end)
+        end
+    end
 end
 
 -- one fontstring: swapped (and hooked) if its text is known. true = it is Persian now
@@ -428,7 +447,7 @@ local function schedule(f)
         return
     end
     queued[f] = true
-    F.After(0.05, function()
+    F.After(0, function()
         queued[f] = nil
         local ok, err = pcall(scan, f)
         if not ok then

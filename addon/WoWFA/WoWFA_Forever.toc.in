@@ -24,6 +24,7 @@ Locale_UI.lua
 Locale_UI2.lua
 Locale_Aura.lua
 Locale_Sys2.lua
+Locale_UI3.lua
 Core.lua
 CombatWatch.lua
 Text.lua
@@ -52,7 +53,7 @@ Modules\Tools.lua
 Modules\Blocked.lua
 Modules\GameUI.lua
 Modules\Preview.lua
-Modules\\Auras.lua
+Modules\Auras.lua
 Panel.lua
 Dump.lua
 Modules\Harvest.lua

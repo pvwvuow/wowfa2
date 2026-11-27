@@ -32,6 +32,8 @@ L.AURA_LEFT = fa("%s %s مانده")
 
 -- the settings page
 if type(L.PN) == "table" then
+    L.PN.gu_ah = fa("فروشگاه حراج (AH)")
+    L.PN.gu_shops = fa("فروشنده، مربی و حرفه~ها")
     L.PN.h_auras = fa("باف~ها و دیباف~ها")
     L.PN.auras = fa("باف~ها و دیباف~ها به فارسی")
     L.PN.auras_d = fa("نام، توضیح، نوع دیسپل و زمان مانده افکت~های روی شخصیت و هدف. نمایش نام و توضیح همان اسپل~هاست.")

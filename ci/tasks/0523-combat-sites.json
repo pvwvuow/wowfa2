@@ -1,0 +1,1 @@
+{"id": "0523-combat-sites", "kind": "script", "why": "owner 27 Nov: many texts turn English in combat: find every combat guard", "args": {"module": "src_grep", "args": {"grep": ["InCombatLockdown", "PLAYER_REGEN", "inCombat", "UnitAffectingCombat"], "ctx": 2, "limit": 60}}}

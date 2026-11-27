@@ -178,12 +178,19 @@ function F.EscClose(f)
     local function free()
         return not (InCombatLockdown and InCombatLockdown())
     end
+    -- 1.2.2 (the owner's 27 Nov report: the character could not walk while a WoWFA window was open): a frame
+    -- that takes the keyboard swallows EVERY key unless its propagate flag is set, and the flag can not be set in
+    -- combat. So a frame first shown in combat does not take the keyboard at all (its close button still works),
+    -- and a frame armed out of combat keeps both settings.
     local function pass(self)
         if free() then
+            pcall(self.EnableKeyboard, self, true)
             pcall(self.SetPropagateKeyboardInput, self, true)
+            self.wfaArmed = true
+        elseif not self.wfaArmed then
+            pcall(self.EnableKeyboard, self, false)
         end
     end
-    pcall(f.EnableKeyboard, f, true)
     pass(f)
     pcall(f.HookScript, f, "OnShow", pass)
     pcall(f.HookScript, f, "OnKeyDown", function(self, key)

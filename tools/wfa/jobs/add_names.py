@@ -2,6 +2,8 @@
 
 args.names  {"npc": {"English name": "Persian"}, "zone": {...}, ...}   (key = name_key(English))
 args.tpl    {"English line with its real numbers": "Persian with {0} {1} slots"}  (key = num_key)
+args.ledger {"npc": 4, "buff": 3, ...}  optional: the fix came from a player's report, count it on the site
+            (groups: npc quest buff spell ui sys dlg other), with args.date and args.src
 An existing entry with another value is reported and never overwritten.
 """
 from wfa.core import name_key, num_key
@@ -46,5 +48,13 @@ def run(args, rep):
     rep.ok("%d entries added" % added)
     if added:
         store.save()
-        return ["data"]
+        out = ["data"]
+        led = args.get("ledger")
+        if led:
+            # a fix that came from a player's report: counted for the site (docs/community.json)
+            from wfa import ledger
+            if ledger.add(args.get("date"), led, args.get("src") or "report"):
+                rep.ok("ledger: %s" % led)
+                out.append("docs/community.json")
+        return out
     return []

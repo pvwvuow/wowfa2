@@ -65,6 +65,13 @@ local ROWS = {
     { "Steamwheedle Cartel", "کارتل استیم~ویدل", "ReputationFrame" },
     { "Bloodsail Buccaneers", "دزدان دریایی بادبان~خونین", "ReputationFrame" },
     { "Powderfuse", "فتیلهٔ باروت", "ReputationFrame" },
+    -- 1.2.3: the macro window (the owner's report of 28 Nov; the game adds the colon itself)
+    { "All Icons", "همهٔ آیکن~ها", "MacroFrame" },
+    { "Choose an Icon", "یک آیکن انتخاب کنید", "MacroFrame" },
+    { "Create Macros", "ساخت ماکرو", "MacroFrame" },
+    { "Currently Selected", "انتخاب فعلی", "MacroFrame" },
+    { "Drag an icon here to use it as your display", "برای استفاده به~عنوان نمایش، یک آیکن را به اینجا بکشید", "MacroFrame" },
+    { "Enter Macro Commands", "دستورهای ماکرو را وارد کنید", "MacroFrame" },
 }
 
 L.GAMEUI = L.GAMEUI or {}
@@ -76,6 +83,8 @@ end
 L.SYSMSG = L.SYSMSG or {}
 L.SYSMSG[#L.SYSMSG + 1] = { "You feel rested.", fa("احساس می~کنی استراحت کرده~ای.") }
 L.ALERTS[#L.ALERTS + 1] = { "Only Reagents can be placed in Reagent Bags.", fa("فقط ریجنت را می~شود در کیف ریجنت گذاشت.") }
+-- 1.2.3: the auction line as this server sends it (the owner's screenshot of 28 Nov; the GlobalStrings row of the same line stays)
+L.SYSMSG[#L.SYSMSG + 1] = { "A buyer has been found for your auction of %s.", "برای حراج {1} شما خریدار پیدا شد." }
 L.SYSMSG[#L.SYSMSG + 1] = { "You are no longer rested.", fa("دیگر در حالت استراحت نیستید.") }
 
 -- the red line of the fishing hint

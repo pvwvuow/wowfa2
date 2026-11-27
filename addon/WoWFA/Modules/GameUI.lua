@@ -128,7 +128,21 @@ local function build()
     for _, e in ipairs(L.GAMEUI or {}) do
         local en, fa, scope = e[1], e[2], e[3]
         if type(en) == "string" and string.find(en, "^[%u%d_]+$") then
+            local lit = en
             en = _G[en] -- a GlobalStrings NAME: read only, never written
+            -- 1.2.3 (the owner 28 Nov: "NEW" on the game menu stayed English): a row whose English is itself written
+            -- in capitals (NEW) was read as a GlobalStrings name, and the game has a global of that name with other
+            -- letters. The text itself is kept as a row of its own too
+            if type(en) ~= "string" or en ~= lit then
+                if type(fa) == "string" and fa ~= "" then
+                    if type(scope) == "string" then
+                        scoped[scope] = scoped[scope] or {}
+                        scoped[scope][lit] = fa
+                    elseif exact[lit] == nil then
+                        exact[lit] = fa
+                    end
+                end
+            end
         end
         if type(en) == "string" and en ~= "" and type(fa) == "string" and fa ~= ""
             and not string.find(en, "|", 1, true) then

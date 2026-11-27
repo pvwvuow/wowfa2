@@ -465,6 +465,8 @@ function S.install()
     local fn = F:Wrap("spellbook", function(tt, data)
         spell_tip("spellbook", tt, data)
     end)
+    -- 1.2.3 (the owner 28 Nov: the mount "Striped Nightsaber" tooltip stayed English): a mount tooltip has its own data type
+    F.TipPost("Mount", fn)
     if F.TipPost("Spell", fn) then
         return
     end
@@ -567,6 +569,18 @@ local function is_item_or_unit(tt)
     return (not ok) or r
 end
 
+-- 1.2.3: a tooltip with no spell data whose SECOND line is a spell header ("3 sec cast", "Instant")
+local function spell_head(tt)
+    local tname = tt.GetName and tt:GetName()
+    local fs = tname and _G[tname .. "TextLeft2"]
+    local t = fs and fs.GetText and fs:GetText()
+    if not F.Usable(t) or type(t) ~= "string" then
+        return false
+    end
+    t = string.lower(plain(t))
+    return string.find(t, "sec cast$") ~= nil or string.find(t, "min cast$") ~= nil or string.find(t, "^instant") ~= nil
+end
+
 local function plain_tip(tt)
     if not tt or (tt.IsForbidden and tt:IsForbidden()) then
         return
@@ -601,6 +615,12 @@ local function plain_tip(tt)
                 T.Done(tt)
                 tt:Show()
             end
+            return
+        end
+        -- 1.2.3: a spell-like tooltip outside the spell frames (a mount, a pet ability): the same function reads it
+        -- and logs its name and description as misses
+        if not inFrame and not is_item_or_unit(tt) and spell_head(tt) then
+            spell_tip(mod, tt, nil)
             return
         end
         if inFrame then

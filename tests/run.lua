@@ -1355,7 +1355,7 @@ local okDg, errDg = pcall(function()
 end)
 check("diag tests ran", okDg, errDg)
 
--- 1.2.2: the copy buttons copy by themselves when the client has a copy function
+-- 1.2.3: the copy buttons NEVER call the game clipboard function (closed to addons: ADDON_ACTION_FORBIDDEN)
 local okCb, errCb = pcall(function()
     local B = F.Beacon
     F.db.beacon = nil
@@ -1367,10 +1367,10 @@ local okCb, errCb = pcall(function()
         clip = t
     end
     Click(w.copy)
-    check("copy: a click puts the report on the clipboard by itself", type(clip) == "string" and string.find(clip, "WoWFA ", 1, true) ~= nil, tostring(clip))
+    check("copy: a click never calls the clipboard function and selects the report", clip == nil and string.find(w.box:GetText() or "", "WoWFA ", 1, true) ~= nil, tostring(clip))
     clip = nil
     Click(w.site)
-    check("copy: the site button copies the address", type(clip) == "string" and string.find(clip, "/report", 1, true) ~= nil, tostring(clip))
+    check("copy: the site button selects the address and never calls the clipboard function", clip == nil and string.find(w.box:GetText() or "", "/report", 1, true) ~= nil, tostring(clip))
     CopyToClipboard = nil
     Click(w.copy)
     check("copy: with no copy function the box is selected as before", string.find(w.box:GetText() or "", "WoWFA ", 1, true) ~= nil)
@@ -1379,6 +1379,18 @@ local okCb, errCb = pcall(function()
 end)
 CopyToClipboard = nil
 check("copy tests ran", okCb, errCb)
+
+-- 1.2.3: window texts (NEW is also a GlobalStrings name; the macro window)
+local okNw, errNw = pcall(function()
+    local was = F.db.gameUi
+    F.db.gameUi = true
+    local s = F.GameUI.Preview("NEW", "GameMenuFrame")
+    check("window text: NEW on the game menu is known although NEW is a GlobalStrings name", type(s) == "string" and s ~= "")
+    local s2 = F.GameUI.Preview("Choose an Icon:", "MacroFrame")
+    check("window text: the macro window texts are known", type(s2) == "string" and s2 ~= "")
+    F.db.gameUi = was
+end)
+check("window text tests ran", okNw, errNw)
 check("items module not installed (locked)", not (F.mods.items and F.mods.items.active))
 local ok = pcall(SlashCmdList.WOWFAF, "status")
 check("/wowfa status", ok)

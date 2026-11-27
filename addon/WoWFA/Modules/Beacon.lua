@@ -528,14 +528,11 @@ local function anchor_page(f)
     end
 end
 
--- 1.2.2 (the owner 27 Nov: "it should copy by itself on a click"): when the client has a copy function the
--- text goes to the clipboard at once. Without one the box is selected and the player presses Ctrl+C.
+-- 1.2.3 (the owner 28 Nov: the click on copy showed "WoWFA has been blocked from an action only available to the
+-- Blizzard UI"): the game's CopyToClipboard is closed to addons (ADDON_ACTION_FORBIDDEN: a pcall can not hide the
+-- pop-up), so it is never called. The box is selected and the player presses Ctrl+C.
 function B.ToClipboard(text)
-    if type(CopyToClipboard) ~= "function" or type(text) ~= "string" then
-        return false
-    end
-    local ok = pcall(CopyToClipboard, text)
-    return ok == true
+    return false
 end
 
 local function build_window()

@@ -88,6 +88,9 @@ function B.ReportText()
         local cv = string.gsub(tostring(c.v), "|", "!")
         out[#out + 1] = string.format("combat :: %s :: %s :: x%d", tostring(c.k), cv, tonumber(c.n) or 1)
     end
+    for k, n in pairs(type(d.combatSkip) == "table" and d.combatSkip or {}) do
+        out[#out + 1] = string.format("combatskip :: %s :: x%d", tostring(k), tonumber(n) or 1)
+    end
     return table.concat(out, " ;; ")
 end
 

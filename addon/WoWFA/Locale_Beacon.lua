@@ -68,6 +68,10 @@ L.BC = {
 -- the switch at the top of the status page
 if type(L.PN) == "table" then
     L.PN.h_beacon = fa("آیکن گزارش")
+    -- 1.2.2: the green "update" tag and the combat switch
+    L.PN.upd_tag = fa("آپدیت")
+    L.PN.combatFa = fa("فارسی ماندن ردیاب و فهرست کوئست حین نبرد (آزمایشی)")
+    L.PN.combatFa_d = fa("خاموش: حین نبرد صبر می~کنیم تا نبرد تمام شود، پس چند خط تا آخر نبرد انگلیسی می~ماند. روشن: همان لحظه فارسی می~شود. اگر در نبرد خطای «action blocked» دیدی، خاموشش کن.")
     L.PN.beacon = fa("آیکن معلق گزارش متن~های بدون ترجمه")
     L.PN.beacon_d = fa("هر بار چشمک بزند یعنی متن تازه~ای پیدا شده؛ با کلیک، کپی و ارسال می~شود. خاموش = آیکن پنهان، ثبت متن~ها ادامه دارد.")
 end

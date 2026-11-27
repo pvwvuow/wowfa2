@@ -38,19 +38,24 @@ local STATE_C = { ok = "green", warn = "orange", update = "orange", fault = "red
 -- (db.newSeen[page] = NEWREL), and header(text, true) puts the same pill at the left end of a
 -- header. The next release removes the entries and the `true` flags.
 local NEWREL = "1.2.0"
-local NEW_PAGES = { game = "1.2.2", spellbook = "1.2.1", health = "1.2.2" } -- page -> the release that made it new
+-- 1.2.2 (the owner 27 Nov): TWO tags. "new" (orange) = the section / page itself is new. "upd" (green,
+-- Persian "update") = an OLD section / page got something new or changed inside. A page tag goes away
+-- once the page is opened, a section tag once the player has used a row of that section.
+local NEW_PAGES = { game = "1.2.2", health = "1.2.2", quests = "1.2.2" } -- page -> the release that put something new in it
+local PAGE_KIND = { game = "upd", health = "upd", quests = "upd" }       -- page -> "new" or "upd"
 
-local function new_pill(parent)
-    local oc = C.orange or { 1, 0.6, 0.15 }
+local function new_pill(parent, kind)
+    local upd = kind == "upd"
+    local oc = upd and (C.green or { 0.3, 0.85, 0.35 }) or (C.orange or { 1, 0.6, 0.15 })
     local f = CreateFrame("Frame", nil, parent)
-    f:SetSize(34, 16)
+    f:SetSize(upd and 46 or 34, 16)
     f:SetFrameLevel(parent:GetFrameLevel() + 3)
     local bg = f:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints()
     bg:SetColorTexture(oc[1], oc[2], oc[3], 0.28)
     local tx = UI.Text(f, 11, oc, "CENTER")
     tx:SetPoint("CENTER", f, "CENTER", 0, 0)
-    tx:SetFa(PN.new_tag or " ", 32)
+    tx:SetFa((upd and PN.upd_tag or PN.new_tag) or " ", upd and 44 or 32)
     f.text = tx
     return f
 end
@@ -58,6 +63,21 @@ end
 local function new_seen(id)
     local s = F.db and F.db.newSeen
     return type(s) == "table" and s[id] == NEW_PAGES[id]
+end
+
+-- a section tag (header) is seen for good when the player uses any row of the section
+local SEC_REL = "1.2.2"
+local function mark_hdr(hd)
+    if not (hd and hd.tagKey and F.db) then
+        return
+    end
+    if type(F.db.newSeen) ~= "table" then
+        F.db.newSeen = {}
+    end
+    F.db.newSeen["h:" .. hd.tagKey] = SEC_REL
+    if hd.newPill then
+        hd.newPill:Hide()
+    end
 end
 
 F.PANEL_SHIPPED = SHIPPED
@@ -95,6 +115,12 @@ local function place(f, h, gap)
     f:SetPoint("TOPRIGHT", page.child, "TOPRIGHT", -8, y)
     y = y - (h or 32) - (gap or 4)
     rows[#rows + 1] = f
+    local hdr = page.curHdr
+    if hdr and hdr.tagKey and not f.isHdr and f.HookScript then
+        pcall(f.HookScript, f, "OnClick", function()
+            mark_hdr(hdr)
+        end)
+    end
     page.items[#page.items + 1] = { f = f, h = h or 32, gap = gap or 4, pre = pre }
     pre = 0
     return f
@@ -161,15 +187,21 @@ local function end_page()
     restack(page)
 end
 
-local function header(text, isNew)
+local function header(text, tag, key)
     y = y - 10
     pre = pre + 10
     local hd = UI.Header(page.child, text, PW - 16)
-    if isNew then
-        local pill = new_pill(hd)
-        pill:SetPoint("LEFT", hd, "LEFT", 2, 3)
-        hd.newPill = pill
+    hd.isHdr = true
+    if tag and key then
+        hd.tagKey = key
+        local ns = F.db and type(F.db.newSeen) == "table" and F.db.newSeen
+        if not (ns and ns["h:" .. key] == SEC_REL) then
+            local pill = new_pill(hd, tag)
+            pill:SetPoint("LEFT", hd, "LEFT", 2, 3)
+            hd.newPill = pill
+        end
     end
+    page.curHdr = hd
     place(hd, 28, 6)
     return hd
 end
@@ -326,6 +358,10 @@ local function refresh_health()
         for _, c in ipairs(F.db and type(F.db.combatDiff) == "table" and F.db.combatDiff or {}) do
             local cv = string.gsub(tostring(c.v), "|", "!")
             out[#out + 1] = string.format("combat :: %s :: %s :: x%d", tostring(c.k), cv, tonumber(c.n) or 1)
+        end
+        -- 1.2.2: which guard held a write back during a fight (how many fights)
+        for k, n in pairs(F.db and type(F.db.combatSkip) == "table" and F.db.combatSkip or {}) do
+            out[#out + 1] = string.format("combatskip :: %s :: x%d", tostring(k), tonumber(n) or 1)
         end
         local line = table.concat(out, " ;; ")
         if health.missList.wfaFixed ~= line and health.copyMsg then
@@ -880,7 +916,7 @@ local function build()
         mark:Hide()
         b.mark = mark
         if NEW_PAGES[id] then
-            local pill = new_pill(b)
+            local pill = new_pill(b, PAGE_KIND[id])
             pill:SetPoint("LEFT", b, "LEFT", 4, 0)
             if new_seen(id) then
                 pill:Hide()
@@ -965,7 +1001,7 @@ local function build()
     panel.dock.dimIf = function() return not mods_on("quests") end
     panel.questAuto = opt_tog("questAuto", PN.questAuto, PN.questAuto_d, true)
     panel.questAuto.dimIf = function() return not mods_on("quests") end
-    header(PN.h_tracker)
+    header(PN.h_tracker, "upd", "tracker")
     panel.mods.tracker = tog(PN.tracker, nil,
         function() return mods_on("tracker") end,
         function(v) F:SetModule("tracker", v) end, "quest")
@@ -976,6 +1012,8 @@ local function build()
             F.db.listTitles = v and true or false
             F:Fire("options", "listTitles")
         end)
+    -- 1.2.2: write Persian into the lists the game redraws in combat (off: wait for the end of the fight)
+    panel.combatFa = opt_tog("combatFa", PN.combatFa, PN.combatFa_d, true)
     panel.questie = tog(PN.questie, PN.questie_d,
         function() return F.db.questie ~= false end,
         function(v)
@@ -1065,14 +1103,14 @@ local function build()
 
     -- ===================================================== The game's own windows (1.2.0)
     begin_page("game")
-    header(PN.h_gameui, true)
+    header(PN.h_gameui, "upd", "gameui")
     panel.gameUi = tog(PN.gameUi, PN.gameUi_d,
         function() return F.db.gameUi ~= false end,
         function(v)
             F.db.gameUi = v and true or false
             F:Fire("options", "gameUi")
         end, "gameui")
-    header(PN.h_gwin, true)
+    header(PN.h_gwin, "upd", "gwin")
     panel.guiG = {}
     for _, gid in ipairs(F.GameUI and F.GameUI.Groups or {}) do
         local gt = tog(PN["gu_" .. gid] or gid, nil,
@@ -1081,6 +1119,11 @@ local function build()
         gt.dimIf = function() return F.db.gameUi == false end
         panel.guiG[gid] = gt
     end
+    -- 1.2.2 (the owner 27 Nov: the buffs switch belongs with the game windows, with a preview)
+    header(PN.h_auras, "new", "auras")
+    panel.auras = tog(PN.auras, PN.auras_d,
+        function() return F.db.mods.auras ~= false end,
+        function(v) F:SetModule("auras", v) end, "aura")
     end_page()
 
     -- ===================================================== Spells and talents
@@ -1176,11 +1219,6 @@ local function build()
     panel.dispDesc = { talents = panel.tlDesc }
     panel.dispCustom = { talents = panel.talentOwn }
     panel.mods.spellbook, panel.mods.talents = panel.spName, panel.talentOwn
-    -- 1.2.1: the buffs and debuffs
-    header(PN.h_auras, true)
-    panel.auras = tog(PN.auras, PN.auras_d,
-        function() return F.db.mods.auras ~= false end,
-        function(v) F:SetModule("auras", v) end)
     end_page()
 
     -- ===================================================== Font sizes
@@ -1419,7 +1457,7 @@ local function build()
     panel.health = health
     -- 1.2.2: the floating report icon: the switch is the FIRST thing on the page, big and readable,
     -- so a player sees at once that it can be turned off (Modules/Beacon.lua)
-    header(PN.h_beacon or " ", true)
+    header(PN.h_beacon or " ", "new", "beacon")
     panel.beacon = tog(PN.beacon, PN.beacon_d,
         function() return F.Beacon ~= nil and F.Beacon.IsOn() end,
         function(v)

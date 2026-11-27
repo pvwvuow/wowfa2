@@ -281,6 +281,9 @@ local function on_inplace(fs, enText, kind)
     -- (maplabel) are plain font strings and the quest list redraws on every kill - they
     -- follow it in combat too. Only the hover label keeps the old combat guard (lane-28 §B).
     if kind == "map" and InCombatLockdown and InCombatLockdown() then
+        if F.CombatSkip then
+            F.CombatSkip("map-label")
+        end
         return
     end
     local faText, lbl

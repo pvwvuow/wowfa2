@@ -1,0 +1,1 @@
+{"id": "0474-unpublish-470", "kind": "script", "why": "owner 27 Nov: cancel the release of 1.1.8.470-beta, the newer build replaces it", "args": {"module": "unpublish_release", "args": {"tag": "forever-v1.1.8.470-beta"}}}

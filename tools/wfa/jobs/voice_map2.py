@@ -104,8 +104,10 @@ def run(args, rep):
     cols, rows = cov.parse(sql, "creature_template")
     mcols = [c for c in cols if re.fullmatch(r"(model|display)_?id_?\d", c)]
     npc, vendors = {}, []
+    fcol = next((c for c in cols if c.startswith("npcflag")), "npcflag")
+    rep.add("vendor flag column: %s" % fcol)
     for r in rows:
-        if _geti(r, "npcflag") & 128:
+        if _geti(r, fcol) & 128:
             vendors.append(_geti(r, "entry"))
         pairs = []
         for c in mcols:

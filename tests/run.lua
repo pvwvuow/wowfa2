@@ -1354,6 +1354,31 @@ local okDg, errDg = pcall(function()
     m.trips = nil
 end)
 check("diag tests ran", okDg, errDg)
+
+-- 1.2.2: the copy buttons copy by themselves when the client has a copy function
+local okCb, errCb = pcall(function()
+    local B = F.Beacon
+    F.db.beacon = nil
+    B.Set(true)
+    B.OpenWindow()
+    local w = B.Window()
+    local clip
+    CopyToClipboard = function(t)
+        clip = t
+    end
+    Click(w.copy)
+    check("copy: a click puts the report on the clipboard by itself", type(clip) == "string" and string.find(clip, "WoWFA ", 1, true) ~= nil, tostring(clip))
+    clip = nil
+    Click(w.site)
+    check("copy: the site button copies the address", type(clip) == "string" and string.find(clip, "/report", 1, true) ~= nil, tostring(clip))
+    CopyToClipboard = nil
+    Click(w.copy)
+    check("copy: with no copy function the box is selected as before", string.find(w.box:GetText() or "", "WoWFA ", 1, true) ~= nil)
+    w:Hide()
+    B.Set(false)
+end)
+CopyToClipboard = nil
+check("copy tests ran", okCb, errCb)
 check("items module not installed (locked)", not (F.mods.items and F.mods.items.active))
 local ok = pcall(SlashCmdList.WOWFAF, "status")
 check("/wowfa status", ok)

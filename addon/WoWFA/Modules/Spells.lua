@@ -134,6 +134,12 @@ local function plain(s)
     return s
 end
 
+-- 1.2.2 (the owner's 27 Nov report: "51 !4minute:minutes; remaining"): the client leaves a plural escape
+-- |4one:many; in a line's text. For the template key the many-form is taken, so one row holds every count
+local function plural(s)
+    return (string.gsub(s or "", "|4([^:;|]+):([^;|]+);", "%2"))
+end
+
 -- 1.1.6 (the owner's b71139 list: 60 of 65 misses were Leatherworking recipes): a profession
 -- recipe tooltip ("Leatherworking: Fine Leather Belt", "Reagents: ...", "Equip: ...", the made
 -- item's lines) is ITEM content. Items stay English for now, so it is never logged as a miss.
@@ -332,7 +338,7 @@ local function spell_tip(modId, tt, data)
     end
     local found, srcOf = {}, {}
     for i = 2, #lines do
-        local text = lines[i]
+        local text = plural(lines[i])
         if text ~= "" and #text > (tt.wfaMin or 8) and not has_fa(text) then
             local lst = list_fa(text)
             local key, nums = T.NumKey(text)

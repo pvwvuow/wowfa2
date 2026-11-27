@@ -528,6 +528,16 @@ local function anchor_page(f)
     end
 end
 
+-- 1.2.2 (the owner 27 Nov: "it should copy by itself on a click"): when the client has a copy function the
+-- text goes to the clipboard at once. Without one the box is selected and the player presses Ctrl+C.
+function B.ToClipboard(text)
+    if type(CopyToClipboard) ~= "function" or type(text) ~= "string" then
+        return false
+    end
+    local ok = pcall(CopyToClipboard, text)
+    return ok == true
+end
+
 local function build_window()
     if win then
         return win
@@ -561,18 +571,26 @@ local function build_window()
     f.copy = UI.Button(f, S("pop_copy"), 112, 28, function()
         f.mode = "report"
         B.RefreshWindow()
-        f.box:SetFixed(B.ReportText())
-        f.box:SetFocus()
-        f.box:HighlightText()
-        f.msg:SetFa(S("pop_copied"), 296)
+        local text = B.ReportText()
+        f.box:SetFixed(text)
+        local done = B.ToClipboard(text)
+        if not done then
+            f.box:SetFocus()
+            f.box:HighlightText()
+        end
+        f.msg:SetFa(done and S("pop_done") or S("pop_copied"), 296)
     end)
     f.copy:SetPoint("TOPRIGHT", f, "TOPRIGHT", -12, -136)
     f.site = UI.Button(f, S("pop_site"), 100, 28, function()
         f.mode = "site"
-        f.box:SetFixed(tostring(F.SITE) .. "/report")
-        f.box:SetFocus()
-        f.box:HighlightText()
-        f.msg:SetFa(S("pop_site_copied"), 296)
+        local url = tostring(F.SITE) .. "/report"
+        f.box:SetFixed(url)
+        local done = B.ToClipboard(url)
+        if not done then
+            f.box:SetFocus()
+            f.box:HighlightText()
+        end
+        f.msg:SetFa(done and S("pop_site_done") or S("pop_site_copied"), 296)
     end)
     f.site:SetPoint("RIGHT", f.copy, "LEFT", -6, 0)
     f.clear = UI.Button(f, S("pop_clear"), 72, 28, function()

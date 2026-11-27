@@ -1,0 +1,1 @@
+{"id": "0472-publish-470", "kind": "script", "why": "owner 27 Nov: release the latest build (1.1.8.470-beta)", "args": {"module": "cf_retry", "args": {"tag": "forever-v1.1.8.470-beta", "retag": false, "notes_replace": [[";", ","]]}}}

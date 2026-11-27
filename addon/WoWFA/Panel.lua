@@ -25,13 +25,40 @@ local panel, page, rows, health
 local pages, navbtns, active = {}, {}, nil
 local SHIPPED = { "quests", "tracker", "dungeons", "npc", "spellbook", "talents" }
 local ROOM_KEYS = { "namesZone", "namesSpell", "namesClass", "namesQuest", "terms", "questText", "npcSay", "faDigits", "namesNpc" }
-local SECTIONS = { "general", "quests", "map", "npc", "chat", "spellbook", "sizes", "colors", "share", "health", "about" }
+local SECTIONS = { "general", "quests", "map", "npc", "chat", "game", "spellbook", "sizes", "colors", "share", "health", "about" }
 -- the ids of the older panels still work (F.OpenPanel("health"), the tests)
 local ALIAS = { room = "general", mods = "general", display = "general", home = "general", welcome = "general",
     tracker = "quests", dialog = "npc", talents = "spellbook" }
 local STATE_L = { ok = "st_ok", warn = "st_warn", off = "st_off", master = "st_master", nodata = "st_nodata",
     schema = "st_schema", noapi = "st_noapi", update = "st_update", fault = "st_fault", locked = "st_off" }
 local STATE_C = { ok = "green", warn = "orange", update = "orange", fault = "red", noapi = "red", schema = "red", nodata = "red" }
+
+-- 1.2.0: "new" tags (the owner 27 Nov: a New tag on top of a section that is new). A page in
+-- NEW_PAGES shows a small orange pill in the side menu until the player has opened it once
+-- (db.newSeen[page] = NEWREL), and header(text, true) puts the same pill at the left end of a
+-- header. The next release removes the entries and the `true` flags.
+local NEWREL = "1.2.0"
+local NEW_PAGES = { game = true }
+
+local function new_pill(parent)
+    local oc = C.orange or { 1, 0.6, 0.15 }
+    local f = CreateFrame("Frame", nil, parent)
+    f:SetSize(34, 16)
+    f:SetFrameLevel(parent:GetFrameLevel() + 3)
+    local bg = f:CreateTexture(nil, "BACKGROUND")
+    bg:SetAllPoints()
+    bg:SetColorTexture(oc[1], oc[2], oc[3], 0.28)
+    local tx = UI.Text(f, 11, oc, "CENTER")
+    tx:SetPoint("CENTER", f, "CENTER", 0, 0)
+    tx:SetFa(PN.new_tag or " ", 32)
+    f.text = tx
+    return f
+end
+
+local function new_seen(id)
+    local s = F.db and F.db.newSeen
+    return type(s) == "table" and s[id] == NEWREL
+end
 
 F.PANEL_SHIPPED = SHIPPED
 F.PANEL_ROOM_KEYS = ROOM_KEYS
@@ -134,10 +161,15 @@ local function end_page()
     restack(page)
 end
 
-local function header(text)
+local function header(text, isNew)
     y = y - 10
     pre = pre + 10
     local hd = UI.Header(page.child, text, PW - 16)
+    if isNew then
+        local pill = new_pill(hd)
+        pill:SetPoint("LEFT", hd, "LEFT", 2, 3)
+        hd.newPill = pill
+    end
     place(hd, 28, 6)
     return hd
 end
@@ -358,6 +390,16 @@ local function select_page(id)
     sf:Show()
     sf:ScrollTo(0)
     active = id
+    if NEW_PAGES[id] and F.db then
+        if type(F.db.newSeen) ~= "table" then
+            F.db.newSeen = {}
+        end
+        F.db.newSeen[id] = NEWREL
+        local nb = navbtns[id]
+        if nb and nb.newPill then
+            nb.newPill:Hide()
+        end
+    end
     for nid, b in pairs(navbtns) do
         local on = nid == id
         local c = on and C.gold or C.muted
@@ -832,6 +874,16 @@ local function build()
         mark:SetVertexColor(C.gold[1], C.gold[2], C.gold[3], 0.9)
         mark:Hide()
         b.mark = mark
+        if NEW_PAGES[id] then
+            local pill = new_pill(b)
+            pill:SetPoint("LEFT", b, "LEFT", 4, 0)
+            if new_seen(id) then
+                pill:Hide()
+            else
+                pill:Show()
+            end
+            b.newPill = pill
+        end
         navbtns[id] = b
     end
 
@@ -876,13 +928,6 @@ local function build()
     room_tog("namesClass", "text")
     room_tog("terms", "text")
     room_tog("faDigits", "text")
-    header(PN.h_gameui)
-    panel.gameUi = tog(PN.gameUi, PN.gameUi_d,
-        function() return F.db.gameUi ~= false end,
-        function(v)
-            F.db.gameUi = v and true or false
-            F:Fire("options", "gameUi")
-        end, "gameui")
     header(PN.h_other)
     panel.shiftEn = tog(PN.shiftEn, nil,
         function() return F.db.shiftEn ~= false end,
@@ -1011,6 +1056,26 @@ local function build()
             F.db.alerts = v and true or false
             F:Fire("options", "alerts")
         end, "alert")
+    end_page()
+
+    -- ===================================================== The game's own windows (1.2.0)
+    begin_page("game")
+    header(PN.h_gameui, true)
+    panel.gameUi = tog(PN.gameUi, PN.gameUi_d,
+        function() return F.db.gameUi ~= false end,
+        function(v)
+            F.db.gameUi = v and true or false
+            F:Fire("options", "gameUi")
+        end, "gameui")
+    header(PN.h_gwin, true)
+    panel.guiG = {}
+    for _, gid in ipairs(F.GameUI and F.GameUI.Groups or {}) do
+        local gt = tog(PN["gu_" .. gid] or gid, nil,
+            function() return F.GameUI.GroupOn(gid) end,
+            function(v) F.GameUI.SetGroup(gid, v) end, "gameui")
+        gt.dimIf = function() return F.db.gameUi == false end
+        panel.guiG[gid] = gt
+    end
     end_page()
 
     -- ===================================================== Spells and talents

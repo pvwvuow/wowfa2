@@ -570,6 +570,8 @@ function F:Wrap(modId, fn)
         if m and not m.active then
             return
         end
+        -- 1.1.8: the last WoWFA hook that ran, so a blocked action can name it (Modules/Blocked.lua)
+        F.lastRun, F.lastRunT = modId, GetTime and GetTime() or 0
         local ok, err = pcall(fn, ...)
         if not ok then
             F:Fault(modId, err)
@@ -915,6 +917,11 @@ local function after_login()
         F.After(8, function()
             F:Notify(nil, string.format(L.t_upgraded, F.VERSION))
         end)
+    end
+    -- 1.1.8: an error list written by an older version is history, not news (a 27 Nov report
+    -- still listed the 1.1.6 blocks): a new version starts with an empty list
+    if db.lastVersion ~= F.VERSION and type(db.errors) == "table" then
+        db.errors = {}
     end
     db.lastBuild = F.clientBuild
     db.lastVersion = F.VERSION

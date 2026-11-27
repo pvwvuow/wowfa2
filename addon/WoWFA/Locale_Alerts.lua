@@ -129,5 +129,7 @@ L.ALERTS = {
     -- 1.1.3 (the owner's report 25 Nov, build 71091)
     { "New flight path discovered!", "مسیر پرواز تازه" .. Z .. "ای کشف شد!" },
     { "Your pet is not dead.", "حیوان همراه شما نمرده است." },
+    -- 1.1.8 (the owner's report 27 Nov, build 71139)
+    { "There is nothing to attack.", "چیزی برای حمله وجود ندارد." },
     { "Can't do that while in combat", "در نبرد نمی" .. Z .. "توانید این کار را انجام دهید" },
 }

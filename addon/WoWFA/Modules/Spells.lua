@@ -52,17 +52,17 @@ local function tip_fire(tt)
     end
 end
 
+-- the hook runs right after the game's own function (a secure hook: its taint is dropped), so the
+-- Persian is in place before the tooltip is drawn. A timer made the tooltip show one English frame
+-- every time the game rebuilt it (an action bar tooltip is rebuilt every few ticks). tipPend only
+-- stops a hook that fires inside our own work (tt:Show -> OnShow) from running it again.
 local function tip_note(tt)
     if tipPend[tt] then
         return
     end
     tipPend[tt] = true
-    F.After(0, function()
-        tipPend[tt] = nil
-        if tt.IsShown and tt:IsShown() then
-            tip_fire(tt)
-        end
-    end)
+    tip_fire(tt)
+    tipPend[tt] = nil
 end
 
 -- the test mock's RunTip (tests/lua/wow_mock.lua) runs the hooked functions of a kind at once

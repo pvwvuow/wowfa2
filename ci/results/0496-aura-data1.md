@@ -1,0 +1,114 @@
+## task 0496-aura-data1 (script)
+
+**GREEN**
+
+
+### Names
+
+- ok: spell: food -> غذا
+- ok: spell: drink -> نوشیدنی
+- ok: spell: vitality -> نیروی حیات
+- ok: spell: well fed -> سیرشده
+- ok: spell: poison -> زهر
+- ok: spell: sleep -> خواب
+- ok: spell: corrupted blood -> خون آلوده
+- ok: spell: stun -> فلج
+- ok: spell: teleport -> تله‌پورت
+- ok: spell: carrion swarm -> هجوم لاشه‌خواران
+- ok: spell: hex -> هگز
+- ok: spell: prey on the weak -> شکار ضعیفان
+- ok: spell: slow -> کندی
+- ok: spell: noxious breath -> نفس مسموم
+- ok: spell: venom spit -> آب‌دهان زهرآگین
+- ok: spell: flame buffet -> سیلی شعله
+- ok: spell: poison bolt -> تیر زهر
+- ok: spell: poison bolt volley -> رگبار تیر زهر
+- ok: spell: speed -> سرعت
+- ok: spell: bloodlust -> عطش خون
+- ok: spell: corrupted mind -> ذهن آلوده
+- ok: spell: fire protection -> محافظت در برابر آتش
+- ok: spell: frost protection -> محافظت در برابر یخ
+- ok: spell: nature protection -> محافظت در برابر طبیعت
+- ok: spell: holy protection -> محافظت در برابر تقدس
+- CONFLICT spell: shadow protection has محافظت سایه (given محافظت در برابر سایه), not changed
+- ok: spell: arcane protection -> محافظت در برابر اسرار
+- ok: spell: frost breath -> نفس یخ
+- ok: spell: knockdown -> زمین‌گیری
+- ok: spell: pool of fire -> گودال آتش
+- ok: spell: summon infernal -> احضار جهنمی
+- ok: spell: agility -> چابکی
+- ok: spell: intellect -> هوش
+- ok: spell: strength -> قدرت بدنی
+- ok: spell: armor -> زره
+- ok: spell: dominate mind -> تسلط بر ذهن
+- ok: spell: echoes of lordaeron -> پژواک لوردرون
+- ok: spell: power of the guardian -> قدرت نگهبان
+- ok: spell: totemic power -> قدرت توتمی
+- ok: spell: veil of shadow -> پردهٔ سایه
+- ok: spell: cripple -> ناتوان‌سازی
+- ok: spell: curse of blood -> نفرین خون
+- ok: spell: revelation -> مکاشفه
+- ok: spell: shrink -> کوچک‌سازی
+- ok: spell: stoneskin -> پوست سنگی
+- ok: spell: battle standard -> پرچم نبرد
+- ok: spell: brain food -> غذای مغز
+- ok: spell: chill -> سرما
+- ok: spell: enlarge -> بزرگ‌سازی
+- ok: spell: entangle -> درهم‌پیچیده
+- ok: spell: freeze -> انجماد
+- ok: spell: frostbolt volley -> رگبار تیر یخ
+- ok: spell: grow -> رشد
+- ok: spell: poison cloud -> ابر زهر
+- ok: spell: spore cloud -> ابر هاگ
+- ok: spell: volatile infection -> عفونت ناپایدار
+- ok: spell: acid breath -> نفس اسیدی
+- ok: spell: aura of fear -> هالهٔ ترس
+- ok: spell: bone armor -> زره استخوانی
+- ok: spell: cause insanity -> ایجاد جنون
+- ok: spell: clearcasting -> ذهن روشن
+- ok: spell: conflagration -> آتش‌سوزی
+- ok: spell: crystallize -> بلورین‌سازی
+- ok: spell: decisive strike -> ضربهٔ قاطع
+- ok: spell: eureka! -> یافتم!
+
+### Templates
+
+- ok: tpl: stunned -> {{tm:stun|فلج}} شده‌اید.
+- ok: tpl: asleep -> به خواب رفته‌اید.
+- ok: tpl: hexed -> طلسم شده‌اید.
+- ok: tpl: charmed -> افسون شده‌اید.
+- ok: tpl: entangled -> درهم‌پیچیده شده‌اید.
+- ok: tpl: wounded -> زخمی شده‌اید.
+- ok: tpl: burning -> در آتش می‌سوزید.
+- ok: tpl: reduced movement speed -> {{tm:movement speed|سرعت حرکت}} کاهش یافته است.
+- ok: tpl: increases run speed by #% -> {{tm:run speed|سرعت دویدن}} را {0}% افزایش می‌دهد.
+- ok: tpl: attack speed increased by #% -> {{tm:attack speed|سرعت حمله}} {0}% افزایش یافته است.
+- ok: tpl: movement speed reduced by #% -> {{tm:movement speed|سرعت حرکت}} {0}% کاهش یافته است.
+- ok: tpl: increases movement speed by #% -> {{tm:movement speed|سرعت حرکت}} را {0}% افزایش می‌دهد.
+- ok: tpl: reduces movement by #% and attack speed by #% -> {{tm:movement speed|سرعت حرکت}} را {0}% و {{tm:attack speed|سرعت حمله}} را {1}% کاهش می‌دهد.
+- ok: tpl: strength increased by # -> {{tm:Strength|قدرت بدنی}} {0} واحد افزایش یافته است.
+- ok: tpl: agility increased by # -> {{tm:Agility|چابکی}} {0} واحد افزایش یافته است.
+- ok: tpl: intellect increased by # -> {{tm:Intellect|هوش}} {0} واحد افزایش یافته است.
+- ok: tpl: armor increased by # -> {{tm:armor|زره}} {0} واحد افزایش یافته است.
+- ok: tpl: stamina and spirit increased by # -> {{tm:stamina and spirit|استقامت و روح}} {0} واحد افزایش یافته است.
+- ok: tpl: damage increased by #% -> {{tm:damage|آسیب}} {0}% افزایش یافته است.
+- ok: tpl: attack power increased by # -> {{tm:Attack power|قدرت حمله}} {0} واحد افزایش یافته است.
+- ok: tpl: increases maximum health by #% -> {{tm:maximum health|حداکثر سلامتی}} را {0}% افزایش می‌دهد.
+- ok: tpl: healing effects reduced by #% -> اثرهای {{tm:healing|شفا}} {0}% کاهش یافته است.
+- ok: tpl: restores # health per second -> هر ثانیه {0} {{tm:health|سلامتی}} بازیابی می‌کند.
+- ok: tpl: restores # health per # sec -> هر {1} ثانیه {0} {{tm:health|سلامتی}} بازیابی می‌کند.
+- ok: tpl: restores # mana per second -> هر ثانیه {0} {{tm:mana|مانا}} بازیابی می‌کند.
+- ok: tpl: restores # mana per # sec -> هر {1} ثانیه {0} {{tm:mana|مانا}} بازیابی می‌کند.
+- ok: tpl: absorbs # fire damage -> {0} {{tm:Fire damage|آسیب آتش}} را جذب می‌کند.
+- ok: tpl: absorbs # nature damage -> {0} {{tm:Nature damage|آسیب طبیعت}} را جذب می‌کند.
+- ok: tpl: absorbs # holy damage -> {0} {{tm:Holy damage|آسیب مقدس}} را جذب می‌کند.
+- ok: tpl: absorbs # arcane damage -> {0} {{tm:Arcane damage|آسیب اسرار}} را جذب می‌کند.
+- ok: tpl: absorbs # shadow damage -> {0} {{tm:shadow damage|آسیب سایه}} را جذب می‌کند.
+- ok: tpl: absorbs # frost damage -> {0} {{tm:Frost damage|آسیب یخ}} را جذب می‌کند.
+- ok: tpl: nature damage inflicted every # sec -> هر {0} ثانیه {{tm:Nature damage|آسیب طبیعت}} وارد می‌شود.
+- ok: tpl: deals # damage every # sec -> هر {1} ثانیه {0} {{tm:damage|آسیب}} وارد می‌کند.
+- ok: tpl: fire damage taken is increased by # -> {{tm:Fire damage|آسیب آتش}} دریافتی {0} افزایش می‌یابد.
+- ok: tpl: physical damage taken is increased by # -> {{tm:physical damage|آسیب فیزیکی}} دریافتی {0} افزایش می‌یابد.
+- ok: tpl: increases spell critical chance by #% -> {{tm:Critical strike chance|شانس ضربهٔ بحرانی}} اسپل را {0}% افزایش می‌دهد.
+- ok: tpl: can't cast healing or curing spells -> نمی‌توانید اسپل‌های {{tm:healing|شفابخش}} یا درمانی بزنید.
+- ok: 102 entries added

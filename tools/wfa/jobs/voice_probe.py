@@ -60,6 +60,12 @@ def run(args, rep):
     if not gi:
         return []
     build = str(args.get("build") or "1.15.9.70576")
+    try:
+        b = json.loads(cov._get("https://wago.tools/api/builds"))
+        rep.h("Wago builds")
+        rep.add("; ".join("%s %s" % (k, (v[0].get("version") if v else "-")) for k, v in sorted(b.items())))
+    except Exception as e:  # noqa: BLE001
+        rep.add("build list failed: %s" % type(e).__name__)
     ske = vm._csv(cov, "SoundKitEntry", build, rep)
     if not ske:
         rep.fail("SoundKitEntry missing")

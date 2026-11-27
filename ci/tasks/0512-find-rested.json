@@ -1,0 +1,1 @@
+{"id": "0512-find-rested", "kind": "script", "why": "owner 27 Nov report: the GlobalStrings name of You are no longer rested", "args": {"module": "gs_dump", "args": {"keys": ["REST", "SLEEP"], "maxlen": 90, "limit": 80}}}

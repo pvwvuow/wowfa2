@@ -1,0 +1,1 @@
+{"id": "0510-find-tpl", "kind": "script", "why": "owner 27 Nov report: look for the wording already used for spirit, haste, hitpoints, mana regen, remaining", "args": {"module": "tpl_find", "args": {"grep": ["spirit increased", "haste", "hitpoints", "mana regen", "remaining", "spell id", "experience gained", "attack power is increased", "no effect while"], "limit": 5}}}

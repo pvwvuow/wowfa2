@@ -1,0 +1,1 @@
+{"id": "0511-find-names", "kind": "script", "why": "owner 27 Nov report: names with spirit and might in the spell table", "args": {"module": "names_find", "args": {"words": ["spirit", "might of", "well fed"], "kinds": ["spell"], "limit": 8}}}

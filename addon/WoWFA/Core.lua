@@ -282,6 +282,7 @@ local DEFAULTS = {
     dlgGossip = true, dlgSay = true, dlgBook = true, -- 1.0.7: NPC talk + books (Modules/Dialog.lua)
     shiftEn = true, -- 1.0.7: hold Shift = the game's English original
     questie = true, -- 1.1.0: Questie's tooltips + tracker in Persian (Modules/Questie.lua)
+    gameUi = false, -- 1.2.2 (the owner 27 Nov): the game's own windows stay English until the player turns them on
     errors = {},
     lastBuild = 0,
     lastVersion = "",

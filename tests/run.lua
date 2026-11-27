@@ -830,6 +830,8 @@ check("panel suite ran without a crash", okPanel, errPanel)
 local okGu, errGu = pcall(function()
     local G = F.GameUI
     check("gameui: the module loaded", type(G) == "table" and type(G.Try) == "function")
+    check("gameui: the game windows are OFF in a fresh setup", F.DEFAULTS.gameUi == false)
+    F.db.gameUi = true
     local host = CreateFrame("Frame", "ZzGameUiHost", UIParent)
     local fs = host:CreateFontString(nil, "OVERLAY")
     fs:SetText("Reputation")

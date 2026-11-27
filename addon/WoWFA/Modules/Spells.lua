@@ -224,6 +224,18 @@ local function spell_tip(modId, tt, data)
     local names = F.D.names and F.D.names.spell or {}
     local tpl = F.D.tpl or {}
     local faName = names[T.NameKey(name)] -- lane-28 §A3: NameKey on both sides
+    -- 1.1.8 (the owner's list: "Call silentecho" x33): a hunter's Call Pet spell carries the PET's
+    -- own name ("Call <pet name>"), so no table can hold it: a one-word "Call X" of a hunter is
+    -- "Call" in Persian + the pet's name, and it is never a miss
+    if faName == nil and F.L and F.L.call_pet and not has_fa(name) then
+        local pet = string.match(name, "^Call (%S+)$")
+        if pet then
+            local okc, _, cls = pcall(UnitClass, "player")
+            if okc and cls == "HUNTER" then
+                faName = F.L.call_pet .. " " .. pet
+            end
+        end
+    end
     -- rc4: a line 1 that starts with a digit is a cost row ("107 Mana"), never a name
     if faName == nil and not string.find(name, "^%d") and not has_fa(name) and not recipe(name) then
         F:Miss("spell", T.NameKey(name), name) -- rc3 update watch (Core F:Miss)

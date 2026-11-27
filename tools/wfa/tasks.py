@@ -422,6 +422,12 @@ def task_release(t, rep):
     from . import build as B
     from .store import Store
     pol = read_json(os.path.join(ROOT, "policy.json"))
+    # every draft carries its own build number = the task number: 1.1.8-beta -> 1.1.8.468-beta in the
+    # zip name, the TOC (the game shows it too), the tag and the title. policy.json itself is not touched.
+    num = str(t["id"]).split("-")[0].lstrip("0")
+    if num.isdigit() and not t["args"].get("plain"):
+        v = pol["version"]
+        pol["version"] = v.replace("-beta", "." + num + "-beta", 1) if "-beta" in v else v + "." + num
     counts, zpath, notes = B.build(Store.load(), pol)
     tag = "forever-v" + pol["version"]
     env = dict(os.environ, GH_TOKEN=os.environ.get("BOT_TOKEN", ""))

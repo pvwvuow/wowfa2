@@ -1,0 +1,1 @@
+{"id": "0506-bump122", "kind": "edit", "why": "owner 27 Nov: the version of the auction house fix is 1.2.2 (the bump of 0502 did not reach main)", "args": {"ops": [{"file": "policy.json", "old": "\"version\": \"1.2.1-beta\"", "new": "\"version\": \"1.2.2-beta\"", "count": 1}]}}

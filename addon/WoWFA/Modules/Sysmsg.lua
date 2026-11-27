@@ -148,9 +148,15 @@ end
 -- 1.2.1 (the owner 27 Nov: such lines were not in the report): a system line no row matches is noted once
 -- as a miss of kind sys (item and player links become %s, numbers #), 60 at most, so the next build
 -- can translate it. Only CHAT_MSG_SYSTEM: player emotes would flood the list.
-local sysSeen, sysN = {}, 0
+local sysSeen, sysN, sysList = {}, 0, nil
 
 local function note(msg)
+    -- 1.2.3 (the owner 28 Nov: after "clear" the same lines never came back, and a long session used the 60 up):
+    -- the dedupe table and the cap belong to ONE list, a cleared (new) list starts them again
+    local cur = F.db and F.db.miss
+    if cur ~= sysList then
+        sysSeen, sysN, sysList = {}, 0, cur
+    end
     local lo, hi = string.char(216), string.char(219)
     if sysN >= 60 or #msg < 8 or #msg > 220 or string.find(msg, '[' .. lo .. '-' .. hi .. ']') then
         return
@@ -197,6 +203,50 @@ function F.SysmsgPreview(text)
     return ok and type(s) == "string" and s ~= "" and s or nil
 end
 
+-- 1.2.3 (the owner 28 Nov: "Changed Channel: [3. LocalDefense - Elwynn Forest]" stayed English): the channel
+-- notices come on an event of their own and the game builds the line from a token (YOU_CHANGED), so the line
+-- match above never saw them. The Persian line is added to the same window and the English one is dropped.
+local NOTICE = {
+    YOU_JOINED = 'به کانال {1} پیوستید',
+    YOU_LEFT = 'از کانال {1} بیرون آمدید',
+    YOU_CHANGED = 'کانال تغییر کرد: {1}',
+}
+
+local function notice_line(cf, tpl, ...)
+    local name, idx = select(3, ...), select(7, ...)
+    if type(name) ~= 'string' or name == '' or not F.Usable(name) then
+        return nil
+    end
+    local link = '[' .. name .. ']'
+    if type(idx) == 'number' then
+        link = '|Hchannel:' .. idx .. '|h' .. link .. '|h'
+    end
+    return render(tpl, { link }, cf)
+end
+
+local function notice_filter(cf, event, msg, ...)
+    if not on() or not F.Usable(msg) or type(msg) ~= 'string' or F.db.sysGroup == false then
+        return false
+    end
+    local tpl = NOTICE[msg]
+    if not tpl then
+        return false
+    end
+    local ok, shaped = pcall(notice_line, cf, tpl, ...)
+    if not ok or type(shaped) ~= 'string' or shaped == '' or type(cf) ~= 'table' or type(cf.AddMessage) ~= 'function' then
+        return false
+    end
+    local info = ChatTypeInfo and (ChatTypeInfo['CHANNEL_NOTICE'] or ChatTypeInfo['SYSTEM'])
+    local r, g, b, id = 1, 1, 1, nil
+    if type(info) == 'table' then
+        r, g, b, id = info.r or 1, info.g or 1, info.b or 1, info.id
+    end
+    if pcall(cf.AddMessage, cf, shaped, r, g, b, id) then
+        return true
+    end
+    return false
+end
+
 local function install()
     if registered then
         return
@@ -208,6 +258,7 @@ local function install()
     for _, ev in ipairs(EVENTS) do
         pcall(add, ev, filter)
     end
+    pcall(add, 'CHAT_MSG_CHANNEL_NOTICE', notice_filter)
     registered = true
 end
 

@@ -10,10 +10,18 @@ local F = WoWFAF
 
 -- saved keys that change by themselves (counters, logs): not a setting
 local SKIP = { miss = true, missN = true, missV = true, errors = true, profiles = true, combatDiff = true,
-    newSeen = true, harvest = true, lastBuild = true, lastVersion = true }
+    newSeen = true, harvest = true, lastBuild = true, lastVersion = true, combatSkip = true, beacon = true }
 local CVARS = { "uiScale", "useUiScale", "chatStyle", "UnitNameOwn", "nameplateShowEnemies", "Sound_EnableAllSound" }
 
 local snap -- the snapshot taken when the fight started
+
+-- 1.2.2 (the owner 27 Nov: "many things turn English in combat"): every place that holds a write back
+-- during a fight calls F.CombatSkip(kind). The kinds seen in a fight are counted once per fight in
+-- db.combatSkip and ride in the report ("combatskip :: tracker :: x3"): the next report names the guard.
+local skipped = {}
+function F.CombatSkip(kind)
+    skipped[tostring(kind)] = true
+end
 
 local function flat(prefix, t, out, depth, budget)
     for k, v in pairs(t) do
@@ -119,6 +127,14 @@ F:On("PLAYER_REGEN_DISABLED", nil, function()
     snap = ok and res or nil
 end)
 F:On("PLAYER_REGEN_ENABLED", nil, function()
+    if next(skipped) ~= nil and type(F.db) == "table" then
+        local cs = type(F.db.combatSkip) == "table" and F.db.combatSkip or {}
+        F.db.combatSkip = cs
+        for k in pairs(skipped) do
+            cs[k] = (tonumber(cs[k]) or 0) + 1
+        end
+        skipped = {}
+    end
     local ok, err = pcall(done)
     if not ok then
         F:LogError("combatwatch", err)

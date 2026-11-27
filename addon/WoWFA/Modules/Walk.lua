@@ -347,15 +347,42 @@ local function font_back(fs)
     mine[fs], last[fs] = nil, nil
 end
 
+-- 1.2.2: true when neither the string's frame nor any frame above it is protected (a secure
+-- button row, Questie's rows): writing text there is allowed in combat
+local function unprotected(fs)
+    local ok, res = pcall(function()
+        local f = fs.GetParent and fs:GetParent()
+        local n = 0
+        while f and n < 14 do
+            if f.IsForbidden and f:IsForbidden() then
+                return false
+            end
+            if f.IsProtected and f:IsProtected() then
+                return false
+            end
+            f = f.GetParent and f:GetParent()
+            n = n + 1
+        end
+        return true
+    end)
+    return ok and res == true
+end
+
 local function process(fs, text)
     if writing[fs] or not F.Usable(text) or type(text) ~= "string" or text == "" then
         return
     end
     -- 1.1.1: never write to the game's / Questie's lines in combat (their rows hold protected
-    -- buttons); the line is remembered and done when the combat ends
+    -- buttons); the line is remembered and done when the combat ends.
+    -- 1.2.2: unless the player turned "Persian in combat" on AND no frame above the line is protected
     if InCombatLockdown and InCombatLockdown() then
-        pendC[fs] = true
-        return
+        if not (F.db and F.db.combatFa == true and unprotected(fs)) then
+            if F.CombatSkip then
+                F.CombatSkip("tracker")
+            end
+            pendC[fs] = true
+            return
+        end
     end
     if last[fs] == text then
         return -- our own output read back
@@ -471,7 +498,10 @@ local function roots_for(kind)
 end
 
 function W.Scan()
-    if InCombatLockdown and InCombatLockdown() then
+    if InCombatLockdown and InCombatLockdown() and not (F.db and F.db.combatFa == true) then
+        if F.CombatSkip then
+            F.CombatSkip("scan")
+        end
         return -- rc36: never touch the tracker in combat; the ticker scans again after
     end
     for _, kind in ipairs({ "quest", "spell" }) do
@@ -660,8 +690,8 @@ do
             end
             acc = 0
         end
-        if InCombatLockdown and InCombatLockdown() then
-            return -- 1.1.1: nothing is touched in combat
+        if InCombatLockdown and InCombatLockdown() and not (F.db and F.db.combatFa == true) then
+            return -- 1.1.1: nothing is touched in combat (1.2.2: unless the player turned it on)
         end
         if next(cand) ~= nil then
             local ok, err = pcall(W.Watch)

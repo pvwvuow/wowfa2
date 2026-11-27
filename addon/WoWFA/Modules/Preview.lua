@@ -41,6 +41,7 @@ local TX = {
         sys = fa("پیام~های سیستم در چت: غنیمت، تجربه، سطح"),
         alert = fa("پیام قرمز وسط صفحه"),
         gameui = fa("تب~ها و دکمه~های پنجره~های خود بازی"),
+        aura = fa("تولتیپ یک باف: اسم، توضیح و زمان مانده"),
         font = fa("متنی که خود بازی با فونت خودش می~نویسد: اسم~ها، نامه، دوستان"),
     },
     chatmsg = fa("سلام، کسی برای سیاه~چال میاد؟"),
@@ -568,6 +569,28 @@ S.gameui = {
             put(f.tabs[i].s, en)
         end
         return "Character Info / Repair All / Character / Reputation / Skills"
+    end,
+}
+
+-- 1.2.2: a buff tooltip (the real tooltip, drawn by the same code the game's buff icons use)
+S.aura = {
+    build = function(f)
+        f.tip = CreateFrame("GameTooltip", "WoWFAF_PreviewAura", f, "GameTooltipTemplate")
+    end,
+    update = function(f)
+        local tip = f.tip
+        tip:SetOwner(f, "ANCHOR_NONE")
+        tip:ClearLines()
+        tip:ClearAllPoints()
+        tip:SetPoint("TOPLEFT", f, "TOPLEFT", 4, -4)
+        tip:AddLine("Well Fed", 1, 1, 1)
+        tip:AddLine("Your Attack Power is increased by 40. Experience gained from kills increased by 5%.", 1, 0.82, 0, true)
+        tip:AddLine("29 minutes remaining", 1, 1, 1)
+        if active("auras") and F.AuraTip then
+            pcall(F.AuraTip, tip)
+        end
+        tip:Show()
+        return "Well Fed", false
     end,
 }
 

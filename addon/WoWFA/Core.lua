@@ -283,6 +283,7 @@ local DEFAULTS = {
     shiftEn = true, -- 1.0.7: hold Shift = the game's English original
     questie = true, -- 1.1.0: Questie's tooltips + tracker in Persian (Modules/Questie.lua)
     gameUi = false, -- 1.2.2 (the owner 27 Nov): the game's own windows stay English until the player turns them on
+    combatFa = false, -- 1.2.2: write Persian into the quest list / tracker lines during a fight (off: after it)
     errors = {},
     lastBuild = 0,
     lastVersion = "",

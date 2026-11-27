@@ -88,6 +88,9 @@ local function scan(tt)
         return false
     end
     if InCombatLockdown and InCombatLockdown() then
+        if F.CombatSkip then
+            F.CombatSkip("questie-tip")
+        end
         return false -- 1.1.1: no tooltip rewrite (and no second Show) in combat
     end
     local name = tt.GetName and tt:GetName()

@@ -367,6 +367,9 @@ local pendingModern = false
 
 local function in_combat_modern()
     if InCombatLockdown and InCombatLockdown() then
+        if F.CombatSkip then
+            F.CombatSkip("tracker-modern")
+        end
         pendingModern = true
         return true
     end

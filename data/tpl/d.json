@@ -1,5 +1,6 @@
 {
 "damage caused by holy shield causes #% additional threat":"{{tm:Damage|آسیب}} {{sp:Holy Shield}} {0}% {{tm:threat|تهدید}} اضافه ایجاد می‌کند.",
+"damage increased by #%":"{{tm:damage|آسیب}} {0}% افزایش یافته است.",
 "damage per second increased by #":"{{tm:Damage per second|آسیب در ثانیه}} به‌اندازهٔ {0} افزایش می‌یابد.",
 "damage per second increased by #.#":"{{tm:Damage|آسیب}} در هر ثانیه {0} افزایش می‌یابد.",
 "damaging melee attacks against you have a #% chance to increase your chance to block by #%. lasts # sec or # blocks":"حملات نزدیکِ آسیب‌زننده به تو {0}% شانس دارند شانس بلوک تو را {1}% افزایش دهند. {2} ثانیه یا {3} بلوک دوام دارد.",
@@ -7,6 +8,7 @@
 "dat's da attitude! grab a needle and thread and let's get jammin'!":"همینه! سوزن و نخ رو بردار که شروع کنیم!",
 "dazes the target, slowing movement speed by #% for # sec":"هدف را دچار {{tm:daze|گیجی}} می‌کند و سرعت حرکتش را برای {1} ثانیه {0}% کاهش می‌دهد.",
 "dealing # holy damage every # sec":"هر {1} ثانیه {0} {{tm:Holy damage|آسیب مقدس}} وارد می‌کند.",
+"deals # damage every # sec":"هر {1} ثانیه {0} {{tm:damage|آسیب}} وارد می‌کند.",
 "deals # to # fire damage to your target and an additional #% damage if the target is afflicted by immolate":"به هدف شما {0} تا {1} {{tm:Fire damage|آسیب آتش}} وارد می‌کند؛ اگر هدف گرفتار {{sp:Immolate}} باشد، {2}% {{tm:damage|آسیب}} بیشتر می‌زند.",
 "deals # to # frost damage to an enemy target. deals #% increased damage to frozen targets":"به هدف دشمن {0} تا {1} {{tm:Frost damage|آسیب یخ}} وارد می‌کند. به هدف‌های {{tm:Frozen|منجمد}} {2}% {{tm:damage|آسیب}} بیشتر وارد می‌کند.",
 "deals # to # holy damage":"{0} تا {1} {{tm:Holy damage|آسیب مقدس}} وارد می‌کند.",

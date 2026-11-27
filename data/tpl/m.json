@@ -3,5 +3,6 @@
 "master nesingwary has a big hunt ahead of him. i find helping him prepare for a day in the jungle is much more relaxing than helping him ready for combat. although i do miss some of those glorious moments on the battlefield":"استاد {{npc:Nesingwary|نسینگواری}} شکار بزرگی در پیش دارد. آماده‌کردنش برای یک روز در جنگل را بسیار آرام‌بخش‌تر از آماده‌کردنش برای جنگ می‌یابم، هرچند دلم برای آن لحظه‌های باشکوه میدان نبرد تنگ می‌شود.",
 "maybe we should go to the bridge and fish.":"شاید بهتر باشه بریم کنار پل ماهی بگیریم.",
 "more bones to gnaw on..":"استخون بیشتر برای جویدن...",
+"movement speed reduced by #%":"{{tm:movement speed|سرعت حرکت}} {0}% کاهش یافته است.",
 "movement speed, attack speed, and casting speed reduced by #%":"سرعت حرکت، سرعت حمله و سرعت اجرای اسپل {0}% کم شده است."
 }

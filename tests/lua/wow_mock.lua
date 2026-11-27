@@ -292,7 +292,7 @@ end
 TooltipDataProcessor = { cbs = {} }
 function TooltipDataProcessor.AddTooltipPostCall(t, fn) TooltipDataProcessor.cbs[t] = TooltipDataProcessor.cbs[t] or {}; table.insert(TooltipDataProcessor.cbs[t], fn) end
 Enum = { TooltipDataType = { Item = 0, Spell = 1, Unit = 2, Object = 33 } }
-function RunTip(kind, tt, data) for _, fn in ipairs(TooltipDataProcessor.cbs[Enum.TooltipDataType[kind]] or {}) do fn(tt, data) end end
+function RunTip(kind, tt, data) for _, fn in ipairs(TooltipDataProcessor.cbs[Enum.TooltipDataType[kind]] or {}) do fn(tt, data) end; if WoWFAF and WoWFAF.TipPostRun then WoWFAF.TipPostRun(kind, tt, data) end end
 C_Timer = { After = function(s, fn) table.insert(timers, fn) end }
 function RunTimers() local n = 0; while #timers > 0 and n < 200 do local fn = table.remove(timers, 1); fn(); n = n + 1 end end
 C_ChatInfo = { RegisterAddonMessagePrefix = function() return true end, SendAddonMessage = function(p, m, c) print("SEND", p, m, c) end }

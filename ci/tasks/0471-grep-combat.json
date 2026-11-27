@@ -1,0 +1,1 @@
+{"id": "0471-grep-combat", "kind": "script", "why": "owner 27 Nov: entering combat breaks many settings; list every combat check and regen handler", "args": {"module": "src_grep", "args": {"grep": ["InCombatLockdown", "PLAYER_REGEN", "combat()", "in_combat", "UNIT_FLAGS"], "ctx": 4, "limit": 80}}}

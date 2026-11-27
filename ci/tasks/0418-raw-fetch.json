@@ -1,0 +1,1 @@
+{"id": "0418-raw-fetch", "kind": "script", "why": "owner 27 Nov: wago lists Forever 1.60.1.71139, policy is on 71091: capture it and list what changed", "args": {"module": "raw_fetch_now", "args": {"build": "auto", "push": true}}}

@@ -1,0 +1,1 @@
+{"id": "0428-grep-combat", "kind": "script", "why": "owner 27 Nov: 1.1.7 (Blocked.lua:79) still blocks MultiBarBottomLeft buttons in combat, taint scan finds none", "args": {"module": "src_grep", "args": {"grep": ["PLAYER_REGEN", "hooksecurefunc", "CURSOR_CHANGED", "ACTIONBAR", "UNIT_SPELLCAST", "UpdateGrid", "securecall", "SetFont(", "RegisterEvent(\""], "ctx": 1, "limit": 25}}}

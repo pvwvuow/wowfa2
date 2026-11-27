@@ -1,0 +1,1 @@
+{"id": "0489-aura-count", "kind": "script", "why": "owner 27 Nov: buffs and debuffs are not translated, how many aura names are missing", "args": {"module": "aura_scan", "args": {"mode": "names", "limit": 80}}}

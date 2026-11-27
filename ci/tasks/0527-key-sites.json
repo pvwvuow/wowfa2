@@ -1,0 +1,1 @@
+{"id": "0527-key-sites", "kind": "script", "why": "owner 27 Nov: with our settings open the character can not walk: find every keyboard capture", "args": {"module": "src_grep", "args": {"grep": ["EnableKeyboard", "PropagateKeyboardInput", "function F.EscClose", "UISpecialFrames", "MODIFIER_STATE"], "ctx": 6, "limit": 20}}}

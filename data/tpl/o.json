@@ -1,9 +1,11 @@
 {
+"o'course i'm talkin to myself. only way to get decent conversation in this city":"معلومه که با خودم حرف می‌زنم. تو این شهر تنها راه یه گفتگوی درست‌وحسابیه.",
 "oh yeah, i heard about that":"آهان، دربارهٔ آن شنیده‌ام.",
 "once protected, the target cannot be made invulnerable by divine shield, divine protection or blessing of protection again for # min":"پس از محافظت، تا {0} دقیقه نمی‌توان با {{sp:divine shield}}، {{sp:Divine Protection}} یا {{tm:Blessing|برکت}} حفاظت دوباره هدف را آسیب‌ناپذیر کرد.",
 "only one judgement per paladin can be active at any one time":"از هر {{cls:Paladin}} هم‌زمان فقط یک اثر {{sp:Judgement}} می‌تواند فعال باشد.",
 "only one seal can be active on the paladin at any one time":"{{cls:Paladin}} هم‌زمان فقط می‌تواند یک مهر فعال داشته باشد.",
 "only usable on enemies that have #% or less health":"فقط می‌توان آن را علیه دشمنانی به‌کار برد که {0}% یا کمتر {{tm:health|سلامتی}} دارند.",
 "only works against humanoids":"فقط روی {{tm:Humanoids|انسان‌نماها}} اثر دارد.",
+"oops!":"ای وای!",
 "orders your pet to attack your current target":"به حیوان همراهتان فرمان می‌دهد به هدف فعلی‌تان حمله کند."
 }

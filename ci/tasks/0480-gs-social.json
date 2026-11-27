@@ -1,0 +1,1 @@
+{"id": "0480-gs-social", "kind": "script", "why": "owner 27 Nov: game window texts, friends / guild / group / finder", "args": {"module": "gs_dump", "args": {"keys": ["^(FRIENDS|WHO|GUILD|GUILDCONTROL|GUILDBANK|SOCIAL|INVITE|PARTY|RAID|GROUP|CALENDAR|LFG|BATTLEFIELD|BATTLEGROUND|ARENA)_"], "minlen": 3, "maxlen": 55, "limit": 450, "covered": true}}}

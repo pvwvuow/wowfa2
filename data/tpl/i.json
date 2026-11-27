@@ -84,6 +84,7 @@
 "increases fire resistance by #":"مقاومت در برابر آتش {0} افزایش می‌یابد.",
 "increases frost resistance by #":"مقاومت در برابر یخ {0} افزایش می‌یابد.",
 "increases health drained, damage done, or mana drained by your drain life, drain soul, and drain mana spells by #%":"{{tm:Health|سلامتی}} مکیده‌شده، {{tm:damage|آسیب}} واردشده یا {{tm:Mana|مانای}} تخلیه‌شده با اسپل‌های {{sp:Drain Life}}، {{sp:Drain Soul}} و {{sp:Drain Mana}} شما را {0}% افزایش می‌دهد.",
+"increases hitpoints by #. #% haste to all spells and attacks. # mana regen every # sec. no effect while in a raid instance":"{{tm:hitpoints|سلامتی}} را {0} واحد افزایش می‌دهد. {1}% {{tm:haste|شتاب}} به همهٔ اسپل‌ها و حمله‌ها. هر {3} ثانیه، {2} {{tm:mana|مانا}} بازیابی می‌شود. در دانجن رید اثری ندارد.",
 "increases holy damage done by party members within # yards by #%. players may only have one aura on them per paladin at any one time":"{{tm:Holy damage|آسیب مقدس}} واردشده توسط اعضای گروه در شعاع {0} یارد را {1}% افزایش می‌دهد. هر بازیکن در هر لحظه فقط می‌تواند از هر {{cls:Paladin|پالادین}} یک {{tm:Aura|هاله}} روی خود داشته باشد.",
 "increases maximum health by #%":"{{tm:maximum health|حداکثر سلامتی}} را {0}% افزایش می‌دهد.",
 "increases movement speed and mounted movement speed by #%. this does not stack with other movement speed increasing effects":"{{tm:movement speed|سرعت حرکت}} و {{tm:movement speed|سرعت حرکت}} هنگام سواری بر مرکب را {0}% افزایش می‌دهد. این اثر با دیگر اثرهای افزایش‌دهنده {{tm:movement speed|سرعت حرکت}} انباشته نمی‌شود.",

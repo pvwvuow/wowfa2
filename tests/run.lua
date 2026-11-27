@@ -1254,6 +1254,24 @@ local okBc, errBc = pcall(function()
         tostring(F.SysmsgPreview("You are no longer rested.")))
 end)
 check("beacon tests ran", okBc, errBc)
+-- 1.2.2: a short aura description nobody translated reaches the report
+local okAs, errAs = pcall(function()
+    F:ClearMiss()
+    GameTooltip:Hide()
+    GameTooltip:ClearLines()
+    GameTooltip:AddLine("Zz Aura Short")
+    GameTooltip:AddLine("Zzrooted.")
+    F.AuraTip(GameTooltip, nil)
+    local got = false
+    for _, e in pairs(F.db.miss or {}) do
+        if e.k == "tpl" and e.t == "Zzrooted." then
+            got = true
+        end
+    end
+    check("auras: a short description nobody translated is in the report", got, tostring(next(F.db.miss or {})))
+    GameTooltip:Hide()
+end)
+check("aura short-line tests ran", okAs, errAs)
 check("items module not installed (locked)", not (F.mods.items and F.mods.items.active))
 local ok = pcall(SlashCmdList.WOWFAF, "status")
 check("/wowfa status", ok)

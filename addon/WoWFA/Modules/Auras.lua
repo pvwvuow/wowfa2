@@ -81,7 +81,9 @@ local function aura_tip(tt, data)
     extra_lines(tt)
     if F.SpellTip then
         -- an aura description can be as short as "Stunned.": short lines are matched and noted here
-        tt.wfaMin, tt.wfaMiss = 2, 12
+        -- 1.2.2 (the owner 27 Nov: some buffs never reached the report): 12 letters hid every short
+        -- description ("Stunned.", "Rooted.", "Silenced."): from 4 letters on it is noted
+        tt.wfaMin, tt.wfaMiss = 2, 3
         local ok, err = pcall(F.SpellTip, "auras", tt, data)
         tt.wfaMin, tt.wfaMiss = nil, nil
         if not ok then
@@ -90,6 +92,29 @@ local function aura_tip(tt, data)
     end
 end
 F.AuraTip = aura_tip
+
+-- the tooltip's owner (or one of its parents) is a buff / debuff / aura / weapon-enchant button
+local function owner_is_aura(tt)
+    local ok, r = pcall(function()
+        local f = tt.GetOwner and tt:GetOwner()
+        local n = 0
+        while f and n < 5 do
+            local nm = f.GetName and f:GetName()
+            if type(nm) == "string" and F.Usable(nm) then
+                local low = string.lower(nm)
+                if not string.find(low, "microbutton", 1, true)
+                    and (string.find(low, "buff", 1, true) or string.find(low, "aura", 1, true)
+                        or string.find(low, "tempenchant", 1, true)) then
+                    return true
+                end
+            end
+            f = f.GetParent and f:GetParent()
+            n = n + 1
+        end
+        return false
+    end)
+    return ok and r == true
+end
 
 local A = { id = "auras", order = 7, risk = "high", nameKey = "m_auras", descKey = "m_auras_d" }
 
@@ -110,7 +135,8 @@ function A.install()
         aura_tip(tt, data)
     end)
     for _, m in ipairs({ "SetUnitAura", "SetUnitBuff", "SetUnitDebuff", "SetUnitBuffByAuraInstanceID",
-        "SetUnitDebuffByAuraInstanceID" }) do
+        "SetUnitDebuffByAuraInstanceID", "SetUnitAuraByAuraInstanceID", "SetUnitBuffByIndex",
+        "SetUnitDebuffByIndex", "SetPlayerBuff" }) do
         if GameTooltip and type(GameTooltip[m]) == "function" then
             pcall(hooksecurefunc, GameTooltip, m, function(tt)
                 fn(tt)
@@ -118,5 +144,15 @@ function A.install()
         end
     end
     F.TipPost("UnitAura", fn)
+    -- 1.2.2 (the owner 27 Nov): a buff tooltip that came through a setter none of the above names (another
+    -- frame, another API) is found by its OWNER: a frame called ...Buff... / ...Aura... / ...TempEnchant...
+    -- The same function runs (the once-per-tooltip guard keeps a tooltip the setters did from twice)
+    if GameTooltip and GameTooltip.HookScript then
+        pcall(GameTooltip.HookScript, GameTooltip, "OnShow", F:Wrap("auras", function(tt)
+            if owner_is_aura(tt) then
+                aura_tip(tt)
+            end
+        end))
+    end
 end
 F:RegisterModule(A)

@@ -1,0 +1,1 @@
+{"id": "0478-gs-prefix", "kind": "script", "why": "owner 27 Nov: what is in the game's own UI strings (GlobalStrings): key prefixes", "args": {"module": "gs_dump", "args": {"mode": "prefix", "depth": 1, "limit": 200}}}

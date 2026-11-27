@@ -1,0 +1,1 @@
+{"id": "0441-grep-tipsrc", "kind": "script", "why": "owner 27 Nov: taint.log shows blocked SetShown on MultiBarBottomLeft from ActionButton OnEnter; find what WoWFA runs inside the tooltip/OnEnter path", "args": {"module": "src_grep", "args": {"grep": ["hooksecurefunc", "HookScript", "TooltipDataProcessor", "SetScript", "GameTooltip"], "ctx": 1, "limit": 70}}}

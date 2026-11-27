@@ -514,6 +514,98 @@ local function code_box(parent, editable)
     return eb
 end
 
+-- 1.1.8 (the owner 27 Nov): "how can I help WoWFarsi" - a short tour from the report page:
+-- play and explore (the addon collects what is not translated), copy the report line, send it
+-- on the site. Plain frames only (it opens in combat). Every text is in Locale_Panel.lua (PN.tour).
+local function build_tour()
+    if panel.tour then
+        return panel.tour
+    end
+    local slides = PN.tour
+    if type(slides) ~= "table" or #slides == 0 then
+        return nil
+    end
+    local t = CreateFrame("Frame", nil, panel)
+    t:SetSize(460, 290)
+    t:SetPoint("CENTER", panel, "CENTER", 0, 0)
+    t:SetFrameLevel(panel:GetFrameLevel() + 40)
+    t:EnableMouse(true)
+    UI.Glass(t, 1)
+    t:Hide()
+    panel.tour = t
+    t.title = UI.Text(t, 15, C.gold)
+    t.title:SetPoint("TOPRIGHT", t, "TOPRIGHT", -18, -18)
+    t.body = UI.Text(t, 13, C.text)
+    t.body:SetPoint("TOPRIGHT", t, "TOPRIGHT", -18, -56)
+    t.count = UI.Latin(t, 11, C.muted, "LEFT")
+    t.count:SetPoint("TOPLEFT", t, "TOPLEFT", 18, -20)
+    t.msg = UI.Text(t, 12, C.green)
+    t.msg:SetPoint("BOTTOMRIGHT", t, "BOTTOMRIGHT", -18, 88)
+    t.act = UI.Button(t, PN.tour_pick, 240, 26, function()
+        local n = F.db and tonumber(F.db.missN) or 0
+        if health and health.missList and n > 0 then
+            health.missList:SetFocus()
+            health.missList:HighlightText()
+            t.msg:SetFa(L.rp2_copied, 420)
+            color(t.msg, C.green)
+        else
+            t.msg:SetFa(PN.tour_empty, 420)
+            color(t.msg, C.orange)
+        end
+    end)
+    t.act:SetPoint("BOTTOM", t, "BOTTOM", 0, 52)
+    t.urlf = CreateFrame("Frame", nil, t)
+    t.urlf:SetSize(420, 26)
+    t.urlf:SetPoint("BOTTOM", t, "BOTTOM", 0, 52)
+    local ub = code_box(t.urlf, false)
+    ub:SetSize(408, 22)
+    ub:SetFixed(tostring(F.SITE) .. "/report")
+    t.close = UI.Button(t, PN.tour_close, 100, 26, function()
+        t:Hide()
+    end)
+    t.close:SetPoint("BOTTOMRIGHT", t, "BOTTOMRIGHT", -18, 16)
+    t.next = UI.Button(t, PN.tour_next, 110, 26, function()
+        if t.i >= #slides then
+            t:Hide()
+        else
+            t.show(t.i + 1)
+        end
+    end)
+    t.next:SetPoint("BOTTOMLEFT", t, "BOTTOMLEFT", 18, 16)
+    t.back = UI.Button(t, PN.tour_back, 110, 26, function()
+        t.show(t.i - 1)
+    end)
+    t.back:SetPoint("LEFT", t.next, "RIGHT", 8, 0)
+
+    function t.show(i)
+        local n = #slides
+        t.i = math.max(1, math.min(n, i))
+        local s = slides[t.i]
+        t.title:SetFa(s.t or " ", 420)
+        t.body:SetFa(s.b or " ", 420)
+        t.count:SetText(tostring(t.i) .. " / " .. tostring(n))
+        t.msg:SetFa(" ", 420)
+        t.next:SetLabel(t.i < n and PN.tour_next or PN.tour_done)
+        if t.i > 1 then
+            t.back:Show()
+        else
+            t.back:Hide()
+        end
+        if s.act then
+            t.act:Show()
+        else
+            t.act:Hide()
+        end
+        if s.url then
+            t.urlf:Show()
+        else
+            t.urlf:Hide()
+        end
+    end
+
+    return t
+end
+
 local function slider(label, lo, hi, step, get, set)
     return place(UI.Slider(page.child, PW - 16, label, lo, hi, step, get, set), 30, 4)
 end
@@ -1119,6 +1211,16 @@ local function build()
     begin_page("health")
     health = { mods = {} }
     panel.health = health
+    do
+        -- 1.1.8: the first thing on the report page: how a player can help (the tour)
+        local hb = CreateFrame("Frame", nil, page.child)
+        hb:SetSize(PW - 16, 36)
+        panel.helpBtn = UI.Button(hb, PN.help_btn or " ", PW - 40, 30, function()
+            F.OpenTour()
+        end)
+        panel.helpBtn:SetPoint("CENTER", hb, "CENTER", 0, 0)
+        place(hb, 36, 6)
+    end
     header(L.rp2_hdr)
     note(L.rp2_steps)
     local mh = CreateFrame("Frame", nil, page.child)
@@ -1312,6 +1414,27 @@ local function build()
     site.text:SetPoint("LEFT", site, "LEFT", 4, 0)
     site.text:SetText(tostring(F.SITE) .. "  |  Data from ForeverDB.net")
     place(site, 20, 4)
+    do
+        -- 1.1.8 (the owner 27 Nov): who makes WoWFA, and how to support it
+        local made = CreateFrame("Frame", nil, page.child)
+        made:SetSize(PW - 16, 70)
+        made.text = UI.Text(made, 12, C.text)
+        made.text:SetPoint("TOPRIGHT", made, "TOPRIGHT", -4, 0)
+        made.text:SetFa(PN.a_made or " ", PW - 30)
+        place(made, 70, 4)
+        local urlh = CreateFrame("Frame", nil, page.child)
+        urlh:SetSize(PW - 16, 26)
+        local ub = code_box(urlh, false)
+        ub:SetFixed(tostring(F.SITE))
+        place(urlh, 26, 4)
+        local hb2 = CreateFrame("Frame", nil, page.child)
+        hb2:SetSize(PW - 16, 34)
+        panel.helpBtn2 = UI.Button(hb2, PN.help_btn or " ", PW - 60, 28, function()
+            F.OpenTour()
+        end)
+        panel.helpBtn2:SetPoint("CENTER", hb2, "CENTER", 0, 0)
+        place(hb2, 34, 6)
+    end
     local resetRow = CreateFrame("Frame", nil, page.child)
     resetRow:SetSize(PW - 16, 30)
     local armed = false
@@ -1391,6 +1514,19 @@ function F.OpenPanel(pageId)
     panel:Show()
     select_page(pageId or active or "general")
     refresh()
+end
+
+-- the "how can I help" tour (the report page and the About page open it)
+function F.OpenTour()
+    if not ensure() then
+        return
+    end
+    panel:Show()
+    local t = build_tour()
+    if t then
+        t.show(1)
+        t:Show()
+    end
 end
 
 function F.TogglePanel()

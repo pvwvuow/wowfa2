@@ -1,0 +1,12 @@
+## task 0465-taint-fix2 (edit)
+
+**GREEN**
+
+
+### Edits
+
+- ok: #1 addon/WoWFA/Modules/Spells.lua: 1 replaced
+- ok: #2 addon/WoWFA/Modules/Spells.lua: 1 replaced
+- ok: #3 addon/WoWFA/Modules/Spells.lua: 1 replaced
+- ok: #4 addon/WoWFA/Modules/Npc.lua: 1 replaced
+- ok: #5 tests/lua/wow_mock.lua: 1 replaced

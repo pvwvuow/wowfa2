@@ -1,9 +1,12 @@
 -- WoWFA Forever 1.2.2 - the floating report icon (the owner 27 Nov): a small icon on the player's
 -- screen with a counter and a thin frame. Every time the addon meets a text it can not translate
--- (a NEW row in the report list) the frame flashes green once. A click opens a small window with
--- the report text ready to copy and send to wowfarsi.ir/report, a right click opens a tiny menu
--- (open, settings, hide), a drag moves it. It is OFF until the player says yes in the one-time
--- intro (db.beacon.asked); the same switch is at the top of Settings > Status and report.
+-- (a NEW row in the report list) the frame flashes green once. A click opens a SMALL page stuck to
+-- the icon (not a window in the middle): what the report helps with ("2 NPC names, 3 quest texts"),
+-- a box with the report and the buttons copy report / site address / clear. A right click opens a
+-- tiny menu (open, settings, hide), a drag moves it. It is OFF until the player says yes in the
+-- one-time intro (db.beacon.asked); the same switch is at the top of Settings > Status and report.
+-- An addon can not write to the clipboard or open a web page, so "copy" selects the text in the box
+-- and the player presses Ctrl+C (the same way the status page works).
 -- Plain frames only (safe in combat). Nothing of the game is written or hooked. Not a registered
 -- module: every call is wrapped in pcall. Every Persian text lives in Locale_Beacon.lua (L.BC).
 
@@ -88,8 +91,56 @@ function B.ReportText()
     return table.concat(out, " ;; ")
 end
 
+-- what the report is about, in the words a player knows: kind of the row -> a group
+local GROUP = { npc = "npc", object = "npc", quest = "quest", qtext = "quest", qold = "quest", obj = "quest",
+    spell = "spell", tpl = "spell", tip = "spell", zone = "zone", ui = "ui", sys = "sys", alert = "sys",
+    dlg = "talk", say = "talk", book = "talk" }
+local ORDER = { "npc", "quest", "spell", "zone", "ui", "sys", "talk", "other" }
+
+-- group -> number of rows in the list
+function B.Counts()
+    F:MissFresh()
+    local c = {}
+    local miss = F.db and F.db.miss
+    for _, e in pairs(type(miss) == "table" and miss or {}) do
+        local g = GROUP[tostring(e.k)] or "other"
+        c[g] = (c[g] or 0) + 1
+    end
+    return c
+end
+
+-- "2 NPC names, 3 quest texts, 11 spells and buffs" (the biggest four groups)
+function B.Summary()
+    local c = B.Counts()
+    local list = {}
+    for _, g in ipairs(ORDER) do
+        if (c[g] or 0) > 0 then
+            list[#list + 1] = { g, c[g] }
+        end
+    end
+    if #list == 0 then
+        return S("pop_none")
+    end
+    table.sort(list, function(a, b)
+        if a[2] ~= b[2] then
+            return a[2] > b[2]
+        end
+        return a[1] < b[1]
+    end)
+    local kinds = (L.BC and L.BC.kinds) or {}
+    local parts = {}
+    for i = 1, math.min(4, #list) do
+        parts[#parts + 1] = string.format(S("pop_fmt"), list[i][2], kinds[list[i][1]] or "?")
+    end
+    local s = table.concat(parts, S("pop_sep"))
+    if #list > 4 then
+        s = s .. S("pop_sep") .. S("pop_more")
+    end
+    return s
+end
+
 -- ------------------------------------------------------------------ pieces
--- a frame of four lines around its parent; Paint(r,g,b) colours it, SetA(a) fades it
+-- a frame of four lines around its parent look; Paint(r,g,b) colours it, SetA(a) fades it
 local function make_edge(parent, thick)
     local f = CreateFrame("Frame", nil, parent)
     f:SetFrameLevel(parent:GetFrameLevel() + 6)
@@ -150,7 +201,7 @@ local function pulse(edge, always)
     end)
 end
 
--- a read-only (or editable) one-line box that selects its text on focus
+-- a read-only one-line box that selects its text on focus
 local function code_box(parent, w)
     UI.Glass(parent, 0.6)
     local eb = CreateFrame("EditBox", nil, parent)
@@ -280,6 +331,9 @@ local function build_icon()
     pulse(b.edge, false)
     b.badge = badge_on(b)
     b:SetScript("OnDragStart", function(self)
+        if win then
+            win:Hide() -- the page is stuck to the icon: it closes while the icon moves
+        end
         self:StartMoving()
     end)
     b:SetScript("OnDragStop", function(self)
@@ -292,9 +346,13 @@ local function build_icon()
             return -- the mouse-up that ends a drag is no click
         end
         if button == "RightButton" then
+            if win then
+                win:Hide()
+            end
             B.Menu(self)
         else
-            B.OpenWindow()
+            hide_menu()
+            B.TogglePage()
         end
     end)
     b:SetScript("OnEnter", function(self)
@@ -342,6 +400,9 @@ function B.Set(v)
     else
         hide_menu()
         flash = 0
+        if win then
+            win:Hide()
+        end
     end
     B.Update()
     if win and win:IsShown() then
@@ -412,95 +473,99 @@ function B.MenuFrame()
     return menu
 end
 
--- ------------------------------------------------------------------ the report window
+-- ------------------------------------------------------------------ the small page by the icon
 function B.RefreshWindow()
     if not win then
         return
     end
-    local n = total()
-    local on = B.IsOn()
-    win.status:SetFa(on and S("win_on") or S("win_off"), 250)
-    local c = on and C.green or C.orange
-    win.status:SetTextColor(c[1], c[2], c[3])
-    win.toggle:SetLabel(on and S("win_turn_off") or S("win_turn_on"))
-    win.count:SetFa(n > 0 and string.format(S("win_count"), n) or S("win_none"), 430)
-    win.box:SetFixed(B.ReportText())
+    win.summary:SetFa(B.Summary(), 296)
+    if win.mode ~= "site" then
+        win.box:SetFixed(B.ReportText())
+    end
+end
+
+-- beside the icon: to its right when the icon is in the left half of the screen, else to its left;
+-- hanging from the icon's top edge in the upper half, standing on its bottom edge in the lower half
+local function anchor_page(f)
+    f:ClearAllPoints()
+    if not (icon and icon:IsShown()) then
+        f:SetPoint("CENTER", UIParent, "CENTER", 0, 40)
+        return
+    end
+    local okc, x, y = pcall(icon.GetCenter, icon)
+    local oku, ux, uy = pcall(UIParent.GetCenter, UIParent)
+    local leftHalf = okc and oku and type(x) == "number" and type(ux) == "number" and x < ux
+    local lowHalf = okc and oku and type(y) == "number" and type(uy) == "number" and y < uy
+    local v = lowHalf and "BOTTOM" or "TOP"
+    if leftHalf then
+        f:SetPoint(v .. "LEFT", icon, v .. "RIGHT", 8, 0)
+    else
+        f:SetPoint(v .. "RIGHT", icon, v .. "LEFT", -8, 0)
+    end
 end
 
 local function build_window()
     if win then
         return win
     end
-    local W = 470
+    local W = 320
     local f = CreateFrame("Frame", nil, UIParent)
-    f:SetSize(W, 350)
+    f:SetSize(W, 184)
     f:SetPoint("CENTER", UIParent, "CENTER", 0, 40)
     f:SetFrameStrata("DIALOG")
     f:SetClampedToScreen(true)
     f:EnableMouse(true)
-    f:SetMovable(true)
-    f:RegisterForDrag("LeftButton")
-    f:SetScript("OnDragStart", function(self)
-        self:StartMoving()
-    end)
-    f:SetScript("OnDragStop", function(self)
-        self:StopMovingOrSizing()
-    end)
     UI.Glass(f, 0.97)
     F.EscClose(f)
     local x = CreateFrame("Button", nil, f, "UIPanelCloseButton")
-    x:SetSize(28, 28)
-    x:SetPoint("TOPRIGHT", f, "TOPRIGHT", -4, -4)
+    x:SetSize(24, 24)
+    x:SetPoint("TOPLEFT", f, "TOPLEFT", 2, -2)
     x:SetScript("OnClick", function()
         f:Hide()
     end)
-    f.title = UI.Text(f, 15, C.gold)
-    f.title:SetPoint("TOPRIGHT", f, "TOPRIGHT", -40, -16)
-    f.title:SetFa(S("win_title"), 380)
-    -- the switch, big and readable at the top: the player sees at once it can be turned off
-    f.status = UI.Text(f, 14, C.green)
-    f.status:SetPoint("TOPRIGHT", f, "TOPRIGHT", -18, -56)
-    f.status:SetFa(S("win_on"), 250)
-    f.toggle = UI.Button(f, S("win_turn_off"), 170, 26, function()
-        B.Set(not B.IsOn())
-    end)
-    f.toggle:SetPoint("TOPLEFT", f, "TOPLEFT", 16, -52)
-    f.count = UI.Text(f, 13, C.goldLight)
-    f.count:SetPoint("TOPRIGHT", f, "TOPRIGHT", -18, -96)
-    f.count:SetFa(S("win_none"), 430)
+    f.head = UI.Text(f, 12, C.goldLight)
+    f.head:SetPoint("TOPRIGHT", f, "TOPRIGHT", -12, -12)
+    f.head:SetFa(S("pop_head"), 270)
+    f.summary = UI.Text(f, 13, C.text)
+    f.summary:SetPoint("TOPRIGHT", f, "TOPRIGHT", -12, -36)
+    f.summary:SetFa(S("pop_none"), 296)
     local bx = CreateFrame("Frame", nil, f)
-    bx:SetSize(W - 32, 28)
-    bx:SetPoint("TOPLEFT", f, "TOPLEFT", 16, -126)
-    f.box = code_box(bx, W - 32)
-    f.pick = UI.Button(f, S("win_select"), 200, 28, function()
+    bx:SetSize(W - 24, 28)
+    bx:SetPoint("TOPLEFT", f, "TOPLEFT", 12, -88)
+    f.box = code_box(bx, W - 24)
+    f.copy = UI.Button(f, S("pop_copy"), 112, 28, function()
+        f.mode = "report"
         B.RefreshWindow()
+        f.box:SetFixed(B.ReportText())
         f.box:SetFocus()
         f.box:HighlightText()
-        f.msg:SetFa(S("win_copied"), 430)
+        f.msg:SetFa(S("pop_copied"), 296)
     end)
-    f.pick:SetPoint("TOPRIGHT", f, "TOPRIGHT", -18, -166)
-    f.clear = UI.Button(f, S("win_clear"), 150, 28, function()
+    f.copy:SetPoint("TOPRIGHT", f, "TOPRIGHT", -12, -124)
+    f.site = UI.Button(f, S("pop_site"), 100, 28, function()
+        f.mode = "site"
+        f.box:SetFixed(tostring(F.SITE) .. "/report")
+        f.box:SetFocus()
+        f.box:HighlightText()
+        f.msg:SetFa(S("pop_site_copied"), 296)
+    end)
+    f.site:SetPoint("RIGHT", f.copy, "LEFT", -6, 0)
+    f.clear = UI.Button(f, S("pop_clear"), 72, 28, function()
         F:ClearMiss()
         lastN = 0
+        f.mode = "report"
         B.Update()
         B.RefreshWindow()
-        f.msg:SetFa(" ", 430)
+        f.msg:SetFa(" ", 296)
     end)
-    f.clear:SetPoint("RIGHT", f.pick, "LEFT", -8, 0)
-    f.msg = UI.Text(f, 12, C.green)
-    f.msg:SetPoint("TOPRIGHT", f, "TOPRIGHT", -18, -204)
-    f.msg:SetFa(" ", 430)
-    f.steps = UI.Text(f, 12, C.muted)
-    f.steps:SetPoint("TOPRIGHT", f, "TOPRIGHT", -18, -232)
-    f.steps:SetFa(S("win_steps"), 430)
-    local ub = CreateFrame("Frame", nil, f)
-    ub:SetSize(W - 32, 28)
-    ub:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 16, 16)
-    f.url = code_box(ub, W - 32)
-    f.url:SetFixed(tostring(F.SITE) .. "/report")
+    f.clear:SetPoint("RIGHT", f.site, "LEFT", -6, 0)
+    f.msg = UI.Text(f, 11, C.green)
+    f.msg:SetPoint("TOPRIGHT", f, "TOPRIGHT", -12, -160)
+    f.msg:SetFa(" ", 296)
     f:SetScript("OnShow", function()
+        f.mode = "report"
         B.RefreshWindow()
-        f.msg:SetFa(" ", 430)
+        f.msg:SetFa(" ", 296)
     end)
     f:Hide()
     win = f
@@ -509,8 +574,17 @@ end
 
 function B.OpenWindow()
     local f = build_window()
+    anchor_page(f)
     f:Show()
     B.RefreshWindow()
+end
+
+function B.TogglePage()
+    if win and win:IsShown() then
+        win:Hide()
+    else
+        B.OpenWindow()
+    end
 end
 
 function B.Window()

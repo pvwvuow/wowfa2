@@ -322,6 +322,11 @@ local function refresh_health()
             msg = string.gsub(msg, "[\r\n]+", " / ")
             out[#out + 1] = string.format("err :: [%s] %s :: x%d", tostring(e.m), msg, tonumber(e.n) or 1)
         end
+        -- 1.2.0: what changed during the last fights (CombatWatch.lua)
+        for _, c in ipairs(F.db and type(F.db.combatDiff) == "table" and F.db.combatDiff or {}) do
+            local cv = string.gsub(tostring(c.v), "|", "!")
+            out[#out + 1] = string.format("combat :: %s :: %s :: x%d", tostring(c.k), cv, tonumber(c.n) or 1)
+        end
         local line = table.concat(out, " ;; ")
         if health.missList.wfaFixed ~= line and health.copyMsg then
             health.copyMsg:SetFa(" ", PW - 30)
@@ -1072,7 +1077,7 @@ local function build()
     for _, gid in ipairs(F.GameUI and F.GameUI.Groups or {}) do
         local gt = tog(PN["gu_" .. gid] or gid, nil,
             function() return F.GameUI.GroupOn(gid) end,
-            function(v) F.GameUI.SetGroup(gid, v) end, "gameui")
+            function(v) F.GameUI.SetGroup(gid, v) end)
         gt.dimIf = function() return F.db.gameUi == false end
         panel.guiG[gid] = gt
     end

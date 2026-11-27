@@ -16,7 +16,7 @@ local T = F.T
 
 local EVENTS = {
     'CHAT_MSG_LOOT', 'CHAT_MSG_MONEY', 'CHAT_MSG_COMBAT_XP_GAIN', 'CHAT_MSG_SYSTEM',
-    'CHAT_MSG_SKILL', 'CHAT_MSG_COMBAT_FACTION_CHANGE',
+    'CHAT_MSG_SKILL', 'CHAT_MSG_COMBAT_FACTION_CHANGE', 'CHAT_MSG_TEXT_EMOTE',
 }
 
 local rules, exact
@@ -34,11 +34,19 @@ local function category(name)
         return 'sysLoot'
     end
     if string.find(name, '^FACTION_') or string.find(name, '^ERR_SKILL') or string.find(name, '^ERR_LEARN')
-        or name == 'ERR_SPELL_UNLEARNED_S' then
+        or name == 'ERR_SPELL_UNLEARNED_S' or string.find(name, '^ERR_REVOKE') or string.find(name, '^NEW_')
+        or string.find(name, '^ACHIEVEMENT_') or string.find(name, '^ERR_PET_LEARN') then
         return 'sysRep'
     end
     if string.find(name, 'GROUP', 1, true) or string.find(name, 'RAID', 1, true) or string.find(name, 'AFK', 1, true) then
         return 'sysGroup'
+    end
+    -- 1.2.1: friends, guild, duel, trade, auction, instance resets (the social lines)
+    for _, p in ipairs({ '^ERR_FRIEND', '^ERR_IGNORE', '^ERR_GUILD', '^ERR_TRADE', '^ERR_DUEL', '^DUEL_', '^ERR_AUCTION',
+        '^ERR_PARTY', '^INSTANCE_RESET', '^MARKED_', '^CLEARED_', '^ERR_PLAYER_DIED', '^ERR_MOUNT' }) do
+        if string.find(name, p) then
+            return 'sysGroup'
+        end
     end
     return 'sysXp'
 end
@@ -134,13 +142,45 @@ local function translate(text, frame)
     return nil
 end
 
-local function filter(cf, _, msg, ...)
+-- 1.2.1 (the owner 27 Nov: such lines were not in the report): a system line no row matches is noted once
+-- as a miss of kind sys (item and player links become %s, numbers #), 60 at most, so the next build
+-- can translate it. Only CHAT_MSG_SYSTEM: player emotes would flood the list.
+local sysSeen, sysN = {}, 0
+
+local function note(msg)
+    local lo, hi = string.char(216), string.char(219)
+    if sysN >= 60 or #msg < 8 or #msg > 220 or string.find(msg, '[' .. lo .. '-' .. hi .. ']') then
+        return
+    end
+    local k = msg
+    k = string.gsub(k, '|c%x%x%x%x%x%x%x%x', '')
+    k = string.gsub(k, '|r', '')
+    k = string.gsub(k, '|H.-|h%b[]|h', '%%s')
+    k = string.gsub(k, '|T.-|t', '')
+    k = string.gsub(k, '^%s+', '')
+    k = string.gsub(k, '%s+$', '')
+    if #k < 8 then
+        return
+    end
+    local ok, key = pcall(T.NumKey, k)
+    if not ok or type(key) ~= 'string' or key == '' or sysSeen[key] then
+        return
+    end
+    sysSeen[key] = true
+    sysN = sysN + 1
+    F:Miss('sys', key, k, 'system')
+end
+
+local function filter(cf, event, msg, ...)
     if not on() or not F.Usable(msg) or type(msg) ~= 'string' or msg == '' then
         return false
     end
     local ok, shaped = pcall(translate, msg, cf)
     if ok and type(shaped) == 'string' and shaped ~= '' then
         return false, shaped, ...
+    end
+    if event == 'CHAT_MSG_SYSTEM' then
+        pcall(note, msg)
     end
     return false
 end

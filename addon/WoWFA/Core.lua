@@ -255,7 +255,7 @@ local DEFAULTS = {
     mode = 3, -- inbox/29 A: mode 3 only - the user-facing picker is gone
     fontSize = 12,
     faDigits = true,
-    mods = { items = true, quests = true, dungeons = true, npc = true, tracker = true, spellbook = true, talents = true, capture = false },
+    mods = { items = true, quests = true, dungeons = true, npc = true, tracker = true, spellbook = true, talents = true, auras = true, capture = false },
     names = { npc = true, zn = true, it = true, sp = true, ob = true, qs = true, cls = true, tm = true },
     -- inbox/29 D2: the per-surface switches of the "چه چیزی ترجمه شود" page;
     -- a surface is live only if master AND its module AND this flag are on

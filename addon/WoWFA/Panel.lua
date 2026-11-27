@@ -38,7 +38,7 @@ local STATE_C = { ok = "green", warn = "orange", update = "orange", fault = "red
 -- (db.newSeen[page] = NEWREL), and header(text, true) puts the same pill at the left end of a
 -- header. The next release removes the entries and the `true` flags.
 local NEWREL = "1.2.0"
-local NEW_PAGES = { game = true }
+local NEW_PAGES = { game = "1.2.0", spellbook = "1.2.1" } -- page -> the release that made it new
 
 local function new_pill(parent)
     local oc = C.orange or { 1, 0.6, 0.15 }
@@ -57,7 +57,7 @@ end
 
 local function new_seen(id)
     local s = F.db and F.db.newSeen
-    return type(s) == "table" and s[id] == NEWREL
+    return type(s) == "table" and s[id] == NEW_PAGES[id]
 end
 
 F.PANEL_SHIPPED = SHIPPED
@@ -399,7 +399,7 @@ local function select_page(id)
         if type(F.db.newSeen) ~= "table" then
             F.db.newSeen = {}
         end
-        F.db.newSeen[id] = NEWREL
+        F.db.newSeen[id] = NEW_PAGES[id]
         local nb = navbtns[id]
         if nb and nb.newPill then
             nb.newPill:Hide()
@@ -1176,6 +1176,11 @@ local function build()
     panel.dispDesc = { talents = panel.tlDesc }
     panel.dispCustom = { talents = panel.talentOwn }
     panel.mods.spellbook, panel.mods.talents = panel.spName, panel.talentOwn
+    -- 1.2.1: the buffs and debuffs
+    header(PN.h_auras, true)
+    panel.auras = tog(PN.auras, PN.auras_d,
+        function() return F.db.mods.auras ~= false end,
+        function(v) F:SetModule("auras", v) end)
     end_page()
 
     -- ===================================================== Font sizes

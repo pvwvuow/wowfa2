@@ -330,7 +330,7 @@ local function spell_tip(modId, tt, data)
     local found, srcOf = {}, {}
     for i = 2, #lines do
         local text = lines[i]
-        if text ~= "" and #text > 8 and not has_fa(text) then
+        if text ~= "" and #text > (tt.wfaMin or 8) and not has_fa(text) then
             local lst = list_fa(text)
             local key, nums = T.NumKey(text)
             local fa = (not lst) and tpl[key] or nil
@@ -348,7 +348,7 @@ local function spell_tip(modId, tt, data)
             elseif fa then
                 found[#found + 1] = T.Fill(fa, nums)
                 srcOf[#found] = i
-            elseif #text > 30 and not recipe(name) and not item_line(text) then
+            elseif #text > (tt.wfaMiss or 30) and not recipe(name) and not item_line(text) then
                 -- rc4: description-sized lines only (cost / range / cast header
                 -- rows are short; they belong to the in-place settings v2 work)
                 F:Miss("tpl", key, plain(text), name)
@@ -431,6 +431,9 @@ local function spell_tip(modId, tt, data)
         end
     end
 end
+
+-- 1.2.1: the buffs and debuffs (Modules/Auras.lua) put an aura tooltip through the same function
+F.SpellTip = spell_tip
 
 local function data_ok()
     local t = F.D.tpl

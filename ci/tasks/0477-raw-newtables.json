@@ -1,0 +1,1 @@
+{"id": "0477-raw-newtables", "kind": "script", "why": "owner 27 Nov: archive GlobalStrings, BroadcastText and the small label tables so we can translate what the other addons cover from the game's own English", "args": {"module": "raw_fetch_now", "args": {"build": "auto", "push": true}}}

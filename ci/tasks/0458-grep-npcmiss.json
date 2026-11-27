@@ -1,0 +1,1 @@
+{"id": "0458-grep-npcmiss", "kind": "script", "why": "owner 27 Nov: does a player name end up in the npc miss list? who calls NpcLookup / Miss npc", "args": {"module": "src_grep", "args": {"grep": ["NpcLookup", "Miss(\"npc\"", "Call %s", "call_pet", "\"Resisted\""], "ctx": 6, "limit": 30}}}

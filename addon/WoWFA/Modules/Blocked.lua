@@ -99,6 +99,9 @@ ev:SetScript("OnEvent", function(_, event, addon, fn)
             okw, who = pcall(taint_scan, key)
         end
         who = okw and type(who) == "string" and who or ""
+        if F.lastRun then
+            who = who .. string.format(" | last WoWFA hook: %s %.2fs ago", tostring(F.lastRun), (GetTime and GetTime() or 0) - (F.lastRunT or 0))
+        end
         F:LogError("blocked", string.sub(tostring(event) .. " " .. key .. " (" .. combat .. ") " .. where .. who, 1, 400))
         if total <= 4 then
             F.Chat("WoWFA: the game blocked " .. key .. " (" .. combat .. ") " .. where .. who .. " - please send this line")

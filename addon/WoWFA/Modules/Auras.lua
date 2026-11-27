@@ -69,6 +69,64 @@ local function extra_lines(tt)
     end
 end
 
+-- the owner frames' names of a tooltip ("BuffButton1<BuffFrame<UIParent"): which path it came through
+local function owner_names(tt)
+    local ok, path = pcall(function()
+        local parts = {}
+        local f = tt.GetOwner and tt:GetOwner()
+        local n = 0
+        while f and n < 5 do
+            local nm = f.GetName and f:GetName()
+            if type(nm) == "string" and F.Usable(nm) then
+                parts[#parts + 1] = nm
+            end
+            f = f.GetParent and f:GetParent()
+            n = n + 1
+        end
+        return table.concat(parts, "<")
+    end)
+    return (ok and type(path) == "string") and path or ""
+end
+
+-- 1.2.2 (the owner 27 Nov: "Aspect of the Hawk is English and not in the report"): whatever the reason (a path
+-- nobody hooked, the once-guard, a length limit) every line of a buff tooltip that is STILL plain English after
+-- the pass goes in the report as kind aura, with the owner frames' names. A text the game hands over unreadable
+-- in a fight is counted in the combatskip lines.
+local function aura_audit(tt)
+    local name = tt.GetName and tt:GetName()
+    if not name or not F.Miss then
+        return
+    end
+    local n = (tt.NumLines and tt:NumLines()) or 0
+    local path
+    for i = 1, n do
+        local fs = _G[name .. "TextLeft" .. i]
+        if fs and fs.GetText then
+            local ok, text = pcall(fs.GetText, fs)
+            if ok then
+                if not F.Usable(text) then
+                    if InCombatLockdown and InCombatLockdown() and F.CombatSkip then
+                        F.CombatSkip("aura-secret")
+                    end
+                elseif type(text) == "string" and #text > 3 and not has_fa(text) and string.find(text, "%a%a") then
+                    local p = plain(text)
+                    local key = T.NumKey(p)
+                    local known
+                    if i == 1 then
+                        known = (F.D.names and F.D.names.spell or {})[T.NameKey(p)] ~= nil
+                    else
+                        known = (F.D.tpl or {})[key] ~= nil
+                    end
+                    if not known then
+                        path = path or owner_names(tt)
+                        F:Miss("aura", key, p, path .. "#" .. i)
+                    end
+                end
+            end
+        end
+    end
+end
+
 local function aura_tip(tt, data)
     if not tt or (tt.IsForbidden and tt:IsForbidden()) then
         return
@@ -90,6 +148,7 @@ local function aura_tip(tt, data)
             error(err, 0)
         end
     end
+    pcall(aura_audit, tt)
 end
 F.AuraTip = aura_tip
 

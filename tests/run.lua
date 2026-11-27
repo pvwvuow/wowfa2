@@ -1306,6 +1306,33 @@ local okTg, errTg = pcall(function()
     F.db.combatSkip = nil
 end)
 check("tag tests ran", okTg, errTg)
+
+-- 1.2.2: a buff line that is still English after the pass reaches the report as kind aura
+local okAu, errAu = pcall(function()
+    F:ClearMiss()
+    GameTooltip:Hide()
+    GameTooltip:ClearLines()
+    GameTooltip:AddLine("Zz Aspect Audit")
+    GameTooltip:AddLine("Zz audit line that nobody translated.")
+    F.AuraTip(GameTooltip, nil)
+    local got = false
+    for _, e in pairs(F.db.miss or {}) do
+        if e.k == "aura" and e.t == "Zz audit line that nobody translated." then
+            got = true
+        end
+    end
+    check("auras: an English line left after the pass is in the report as aura", got, next(F.db.miss or {}))
+    GameTooltip:Hide()
+    -- the small page of the icon is solid and above the settings window
+    local B = F.Beacon
+    B.Set(true)
+    B.OpenWindow()
+    local w = B.Window()
+    check("beacon: the small page opens", w ~= nil and w:IsShown())
+    w:Hide()
+    B.Set(false)
+end)
+check("aura audit tests ran", okAu, errAu)
 check("items module not installed (locked)", not (F.mods.items and F.mods.items.active))
 local ok = pcall(SlashCmdList.WOWFAF, "status")
 check("/wowfa status", ok)

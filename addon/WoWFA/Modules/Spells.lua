@@ -298,6 +298,9 @@ local function spell_tip(modId, tt, data)
     local lines = left_lines(tt, data)
     local name = lines[1]
     if type(name) ~= "string" or name == "" then
+        if InCombatLockdown and InCombatLockdown() and F.CombatSkip then
+            F.CombatSkip("tooltip-secret") -- 1.2.2: the report shows if the text of a tooltip is unreadable in a fight
+        end
         return
     end
     name = plain(name)

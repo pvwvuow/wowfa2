@@ -28,6 +28,7 @@ Locale_UI3.lua
 Locale_Beacon.lua
 Core.lua
 CombatWatch.lua
+Diag.lua
 Text.lua
 Room.lua
 UI.lua

@@ -363,6 +363,9 @@ local function refresh_health()
         for k, n in pairs(F.db and type(F.db.combatSkip) == "table" and F.db.combatSkip or {}) do
             out[#out + 1] = string.format("combatskip :: %s :: x%d", tostring(k), tonumber(n) or 1)
         end
+        for _, l in ipairs(F.DiagLines and F.DiagLines() or {}) do
+            out[#out + 1] = l
+        end
         local line = table.concat(out, " ;; ")
         if health.missList.wfaFixed ~= line and health.copyMsg then
             health.copyMsg:SetFa(" ", PW - 30)

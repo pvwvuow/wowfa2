@@ -10,7 +10,7 @@ local F = WoWFAF
 
 -- saved keys that change by themselves (counters, logs): not a setting
 local SKIP = { miss = true, missN = true, missV = true, errors = true, profiles = true, combatDiff = true,
-    newSeen = true, harvest = true, lastBuild = true, lastVersion = true, combatSkip = true, beacon = true }
+    newSeen = true, harvest = true, lastBuild = true, lastVersion = true, combatSkip = true, beacon = true, trace = true }
 local CVARS = { "uiScale", "useUiScale", "chatStyle", "UnitNameOwn", "nameplateShowEnemies", "Sound_EnableAllSound" }
 
 local snap -- the snapshot taken when the fight started

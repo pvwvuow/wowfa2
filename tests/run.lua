@@ -1333,6 +1333,27 @@ local okAu, errAu = pcall(function()
     B.Set(false)
 end)
 check("aura audit tests ran", okAu, errAu)
+
+-- 1.2.2: the trace, the timers and the comeback of a tripped module
+local okDg, errDg = pcall(function()
+    F.db.trace = nil
+    F.Trace("zz", "hello trace")
+    local got = false
+    for _, l in ipairs(F.DiagLines()) do
+        if string.find(l, "trace :: ", 1, true) and string.find(l, "hello trace", 1, true) then
+            got = true
+        end
+    end
+    check("diag: a trace event reaches the report lines", got)
+    check("diag: the icon's report text carries the diag lines", string.find(F.Beacon.ReportText(), "trace :: ", 1, true) ~= nil)
+    local m = F.mods.auras
+    m.tripped = true
+    m.trips = nil
+    FireEvent("PLAYER_REGEN_ENABLED")
+    check("diag: a module tripped in a fight is back after it", not m.tripped and m.trips == 1, tostring(m.trips))
+    m.trips = nil
+end)
+check("diag tests ran", okDg, errDg)
 check("items module not installed (locked)", not (F.mods.items and F.mods.items.active))
 local ok = pcall(SlashCmdList.WOWFAF, "status")
 check("/wowfa status", ok)

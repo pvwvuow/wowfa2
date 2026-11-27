@@ -91,6 +91,9 @@ function B.ReportText()
     for k, n in pairs(type(d.combatSkip) == "table" and d.combatSkip or {}) do
         out[#out + 1] = string.format("combatskip :: %s :: x%d", tostring(k), tonumber(n) or 1)
     end
+    for _, l in ipairs(F.DiagLines and F.DiagLines() or {}) do
+        out[#out + 1] = l
+    end
     return table.concat(out, " ;; ")
 end
 

@@ -44,6 +44,8 @@
 "sorry, but my services are only of use to warlocks":"متأسفم، ولی خدمات من فقط به درد وارلاک‌ها می‌خورد.",
 "sorry, but you've reached the limit of what i can teach. if you want to learn more, go see telonis in the craftsmen's terrace of darnassus. he's pretty talented, so i hear":"متأسفم، ولی به مرزی رسیدی که من می‌تونم یاد بدم. اگه می‌خوای بیشتر یاد بگیری، برو سراغ تلونیس تو تراس صنعتگران دارناسوس. شنیدم خیلی استعداد داره.",
 "speed is increased by #%":"سرعت {0}% افزایش می‌یابد.",
+"spell id: #":"شناسهٔ اسپل: {0}",
+"spirit increased by #":"{{tm:Spirit|روح}} {0} واحد افزایش یافته است.",
 "stamina and spirit increased by #":"{{tm:stamina and spirit|استقامت و روح}} {0} واحد افزایش یافته است.",
 "stings the target, causing # nature damage over # sec. only one sting per hunter can be active on any one target":"به هدف نیش می‌زند و طی {1} ثانیه {0} {{tm:Nature damage|آسیب طبیعت}} وارد می‌کند. هر {{cls:Hunter}} فقط می‌تواند یک نیش را روی هر هدف فعال داشته باشد.",
 "stings the target, draining # mana over # sec. only one sting per hunter can be active on any one target":"به هدف نیش می‌زند و طی {1} ثانیه {0} {{tm:mana|مانا}} از او تخلیه می‌کند. هر {{cls:Hunter}} فقط می‌تواند یک نیش را روی هر هدف فعال داشته باشد.",

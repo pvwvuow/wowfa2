@@ -56,6 +56,9 @@ local function build()
     rules, exact = {}, {}
     for _, e in ipairs(L.SYSMSG or {}) do
         local en = _G[e[1]]
+        if en == nil and string.find(e[1], ' ', 1, true) then
+            en = e[1] -- a row named by its English text (a line only the server sends: no global for it)
+        end
         if type(en) == 'string' and en ~= '' and type(e[2]) == 'string' then
             local n = 0
             local p = string.gsub(en, '%%(%d*)%$?([sd])', function(_, kind)

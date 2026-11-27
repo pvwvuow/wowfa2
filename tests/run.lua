@@ -874,9 +874,9 @@ local okGu, errGu = pcall(function()
     check("gameui: off = the game's writes stay English", fs:GetText() == "Reputation", fs:GetText())
     F.db.gameUi = nil
     F:Fire("options", "gameUi")
-    F.OpenPanel("general")
+    F.OpenPanel("game")
     local PF = F.PanelFrame()
-    check("gameui: the switch is on the General page", PF and PF.gameUi ~= nil)
+    check("gameui: the switch is on the game windows page", PF and PF.gameUi ~= nil)
     if PF and PF.gameUi then
         Click(PF.gameUi)
         check("gameui: the switch turns it off", F.db.gameUi == false)
@@ -886,6 +886,79 @@ local okGu, errGu = pcall(function()
     end
 end)
 check("gameui tests ran", okGu, errGu)
+-- ------------------------------------------------------------------ 1.2.0: window groups, New tags, combat watch
+local okGg, errGg = pcall(function()
+    local G = F.GameUI
+    check("groups: the module lists 7 groups", type(G.Groups) == "table" and #G.Groups == 7, G.Groups and #G.Groups)
+    local h = CreateFrame("Frame", "ZzGroupHost", UIParent)
+    local a = h:CreateFontString(nil, "OVERLAY")
+    a:SetText("Reputation")
+    check("groups: all on by default", G.GroupOn("char") == true and G.GroupOn("bags") == true)
+    check("groups: a window of an enabled group turns Persian", G.Try(a, "CharacterFrame") == true and non_ascii(a:GetText()), a:GetText())
+    G.SetGroup("char", false)
+    check("groups: switching a group off puts its English back at once", a:GetText() == "Reputation" and G.GroupOn("char") == false, a:GetText())
+    local b = h:CreateFontString(nil, "OVERLAY")
+    b:SetText("Reputation")
+    check("groups: an off group stays English", G.Try(b, "CharacterFrame") == false and b:GetText() == "Reputation", b:GetText())
+    local c = h:CreateFontString(nil, "OVERLAY")
+    c:SetText("Bank")
+    check("groups: another group is not affected", G.Try(c, "BankFrame") == true and non_ascii(c:GetText()), c:GetText())
+    G.SetGroup("char", true)
+    check("groups: back on", G.GroupOn("char") == true and G.Try(b, "CharacterFrame") == true and non_ascii(b:GetText()), b:GetText())
+    check("groups: nothing is stored for a group that is on", next(F.db.guiOff or {}) == nil)
+    -- an unknown label in a label window is noted once as a miss
+    F:ClearMiss()
+    local u = h:CreateFontString(nil, "OVERLAY")
+    u:SetText("Zzgroup Unknown Label")
+    G.Try(u, "CharacterFrame")
+    G.Try(u, "CharacterFrame")
+    local e = F.db.miss["ui:zzgroup unknown label"]
+    check("groups: an unknown window label is noted once", e ~= nil and e.n == 1, e and e.n)
+    local bm = h:CreateFontString(nil, "OVERLAY")
+    bm:SetText("Zzbag Unknown Item")
+    G.Try(bm, "BankFrame")
+    check("groups: a bag or shop text is never noted", F.db.miss["ui:zzbag unknown item"] == nil)
+    F:ClearMiss()
+    -- the New tag and the page
+    F.OpenPanel("spellbook")
+    local PF = F.PanelFrame()
+    local pill = PF.nav.game and PF.nav.game.newPill
+    check("new tag: the game page has its pill in the side menu until it is opened", pill ~= nil and pill:IsShown())
+    F.OpenPanel("game")
+    check("new tag: opening the page hides the pill for good", not pill:IsShown() and F.db.newSeen and F.db.newSeen.game == "1.2.0")
+    check("new tag: the page has the master switch and a row for each group",
+        PF.gameUi ~= nil and PF.guiG ~= nil and PF.guiG.char ~= nil and PF.guiG.finder ~= nil)
+    Click(PF.guiG.bags)
+    check("groups: the panel row turns a group off", G.GroupOn("bags") == false)
+    Click(PF.guiG.bags)
+    check("groups: and on again", G.GroupOn("bags") == true)
+    -- the combat watch
+    local W = F.CombatWatch
+    check("combat watch: the module loaded", type(W) == "table" and type(W.Snapshot) == "function")
+    F.db.zzProbe = 1
+    FireEvent("PLAYER_REGEN_DISABLED")
+    F.db.zzProbe = 2
+    FireEvent("PLAYER_REGEN_ENABLED")
+    local hit
+    for _, cd in ipairs(F.db.combatDiff or {}) do
+        if cd.k == "db.zzProbe" then
+            hit = cd
+        end
+    end
+    check("combat watch: a setting that changed in a fight is named", hit ~= nil and hit.v == "1 > 2", hit and hit.v)
+    F.db.zzProbe, F.db.combatDiff = nil, nil
+    FireEvent("PLAYER_REGEN_DISABLED")
+    FireEvent("PLAYER_REGEN_ENABLED")
+    check("combat watch: a quiet fight records nothing", F.db.combatDiff == nil or #F.db.combatDiff == 0, F.db.combatDiff and #F.db.combatDiff)
+    F.db.combatDiff = { { k = "db.zzProbe", v = "1 > 2", n = 1 } }
+    F.OpenPanel("health")
+    RunTimers()
+    local box = PF.health.missList
+    check("combat watch: the report line carries the combat changes", (box:GetText() or ""):find("combat :: db.zzProbe", 1, true) ~= nil, box:GetText())
+    F.db.combatDiff = nil
+    PF:Hide()
+end)
+check("window groups tests ran", okGg, errGg)
 -- ------------------------------------------------------------------ 1.1.6: the live preview column
 local okPv, errPv = pcall(function()
     local P = F.Preview

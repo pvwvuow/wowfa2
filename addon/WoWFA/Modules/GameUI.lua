@@ -72,6 +72,25 @@ local function group_on(scope)
     return not (g and type(off) == "table" and off[g])
 end
 
+-- 1.2.0: a window text no row knows is noted ONCE as a miss of kind ui, for the groups that are
+-- mostly fixed labels (menu, character, group finder), so the status report names what is still
+-- English. Letters only, 80 at most. Bags, shops, mail and friends are never noted (item and player names).
+local MISS_GROUP = { menu = true, char = true, finder = true }
+local missSeen, missN = {}, 0
+
+local function log_miss(text, scope)
+    local g = scope and GROUP_OF[scope]
+    if not (g and MISS_GROUP[g]) or missN >= 80 or type(F.Miss) ~= "function" then
+        return
+    end
+    if #text < 3 or #text > 48 or missSeen[text] or not string.find(text, "^%u[%a%s%-',:&]*$") then
+        return
+    end
+    missSeen[text] = true
+    missN = missN + 1
+    F:Miss("ui", string.lower(text), text, scope)
+end
+
 local SKIP_TYPE = {
     EditBox = true, ScrollingMessageFrame = true, MessageFrame = true, SimpleHTML = true,
     GameTooltip = true, Model = true, PlayerModel = true, DressUpModel = true, CinematicModel = true,
@@ -239,6 +258,9 @@ local function swap(fs, text, scope)
     end
     local okt, fa = pcall(translate, text, scope)
     local rec = done[fs]
+    if okt and not fa then
+        pcall(log_miss, text, scope)
+    end
     if not okt or not fa then
         if rec then
             rec.en = nil -- the game wrote a text we do not know: it stays as it is

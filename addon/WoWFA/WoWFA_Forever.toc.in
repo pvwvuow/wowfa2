@@ -23,6 +23,7 @@ Locale_Panel.lua
 Locale_UI.lua
 Locale_UI2.lua
 Core.lua
+CombatWatch.lua
 Text.lua
 Room.lua
 UI.lua

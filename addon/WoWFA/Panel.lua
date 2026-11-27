@@ -38,7 +38,7 @@ local STATE_C = { ok = "green", warn = "orange", update = "orange", fault = "red
 -- (db.newSeen[page] = NEWREL), and header(text, true) puts the same pill at the left end of a
 -- header. The next release removes the entries and the `true` flags.
 local NEWREL = "1.2.0"
-local NEW_PAGES = { game = "1.2.2", spellbook = "1.2.1" } -- page -> the release that made it new
+local NEW_PAGES = { game = "1.2.2", spellbook = "1.2.1", health = "1.2.2" } -- page -> the release that made it new
 
 local function new_pill(parent)
     local oc = C.orange or { 1, 0.6, 0.15 }
@@ -1417,6 +1417,16 @@ local function build()
     begin_page("health")
     health = { mods = {} }
     panel.health = health
+    -- 1.2.2: the floating report icon: the switch is the FIRST thing on the page, big and readable,
+    -- so a player sees at once that it can be turned off (Modules/Beacon.lua)
+    header(PN.h_beacon or " ", true)
+    panel.beacon = tog(PN.beacon, PN.beacon_d,
+        function() return F.Beacon ~= nil and F.Beacon.IsOn() end,
+        function(v)
+            if F.Beacon then
+                F.Beacon.Set(v)
+            end
+        end)
     do
         -- 1.1.8: the first thing on the report page: how a player can help (the tour)
         local hb = CreateFrame("Frame", nil, page.child)

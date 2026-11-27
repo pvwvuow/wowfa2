@@ -27,6 +27,8 @@ local function extra_fa(text)
     local t = plain(text)
     t = string.gsub(t, "^%s+", "")
     t = string.gsub(t, "%s+$", "")
+    -- the client leaves its plural escape in the text: "29 |4minute:minutes; remaining"
+    t = string.gsub(t, "|4([^:;|]+):([^;|]+);", "%2")
     local low = string.lower(t)
     local d = L.AURA_DISPEL and L.AURA_DISPEL[low]
     if d then
@@ -74,6 +76,9 @@ local function aura_tip(tt, data)
     if F.ShiftEn and F.ShiftEn() then
         return -- Shift held = the game's English
     end
+    -- 1.2.2: the aura-only lines (dispel type, time left) first, so the spell function never notes
+    -- them as a miss (the owner 27 Nov: "29 |4minute:minutes; remaining" was in the report)
+    extra_lines(tt)
     if F.SpellTip then
         -- an aura description can be as short as "Stunned.": short lines are matched and noted here
         tt.wfaMin, tt.wfaMiss = 2, 12
@@ -83,7 +88,6 @@ local function aura_tip(tt, data)
             error(err, 0)
         end
     end
-    extra_lines(tt)
 end
 F.AuraTip = aura_tip
 

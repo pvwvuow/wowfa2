@@ -72,6 +72,10 @@ for _, e in ipairs(ROWS) do
     L.GAMEUI[#L.GAMEUI + 1] = { e[1], fa(e[2]), e[3] }
 end
 
+-- a system line only the server sends (no GlobalStrings name): the row is named by its English text
+L.SYSMSG = L.SYSMSG or {}
+L.SYSMSG[#L.SYSMSG + 1] = { "You are no longer rested.", fa("دیگر در حالت استراحت نیستید.") }
+
 -- the red line of the fishing hint
 L.ALERTS = L.ALERTS or {}
 L.ALERTS[#L.ALERTS + 1] = { "Must have a Fishing Pole equipped", fa("برای این کار باید چوب ماهیگیری در دست داشته باشید") }

@@ -14,6 +14,86 @@ local function tdp(kind)
         and Enum.TooltipDataType[kind] ~= nil
 end
 
+-- 1.1.8 (the owner's taint log: the blocked actions name "last WoWFA hook: spellbook"): a
+-- TooltipDataProcessor post-call runs INSIDE the game's own tooltip build. On an action bar
+-- mouseover that build is part of a secure path (ActionButton OnEnter -> UpdateAction) and
+-- our function running there leaves the path tainted, so the bar layout is blocked in combat.
+-- A hooksecurefunc / HookScript hook runs after the game's function and its taint is dropped,
+-- and a timer starts a clean execution of its own. So on a client that can tell a tooltip's data
+-- type we only note that a tooltip was set or shown, and one frame later (own execution) run the
+-- same function for a tooltip of that kind. The old post-call stays as the fallback (older
+-- clients and the test mock). Returns true when the function is hooked, either way.
+local tipPost, tipPend, tipHooked = {}, {}, false
+local TIP_SETTERS = { "SetAction", "SetSpellBookItem", "SetSpellByID", "SetSpell", "SetUnit" }
+
+local function tip_kind(tt)
+    local get = tt and (tt.GetPrimaryTooltipData or tt.GetTooltipData)
+    if not get then
+        return nil
+    end
+    local ok, d = pcall(get, tt)
+    if ok and type(d) == "table" and F.Usable(d.type) then
+        return d.type, d
+    end
+    return nil
+end
+
+local function tip_fire(tt)
+    local etype, d = tip_kind(tt)
+    if etype == nil then
+        return
+    end
+    for kind, list in pairs(tipPost) do
+        if Enum.TooltipDataType[kind] == etype then
+            for i = 1, #list do
+                pcall(list[i], tt, d)
+            end
+        end
+    end
+end
+
+local function tip_note(tt)
+    if tipPend[tt] then
+        return
+    end
+    tipPend[tt] = true
+    F.After(0, function()
+        tipPend[tt] = nil
+        if tt.IsShown and tt:IsShown() then
+            tip_fire(tt)
+        end
+    end)
+end
+
+function F.TipPost(kind, fn)
+    local gt = GameTooltip
+    local can = gt and (gt.GetPrimaryTooltipData or gt.GetTooltipData) and gt.HookScript and F.After
+        and Enum and Enum.TooltipDataType and Enum.TooltipDataType[kind] ~= nil
+    if can then
+        tipPost[kind] = tipPost[kind] or {}
+        tipPost[kind][#tipPost[kind] + 1] = fn
+        if not tipHooked then
+            tipHooked = true
+            for _, tt in ipairs({ GameTooltip, _G.ItemRefTooltip }) do
+                if type(tt) == "table" and tt.HookScript then
+                    pcall(tt.HookScript, tt, "OnShow", tip_note)
+                    for _, m in ipairs(TIP_SETTERS) do
+                        if type(tt[m]) == "function" then
+                            pcall(hooksecurefunc, tt, m, tip_note)
+                        end
+                    end
+                end
+            end
+        end
+        return true
+    end
+    if tdp(kind) then
+        TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType[kind], fn)
+        return true
+    end
+    return false
+end
+
 local function left_lines(tt, data)
     local out = {}
     if data and type(data.lines) == "table" then
@@ -366,8 +446,7 @@ function S.install()
     local fn = F:Wrap("spellbook", function(tt, data)
         spell_tip("spellbook", tt, data)
     end)
-    if tdp("Spell") then
-        TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Spell, fn)
+    if F.TipPost("Spell", fn) then
         return
     end
     for _, method in ipairs({ "SetSpellBookItem", "SetSpell", "SetSpellByID" }) do
@@ -414,10 +493,7 @@ function TL.install()
     -- player turns Spellbook OFF and Talents ON, talents must still translate -
     -- so install a Spell post-call that only acts while spellbook is NOT active
     -- (never a double line).
-    if not tdp("Spell") then
-        return
-    end
-    TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Spell, F:Wrap("talents", function(tt, data)
+    F.TipPost("Spell", F:Wrap("talents", function(tt, data)
         if F:Active("spellbook") then
             return
         end

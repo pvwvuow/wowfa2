@@ -235,10 +235,8 @@ local function redo()
 end
 
 function M.install()
-    if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and Enum.TooltipDataType
-        and Enum.TooltipDataType.Unit then
-        TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, F:Wrap("npc", tip))
-    elseif GameTooltip.HookScript then
+    -- 1.1.8: no post-call inside the game's tooltip build (see F.TipPost in Spells.lua)
+    if not (F.TipPost and F.TipPost("Unit", F:Wrap("npc", tip))) and GameTooltip.HookScript then
         GameTooltip:HookScript("OnTooltipSetUnit", F:Wrap("npc", tip))
     end
     if type(CompactUnitFrame_UpdateName) == "function" then

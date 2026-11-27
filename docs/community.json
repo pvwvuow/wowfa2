@@ -1,0 +1,33 @@
+{
+ "v": 1,
+ "since": "2026-11-27",
+ "rows": [
+  {
+   "d": "2026-11-27",
+   "src": "report WoWFA 1.2.0.488 (56 lines)",
+   "c": {
+    "ui": 51,
+    "spell": 3,
+    "sys": 1
+   }
+  },
+  {
+   "d": "2026-11-27",
+   "src": "report WoWFA 1.2.1.498 (8 lines)",
+   "c": {
+    "buff": 6,
+    "sys": 1,
+    "other": 1
+   }
+  },
+  {
+   "d": "2026-11-27",
+   "src": "report WoWFA 1.2.2.529 (18 lines, 6 dialog lines left)",
+   "c": {
+    "npc": 4,
+    "buff": 3,
+    "sys": 2
+   }
+  }
+ ]
+}

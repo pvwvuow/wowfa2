@@ -87,6 +87,26 @@ function F.After(sec, fn)
     end)
 end
 
+-- 1.2.2 diagnostics (the owner 27 Nov): the last 40 events in db.trace and a timer per hook / event
+local TRACE_CAP = 40
+function F.Trace(tag, text)
+    local db = F.db
+    if not db then
+        return
+    end
+    if type(db.trace) ~= "table" then
+        db.trace = {}
+    end
+    local t = db.trace
+    t[#t + 1] = { t = GetTime and math.floor(GetTime()) or 0, k = tostring(tag), v = string.sub(tostring(text or ""), 1, 140),
+        c = (InCombatLockdown and InCombatLockdown()) and 1 or 0 }
+    while #t > TRACE_CAP do
+        table.remove(t, 1)
+    end
+end
+F.perfW, F.perfE = {}, {}
+local prof = debugprofilestop
+
 function F.Split(s, sep)
     local out, pos = {}, 1
     while true do
@@ -498,11 +518,21 @@ ev:SetScript("OnEvent", function(_, event, ...)
     if not list then
         return
     end
+    local t0 = prof and prof() or 0
     for i = 1, #list do
         local ok, err = pcall(list[i].fn, event, ...)
         if not ok then
             F:LogError(list[i].id or "core", err)
         end
+    end
+    if prof then
+        local p = F.perfE[event]
+        if not p then
+            p = { n = 0, ms = 0 }
+            F.perfE[event] = p
+        end
+        p.n = p.n + 1
+        p.ms = p.ms + (prof() - t0)
     end
 end)
 
@@ -577,7 +607,17 @@ function F:Wrap(modId, fn)
         end
         -- 1.1.8: the last WoWFA hook that ran, so a blocked action can name it (Modules/Blocked.lua)
         F.lastRun, F.lastRunT = modId, GetTime and GetTime() or 0
+        local t0 = prof and prof() or 0
         local ok, err = pcall(fn, ...)
+        if prof then
+            local p = F.perfW[modId]
+            if not p then
+                p = { n = 0, ms = 0 }
+                F.perfW[modId] = p
+            end
+            p.n = p.n + 1
+            p.ms = p.ms + (prof() - t0)
+        end
         if not ok then
             F:Fault(modId, err)
         end
@@ -586,6 +626,7 @@ end
 
 function F:Fault(modId, err)
     F:LogError(modId, err)
+    F.Trace("fault", tostring(modId) .. " " .. tostring(err))
     local m = F.mods[modId]
     if not m then
         return
@@ -599,6 +640,7 @@ function F:Fault(modId, err)
     end
     if not m.tripped and (#m.recent >= 3 or m.faults >= 10) then
         m.tripped = true
+        F.Trace("tripped", tostring(modId))
         F:Refresh()
         F:Notify("tripped", string.format(L.t_tripped, L[m.nameKey] or m.id), L.en[m.nameKey] or m.id)
     end
@@ -768,6 +810,9 @@ function F:Refresh()
                 st, why = "fault", nil
             end
         end
+        if F.traceOn and m.state ~= st then
+            F.Trace("state", tostring(m.id) .. " " .. tostring(m.state) .. ">" .. tostring(st) .. " " .. tostring(why))
+        end
         m.state, m.why = st, why
         local was = m.active
         m.active = ACTIVE[st] or false
@@ -934,6 +979,7 @@ local function after_login()
         pcall(C_ChatInfo.RegisterAddonMessagePrefix, PREFIX)
     end
     F:Refresh()
+    F.traceOn = true
     F:Fire("login")
     F.Chat(string.format(L.en.loaded, F.VERSION, F.dataBuildText))
 end
@@ -951,6 +997,24 @@ F:On("PLAYER_LOGIN", nil, function()
 end)
 F:On("PLAYER_ENTERING_WORLD", nil, function()
     F.After(12, hello)
+end)
+-- 1.2.2 (the owner 27 Nov: after a temporary buff on the player every buff and many texts stayed English): the
+-- circuit breaker switches a module off for the whole session after 3 errors in a minute. Errors made while the
+-- game hides its texts in a fight must not cost the module for good: after the fight it comes back (3 times at
+-- most, then it stays off as before). Every comeback is in the trace of the report.
+F:On("PLAYER_REGEN_ENABLED", nil, function()
+    local any = false
+    for _, m in ipairs(F.order) do
+        if m.tripped and (m.trips or 0) < 3 then
+            m.trips = (m.trips or 0) + 1
+            m.tripped, m.faults, m.recent = nil, 0, nil
+            F.Trace("untrip", tostring(m.id) .. " #" .. tostring(m.trips))
+            any = true
+        end
+    end
+    if any then
+        F:Refresh()
+    end
 end)
 F:On("GROUP_ROSTER_UPDATE", nil, function()
     F.After(5, hello)

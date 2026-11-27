@@ -121,6 +121,7 @@
 "refer to individual seals for judgement effect":"برای دانستن اثر {{sp:Judgement}}، توضیح هر مهر را ببین.",
 "regenerates #% of your total health over # sec after being the victim of a critical strike or suffering more than #% of your maximum health from a single attack":"هر بار قربانی {{tm:Critical Strike|ضربهٔ بحرانی}} شوی یا از یک حمله بیش از {2}% حداکثر سلامتی‌ات را از دست بدهی، طی {1} ثانیه {0}% از کل {{tm:health|سلامتی}} تو را بازیابی می‌کند.",
 "regenerates all nearby party members within # yards for # every # sec for # sec. druid must channel to maintain the spell":"به همهٔ اعضای {{tm:party|گروه}} نزدیک در شعاع {0} یاردی، هر {2} ثانیه {1} {{tm:health|سلامتی}} به مدت {3} ثانیه بازمی‌گرداند. {{cls:Druid}} باید برای حفظ {{tm:spell|اسپل}} آن را کانال‌کشی کند.",
+"reginald windsor is not to be harmed! he shall pass through untouched!":"به رجینالد ویندزور نباید آسیبی برسه! بذارید دست‌نخورده عبور کنه!",
 "relocates your active totems to your location":"توتم‌های فعالت را به جایی که خودت هستی منتقل می‌کند.",
 "removes # curse or bane from a friendly target":"{0} {{tm:Curse|نفرین}} یا {{tm:Bane|بلا}} را از هدفی {{tm:friendly|دوستانه}} رفع می‌کند.",
 "removes # disease from the friendly target":"{0} {{tm:disease|بیماری}} را از هدف متحد برمی‌دارد.",

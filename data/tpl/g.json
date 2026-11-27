@@ -7,6 +7,7 @@
 "generates # rage at the cost of health, and then generates an additional # rage over # sec":"با مصرف {{tm:health|سلامتی}}، {0} {{tm:rage|خشم}} تولید می‌کند و سپس طی {2} ثانیه {1} {{tm:rage|خشم}} دیگر تولید می‌کند.",
 "generates # rage every # sec while in combat, and reduces rage loss while out of combat by #%":"در نبرد، هر {1} ثانیه {0} خشم تولید می‌کند و خارج از نبرد، از دست رفتن خشم را {2}% کمتر می‌کند.",
 "get out of here, before the slavers see you!":"پیش از آنکه برده‌دارها ببینندت، از اینجا برو!",
+"gimme my dolly!!":"عروسکم رو بده!!",
 "gives # additional armor to party members within # yards. players may only have one aura on them per paladin at any one time":"{0} {{tm:armor|زره}} اضافه به اعضای {{tm:party|گروه}} در شعاع {1} یاردی می‌دهد. هر بازیکن هم‌زمان فقط می‌تواند یک {{tm:Aura|هاله}} از هر {{cls:Paladin}} داشته باشد.",
 "gives # additional fire resistance to all party and raid members within # yards. players may only have one aura on them per paladin at any one time":"{0} {{tm:resistance|مقاومت}} اضافه در برابر {{tm:Fire|آتش}} به همهٔ اعضای {{tm:party|گروه}} و {{tm:raid|رید}} در شعاع {1} یاردی می‌دهد. هر بازیکن هم‌زمان فقط می‌تواند یک {{tm:Aura|هاله}} از هر {{cls:Paladin}} داشته باشد.",
 "gives # additional frost resistance to all party and raid members within # yards. players may only have one aura on them per paladin at any one time":"{0} {{tm:resistance|مقاومت}} اضافه در برابر یخ به همهٔ اعضای {{tm:party|گروه}} و {{tm:raid|رید}} در شعاع {1} یاردی می‌دهد. هر بازیکن هم‌زمان فقط می‌تواند یک {{tm:Aura|هاله}} از هر {{cls:Paladin}} داشته باشد.",

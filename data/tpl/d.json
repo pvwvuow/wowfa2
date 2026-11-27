@@ -29,6 +29,7 @@
 "dispels magic on the target, removing # harmful spells from a friend or # beneficial spells from an enemy":"جادوهای هدف را رفع می‌کند؛ {0} {{tm:spell|اسپل}} زیان‌بار را از یک متحد یا {1} {{tm:spell|اسپل}} سودمند را از یک دشمن برمی‌دارد.",
 "distract the target, causing threat":"هدف را منحرف می‌کند و {{tm:threat|تهدید}} ایجاد می‌کند.",
 "distract the target, causing threat. more effective than distracting shot (rank #)":"حواس هدف را پرت می‌کند و {{tm:threat|تهدید}} ایجاد می‌کند. از {{sp:Distracting Shot}} (رنک {0}) مؤثرتر است.",
+"do not fail us!":"ناامیدمون نکن!",
 "do not waste my time. what is it you want?":"وقتم را تلف نکن. چه می‌خواهی؟",
 "do you mock me while i am unable to defend myself, bound to this ball of iron?":"حالا که به این گوی آهنی بسته شده‌ام و نمی‌توانم از خودم دفاع کنم، مسخره‌ام می‌کنی؟",
 "dodge chance increased by #% and movement speed increased by #%. night elf rogues and druids are harder to detect in stealth as if they were # level higher.":"شانس جاخالی‌دادنت {0}% و سرعت حرکتت {1}% افزایش می‌یابد. تشخیص {{cls:Rogue}}ها و {{cls:Druid}}های الف شب در حالت پنهان‌کاری دشوارتر است؛ گویی سطحشان {2} واحد بالاتر است.",

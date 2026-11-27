@@ -1,0 +1,1 @@
+{"id": "0462-grep-postcall", "kind": "script", "why": "owner 27 Nov: the block names 'last WoWFA hook: spellbook' = the Spell tooltip post-call; list every post-call", "args": {"module": "src_grep", "args": {"grep": ["AddTooltipPostCall"], "ctx": 4, "limit": 30}}}

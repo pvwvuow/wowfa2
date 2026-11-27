@@ -103,8 +103,10 @@ def run(args, rep):
         return []
     cols, rows = cov.parse(sql, "creature_template")
     mcols = [c for c in cols if re.fullmatch(r"(model|display)_?id_?\d", c)]
-    npc = {}
+    npc, vendors = {}, []
     for r in rows:
+        if _geti(r, "npcflag") & 128:
+            vendors.append(_geti(r, "entry"))
         pairs = []
         for c in mcols:
             d = disp.get(_geti(r, c))
@@ -114,7 +116,7 @@ def run(args, rep):
             npc[r.get("entry")] = [cov.clean(r.get("name")), pairs]
     rep.ok("%d creatures use a dubbed voice set on at least one model" % len(npc))
     out = {"build": build or "latest", "sets": {str(s): set_files[s] for s in sorted(keep)},
-           "models": {str(m): sorted(ss) for m, ss in sorted(models.items())}, "npc": npc}
+           "models": {str(m): sorted(ss) for m, ss in sorted(models.items())}, "npc": npc, "vendors": sorted(set(vendors))}
     os.makedirs("ci/work/voice", exist_ok=True)
     with open("ci/work/voice/addon_map.json", "w", encoding="utf-8", newline="\n") as fh:
         json.dump(out, fh, ensure_ascii=False, separators=(",", ":"), sort_keys=True)

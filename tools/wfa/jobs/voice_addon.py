@@ -32,6 +32,13 @@ def _ranges(nums):
     return ",".join(out)
 
 
+def _remap(g, ent, alias_of, vendors):
+    """a vendor creature of a target group speaks with the vendor group instead"""
+    if g in alias_of and ent in vendors:
+        return alias_of[g]
+    return g
+
+
 def run(args, rep):
     groups = list(args.get("groups") or [])
     node = shutil.which("node")
@@ -56,7 +63,7 @@ def run(args, rep):
     spec = importlib.util.spec_from_file_location("voice_map2_x", HERE / "voice_map2.py")
     vm2 = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(vm2)
-    paths = vm2.run({"files": fids, "cmangos": args.get("cmangos", "")}, rep)
+    paths = vm2.run({"files": fids, "cmangos": args.get("cmangos", ""), "build": args.get("build", "")}, rep)
     if not paths:
         return []
     m = json.load(open(ROOT / "ci/work/voice/addon_map.json", encoding="utf-8"))
@@ -75,6 +82,22 @@ def run(args, rep):
     for s, g in set_group.items():
         per.setdefault(g, []).append(int(s))
     rep.table([[g, ",".join(str(x) for x in sorted(v))] for g, v in sorted(per.items())], ["group", "game voice sets"])
+    alias = dict(args.get("vendor_alias") or {})
+    vendors = set(int(x) for x in m.get("vendors", []))
+    alias_of = {t: a for a, ts in alias.items() for t in ts}
+    if alias:
+        cnt = {}
+        for ent, (_nm, prs) in m["npc"].items():
+            for p in prs:
+                if set_group.get(str(p[0])) in alias_of:
+                    c = cnt.setdefault(p[0], [0, 0])
+                    c[0 if int(ent) in vendors else 1] += 1
+        rep.h("Vendor voices")
+        rep.table([(s, set_group.get(str(s)), c[0], c[1]) for s, c in sorted(cnt.items())], ["voice set", "group", "vendors", "other creatures"])
+        for s, c in cnt.items():
+            if c[0] and not c[1]:
+                per.setdefault(alias_of[set_group[str(s)]], []).append(int(s))
+        rep.ok("%d vendor creatures in the CMaNGOS data" % len(vendors))
     out = []
     for g in d["groups"]:
         name = g[0]
@@ -91,7 +114,7 @@ def run(args, rep):
             out.append("M|%s|%s" % (mod, ",".join(gs)))
     single, multi = {}, []
     for ent, (nm, prs) in m["npc"].items():
-        pp = [(set_group.get(str(p[0])), p[1]) for p in prs]
+        pp = [(_remap(set_group.get(str(p[0])), int(ent), alias_of, vendors), p[1]) for p in prs]
         if len(pp) == 1 and pp[0][0]:
             single.setdefault(pp[0][0], []).append(int(ent))
         elif any(g for g, _ in pp):

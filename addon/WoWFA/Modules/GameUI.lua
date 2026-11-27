@@ -37,6 +37,41 @@ for i = 1, 13 do
     FRAMES[#FRAMES + 1] = "ContainerFrame" .. i
 end
 
+-- 1.2.0: the windows by group, each group with its own switch (settings: the game's windows).
+-- db.guiOff[group] = true turns one group off. A window that is in no group is always on.
+local GROUPS = {
+    menu = { "GameMenuFrame", "TimeManagerFrame", "MacroFrame" },
+    char = { "CharacterFrame", "PaperDollFrame", "PetPaperDollFrame", "ReputationFrame", "SkillFrame",
+        "HonorFrame", "TokenFrame", "SpellBookFrame", "DressUpFrame", "InspectFrame",
+        "PetStableFrame", "TabardFrame" },
+    bags = { "ContainerFrameCombinedBags", "BankFrame", "GuildBankFrame" },
+    social = { "FriendsFrame", "FriendsListFrame", "IgnoreListFrame", "WhoFrame", "GuildFrame", "RaidFrame",
+        "GuildRegistrarFrame" },
+    mail = { "MailFrame", "InboxFrame", "SendMailFrame", "OpenMailFrame", "TradeFrame" },
+    shops = { "MerchantFrame", "AuctionFrame", "AuctionFrameBrowse", "AuctionFrameBid",
+        "AuctionFrameAuctions", "AuctionHouseFrame", "ClassTrainerFrame", "TradeSkillFrame", "CraftFrame",
+        "LootFrame" },
+    finder = { "LFGParentFrame", "PVEFrame", "PVPFrame", "BattlefieldFrame", "ArenaFrame",
+        "WorldStateScoreFrame" },
+}
+local GROUP_IDS = { "menu", "char", "bags", "social", "mail", "shops", "finder" }
+local GROUP_OF = {}
+for gid, list in pairs(GROUPS) do
+    for _, n in ipairs(list) do
+        GROUP_OF[n] = gid
+    end
+end
+for i = 1, 13 do
+    GROUP_OF["ContainerFrame" .. i] = "bags"
+end
+local dirty = false -- a group switch was used in combat: restore and scan again after it
+
+local function group_on(scope)
+    local g = scope and GROUP_OF[scope]
+    local off = F.db and F.db.guiOff
+    return not (g and type(off) == "table" and off[g])
+end
+
 local SKIP_TYPE = {
     EditBox = true, ScrollingMessageFrame = true, MessageFrame = true, SimpleHTML = true,
     GameTooltip = true, Model = true, PlayerModel = true, DressUpModel = true, CinematicModel = true,
@@ -193,6 +228,9 @@ end
 
 -- the one place that writes: the shaped Persian + our font on ONE fontstring
 local function swap(fs, text, scope)
+    if scope and not group_on(scope) then
+        return false -- its group is switched off: the window stays English
+    end
     if busy or not F.Usable(text) or type(text) ~= "string" or text == "" then
         return false
     end
@@ -457,6 +495,10 @@ local function after_combat()
     end
     if pendingAll then
         pendingAll = false
+        if dirty then
+            dirty = false
+            restore()
+        end
         rescan()
     end
 end
@@ -474,7 +516,38 @@ local function preview(text, scope)
     return oks and type(s) == "string" and s ~= "" and s or nil
 end
 
-F.GameUI = { Try = try, Scan = scan, Attach = attach, Restore = restore, Preview = preview }
+local function group_set(id, v)
+    local db = F.db
+    if not (db and GROUPS[id]) then
+        return
+    end
+    if type(db.guiOff) ~= "table" then
+        db.guiOff = {}
+    end
+    db.guiOff[id] = (not v) and true or nil
+    F:Fire("options", "guiGroup")
+end
+
+local function group_get(id)
+    local off = F.db and F.db.guiOff
+    return not (type(off) == "table" and off[id])
+end
+
+-- a group switch: every window text back to English, then the groups that stay on are scanned again
+local function resync()
+    if combat() then
+        dirty = true
+        pendingAll = true
+        return
+    end
+    restore()
+    if on() then
+        rescan()
+    end
+end
+
+F.GameUI = { Try = try, Scan = scan, Attach = attach, Restore = restore, Preview = preview,
+    Groups = GROUP_IDS, GroupOn = group_get, SetGroup = group_set }
 
 F:On("ADDON_LOADED", nil, function()
     pcall(attach)
@@ -492,6 +565,8 @@ end)
 F:Listen("options", function(key)
     if key == "gameUi" then
         pcall(sync)
+    elseif key == "guiGroup" then
+        pcall(resync)
     end
 end)
 F:Listen("state", function()

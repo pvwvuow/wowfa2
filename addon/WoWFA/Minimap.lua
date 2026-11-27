@@ -165,6 +165,20 @@ F:Listen("login", function()
     end
 end)
 F:Listen("state", update_look)
+
+-- 1.2.2: Shift over the button emptied its tooltip (the game rebuilds it, ours has no builder): build it again
+F:On("MODIFIER_STATE_CHANGED", nil, function()
+    F.After(0, function()
+        local ok, err = pcall(function()
+            if btn and btn:IsShown() and GameTooltip and GameTooltip:IsShown() and GameTooltip:GetOwner() == btn then
+                F.MinimapTooltip(btn)
+            end
+        end)
+        if not ok then
+            F:LogError("ui", err)
+        end
+    end)
+end)
 F:Listen("minimap", function()
     update_look()
     position()

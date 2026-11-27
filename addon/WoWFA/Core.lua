@@ -167,6 +167,9 @@ function F.EscClose(f)
     pass(f)
     pcall(f.HookScript, f, "OnShow", pass)
     pcall(f.HookScript, f, "OnKeyDown", function(self, key)
+        if key ~= "ESCAPE" then
+            pass(self) -- 1.2.2: every other key (walking) goes on to the game on each press
+        end
         if key == "ESCAPE" then
             if free() then
                 pcall(self.SetPropagateKeyboardInput, self, false)

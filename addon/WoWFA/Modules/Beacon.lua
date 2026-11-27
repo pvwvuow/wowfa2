@@ -221,6 +221,15 @@ local function code_box(parent, w)
     eb:SetScript("OnEditFocusGained", function(self)
         self:HighlightText()
     end)
+    -- 1.2.2 (the owner 27 Nov: the character could not walk): a box that keeps the focus keeps every key. Ctrl+C
+    -- is what the player came for: right after it the focus goes back to the game
+    eb:SetScript("OnKeyDown", function(self, key)
+        if key == "C" and IsControlKeyDown and IsControlKeyDown() then
+            F.After(0.15, function()
+                self:ClearFocus()
+            end)
+        end
+    end)
     eb.wfaFixed = ""
     eb:SetScript("OnTextChanged", function(self, user)
         if user then
@@ -234,6 +243,14 @@ local function code_box(parent, w)
         self:SetCursorPosition(0)
     end
     return eb
+end
+
+-- 1.2.2 (the owner 27 Nov: a page over the settings window let the settings show through): a solid
+-- underlay, the glass over it is only the look
+local function solid(f)
+    local t = f:CreateTexture(nil, "BACKGROUND")
+    t:SetAllPoints()
+    t:SetColorTexture(C.bg1[1], C.bg1[2], C.bg1[3], 1)
 end
 
 local function glyph_icon(parent, size)
@@ -421,17 +438,18 @@ local function build_menu()
     end
     catcher = CreateFrame("Button", nil, UIParent)
     catcher:SetAllPoints(UIParent)
-    catcher:SetFrameStrata("DIALOG")
+    catcher:SetFrameStrata("FULLSCREEN_DIALOG")
     catcher:SetFrameLevel(1)
     catcher:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     catcher:SetScript("OnClick", hide_menu)
     catcher:Hide()
     menu = CreateFrame("Frame", nil, UIParent)
     menu:SetSize(214, 108)
-    menu:SetFrameStrata("DIALOG")
+    menu:SetFrameStrata("FULLSCREEN_DIALOG")
     menu:SetFrameLevel(10)
     menu:SetClampedToScreen(true)
     menu:EnableMouse(true)
+    solid(menu)
     UI.Glass(menu, 0.97)
     F.EscClose(menu)
     menu:SetScript("OnHide", function()
@@ -513,11 +531,12 @@ local function build_window()
     end
     local W = 320
     local f = CreateFrame("Frame", nil, UIParent)
-    f:SetSize(W, 184)
+    f:SetSize(W, 196)
     f:SetPoint("CENTER", UIParent, "CENTER", 0, 40)
-    f:SetFrameStrata("DIALOG")
+    f:SetFrameStrata("FULLSCREEN_DIALOG") -- above the settings window
     f:SetClampedToScreen(true)
     f:EnableMouse(true)
+    solid(f)
     UI.Glass(f, 0.97)
     F.EscClose(f)
     local x = CreateFrame("Button", nil, f, "UIPanelCloseButton")
@@ -530,11 +549,11 @@ local function build_window()
     f.head:SetPoint("TOPRIGHT", f, "TOPRIGHT", -12, -12)
     f.head:SetFa(S("pop_head"), 270)
     f.summary = UI.Text(f, 13, C.text)
-    f.summary:SetPoint("TOPRIGHT", f, "TOPRIGHT", -12, -36)
+    f.summary:SetPoint("TOPRIGHT", f, "TOPRIGHT", -12, -52)
     f.summary:SetFa(S("pop_none"), 296)
     local bx = CreateFrame("Frame", nil, f)
     bx:SetSize(W - 24, 28)
-    bx:SetPoint("TOPLEFT", f, "TOPLEFT", 12, -88)
+    bx:SetPoint("TOPLEFT", f, "TOPLEFT", 12, -102)
     f.box = code_box(bx, W - 24)
     f.copy = UI.Button(f, S("pop_copy"), 112, 28, function()
         f.mode = "report"
@@ -544,7 +563,7 @@ local function build_window()
         f.box:HighlightText()
         f.msg:SetFa(S("pop_copied"), 296)
     end)
-    f.copy:SetPoint("TOPRIGHT", f, "TOPRIGHT", -12, -124)
+    f.copy:SetPoint("TOPRIGHT", f, "TOPRIGHT", -12, -136)
     f.site = UI.Button(f, S("pop_site"), 100, 28, function()
         f.mode = "site"
         f.box:SetFixed(tostring(F.SITE) .. "/report")
@@ -563,12 +582,15 @@ local function build_window()
     end)
     f.clear:SetPoint("RIGHT", f.site, "LEFT", -6, 0)
     f.msg = UI.Text(f, 11, C.green)
-    f.msg:SetPoint("TOPRIGHT", f, "TOPRIGHT", -12, -160)
+    f.msg:SetPoint("TOPRIGHT", f, "TOPRIGHT", -12, -172)
     f.msg:SetFa(" ", 296)
     f:SetScript("OnShow", function()
         f.mode = "report"
         B.RefreshWindow()
         f.msg:SetFa(" ", 296)
+    end)
+    f:SetScript("OnHide", function()
+        f.box:ClearFocus()
     end)
     f:Hide()
     win = f
@@ -602,7 +624,7 @@ local function build_intro()
     local f = CreateFrame("Frame", nil, UIParent)
     f:SetSize(420, 268)
     f:SetPoint("CENTER", UIParent, "CENTER", 0, 110)
-    f:SetFrameStrata("DIALOG")
+    f:SetFrameStrata("FULLSCREEN_DIALOG")
     f:SetClampedToScreen(true)
     f:EnableMouse(true)
     f:SetMovable(true)
@@ -613,6 +635,7 @@ local function build_intro()
     f:SetScript("OnDragStop", function(self)
         self:StopMovingOrSizing()
     end)
+    solid(f)
     UI.Glass(f, 0.97)
     F.EscClose(f) -- Esc = not now
     f.title = UI.Text(f, 16, C.gold)
@@ -763,4 +786,20 @@ end)
 
 F:Listen("state", function()
     B.Update()
+end)
+
+-- 1.2.2 (the owner 27 Nov: holding Shift over some things the tooltip went empty): a modifier key makes the
+-- game rebuild the tooltip with the function that built it. Ours is built line by line (no such function), so
+-- it came back empty: one frame after the key, our own build runs again
+F:On("MODIFIER_STATE_CHANGED", nil, function()
+    F.After(0, function()
+        local ok, err = pcall(function()
+            if icon and icon:IsShown() and GameTooltip and GameTooltip:IsShown() and GameTooltip:GetOwner() == icon then
+                B.Tip(icon)
+            end
+        end)
+        if not ok then
+            F:LogError("ui", err)
+        end
+    end)
 end)

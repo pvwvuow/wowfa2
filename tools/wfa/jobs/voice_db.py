@@ -311,6 +311,10 @@ def run(args, rep):
     except Exception as e:  # noqa: BLE001 - texts are extra, the database still builds
         rep.add("heard texts / translations not merged: %s" % e)
     out = {"v": 0, "build": builds[0] if builds else "retail", "L": L, "G": G, "T": T, "C": C, "thumb": thumb}
+    try:
+        out["M"] = json.load(open("ci/data/vo_meta.json", encoding="utf-8"))
+    except (OSError, ValueError):
+        pass
     body = json.dumps(out, ensure_ascii=True, separators=(",", ":"))
     out["v"] = int(hashlib.sha1(body.encode()).hexdigest()[:8], 16)
     js = "window.VO_RAW=" + json.dumps(out, ensure_ascii=True, separators=(",", ":")) + ";\n"

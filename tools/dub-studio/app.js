@@ -12,7 +12,8 @@ window.wfaStart = function () {
   function load(k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }
   function save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
   var done = load('wfadub_done', {});
-  var st = { q: '', cat: -1, sex: 'all', era: 'old', kind: 'all', status: 'all', sort: 'name', page: 60 };
+  var st = { q: '', cat: -1, sex: 'all', era: 'old', kind: 'all', place: 'all', fac: 'all', status: 'all', sort: 'name', page: 60 };
+  var MT = D.M || {};
   var root = null, rootOk = false;
   var $ = function (id) { return document.getElementById(id); };
   var FD = '۰۱۲۳۴۵۶۷۸۹';
@@ -26,13 +27,15 @@ window.wfaStart = function () {
   byG.forEach(function (a) { a.sort(function (x, y) { return L[x][2] - L[y][2] || nat.compare(L[x][3], L[y][3]); }); });
 
   var PK = 'wfadub_f';
-  (function () { var p = load(PK, null); if (p) ['cat', 'sex', 'era', 'kind', 'status', 'sort'].forEach(function (k) { if (p[k] !== undefined) st[k] = p[k]; }); })();
-  function savePrefs() { save(PK, { cat: st.cat, sex: st.sex, era: st.era, kind: st.kind, status: st.status, sort: st.sort }); }
+  (function () { var p = load(PK, null); if (p) ['cat', 'sex', 'era', 'kind', 'place', 'fac', 'status', 'sort'].forEach(function (k) { if (p[k] !== undefined) st[k] = p[k]; }); })();
+  function savePrefs() { save(PK, { cat: st.cat, sex: st.sex, era: st.era, kind: st.kind, place: st.place, fac: st.fac, status: st.status, sort: st.sort }); }
   // scope = what the numbers count (era, kind, sex); lineOk adds category and recorded-state
   function inScope(i) {
     var l = L[i], g = G[l[1]];
     if (st.era === 'old' && l[6] !== 'old') return false;
     if (st.kind !== 'all' && g[1] !== st.kind) return false;
+    if (st.place !== 'all') { var mp = MT[l[1]], pp = mp ? mp.p : ''; if (st.place === 'd' ? !(pp === 'd' || pp === 'b') : st.place === 'w' ? !(pp === 'w' || pp === 'b') : pp) return false; }
+    if (st.fac !== 'all') { var mf = MT[l[1]], ff = mf ? mf.f : ''; if (st.fac === 'u' ? ff : !(ff === st.fac || (ff === 'B' && (st.fac === 'A' || st.fac === 'H')))) return false; }
     if (st.sex !== 'all') { var sx = l[5] || g[2] || 'u'; if (sx !== st.sex) return false; }
     return true;
   }
@@ -91,11 +94,17 @@ window.wfaStart = function () {
     else if (st.sort === 'sex') view.sort(function (a, b) { var o = { f: 0, m: 1, '': 2 }; return o[G[a[0]][2]] - o[G[b[0]][2]] || nat.compare(G[a[0]][0], G[b[0]][0]); });
     else view.sort(function (a, b) { return nat.compare(G[a[0]][0], G[b[0]][0]); });
   }
+  function metaOf(gi) {
+    var m = MT[gi]; if (!m) return '';
+    var f = m.f === 'A' ? '\u0622\u0644\u06cc\u0627\u0646\u0633' : m.f === 'H' ? '\u0647\u0648\u0631\u062f' : m.f === 'B' ? '\u0622\u0644\u06cc\u0627\u0646\u0633 \u0648 \u0647\u0648\u0631\u062f' : '';
+    var p = m.p === 'd' ? '\u062f\u0627\u0646\u062c\u0646 \u06cc\u0627 \u0631\u06cc\u06cc\u062f' : m.p === 'b' ? '\u062f\u0627\u0646\u062c\u0646 \u0648 \u062f\u0646\u06cc\u0627\u06cc \u0628\u06cc\u0631\u0648\u0646' : m.p === 'w' ? '\u062f\u0646\u06cc\u0627\u06cc \u0628\u06cc\u0631\u0648\u0646' : '';
+    return [f, p, (m.m || []).slice(0, 2).join('\u060c ')].filter(Boolean).join(' \u00b7 ');
+  }
   function cardHTML(v) {
     var gi = v[0], g = G[gi], t = 0, d = 0;
     byG[gi].forEach(function (i) { if (inScope(i)) { t++; if (done[L[i][0]]) d++; } });
     var sx = g[2] === 'f' ? '<span class="f">زن</span>' : g[2] === 'm' ? '<span class="m">مرد</span>' : '';
-    var meta = [sx, g[3] ? (RACE_FA[g[3]] || g[3]) : '', g[1] === 'h' ? 'نژاد بازیکن' : '', fa(v[1].length) + ' خط'].filter(Boolean).join(' \u00b7 ');
+    var meta = [metaOf(gi), sx, g[3] ? (RACE_FA[g[3]] || g[3]) : '', g[1] === 'h' ? 'نژاد بازیکن' : '', fa(v[1].length) + ' خط'].filter(Boolean).join(' \u00b7 ');
     var full = t && d === t;
     var cn = crNames(gi, 3), cnh = cn.list.length ? '<div class="gc">' + cn.list.map(esc).join('\u060c ') + (cn.more ? ' \u0648 ' + fa(cn.more) + ' \u062a\u0627\u06cc \u062f\u06cc\u06af\u0631' : '') + '</div>' : '';
     return '<details class="g" data-g="' + gi + '"><summary>' + avatar(g) + '<div class="gi"><div class="gn">' + esc(g[0]) + '</div>' + cnh + '<div class="gm">' + meta + '</div></div>' +
@@ -176,7 +185,7 @@ window.wfaStart = function () {
     var el = $(id); el.value = st[key]; if (el.value !== st[key]) { st[key] = el.options[0].value; el.value = st[key]; }
     el.addEventListener('change', function () { st[key] = el.value; st.page = 60; savePrefs(); render(); });
   }
-  bindSel('fsex', 'sex'); bindSel('fkind', 'kind'); bindSel('fera', 'era'); bindSel('fsort', 'sort'); bindSel('fstatus', 'status');
+  bindSel('fsex', 'sex'); bindSel('fplace', 'place'); bindSel('ffac', 'fac'); bindSel('fkind', 'kind'); bindSel('fera', 'era'); bindSel('fsort', 'sort'); bindSel('fstatus', 'status');
   $('fcat').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; st.cat = +b.dataset.v; st.page = 60; savePrefs(); render(); });
   var tq; $('q').addEventListener('input', function () { var v = this.value; clearTimeout(tq); tq = setTimeout(function () { st.q = v.trim().toLowerCase().replace(/[۰-۹]/g, function (d) { return FD.indexOf(d); }); st.page = 60; render(); }, 180); });
   // jump to the first line that is not recorded yet (inside the current filters)

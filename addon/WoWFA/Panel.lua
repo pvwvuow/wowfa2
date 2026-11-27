@@ -514,9 +514,105 @@ local function code_box(parent, editable)
     return eb
 end
 
--- 1.1.8 (the owner 27 Nov): "how can I help WoWFarsi" - a short tour from the report page:
--- play and explore (the addon collects what is not translated), copy the report line, send it
--- on the site. Plain frames only (it opens in combat). Every text is in Locale_Panel.lua (PN.tour).
+-- 1.1.8 (the owner 27 Nov: "the slide must not sit in the middle; it has to move next to the part
+-- it talks about and a blinking red frame must show what we mean"): the "how can I help" tour.
+-- A small card moves NEXT TO the part of the report page a step is about, the page scrolls to
+-- it and a blinking red frame marks it. The frame never takes the mouse, so the real buttons
+-- (select the report text) are clicked on the page itself. Plain frames only (works in combat).
+-- Every text is in Locale_Panel.lua (PN.tour).
+local TOUR_STEPS = {
+    { tg = { "head" }, below = true },
+    { tg = { "head", "kinds" }, below = true },
+    { tg = { "list", "copy" }, below = false },
+    { tg = { "steps" }, below = true, url = true },
+}
+
+-- a blinking frame of four lines around a target (parent = the frame it lives in)
+local function make_border(parent, r, g, b, thick)
+    local hl = CreateFrame("Frame", nil, parent)
+    hl:SetFrameLevel(parent:GetFrameLevel() + 60)
+    local e = {}
+    for i = 1, 4 do
+        local tx = hl:CreateTexture(nil, "OVERLAY")
+        if tx.SetColorTexture then
+            tx:SetColorTexture(r, g, b, 1)
+        else
+            tx:SetTexture(r, g, b, 1)
+        end
+        e[i] = tx
+    end
+    e[1]:SetPoint("TOPLEFT", hl, "TOPLEFT", 0, 0)
+    e[1]:SetPoint("TOPRIGHT", hl, "TOPRIGHT", 0, 0)
+    e[1]:SetHeight(thick)
+    e[2]:SetPoint("BOTTOMLEFT", hl, "BOTTOMLEFT", 0, 0)
+    e[2]:SetPoint("BOTTOMRIGHT", hl, "BOTTOMRIGHT", 0, 0)
+    e[2]:SetHeight(thick)
+    e[3]:SetPoint("TOPLEFT", hl, "TOPLEFT", 0, 0)
+    e[3]:SetPoint("BOTTOMLEFT", hl, "BOTTOMLEFT", 0, 0)
+    e[3]:SetWidth(thick)
+    e[4]:SetPoint("TOPRIGHT", hl, "TOPRIGHT", 0, 0)
+    e[4]:SetPoint("BOTTOMRIGHT", hl, "BOTTOMRIGHT", 0, 0)
+    e[4]:SetWidth(thick)
+    hl.t = 0
+    hl:SetScript("OnUpdate", function(self, el)
+        self.t = self.t + el
+        local a = 0.9
+        if not (self.steadyIf and self.steadyIf()) then
+            a = 0.25 + 0.75 * math.abs(math.sin(self.t * 4))
+        end
+        for i = 1, 4 do
+            e[i]:SetAlpha(a)
+        end
+        if self.view then
+            self:SetAlpha(self.view(self.target) and 1 or 0)
+        end
+    end)
+
+    function hl:Around(target, pad)
+        self.target = target
+        self:ClearAllPoints()
+        self:SetPoint("TOPLEFT", target, "TOPLEFT", -pad, pad)
+        self:SetPoint("BOTTOMRIGHT", target, "BOTTOMRIGHT", pad, -pad)
+    end
+
+    return hl
+end
+
+-- the "how can I help" button stands out: a gold label and an orange blinking frame (the frame
+-- keeps blinking until the player has opened the tour once, then it stays lit)
+local function style_help(btn)
+    if btn.label and btn.label.SetTextColor then
+        btn.label:SetTextColor(1, 0.86, 0.3)
+    end
+    local hl = make_border(btn, 1, 0.5, 0.1, 2)
+    hl:Around(btn, 3)
+    hl.steadyIf = function()
+        return F.db and F.db.tourSeen == true
+    end
+    return hl
+end
+
+local function tour_target(name)
+    if name == "copy" then
+        return panel.missCopy
+    end
+    return health and health["f" .. name]
+end
+
+-- is the target inside the visible part of the report page?
+local function in_view(target)
+    local sf = pages.health
+    if not (target and sf) then
+        return false
+    end
+    local ok, res = pcall(function()
+        local top, bot = target:GetTop(), target:GetBottom()
+        local pt, pb = sf:GetTop(), sf:GetBottom()
+        return top and bot and pt and pb and top <= pt and bot >= pb
+    end)
+    return ok and res and true or false
+end
+
 local function build_tour()
     if panel.tour then
         return panel.tour
@@ -526,81 +622,116 @@ local function build_tour()
         return nil
     end
     local t = CreateFrame("Frame", nil, panel)
-    t:SetSize(460, 290)
-    t:SetPoint("CENTER", panel, "CENTER", 0, 0)
-    t:SetFrameLevel(panel:GetFrameLevel() + 40)
+    t:SetSize(330, 215)
+    t:SetFrameLevel(panel:GetFrameLevel() + 70)
     t:EnableMouse(true)
     UI.Glass(t, 1)
     t:Hide()
     panel.tour = t
+    t.hl = {}
+    for k = 1, 2 do
+        local hl = make_border(panel, 1, 0.12, 0.12, 3)
+        hl.view = in_view
+        hl:Hide()
+        t.hl[k] = hl
+    end
     t.title = UI.Text(t, 15, C.gold)
-    t.title:SetPoint("TOPRIGHT", t, "TOPRIGHT", -18, -18)
+    t.title:SetPoint("TOPRIGHT", t, "TOPRIGHT", -14, -12)
     t.body = UI.Text(t, 13, C.text)
-    t.body:SetPoint("TOPRIGHT", t, "TOPRIGHT", -18, -56)
+    t.body:SetPoint("TOPRIGHT", t, "TOPRIGHT", -14, -40)
     t.count = UI.Latin(t, 11, C.muted, "LEFT")
-    t.count:SetPoint("TOPLEFT", t, "TOPLEFT", 18, -20)
-    t.msg = UI.Text(t, 12, C.green)
-    t.msg:SetPoint("BOTTOMRIGHT", t, "BOTTOMRIGHT", -18, 88)
-    t.act = UI.Button(t, PN.tour_pick, 240, 26, function()
-        local n = F.db and tonumber(F.db.missN) or 0
-        if health and health.missList and n > 0 then
-            health.missList:SetFocus()
-            health.missList:HighlightText()
-            t.msg:SetFa(L.rp2_copied, 420)
-            color(t.msg, C.green)
-        else
-            t.msg:SetFa(PN.tour_empty, 420)
-            color(t.msg, C.orange)
-        end
-    end)
-    t.act:SetPoint("BOTTOM", t, "BOTTOM", 0, 52)
+    t.count:SetPoint("TOPLEFT", t, "TOPLEFT", 14, -14)
     t.urlf = CreateFrame("Frame", nil, t)
-    t.urlf:SetSize(420, 26)
-    t.urlf:SetPoint("BOTTOM", t, "BOTTOM", 0, 52)
+    t.urlf:SetSize(300, 26)
+    t.urlf:SetPoint("BOTTOM", t, "BOTTOM", 0, 48)
     local ub = code_box(t.urlf, false)
-    ub:SetSize(408, 22)
+    ub:SetSize(288, 22)
     ub:SetFixed(tostring(F.SITE) .. "/report")
-    t.close = UI.Button(t, PN.tour_close, 100, 26, function()
+    t.close = UI.Button(t, PN.tour_close, 90, 24, function()
         t:Hide()
     end)
-    t.close:SetPoint("BOTTOMRIGHT", t, "BOTTOMRIGHT", -18, 16)
-    t.next = UI.Button(t, PN.tour_next, 110, 26, function()
+    t.close:SetPoint("BOTTOMRIGHT", t, "BOTTOMRIGHT", -12, 12)
+    t.next = UI.Button(t, PN.tour_next, 90, 24, function()
         if t.i >= #slides then
             t:Hide()
         else
             t.show(t.i + 1)
         end
     end)
-    t.next:SetPoint("BOTTOMLEFT", t, "BOTTOMLEFT", 18, 16)
-    t.back = UI.Button(t, PN.tour_back, 110, 26, function()
+    t.next:SetPoint("BOTTOMLEFT", t, "BOTTOMLEFT", 12, 12)
+    t.back = UI.Button(t, PN.tour_back, 90, 24, function()
         t.show(t.i - 1)
     end)
     t.back:SetPoint("LEFT", t.next, "RIGHT", 8, 0)
+    t:SetScript("OnHide", function()
+        for k = 1, 2 do
+            t.hl[k]:Hide()
+        end
+    end)
+    panel:HookScript("OnHide", function()
+        t:Hide()
+    end)
+
+    -- put the card next to the first target and frame every target of the step
+    local function settle(i)
+        if not t:IsShown() or t.i ~= i then
+            return
+        end
+        local st = TOUR_STEPS[i] or TOUR_STEPS[1]
+        local main
+        for k = 1, 2 do
+            local tg = st.tg[k] and tour_target(st.tg[k])
+            if tg then
+                t.hl[k]:Around(tg, 4)
+                t.hl[k]:Show()
+                main = main or tg
+            else
+                t.hl[k]:Hide()
+            end
+        end
+        t:ClearAllPoints()
+        if not main then
+            t:SetPoint("CENTER", panel, "CENTER", 0, 0)
+            t:SetAlpha(1)
+            return
+        end
+        local sf = pages.health
+        local ct, tt = sf and sf.child and sf.child:GetTop(), main:GetTop()
+        if ct and tt and sf.ScrollTo then
+            sf:ScrollTo(math.max(0, ct - tt - (st.below and 60 or 250)))
+        end
+        if st.below then
+            t:SetPoint("TOP", main, "BOTTOM", 0, -12)
+        else
+            t:SetPoint("BOTTOM", main, "TOP", 0, 12)
+        end
+        t:SetAlpha(1)
+    end
 
     function t.show(i)
         local n = #slides
         t.i = math.max(1, math.min(n, i))
         local s = slides[t.i]
-        t.title:SetFa(s.t or " ", 420)
-        t.body:SetFa(s.b or " ", 420)
+        local st = TOUR_STEPS[t.i] or TOUR_STEPS[1]
+        t.title:SetFa(s.t or " ", 300)
+        t.body:SetFa(s.b or " ", 300)
         t.count:SetText(tostring(t.i) .. " / " .. tostring(n))
-        t.msg:SetFa(" ", 420)
         t.next:SetLabel(t.i < n and PN.tour_next or PN.tour_done)
         if t.i > 1 then
             t.back:Show()
         else
             t.back:Hide()
         end
-        if s.act then
-            t.act:Show()
-        else
-            t.act:Hide()
-        end
-        if s.url then
+        if st.url then
             t.urlf:Show()
         else
             t.urlf:Hide()
         end
+        t:SetAlpha(0)
+        local at = t.i
+        F.After(0.1, function()
+            settle(at)
+        end)
     end
 
     return t
@@ -1219,26 +1350,27 @@ local function build()
             F.OpenTour()
         end)
         panel.helpBtn:SetPoint("CENTER", hb, "CENTER", 0, 0)
+        style_help(panel.helpBtn)
         place(hb, 36, 6)
     end
     header(L.rp2_hdr)
-    note(L.rp2_steps)
+    health.fSteps = note(L.rp2_steps)
     local mh = CreateFrame("Frame", nil, page.child)
     mh:SetSize(PW - 16, 24)
     health.missHead = UI.Text(mh, 13, C.goldLight)
     health.missHead:SetPoint("TOPRIGHT", mh, "TOPRIGHT", -4, 0)
     health.missHead:SetFa(L.rp2_none, PW - 30)
-    place(mh, 24, 2)
+    health.fHead = place(mh, 24, 2)
     local mk = CreateFrame("Frame", nil, page.child)
     mk:SetSize(PW - 16, 22)
     health.missKinds = UI.Text(mk, 12, C.muted)
     health.missKinds:SetPoint("TOPRIGHT", mk, "TOPRIGHT", -4, 0)
     health.missKinds:SetFa(" ", PW - 30)
-    place(mk, 22, 4)
+    health.fKinds = place(mk, 22, 4)
     local ml = CreateFrame("Frame", nil, page.child)
     ml:SetSize(PW - 16, 28)
     health.missList = code_box(ml, false)
-    place(ml, 28, 4)
+    health.fList = place(ml, 28, 4)
     local mbt = CreateFrame("Frame", nil, page.child)
     mbt:SetSize(PW - 16, 30)
     panel.missCopy = UI.Button(mbt, L.rp2_btn, 190, 26, function()
@@ -1433,6 +1565,7 @@ local function build()
             F.OpenTour()
         end)
         panel.helpBtn2:SetPoint("CENTER", hb2, "CENTER", 0, 0)
+        style_help(panel.helpBtn2)
         place(hb2, 34, 6)
     end
     local resetRow = CreateFrame("Frame", nil, page.child)
@@ -1522,10 +1655,14 @@ function F.OpenTour()
         return
     end
     panel:Show()
+    select_page("health")
+    if F.db then
+        F.db.tourSeen = true
+    end
     local t = build_tour()
     if t then
-        t.show(1)
         t:Show()
+        t.show(1)
     end
 end
 

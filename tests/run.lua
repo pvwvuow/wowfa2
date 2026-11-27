@@ -880,7 +880,7 @@ local okGu, errGu = pcall(function()
     local pill0 = pf0 and pf0.nav and pf0.nav.game and pf0.nav.game.newPill
     check("new tag: the game page has its pill in the side menu until it is opened", pill0 ~= nil and pill0:IsShown())
     F.OpenPanel("game")
-    check("new tag: opening the page hides the pill for good", pill0 ~= nil and not pill0:IsShown() and F.db.newSeen and F.db.newSeen.game == "1.2.0")
+    check("new tag: opening the page hides the pill for good", pill0 ~= nil and not pill0:IsShown() and F.db.newSeen and F.db.newSeen.game == "1.2.2")
     local PF = F.PanelFrame()
     check("gameui: the switch is on the game windows page", PF and PF.gameUi ~= nil)
     if PF and PF.gameUi then
@@ -895,7 +895,8 @@ check("gameui tests ran", okGu, errGu)
 -- ------------------------------------------------------------------ 1.2.0: window groups, combat watch
 local okGg, errGg = pcall(function()
     local G = F.GameUI
-    check("groups: the module lists 7 groups", type(G.Groups) == "table" and #G.Groups == 7, G.Groups and #G.Groups)
+    check("groups: the module lists 8 groups", type(G.Groups) == "table" and #G.Groups == 8, G.Groups and #G.Groups)
+    check("groups: the auction house has its own group", G.GroupOn("ah") == true)
     local h = CreateFrame("Frame", "ZzGroupHost", UIParent)
     local a = h:CreateFontString(nil, "OVERLAY")
     a:SetText("Reputation")

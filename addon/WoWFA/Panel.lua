@@ -38,7 +38,7 @@ local STATE_C = { ok = "green", warn = "orange", update = "orange", fault = "red
 -- (db.newSeen[page] = NEWREL), and header(text, true) puts the same pill at the left end of a
 -- header. The next release removes the entries and the `true` flags.
 local NEWREL = "1.2.0"
-local NEW_PAGES = { game = "1.2.0", spellbook = "1.2.1" } -- page -> the release that made it new
+local NEW_PAGES = { game = "1.2.2", spellbook = "1.2.1" } -- page -> the release that made it new
 
 local function new_pill(parent)
     local oc = C.orange or { 1, 0.6, 0.15 }

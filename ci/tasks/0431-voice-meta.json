@@ -1,0 +1,1 @@
+{"id": "0431-voice-meta", "kind": "script", "why": "owner 27 Nov: which voice groups belong to dungeons or the open world, Alliance or Horde", "args": {"module": "voice_meta", "args": {"cmangos": "https://raw.githubusercontent.com/cmangos/classic-db/13e933726f386399d9820138fbd1123e7cda86c8/Full_DB/ClassicDB_1_12_1_z2815.sql.gz"}}}

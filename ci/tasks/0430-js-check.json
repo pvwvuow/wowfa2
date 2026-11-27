@@ -1,0 +1,1 @@
+{"id": "0430-js-check", "kind": "script", "why": "owner 27 Nov: syntax check of the patched dub studio", "args": {"module": "js_check", "args": {"files": ["tools/dub-studio/app.js", "tools/dub-studio/loader.js", "tools/dub-studio/dsp.js"]}}}

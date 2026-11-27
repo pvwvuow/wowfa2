@@ -960,6 +960,40 @@ local okGg, errGg = pcall(function()
     PF:Hide()
 end)
 check("window groups tests ran", okGg, errGg)
+-- ------------------------------------------------------------------ 1.2.1: buffs and debuffs
+local okAu, errAu = pcall(function()
+    local m = F.mods.auras
+    check("auras: the module is registered and active", m ~= nil and m.active == true, m and m.state)
+    check("auras: the tooltip function is exported", type(F.AuraTip) == "function" and type(F.SpellTip) == "function")
+    GameTooltip:Hide()
+    GameTooltip:ClearLines()
+    GameTooltip:AddLine("Zz Not A Known Aura")
+    GameTooltip:AddLine("Magic")
+    GameTooltip:AddLine("5 min remaining")
+    F.AuraTip(GameTooltip, nil)
+    local ls = GameTooltip:TipLines()
+    local all = table.concat(ls, " / ")
+    check("auras: the dispel type line turns Persian", non_ascii(ls[2]) and not all:find("Magic", 1, true), all)
+    check("auras: the time left turns Persian", non_ascii(ls[3]) and not all:find("remaining", 1, true), all)
+    F.D.tpl["zz stunned test"] = "گیج"
+    GameTooltip:Hide()
+    GameTooltip:ClearLines()
+    GameTooltip:AddLine("Zz Aura Two")
+    GameTooltip:AddLine("Zz Stunned Test.")
+    F.AuraTip(GameTooltip, nil)
+    local ls2 = GameTooltip:TipLines()
+    local fa = false
+    for _, l in ipairs(ls2) do
+        if non_ascii(l) then
+            fa = true
+        end
+    end
+    check("auras: a short description with a template turns Persian", fa, table.concat(ls2, " / "))
+    F.D.tpl["zz stunned test"] = nil
+    check("auras: the short-line flags are put back", GameTooltip.wfaMin == nil and GameTooltip.wfaMiss == nil)
+    GameTooltip:Hide()
+end)
+check("auras tests ran", okAu, errAu)
 -- ------------------------------------------------------------------ 1.1.6: the live preview column
 local okPv, errPv = pcall(function()
     local P = F.Preview

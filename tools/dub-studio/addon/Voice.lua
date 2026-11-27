@@ -9,7 +9,7 @@ D.generic = D.generic or {}
 D.byEntry = D.byEntry or {}
 D.models = D.models or {}
 
-local TRIGGER_CATS = { "greeting", "farewell", "pissed", "aggro" }
+local TRIGGER_CATS = { "greeting", "farewell", "pissed", "aggro", "vendor" }
 local debug = false
 local lastPlay = {}      -- category -> time
 local seenGuid = {}      -- guid -> time of the aggro line
@@ -113,6 +113,8 @@ local function resolve(unit, model)
   if DB().bind[unitKey(unit)] and D.generic[1] then return pickGroup({ D.generic[1].name }, id, uname), "bound" end
   local pairsOf = id and D.byEntry[id]
   if pairsOf then
+    -- one model only: no doubt about the voice, whatever the model check says
+    if #pairsOf == 1 and pairsOf[1][2] then return pickGroup({ pairsOf[1][2] }, id, uname), "game data" end
     if model then
       local groups = {}
       for _, p in ipairs(pairsOf) do if p[1] == model and p[2] then groups[#groups + 1] = p[2] end end
@@ -120,7 +122,6 @@ local function resolve(unit, model)
       if D.models[model] then return pickGroup(D.models[model], id, uname), "model" end
       return nil, "game data: this creature shows another model"
     end
-    if #pairsOf == 1 and pairsOf[1][2] then return pickGroup({ pairsOf[1][2] }, id, uname), "game data (single model)" end
     return nil, "game data: several models and the model is unknown"
   end
   if model and D.models[model] then return pickGroup(D.models[model], id, uname), "model" end
@@ -142,11 +143,15 @@ local function play(cat, entry)
 end
 
 -- ---------------------------------------------------------------- conversation events
-local function onInteract()
+local function onInteract(ev)
   local name, guid = UnitName("npc"), UnitGUID("npc")
   if not name or not guid then return end
   -- the same NPC opening another window (gossip -> vendor): same conversation, no second greeting
-  if active and active.guid == guid and GetTime() - active.t < 20 then active.t = GetTime() return end
+  if active and active.guid == guid and GetTime() - active.t < 20 then
+    active.t = GetTime()
+    if ev == "MERCHANT_SHOW" and not active.vendor and play("vendor", active.entry) then active.vendor = true end
+    return
+  end
   if resolving == guid then return end
   active = nil
   resolving = guid
@@ -156,7 +161,7 @@ local function onInteract()
     if resolving == guid then resolving = nil end
     if my ~= token or UnitGUID("npc") ~= guid then return end
     local entry, how = resolve("npc", model)
-    dbg("npc", name, "id", tostring(creatureId("npc")), "model", tostring(model), why or "", "->", entry and entry.name or "none", how)
+    dbg("npc", name, "id", tostring(creatureId("npc")), "model", tostring(model), why or "", "event", tostring(ev), "->", entry and entry.name or "none", how)
     if not entry then return end
     active = { guid = guid, entry = entry, t = GetTime() }
     local now = GetTime()
@@ -164,6 +169,7 @@ local function onInteract()
     if c and now - c.t < 10 then c.n = c.n + 1 else c = { n = 1 }; clicks[guid] = c end
     c.t = now
     if c.n >= 5 and play("pissed", entry) then return end
+    if ev == "MERCHANT_SHOW" and play("vendor", entry) then active.vendor = true return end
     if c.n < 5 then play("greeting", entry) end
   end)
 end
@@ -241,13 +247,13 @@ f:SetScript("OnEvent", function(_, ev)
     local muted, has = muteAll()
     local nEntry = 0
     for _ in pairs(D.byEntry) do nEntry = nEntry + 1 end
-    say(string.format("v0.3 loaded: %d named NPC, %d voice groups, %d creatures, %d original sounds muted%s, model check %s (/wfv)",
+    say(string.format("v0.3.1 loaded: %d named NPC, %d voice groups, %d creatures, %d original sounds muted%s, model check %s (/wfv)",
       D.count or 0, #D.generic, nEntry, muted, has and "" or " (MuteSoundFile missing)", modelAvailable() and "on" or "OFF"))
     return
   end
   local h = handlers[ev]
   if h then
-    local ok, err = pcall(h)
+    local ok, err = pcall(h, ev)
     if not ok then say("error", ev, tostring(err)) end
   end
 end)

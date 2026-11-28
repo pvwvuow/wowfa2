@@ -1,0 +1,1 @@
+{"id": "0552-grep", "kind": "script", "why": "owner 28 Nov: every addon text for stun and the other control effects", "args": {"module": "src_grep", "args": {"grep": ["STUNNED", "stunned", "STUN", "FEARED", "CONFUSED", "ROOTED", "SILENCED", "INCAPACITATED", "DISARMED", "POLYMORPH", "SLEEP", "CHARMED", "FLEEING"], "ctx": 0, "limit": 80}}}

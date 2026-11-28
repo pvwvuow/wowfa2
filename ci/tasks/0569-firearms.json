@@ -1,0 +1,1 @@
+{"id": "0569-firearms", "kind": "script", "why": "owner 28 Nov: guns and firearms had the same Persian name (ratchet name_pairs_spell)", "args": {"module": "term_fix", "args": {"apply": true, "samples": 3, "rules": [{"id": "firearms", "tables": ["n:spell"], "en": "^firearms$", "finds": [["^\u062a\u0641\u0646\u06af$", "\u0633\u0644\u0627\u062d \u06af\u0631\u0645"]]}]}}}

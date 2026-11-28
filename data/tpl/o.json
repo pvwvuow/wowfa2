@@ -7,5 +7,5 @@
 "only usable on enemies that have #% or less health":"فقط می‌توان آن را علیه دشمنانی به‌کار برد که {0}% یا کمتر {{tm:health|سلامتی}} دارند.",
 "only works against humanoids":"فقط روی {{tm:Humanoids|انسان‌نماها}} اثر دارد.",
 "oops!":"ای وای!",
-"orders your pet to attack your current target":"به حیوان همراهتان فرمان می‌دهد به هدف فعلی‌تان حمله کند."
+"orders your pet to attack your current target":"به حیوان خانگی‌تان فرمان می‌دهد به هدف فعلی‌تان حمله کند."
 }

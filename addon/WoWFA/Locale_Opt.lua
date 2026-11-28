@@ -43,7 +43,7 @@ L.pf_deleted = fa("پروفایل «%s» حذف شد.")
 L.pf_none = fa("هنوز پروفایلی نساخته~ای. یک اسم بنویس و «ذخیرهٔ پروفایل» را بزن.")
 
 L.rp_hdr = fa("گزارش برای ما: چیزهایی که هنوز فارسی نیستند")
-L.rp_d = fa("خط پایین هر چیزی است که افزونه در بازی دید و فارسی~اش را نداشت (هشدار، اسم NPC، منطقه و...). «انتخاب برای کپی» را بزن، بعد Ctrl+C، و متن را در سایت wowfarsi.ir/report یا در سرور دیسکورد wowfarsi برای ما بفرست تا در نسخهٔ بعد فارسی شود. کوئست~ها و NPC~های تازه هم خودکار جمع می~شوند (/wowfa harvest). اسم بازیکن~ها و پت~ها هیچ~وقت ترجمه نمی~شود.")
+L.rp_d = fa("خط پایین هر چیزی است که افزونه در بازی دید و فارسی~اش را نداشت (هشدار، اسم NPC، منطقه و...). «انتخاب برای کپی» را بزن، بعد Ctrl+C، و متن را در سایت wowfarsi.ir/report یا در سرور دیسکورد wowfarsi برای ما بفرست تا در نسخهٔ بعد فارسی شود. کوئست~ها و NPC~های تازه هم خودکار جمع می~شوند (/wowfa harvest). اسم بازیکن~ها و حیوان خانگی~ها هیچ~وقت ترجمه نمی~شود.")
 L.btn_miss_copy = fa("انتخاب برای کپی")
 
 -- 1.0.5 (the owner: the Status page must be clear about WHAT to copy)
@@ -73,7 +73,7 @@ L.ALERTS = L.ALERTS or {}
 L.ALERTS[#L.ALERTS + 1] = { "Internal mail database error.", fa("خطای داخلی پایگاه دادهٔ نامه~ها.") }
 L.ALERTS[#L.ALERTS + 1] = { "The item was not found.", fa("آیتم پیدا نشد.") }
 L.ALERTS[#L.ALERTS + 1] = { "You are mounted.", fa("شما سوار مرکب هستید.") }
-L.ALERTS[#L.ALERTS + 1] = { "Your pet is dead. Use Revive Pet.", fa("پت شما مرده است. از Revive Pet استفاده کنید.") }
+L.ALERTS[#L.ALERTS + 1] = { "Your pet is dead. Use Revive Pet.", fa("حیوان خانگی شما مرده است. از Revive Pet استفاده کنید.") }
 L.ALERTS[#L.ALERTS + 1] = { "You do not have a pet to summon.", fa("پتی برای احضار ندارید.") }
 L.ALERTS[#L.ALERTS + 1] = { "Discovered: %s", fa("کشف شد: %s") }
 L.ALERTS[#L.ALERTS + 1] = { "There is no loot.", fa("غنیمتی وجود ندارد.") }
@@ -82,7 +82,7 @@ L.ALERTS[#L.ALERTS + 1] = { "You are too far away.", fa("خیلی دور هست�
 L.ALERTS[#L.ALERTS + 1] = { "Must have ammo equipped in the ammo slot.", fa("باید مهمات را در جایگاه مهمات بگذارید.") }
 -- 1.0.7 (user reports 25 Nov)
 L.ALERTS[#L.ALERTS + 1] = { "You need to be closer to interact with that target.", fa("برای تعامل با این هدف باید نزدیک~تر بروید.") }
-L.ALERTS[#L.ALERTS + 1] = { "You don't have a pet!", fa("پت ندارید!") }
+L.ALERTS[#L.ALERTS + 1] = { "You don't have a pet!", fa("حیوان خانگی ندارید!") }
 L.ALERTS[#L.ALERTS + 1] = { "Thank you for your report!", fa("از گزارش شما سپاسگزاریم!") }
 
 -- 1.0.6 (the owner's screenshots): fixed lines under the world map that are no zone

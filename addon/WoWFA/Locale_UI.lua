@@ -52,7 +52,7 @@ local ROWS = {
     { "Mouse", "ماوس" }, { "Language", "زبان" }, { "Languages", "زبان~ها" }, { "Advanced", "پیشرفته" },
     { "Names", "نام~ها" }, { "Chat", "چت" },
     -- the character window
-    { "Character", "کاراکتر" }, { "Character Info", "اطلاعات کاراکتر" }, { "Pet", "پت" }, { "Pets", "پت~ها" },
+    { "Character", "کاراکتر" }, { "Character Info", "اطلاعات کاراکتر" }, { "Pet", "حیوان خانگی" }, { "Pets", "حیوان خانگی~ها" },
     { "Reputation", "اعتبار" }, { "Skills", "مهارت~ها" }, { "Honor", "افتخار" }, { "Currency", "ارزها" },
     { "Titles", "عنوان~ها" }, { "Title", "عنوان" }, { "Equipment Manager", "مدیریت تجهیزات" },
     { "Equipment Sets", "مجموعه~های تجهیزات" }, { "Attributes", "ویژگی~ها" }, { "Stats", "آمار" },

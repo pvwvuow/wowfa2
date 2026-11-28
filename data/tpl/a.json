@@ -81,7 +81,7 @@
 "allows the rogue to vanish from sight, entering an improved stealth mode for # sec. also breaks movement impairing effects. more effective than vanish (rank #)":"به راهزن امکان می‌دهد از دید ناپدید شود و برای {0} ثانیه وارد حالت {{tm:stealth|مخفی‌کاری}} بهبودیافته شود. همچنین اثرهای {{tm:movement impairing|کندکنندهٔ حرکت}} را برطرف می‌کند. از {{sp:vanish}} (رنک {1}) مؤثرتر است.",
 "allows the target to breathe underwater for # min":"به هدف اجازه می‌دهد {0} دقیقه زیر آب نفس بکشد.",
 "allows you to resurrect yourself upon death with #% health and mana":"به تو اجازه می‌دهد پس از مرگ با {0}% {{tm:health|سلامتی}} و {{tm:mana|مانا}} خودت را زنده کنی.",
-"allows you to use two-handed axes and two-handed maces":"اجازه می‌دهد از تبر {{tm:two-handed|دودستی}} و گرز {{tm:two-handed|دودستی}} استفاده کنی.",
+"allows you to use two-handed axes and two-handed maces":"اجازه می‌دهد از تبر {{tm:two-handed|دو دستی}} و گرز {{tm:two-handed|دو دستی}} استفاده کنی.",
 "allows your shield block ability to block an additional attack and increases the duration by # second":"به توانایی {{sp:shield block}} تو اجازه می‌دهد یک حملهٔ اضافی را {{tm:Block|بلوک}} کند و مدت آن را {0} ثانیه افزایش می‌دهد.",
 "alms for the poor?":"صدقه‌ای برای بینوایان؟",
 "ambush the target, causing #% weapon damage plus # to the target. must be stealthed and behind the target. requires a dagger in the main hand. awards # combo point":"به هدف {{sp:Ambush}} می‌زنی و {0}% {{tm:weapon damage|آسیب سلاح}} به‌علاوهٔ {1} به او وارد می‌کنی. باید در {{sp:Stealth}} و پشت هدف باشی. به {{tm:dagger|خنجر}} در دست اصلی نیاز دارد. {2} {{tm:combo point|امتیاز ترکیبی}} می‌دهد.",

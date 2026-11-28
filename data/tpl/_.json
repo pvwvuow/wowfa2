@@ -18,7 +18,7 @@
 "\" taught you to permanently enchant a wrist guard, giving it +# agility.\"":"«افسون دائمی مچ‌بند و افزودن {0} {{tm:Agility|چابکی}} به آن را به تو می‌آموزد.»",
 "\" teaches you how to permanently enchant a breastplate, giving it +# intelligence.\"":"«به تو می‌آموزد سینه‌پوش را برای همیشه افسون کنی و +{0} {{tm:Intelligence|هوش}} به آن بدهی.»",
 "\" teaches you how to permanently enchant a cloak, giving it +# agility.\"":"«به تو می‌آموزد چگونه شنلی را به‌طور دائمی افسون کنی و +{0} {{tm:Agility|چابکی}} به آن بدهی.»",
-"\" teaches you how to permanently enchant a two-handed weapon, giving it +# intelligence.\"":"«افسون دائمی سلاح {{tm:two-handed|دودستی}} را به تو می‌آموزد تا +{0} {{tm:Intelligence|هوش}} به آن بدهد.»",
+"\" teaches you how to permanently enchant a two-handed weapon, giving it +# intelligence.\"":"«افسون دائمی سلاح {{tm:two-handed|دو دستی}} را به تو می‌آموزد تا +{0} {{tm:Intelligence|هوش}} به آن بدهد.»",
 "\" teaches you how to permanently enchant a wrist guard, giving it +# intelligence.\"":"«روش افسون دائمی مچ‌بند و افزودن {0} {{tm:Intelligence|هوش}} به آن را به تو می‌آموزد.»",
 "\" teaches you how to permanently enchant a wrist guard, increasing its healing power by up to # and spell damage by up to #.\"":"«روش افسون دائمی مچ‌بند را به تو می‌آموزد؛ این افسون {{tm:healing power|قدرت شفا}} را تا {0} و {{tm:spell damage|آسیب اسپل}} را تا {1} افزایش می‌دهد.»",
 "\" teaches you to permanently enchant a shield, giving it +# stamina.\"":"«روش افسون دائمی سپر و افزودن {0} {{tm:Stamina|استقامت}} به آن را به شما می‌آموزد.»",

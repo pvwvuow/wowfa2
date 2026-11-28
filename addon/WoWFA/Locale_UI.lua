@@ -82,8 +82,8 @@ local ROWS = {
     -- skills
     { "Class Skills", "مهارت~های کلاس" }, { "Professions", "حرفه~ها" }, { "Secondary Skills", "مهارت~های فرعی" },
     { "Weapon Skills", "مهارت~های سلاح" }, { "Armor Proficiencies", "مهارت در زره" }, { "Unlearn", "فراموش کردن" },
-    { "Skill", "مهارت" }, { "Axes", "تبر" }, { "Two-Handed Axes", "تبر دودستی" }, { "Maces", "گرز" },
-    { "Two-Handed Maces", "گرز دودستی" }, { "Swords", "شمشیر" }, { "Two-Handed Swords", "شمشیر دودستی" },
+    { "Skill", "مهارت" }, { "Axes", "تبر" }, { "Two-Handed Axes", "تبر دو دستی" }, { "Maces", "گرز" },
+    { "Two-Handed Maces", "گرز دو دستی" }, { "Swords", "شمشیر" }, { "Two-Handed Swords", "شمشیر دو دستی" },
     { "Daggers", "خنجر" }, { "Staves", "عصا" }, { "Polearms", "نیزه" }, { "Bows", "کمان" }, { "Guns", "تفنگ" },
     { "Crossbows", "کمان صلیبی" }, { "Thrown", "پرتابی" }, { "Wands", "چوب~دستی جادویی" },
     { "Fist Weapons", "سلاح مشتی" }, { "Unarmed", "بی~سلاح" }, { "Fishing", "ماهیگیری" }, { "Cooking", "آشپزی" },

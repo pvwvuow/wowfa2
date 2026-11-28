@@ -4,7 +4,9 @@
   // 1.3 (the owner 28 Nov: the studio missed a lot): nothing is dropped any more except sounds that are not a voice
   // (footsteps, loops, mounts). New categories at the end, so saved filters keep their numbers:
   // 7 emote, 8 NPC body sounds (wound, attack, death), 9 beasts and monsters, 10 everything else.
-  var CATS = ['greeting', 'farewell', 'pissed', 'aggro', 'speech', 'player', 'combat', 'emote', 'exert', 'beast', 'other'];
+  var CATS = ['greeting', 'farewell', 'pissed', 'aggro', 'speech', 'player', 'combat', 'emote', 'exert', 'beast', 'other', 'races'];
+  // 11 races (the owner 28 Nov): the whole player pack of a playable race (errors, commands, emotes, body sounds)
+  var PLAYR = { human: 1, dwarf: 1, gnome: 1, nightelf: 1, orc: 1, troll: 1, tauren: 1, scourge: 1 };
   var NONVOICE = /footstep|footfall|(^|_)m?foot|swim|wingflap|(^|_)loop|jingle|(^|_)knock|(^|_)mount(?!ain)|horse|hoof/;
   var EMOTE = /laugh|cheer|chuckle|sigh|yawn|cough|sneeze|whistle|snore|choochoo|clap|kiss|giggle|flirt|emote|dance|applau/;
   var EXERT = /wound|attack|death|(^|_)dies?(_|\d|$)|dying|pain|hurt|injur|grunt|roar|crit|windup|(^|_)cast|precast|channel|spell|effort|exert|battleshout|battlecry|warcry|stun|knockdown|parry|dodge|block|jump|(^|_)land|(^|_)fall|breath|drown|yell_?pain|growl|snarl|howl|hiss|bark|screech|shriek|gasp/;
@@ -111,6 +113,9 @@
       var gg = groups[r[1]];
       r.push(gg[1] === 'h' || HK[ri] ? lineRace(n, gg[3]) : gg[3]);
       r.push(HK[ri] ? 'h' : '');
+      // r[9] keeps the old category (5 said, 6 body) for the pack table; NPC voices of a race (guard, vendor) stay where they are
+      r.push(r[2]);
+      if ((gg[1] === 'h' || HK[ri]) && PLAYR[r[7]] && !/npc|kid|child|_hd/.test(n)) r[2] = 11;
     });
     groups.forEach(function (g, gi) {
       if (!g[2]) {

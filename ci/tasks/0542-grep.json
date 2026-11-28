@@ -1,0 +1,1 @@
+{"id": "0542-grep", "kind": "script", "why": "owner 28 Nov: who writes to the game's own tables or menus", "args": {"module": "src_grep", "args": {"grep": ["UIDropDownMenu", "EasyMenu", "StaticPopupDialogs", "UISpecialFrames", "SetCVar", "_G%[[^%]]+%]%s*=", "_G%.[%w_]+%s*=[^=]", "SlashCmdList", "ChatTypeInfo", "securecall", "MenuUtil"], "ctx": 3, "limit": 80}}}

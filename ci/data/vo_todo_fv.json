@@ -1,0 +1,5534 @@
+[
+[
+"Greetings!",
+21,
+"h",
+"Gnomefemalehappynpc"
+],
+[
+"Hello.",
+16,
+"h",
+"Dwarffemaleguardnpc"
+],
+[
+"I need to get closer.",
+16,
+"h",
+"Dwarf"
+],
+[
+"I can't use that yet.",
+15,
+"h",
+"Dwarf"
+],
+[
+"Farewell.",
+14,
+"h",
+"Humanfemaleofficialnpc"
+],
+[
+"I need more mana.",
+12,
+"h",
+"Dwarf"
+],
+[
+"Well met.",
+10,
+"h",
+"Dwarffemaleguardnpc"
+],
+[
+"Hey!",
+9,
+"h",
+"Humanpesantmale"
+],
+[
+"No!",
+9,
+"h",
+"Dwarfmaleguardnpc"
+],
+[
+"Too far away.",
+9,
+"h",
+"Dwarf"
+],
+[
+"I can't carry any more of those.",
+8,
+"h",
+"Dwarf"
+],
+[
+"I can't cast that yet.",
+8,
+"h",
+"Dwarf"
+],
+[
+"I can't do that here!",
+8,
+"h",
+"Dwarf"
+],
+[
+"I can't do that yet.",
+8,
+"h",
+"Dwarf"
+],
+[
+"I can't do that.",
+8,
+"h",
+"Dwarf"
+],
+[
+"I can't equip that.",
+8,
+"h",
+"Dwarf"
+],
+[
+"I can't reach that!",
+8,
+"h",
+"Dwarf"
+],
+[
+"I can't use that.",
+8,
+"h",
+"Dwarf"
+],
+[
+"I don't have a target.",
+8,
+"h",
+"Dwarf"
+],
+[
+"I don't have enough energy.",
+8,
+"h",
+"Dwarf"
+],
+[
+"I don't have that ability yet.",
+8,
+"h",
+"Dwarf"
+],
+[
+"I need a target.",
+8,
+"h",
+"Dwarf"
+],
+[
+"I need both hands for my weapon.",
+8,
+"h",
+"Dwarf"
+],
+[
+"I need healing.",
+8,
+"h",
+"Dwarf"
+],
+[
+"I'll need permission first.",
+8,
+"h",
+"Dwarf"
+],
+[
+"I'll never be able to equip that.",
+8,
+"h",
+"Dwarf"
+],
+[
+"I'm out of range.",
+8,
+"h",
+"Dwarf"
+],
+[
+"Inventory is full!",
+8,
+"h",
+"Dwarf"
+],
+[
+"It's locked!",
+8,
+"h",
+"Dwarf"
+],
+[
+"It's still recharging!",
+8,
+"h",
+"Dwarf"
+],
+[
+"It's too expensive!",
+8,
+"h",
+"Dwarf"
+],
+[
+"My mana is low.",
+8,
+"h",
+"Dwarf"
+],
+[
+"My skill level isn't high enough to equip that.",
+8,
+"h",
+"Dwarf"
+],
+[
+"Need more rage.",
+8,
+"h",
+"Dwarf"
+],
+[
+"Not enough energy.",
+8,
+"h",
+"Dwarf"
+],
+[
+"That bag is full.",
+8,
+"h",
+"Dwarf"
+],
+[
+"That spell isn't ready yet.",
+8,
+"h",
+"Dwarf"
+],
+[
+"That's not a bag.",
+8,
+"h",
+"Dwarf"
+],
+[
+"Yes.",
+8,
+"h",
+"Undeadfemalemagicnpc"
+],
+[
+"Heal me.",
+7,
+"h",
+"Dwarf"
+],
+[
+"How are ya?",
+7,
+"h",
+"Dwarffemalematernalnpc"
+],
+[
+"I can't afford that!",
+7,
+"h",
+"Dwarf"
+],
+[
+"I can't carry anymore!",
+7,
+"h",
+"Dwarf"
+],
+[
+"I can't drink anymore yet!",
+7,
+"h",
+"Dwarf"
+],
+[
+"I can't put that there.",
+7,
+"h",
+"Dwarf"
+],
+[
+"I can't use that item yet.",
+7,
+"h",
+"Dwarf"
+],
+[
+"I don't have enough money.",
+7,
+"h",
+"Dwarf"
+],
+[
+"I need to target something first.",
+7,
+"h",
+"Dwarf"
+],
+[
+"I'll need to equip that to use it.",
+7,
+"h",
+"Dwarf"
+],
+[
+"I'm out of ammo!",
+7,
+"h",
+"Dwarf"
+],
+[
+"It's not ready yet!",
+7,
+"h",
+"Dwarf"
+],
+[
+"not enough mana",
+7,
+"h",
+"Dwarf"
+],
+[
+"not enough rage.",
+7,
+"h",
+"Dwarf"
+],
+[
+"Not ready yet.",
+7,
+"h",
+"Dwarf"
+],
+[
+"That ability isn't ready yet.",
+7,
+"h",
+"Dwarf"
+],
+[
+"That's not equipped yet.",
+7,
+"h",
+"Dwarf"
+],
+[
+"We can't invite anyone else.",
+7,
+"h",
+"Dwarf"
+],
+[
+"Follow me!",
+6,
+"h",
+"Dwarf"
+],
+[
+"Hi!",
+6,
+"h",
+"Dwarffemalematernalnpc"
+],
+[
+"I can't drop that.",
+6,
+"h",
+"Dwarf"
+],
+[
+"I can't loot that right now.",
+6,
+"h",
+"Dwarf"
+],
+[
+"I can't trade that.",
+6,
+"h",
+"Dwarf"
+],
+[
+"I'm not high enough level to use that.",
+6,
+"h",
+"Dwarf"
+],
+[
+"It's too far away.",
+6,
+"h",
+"Dwarf"
+],
+[
+"That's bound to me.",
+6,
+"h",
+"Dwarf"
+],
+[
+"Ugh.",
+6,
+"h",
+"Humanmalepirateheavy"
+],
+[
+"Congratulations!",
+5,
+"h",
+"Dwarf"
+],
+[
+"Goodbye.",
+5,
+"h",
+"Nightelfmalewarriornpc"
+],
+[
+"I can't wield that yet.",
+5,
+"h",
+"Nightelf"
+],
+[
+"I'll lead the way.",
+5,
+"h",
+"Dwarf"
+],
+[
+"My pleasure.",
+5,
+"h",
+"Dwarf"
+],
+[
+"Remain here.",
+5,
+"h",
+"Nightelf"
+],
+[
+"Retreat!",
+5,
+"h",
+"Nightelf"
+],
+[
+"That's still recharging.",
+5,
+"h",
+"Nightelf"
+],
+[
+"Watch it.",
+5,
+"h",
+"Dwarffemalematernalnpc"
+],
+[
+"Excellent.",
+4,
+"h",
+"Nightelf"
+],
+[
+"Good bye.",
+4,
+"h",
+"Undeadfemalewarriornpc"
+],
+[
+"I can't learn that spell.",
+4,
+"h",
+"Nightelf"
+],
+[
+"I can't loot that.",
+4,
+"h",
+"Dwarf"
+],
+[
+"I need help.",
+4,
+"h",
+"Dwarf"
+],
+[
+"Well done.",
+4,
+"h",
+"Dwarf"
+],
+[
+"Brilliant!",
+3,
+"h",
+"Dwarf"
+],
+[
+"Double",
+3,
+"h",
+"Orcmaleguardnpc"
+],
+[
+"I can't wheel that yet.",
+3,
+"h",
+"Dwarf"
+],
+[
+"I don't think so.",
+3,
+"h",
+"Nightelf"
+],
+[
+"It was nothing.",
+3,
+"h",
+"Nightelf"
+],
+[
+"Naturally.",
+3,
+"h",
+"Nightelf"
+],
+[
+"on your guard.",
+3,
+"h",
+"Orc"
+],
+[
+"Open fire!",
+3,
+"h",
+"Dwarf"
+],
+[
+"Stay here.",
+3,
+"h",
+"Dwarf"
+],
+[
+"Stay strong.",
+3,
+"h",
+"Goblinguardf"
+],
+[
+"Wait here.",
+3,
+"h",
+"Nightelf"
+],
+[
+"What?",
+3,
+"h",
+"Humanmalepirate"
+],
+[
+"You are worthy.",
+3,
+"h",
+"Nightelf"
+],
+[
+"You're welcome.",
+3,
+"h",
+"Dwarf"
+],
+[
+"Absolutely not.",
+2,
+"h",
+"Nightelf"
+],
+[
+"Aid me.",
+2,
+"h",
+"Nightelf"
+],
+[
+"ASSIST ME!",
+2,
+"h",
+"Nightelf"
+],
+[
+"Be alert.",
+2,
+"h",
+"Nightelf"
+],
+[
+"Blah, blah, blah, blah.",
+2,
+"h",
+"Gnomemalestandardnpc"
+],
+[
+"but still recharging.",
+2,
+"h",
+"Dwarf"
+],
+[
+"Come.",
+2,
+"h",
+"Orc"
+],
+[
+"Danger approaching!",
+2,
+"h",
+"Dwarf"
+],
+[
+"FIRE!",
+2,
+"h",
+"Dwarf"
+],
+[
+"Good job.",
+2,
+"h",
+"Orc"
+],
+[
+"Good journey.",
+2,
+"h",
+"Nightelf"
+],
+[
+"Ha!",
+2,
+"h",
+"Humanwarrior1"
+],
+[
+"Help me!",
+2,
+"h",
+"Dwarf"
+],
+[
+"How generous.",
+2,
+"h",
+"Nightelf"
+],
+[
+"I need mana!",
+2,
+"h",
+"Orc"
+],
+[
+"I wish you well.",
+2,
+"h",
+"Nightelf"
+],
+[
+"I won't forget this.",
+2,
+"h",
+"Orc"
+],
+[
+"neutral here.",
+2,
+"h",
+"Trollvocalmale"
+],
+[
+"No problem.",
+2,
+"h",
+"Dwarf"
+],
+[
+"Not on your life.",
+2,
+"h",
+"Dwarf"
+],
+[
+"Of course.",
+2,
+"h",
+"Nightelf"
+],
+[
+"Run!",
+2,
+"h",
+"Orc"
+],
+[
+"See ya!",
+2,
+"h",
+"Dwarf"
+],
+[
+"SHUT!",
+2,
+"h",
+"Orc"
+],
+[
+"Sure!",
+2,
+"h",
+"Dwarf"
+],
+[
+"Thanks a lot!",
+2,
+"h",
+"Dwarf"
+],
+[
+"The honor was mine.",
+2,
+"h",
+"Nightelf"
+],
+[
+"Till we meet again.",
+2,
+"h",
+"Dwarf"
+],
+[
+"Yeah!",
+2,
+"h",
+"Humanmalepirateheavy"
+],
+[
+"You are too kind.",
+2,
+"h",
+"Nightelf"
+],
+[
+"Zug, zug.",
+2,
+"h",
+"Orcfemalestandardnpc"
+],
+[
+"A duck walked into an apothecary and he said give me some chapstick and put it on my bill.",
+1,
+"h",
+"Humanvocalmale"
+],
+[
+"A guy walked up to me and said, I'm a teepee. I'm a wigwam. I'm a teepee. I'm a wigwam. I said, relax, man. You're too tense.",
+1,
+"h",
+"Humanvocalmale"
+],
+[
+"A lot of ya.",
+1,
+"h",
+"Dwarf"
+],
+[
+"Actually, I'm more of a morning elf.",
+1,
+"h",
+"Nightelfvocalfemale"
+],
+[
+"Ah, doornails!",
+1,
+"h",
+"Scourgevocalfemale"
+],
+[
+"Ah, winter. Yes. Winter.",
+1,
+"h",
+"Dwarfvocalmale"
+],
+[
+"Ah, you're nice.",
+1,
+"h",
+"Dwarf"
+],
+[
+"Ahh, you're nice!",
+1,
+"h",
+"Dwarf"
+],
+[
+"And over this chit chat, let's get to it then.",
+1,
+"h",
+"Dwarf"
+],
+[
+"Anyone have any odorant, either wet dog, fresh garbage, or low tide would do.",
+1,
+"h",
+"Scourgevocalmale"
+],
+[
+"Anything for a friend.",
+1,
+"h",
+"Orc"
+],
+[
+"Anytime.",
+1,
+"h",
+"Orc"
+],
+[
+"At once laughed so hard I milked all over the floor.",
+1,
+"h",
+"Taurenvocalfemale"
+],
+[
+"Baby, I'm mortal now. Time's a wasting.",
+1,
+"h",
+"Nightelf"
+],
+[
+"back, back, back, back, back, back!",
+1,
+"h",
+"Orc"
+],
+[
+"Beware.",
+1,
+"h",
+"Nightelf"
+],
+[
+"Buyer.",
+1,
+"h",
+"Nightelf"
+],
+[
+"BWAH!",
+1,
+"h",
+"Dwarfmalenpc1"
+],
+[
+"can't stand the smell of orcs.",
+1,
+"h",
+"Scourgevocalmale"
+],
+[
+"Can't use that yet",
+1,
+"h",
+"Dwarf"
+],
+[
+"Certainly.",
+1,
+"h",
+"Nightelf"
+],
+[
+"Chugga chugga chugga chugga chugga chugga...",
+1,
+"h",
+"Orc"
+],
+[
+"Close!",
+1,
+"h",
+"Dwarf"
+],
+[
+"Cookin's done. Still here.",
+1,
+"h",
+"Trollvocalmale"
+],
+[
+"Cover for me. I got a whiz behind the tree.",
+1,
+"h",
+"Humanvocalmale"
+],
+[
+"Damn straight!",
+1,
+"h",
+"Dwarf"
+],
+[
+"Damn street.",
+1,
+"h",
+"Dwarf"
+],
+[
+"Danger",
+1,
+"h",
+"Nightelf"
+],
+[
+"Do you ever feel like you're not in charge of your own destiny? Like, you're being controlled by an invisible hand?",
+1,
+"h",
+"Humanvocalfemale"
+],
+[
+"Don't mention it.",
+1,
+"h",
+"Dwarf"
+],
+[
+"Don't talk, just follow me.",
+1,
+"h",
+"Orc"
+],
+[
+"Enough with your flirting. I know you think I'll dwarf and women look the same.",
+1,
+"h",
+"Dwarf"
+],
+[
+"FINE TUSTIC!",
+1,
+"h",
+"Dwarf"
+],
+[
+"Fire at will.",
+1,
+"h",
+"Nightelf"
+],
+[
+"Follow me quick!",
+1,
+"h",
+"Dwarf"
+],
+[
+"Get between me and my food and you'll lose a hand.",
+1,
+"h",
+"Orcvocalfemale"
+],
+[
+"Hands up!",
+1,
+"h",
+"Dwarf"
+],
+[
+"Happy torrents come from Mulgore.",
+1,
+"h",
+"Taurenvocalfemale"
+],
+[
+"Heads up!",
+1,
+"h",
+"Dwarf"
+],
+[
+"Hear me.",
+1,
+"h",
+"Orc"
+],
+[
+"Heh!",
+1,
+"h",
+"Playerexertions"
+],
+[
+"Here!",
+1,
+"h",
+"Male"
+],
+[
+"Here's the beef.",
+1,
+"h",
+"Taurenvocalmale"
+],
+[
+"Hey, dittle dittle, the mucus and the spittle, the corpse sank in the lagoon. The merlock said, to see such a sight, and the dwarves spanked the baboon.",
+1,
+"h",
+"Scourgevocalmale"
+],
+[
+"Hi there!",
+1,
+"h",
+"Dwarf"
+],
+[
+"Honor required it.",
+1,
+"h",
+"Orc"
+],
+[
+"How does a taurine hide in a cherry tree? He paints his hooves red.",
+1,
+"h",
+"Humanvocalmale"
+],
+[
+"I am not high enough level to use that.",
+1,
+"h",
+"Nightelf"
+],
+[
+"I am out of ammo.",
+1,
+"h",
+"Nightelf"
+],
+[
+"I apologize profusely for any inconvenience my murderous rampage may have caused.",
+1,
+"h",
+"Gnomevocalfemale"
+],
+[
+"I can't carry any more!",
+1,
+"h",
+"Dwarf"
+],
+[
+"I can't find anywhere to get my nails done.",
+1,
+"h",
+"Humanvocalfemale"
+],
+[
+"I can't learn that smell.",
+1,
+"h",
+"Orc"
+],
+[
+"I can't learn that, Spill.",
+1,
+"h",
+"Dwarf"
+],
+[
+"I can't look that right now.",
+1,
+"h",
+"Dwarf"
+],
+[
+"I can't loot.",
+1,
+"h",
+"Nightelf"
+],
+[
+"I can't more than that spell.",
+1,
+"h",
+"Dwarf"
+],
+[
+"I can't put up that.",
+1,
+"h",
+"Dwarf"
+],
+[
+"I can't root that.",
+1,
+"h",
+"Dwarf"
+],
+[
+"I can't treat that.",
+1,
+"h",
+"Dwarf"
+],
+[
+"I can't wait till this quest is done and I can look for another Garibaldi artifact.",
+1,
+"h",
+"Humanvocalfemale"
+],
+[
+"I cannot afford that.",
+1,
+"h",
+"Nightelf"
+],
+[
+"I cannot learn that spell.",
+1,
+"h",
+"Nightelf"
+],
+[
+"I cannot lose that right now.",
+1,
+"h",
+"Nightelf"
+],
+[
+"I cannot put that there.",
+1,
+"h",
+"Nightelf"
+],
+[
+"I cannot trade that.",
+1,
+"h",
+"Nightelf"
+],
+[
+"I cannot use that item yet.",
+1,
+"h",
+"Nightelf"
+],
+[
+"I come from New York, we eat with spoons and forks, we love to eat our pork.",
+1,
+"h",
+"Orcvocalmale"
+],
+[
+"I do hope to find some interesting gadgets around here. I do love tinkering with things.",
+1,
+"h",
+"Gnomevocalmale"
+],
+[
+"I don't drink anymore. Of course I don't drink any less either.",
+1,
+"h",
+"Dwarfvocalmale"
+],
+[
+"I don't have a drinking problem, I drink, I get drunk, I fall down, no problem.",
+1,
+"h",
+"Dwarfvocalmale"
+],
+[
+"I don't know about you, but I can't understand a thing those wisps say. I usually just nod.",
+1,
+"h",
+"Nightelfvocalmale"
+],
+[
+"I don't like to be underground. It reminds me of death.",
+1,
+"h",
+"Dwarfvocalfemale"
+],
+[
+"I don't mind the nums, but I'm always worried about tripping over one.",
+1,
+"h",
+"Nightelfvocalmale"
+],
+[
+"I feel pretty. Oh, so pretty.",
+1,
+"h",
+"Trollvocalfemale"
+],
+[
+"I feel very feminine, and I'll beat the crap out of anyone who disagrees.",
+1,
+"h",
+"Orcvocalfemale"
+],
+[
+"I give myself a Dutch oven pedicure every night. I've got no foot fungus at all. My toes are pristine. in.",
+1,
+"h",
+"Dwarfvocalfemale"
+],
+[
+"I got a shrugging head. I just came out of the pool.",
+1,
+"h",
+"Trollvocalmale"
+],
+[
+"I got all this, and personality too.",
+1,
+"h",
+"Trollvocalfemale"
+],
+[
+"I had an idea for a device that you could put small pieces of bread in to cook, but in the end, I really didn't think there would be much of a market for it.",
+1,
+"h",
+"Gnomevocalmale"
+],
+[
+"I have discovered that getting pummeled by a blunt weapon can be quite painful.",
+1,
+"h",
+"Gnomevocalfemale"
+],
+[
+"I have no respect for people with small piercings. I say go full hog, put a spear through your head.",
+1,
+"h",
+"Orcvocalfemale"
+],
+[
+"I heard a knee slapper once, and skipped my knee cap right across the lake.",
+1,
+"h",
+"Scourgevocalfemale"
+],
+[
+"I heard if you cut off an extremity, it'll regenerate a little bigger. Don't believe it.",
+1,
+"h",
+"Trollvocalmale"
+],
+[
+"I hope you're not afraid of snakes.",
+1,
+"h",
+"Nightelf"
+],
+[
+"I light my ear like I light my men, dark and rich.",
+1,
+"h",
+"Dwarfvocalfemale"
+],
+[
+"I like men who aren't afraid to cry. Cry, uncle.",
+1,
+"h",
+"Orc"
+],
+[
+"I like my beer, like I like my women, stout and better.",
+1,
+"h",
+"Dwarfvocalmale"
+],
+[
+"I like my women dumpy and droopy with highly tosses.",
+1,
+"h",
+"Trollvocalmale"
+],
+[
+"I like tall men.",
+1,
+"h",
+"Dwarf"
+],
+[
+"I like to fart in the tub.",
+1,
+"h",
+"Humanvocalfemale"
+],
+[
+"I like to see you in a kilt!",
+1,
+"h",
+"Dwarf"
+],
+[
+"I look bigger in those mirrors where things look bigger.",
+1,
+"h",
+"Gnomevocalmale"
+],
+[
+"I love you like a fat kid loves cake.",
+1,
+"h",
+"Orc"
+],
+[
+"I must be asleep because you're a dream come true, also I'm slightly damp.",
+1,
+"h",
+"Dwarf"
+],
+[
+"I need to get my chest waxed again.",
+1,
+"h",
+"Orcvocalfemale"
+],
+[
+"I need to tag it something first.",
+1,
+"h",
+"Dwarf"
+],
+[
+"I think that last vendor shortchanged me. Oh, oh, that was a bad one.",
+1,
+"h",
+"Gnomevocalmale"
+],
+[
+"I think the guys just use the emerald dream as an excuse to avoid calling me back.",
+1,
+"h",
+"Nightelfvocalfemale"
+],
+[
+"I who, I who, second verse, it was the first.",
+1,
+"h",
+"Dwarfvocalmale"
+],
+[
+"I will crush and destroy and, ooh, shiny.",
+1,
+"h",
+"Orcvocalmale"
+],
+[
+"I will return the favor.",
+1,
+"h",
+"Orc"
+],
+[
+"I won't fall for any bad pick-up line, you've got to try two or three at least.",
+1,
+"h",
+"Dwarf"
+],
+[
+"I would expect the same.",
+1,
+"h",
+"Orc"
+],
+[
+"I'd like to give a shout out to my boys in Nomeragon, keeping it real, big tea, snoop pup and little bees, y'all are short, but you're real baby!",
+1,
+"h",
+"Gnomevocalmale"
+],
+[
+"I'd paint my toenails, but I'm not sure where they fell off.",
+1,
+"h",
+"Scourgevocalfemale"
+],
+[
+"I'll give you crazy love.",
+1,
+"h",
+"Orc"
+],
+[
+"I'll have you know I can flatten steel with my thighs!",
+1,
+"h",
+"Dwarf"
+],
+[
+"I'm a force of nature.",
+1,
+"h",
+"Nightelf"
+],
+[
+"I'm dead and I'm pissed.",
+1,
+"h",
+"Scourgevocalmale"
+],
+[
+"I'm having a wardrobe malfunction. Oh, there's me hammer",
+1,
+"h",
+"Dwarfvocalmale"
+],
+[
+"I'm not a high enough level to use that.",
+1,
+"h",
+"Nightelf"
+],
+[
+"I'm the type of girl my mother warned me about.",
+1,
+"h",
+"Nightelf"
+],
+[
+"I've got no mana!",
+1,
+"h",
+"Dwarf"
+],
+[
+"I've got no manner.",
+1,
+"h",
+"Dwarf"
+],
+[
+"If cannibalism be wrong, I don't want to be right.",
+1,
+"h",
+"Trollvocalfemale"
+],
+[
+"If I wasn't purple, you'd see I was blushing.",
+1,
+"h",
+"Nightelf"
+],
+[
+"Imogenized, no way I like the ladies.",
+1,
+"h",
+"Taurenvocalmale"
+],
+[
+"In my native tongue, my name means dances with tassels.",
+1,
+"h",
+"Taurenvocalfemale"
+],
+[
+"Incoming.",
+1,
+"h",
+"Orc"
+],
+[
+"Is that thing sharp? Could that thing cut me? I'm not immortal now, you know.",
+1,
+"h",
+"Nightelfvocalmale"
+],
+[
+"It is too far away.",
+1,
+"h",
+"Nightelf"
+],
+[
+"It's like my father always used to say, shut up and get out.",
+1,
+"h",
+"Dwarfvocalfemale"
+],
+[
+"It's not easy being green.",
+1,
+"h",
+"Orcvocalmale"
+],
+[
+"Lady from the moment I see you I did not expect to get this far",
+1,
+"h",
+"Orc"
+],
+[
+"Last night I went to an awesome stag party.",
+1,
+"h",
+"Nightelfvocalmale"
+],
+[
+"Let them have it!",
+1,
+"h",
+"Orc"
+],
+[
+"Let's get on with it then. I've got a quest to do in 15 minutes.",
+1,
+"h",
+"Dwarf"
+],
+[
+"Let's not ruin this moment with Chit Chat.",
+1,
+"h",
+"Orc"
+],
+[
+"Let's run!",
+1,
+"h",
+"Dwarf"
+],
+[
+"Lou, are you happy now?",
+1,
+"h",
+"Taurenvocalmale"
+],
+[
+"Man, dog, you know, it's like I'm feeling you, but I'm not feeling it, you know?",
+1,
+"h",
+"Orcvocalmale"
+],
+[
+"Man, I think that boar meat's coming back on me. I gotta hit the can. Anyone have a hearthstone?",
+1,
+"h",
+"Orcvocalfemale"
+],
+[
+"Man, I was half way through the emerald dream when I had to pee.",
+1,
+"h",
+"Nightelfvocalmale"
+],
+[
+"May you always be victorious.",
+1,
+"h",
+"Orc"
+],
+[
+"May your blade be true.",
+1,
+"h",
+"Orc"
+],
+[
+"May your generosity be returned to you 100-fold.",
+1,
+"h",
+"Dwarf"
+],
+[
+"May your generosity be returned to you a hundredfold.",
+1,
+"h",
+"Dwarf"
+],
+[
+"Me and my girlfriend's exchange close all the time. We're all the same size.",
+1,
+"h",
+"Humanvocalfemale"
+],
+[
+"Mess with the bull, you get the horns.",
+1,
+"h",
+"Taurenvocalmale"
+],
+[
+"Mm-hmm.",
+1,
+"h",
+"Orc"
+],
+[
+"Mm-mm. Mm-mm.",
+1,
+"h",
+"Orc"
+],
+[
+"mu-e-mu-mu-mu-mu-mu-mu-mu-mu-mu-mu-mu.",
+1,
+"h",
+"Nightelf"
+],
+[
+"much appreciated.",
+1,
+"h",
+"Nightelf"
+],
+[
+"My manna has waned.",
+1,
+"h",
+"Nightelf"
+],
+[
+"My manna is low.",
+1,
+"h",
+"Nightelf"
+],
+[
+"My manner is low.",
+1,
+"h",
+"Orc"
+],
+[
+"My men are as low.",
+1,
+"h",
+"Nightelf"
+],
+[
+"My meta is low.",
+1,
+"h",
+"Orc"
+],
+[
+"My meta is nearly gone.",
+1,
+"h",
+"Nightelf"
+],
+[
+"My uncle has brass balls. No, really.",
+1,
+"h",
+"Dwarfvocalfemale"
+],
+[
+"No way.",
+1,
+"h",
+"Dwarf"
+],
+[
+"No, they're not real, but thanks for noticing.",
+1,
+"h",
+"Dwarfvocalfemale"
+],
+[
+"Norna fridge.",
+1,
+"h",
+"Dwarf"
+],
+[
+"Not a chance.",
+1,
+"h",
+"Dwarf"
+],
+[
+"Not bad.",
+1,
+"h",
+"Orc"
+],
+[
+"Not enough manner.",
+1,
+"h",
+"Nightelf"
+],
+[
+"Not enough money.",
+1,
+"h",
+"Nightelf"
+],
+[
+"Oh, he's at hanging.",
+1,
+"h",
+"Dwarf"
+],
+[
+"Oh, I'm dancing again! I hope all your friends are enjoying the show.",
+1,
+"h",
+"Nightelfvocalfemale"
+],
+[
+"Oh, I'm just a social drinker. Every time someone says I'll have a drink, I say, social, I...",
+1,
+"h",
+"Dwarfvocalmale"
+],
+[
+"One.",
+1,
+"h",
+"Nightelf"
+],
+[
+"Ooh.",
+1,
+"h",
+"Orc"
+],
+[
+"ORC SMASH!",
+1,
+"h",
+"Orcvocalmale"
+],
+[
+"Our foe is too strong.",
+1,
+"h",
+"Nightelf"
+],
+[
+"Roses are gray, fillets are gray. I'm dead and colorblind.",
+1,
+"h",
+"Scourgevocalmale"
+],
+[
+"rotten mood.",
+1,
+"h",
+"Scourgevocalfemale"
+],
+[
+"Run away!",
+1,
+"h",
+"Dwarf"
+],
+[
+"SCATTER!",
+1,
+"h",
+"Nightelf"
+],
+[
+"SHUT TO KILL!",
+1,
+"h",
+"Dwarf"
+],
+[
+"skillfully done.",
+1,
+"h",
+"Orc"
+],
+[
+"So I have this idea for a great movie. It's about two gnomes who find a bracelet of power, and they have to take it to the burning steps and cast it into the cauldron. They formed the Brotherhood of the Bracelet. Along the way, they're trailed by a murloc named Gottem, who's obsessed with the bracelet, and nine bracelet bogeymen. It could be a three-parter called ruler of the bracelet. The first part would be called the Brotherhood of the Bracelet, followed by a couple of towers with a climactic ending called, Hey! The King's Back!",
+1,
+"h",
+"Humanvocalmale"
+],
+[
+"So long.",
+1,
+"h",
+"Dwarf"
+],
+[
+"So, an orc walks into a bar with a parrot on his shoulder. The bartender says, hey, where'd you get that? The parrot says, dueratar, they got them all over the place.",
+1,
+"h",
+"Humanvocalmale"
+],
+[
+"Someday, I hope to find the nuggets on a chicken.",
+1,
+"h",
+"Gnomevocalfemale"
+],
+[
+"Sometimes I have trouble controlling the volume of my boys!",
+1,
+"h",
+"Humanvocalfemale"
+],
+[
+"Stay put.",
+1,
+"h",
+"Dwarf"
+],
+[
+"Stay.",
+1,
+"h",
+"Orc"
+],
+[
+"Still recharging",
+1,
+"h",
+"Dwarf"
+],
+[
+"Stop poking me. Well, that was okay.",
+1,
+"h",
+"Orcvocalmale"
+],
+[
+"Strike quickly!",
+1,
+"h",
+"Nightelf"
+],
+[
+"Strong halitosis be but one of my feminine traits.",
+1,
+"h",
+"Trollvocalfemale"
+],
+[
+"SUG SUG",
+1,
+"h",
+"Orc"
+],
+[
+"Sure, I've got exotic piercings.",
+1,
+"h",
+"Nightelf"
+],
+[
+"TEND ME WONDS!",
+1,
+"h",
+"Dwarf"
+],
+[
+"Thanks.",
+1,
+"h",
+"Orc"
+],
+[
+"That armor looks good on you. It would also look good on my floor.",
+1,
+"h",
+"Orc"
+],
+[
+"That is bound to me.",
+1,
+"h",
+"Nightelf"
+],
+[
+"That's bone to me.",
+1,
+"h",
+"Dwarf"
+],
+[
+"That's great",
+1,
+"h",
+"Dwarf"
+],
+[
+"The way to a man's heart be through his stomach, but I go through a rib cage.",
+1,
+"h",
+"Trollvocalfemale"
+],
+[
+"There's nothing like sleeping in the forest under the moonlight.",
+1,
+"h",
+"Nightelf"
+],
+[
+"This is true love. Do you think this happens every day?",
+1,
+"h",
+"Orc"
+],
+[
+"This stinks.",
+1,
+"h",
+"Scourgevocalfemale"
+],
+[
+"Thrump Car.",
+1,
+"h",
+"Orc"
+],
+[
+"to my side.",
+1,
+"h",
+"Nightelf"
+],
+[
+"Ugh, ugh.",
+1,
+"h",
+"Dwarf"
+],
+[
+"Uh-uh.",
+1,
+"h",
+"Dwarf"
+],
+[
+"Until next time.",
+1,
+"h",
+"Orc"
+],
+[
+"until our paths cross again.",
+1,
+"h",
+"Orc"
+],
+[
+"Wait-a-go!",
+1,
+"h",
+"Dwarf"
+],
+[
+"Wanna bring out the animal in me?",
+1,
+"h",
+"Nightelf"
+],
+[
+"We can't invade anyone else.",
+1,
+"h",
+"Dwarf"
+],
+[
+"We're here to go!",
+1,
+"h",
+"Dwarf"
+],
+[
+"We're here.",
+1,
+"h",
+"Dwarf"
+],
+[
+"What's estrogen? Can you eat it?",
+1,
+"h",
+"Orcvocalfemale"
+],
+[
+"What? I didn't hear that.",
+1,
+"h",
+"Nightelfvocalmale"
+],
+[
+"Where are you from? Not that it matters.",
+1,
+"h",
+"Dwarf"
+],
+[
+"Who wants to live forever?",
+1,
+"h",
+"Nightelfvocalmale"
+],
+[
+"Whoa! Pup, pup, pup, pup!",
+1,
+"h",
+"Dwarf"
+],
+[
+"Why does everyone automatically assume I know tailoring and cooking?",
+1,
+"h",
+"Humanvocalfemale"
+],
+[
+"with you.",
+1,
+"h",
+"Dwarf"
+],
+[
+"Woo! Chugga chugga chugga chugga chugga chugga chugga chugga... WOOOP!",
+1,
+"h",
+"Orc"
+],
+[
+"Yay.",
+1,
+"h",
+"Humanpesantmale"
+],
+[
+"Yes, they're real. They're not mine, but they're real.",
+1,
+"h",
+"Scourgevocalfemale"
+],
+[
+"You don't need deodorant when you don't have any armpits.",
+1,
+"h",
+"Scourgevocalfemale"
+],
+[
+"You had me at Zugzug!",
+1,
+"h",
+"Orc"
+],
+[
+"You have six different smiles. One for when you're angry. One for when you tear flesh. One for when you chew flesh. One for when you look bodies. One for when you skin game. And one for when you wanna kill something.",
+1,
+"h",
+"Orc"
+],
+[
+"You know how hard it is to get your groove on with the spirit of your great grandmother looking over you?",
+1,
+"h",
+"Taurenvocalfemale"
+],
+[
+"You know those ancient protectors in Darnassus? They're not that old.",
+1,
+"h",
+"Nightelfvocalmale"
+],
+[
+"You know, I have to keep moving at night, or I'll disappear.",
+1,
+"h",
+"Nightelfvocalfemale"
+],
+[
+"You know, I really wish I had a garden where I could put a couple of human statues.",
+1,
+"h",
+"Gnomevocalmale"
+],
+[
+"You know, once you're dead, nothing smells bad anymore. Rotten eggs, no problem. Dead fish, like a spring breeze.",
+1,
+"h",
+"Scourgevocalfemale"
+],
+[
+"You know, squirrels can be deadly when cornered.",
+1,
+"h",
+"Gnomevocalfemale"
+],
+[
+"You know, Toren's are born hunters. You ever see a Toren catch a salmon out of a stream? Really is quite exciting. Now, have you ever seen a Toren stock of python? Of course you haven't. That's because Toren's are so adept at blending in with their surroundings.",
+1,
+"h",
+"Taurenvocalmale"
+],
+[
+"You know, wisps are actually pretty useful for personal hygiene.",
+1,
+"h",
+"Nightelfvocalfemale"
+],
+[
+"You later run your hands through my beard, wouldn't ya?",
+1,
+"h",
+"Dwarf"
+],
+[
+"You look pretty, I like your hair. Here's a drink. Are you ready now?",
+1,
+"h",
+"Dwarf"
+],
+[
+"You must be joking.",
+1,
+"h",
+"Orc"
+],
+[
+"You should be proud.",
+1,
+"h",
+"Orc"
+],
+[
+"You will look like a lady.",
+1,
+"h",
+"Orc"
+],
+[
+"You'll do. Let's go.",
+1,
+"h",
+"Orc"
+],
+[
+"You're an emerald dream come true.",
+1,
+"h",
+"Nightelf"
+],
+[
+"Be careful.",
+10,
+"c",
+"Humanfemaleofficialnpc"
+],
+[
+"What brings you here?",
+10,
+"c",
+"Nightelffemalepriestessnpc"
+],
+[
+"I am not amused.",
+9,
+"c",
+"Orcfemaleshamannpc"
+],
+[
+"Be good.",
+8,
+"c",
+"Dwarffemalematernalnpc"
+],
+[
+"Have you nothing better to do?",
+8,
+"c",
+"Nightelffemalepriestessnpc"
+],
+[
+"That's not funny.",
+8,
+"c",
+"Dwarffemaleguardnpc"
+],
+[
+"Have a good one.",
+7,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"Safe travels!",
+7,
+"c",
+"Dwarffemaleguardnpc"
+],
+[
+"Watch your back!",
+7,
+"c",
+"Dwarffemalematernalnpc"
+],
+[
+"What is it?",
+7,
+"c",
+"Undeadfemalemagicnpc"
+],
+[
+"Can I help you?",
+6,
+"c",
+"Gnomefemalehappynpc"
+],
+[
+"Enough already.",
+6,
+"c",
+"Nightelffemalepriestessnpc"
+],
+[
+"Feel free to browse.",
+6,
+"c",
+"Nightelffemalepriestessnpc"
+],
+[
+"Go in peace.",
+6,
+"c",
+"Nightelffemalepriestessnpc"
+],
+[
+"I have business to attend to.",
+6,
+"c",
+"Taurenfemaleofficialnpc"
+],
+[
+"looking for something special.",
+6,
+"c",
+"Taurenfemaleofficialnpc"
+],
+[
+"making a special purchase?",
+6,
+"c",
+"Gnomefemalehappynpc"
+],
+[
+"May the eternal sun shine upon thee.",
+6,
+"c",
+"Ahabwheathoof"
+],
+[
+"My goods are of the highest quality.",
+6,
+"c",
+"Nightelffemalepriestessnpc"
+],
+[
+"Talk to me.",
+6,
+"c",
+"Dwarffemaleyoungnpc"
+],
+[
+"What are you looking for?",
+6,
+"c",
+"Orcfemaleshamannpc"
+],
+[
+"What can I do for you?",
+6,
+"c",
+"Humanfemalewarriornpc"
+],
+[
+"What can I get for you today?",
+6,
+"c",
+"Dwarffemaleguardnpc"
+],
+[
+"What can I help you with?",
+6,
+"c",
+"Orcfemaleshamannpc"
+],
+[
+"What's your problem?",
+6,
+"c",
+"Humanfemaleofficialnpc"
+],
+[
+"Yeah, very funny.",
+6,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"You are not amusing.",
+6,
+"c",
+"Ahabwheathoof"
+],
+[
+"Be seeing you!",
+5,
+"c",
+"Gnomefemalehappynpc"
+],
+[
+"Beware the living",
+5,
+"c",
+"Undeadfemalemagicnpc"
+],
+[
+"Hey there!",
+5,
+"c",
+"Humanfemalestandardnpc"
+],
+[
+"I have no time for playing.",
+5,
+"c",
+"Ahabwheathoof"
+],
+[
+"Trust no one!",
+5,
+"c",
+"Undeadfemalestandardnpc"
+],
+[
+"What's on your mind?",
+5,
+"c",
+"Dwarffemalematernalnpc"
+],
+[
+"Would you like to purchase something?",
+5,
+"c",
+"Gnomefemalehappynpc"
+],
+[
+"You are testing my patients.",
+5,
+"c",
+"Taurenfemaleofficialnpc"
+],
+[
+"You dispute my honor?",
+5,
+"c",
+"Orcfemaleshamannpc"
+],
+[
+"You have a great day now.",
+5,
+"c",
+"Gnomefemalehappynpc"
+],
+[
+"You're starting to bother me.",
+5,
+"c",
+"Dwarffemaleguardnpc"
+],
+[
+"Ah, I have just the thing for you.",
+4,
+"c",
+"Taurenfemaleofficialnpc"
+],
+[
+"Alright, move along now!",
+4,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"Are you challenging me?",
+4,
+"c",
+"Orcfemalestandardnpc"
+],
+[
+"Are you insane?",
+4,
+"c",
+"Undeadfemalestandardnpc"
+],
+[
+"Be cool, man.",
+4,
+"c",
+"Trollfemalelaidbacknpc"
+],
+[
+"Embrace the shadow.",
+4,
+"c",
+"Undeadfemalemagicnpc"
+],
+[
+"Go forth to victory!",
+4,
+"c",
+"Orcfemaleshamannpc"
+],
+[
+"Good day to you.",
+4,
+"c",
+"Gnomefemalenerdynpc"
+],
+[
+"Good luck, friend.",
+4,
+"c",
+"Nightelffemalesentinelnpc"
+],
+[
+"How are you?",
+4,
+"c",
+"Dwarffemaleguardnpc"
+],
+[
+"How may I aid you?",
+4,
+"c",
+"Taurenfemaleofficialnpc"
+],
+[
+"I am honored.",
+4,
+"c",
+"Nightelffemalepriestessnpc"
+],
+[
+"I don't have time for this.",
+4,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"I got what you need.",
+4,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"I'm starting to hate you.",
+4,
+"c",
+"Undeadfemalestandardnpc"
+],
+[
+"Keep it real!",
+4,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"May the Stars guide you.",
+4,
+"c",
+"Nightelffemalepriestessnpc"
+],
+[
+"Me got the good stuff, man.",
+4,
+"c",
+"Trollfemalelaidbacknpc"
+],
+[
+"Off and away!",
+4,
+"c",
+"Gnomefemalenerdynpc"
+],
+[
+"See you around!",
+4,
+"c",
+"Humanfemalestandardnpc"
+],
+[
+"See you soon!",
+4,
+"c",
+"Dwarffemaleguardnpc"
+],
+[
+"Sorry, I wasn't listening.",
+4,
+"c",
+"Gnomefemalehappynpc"
+],
+[
+"Speak quickly.",
+4,
+"c",
+"Undeadfemalewarriornpc"
+],
+[
+"Stop this nonsense.",
+4,
+"c",
+"Nightelffemalepriestessnpc"
+],
+[
+"Time is money, friend.",
+4,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"Victory for Sylvanas.",
+4,
+"c",
+"Undeadfemalemagicnpc"
+],
+[
+"Walk with the Earth Mother.",
+4,
+"c",
+"Taurenfemaleofficialnpc"
+],
+[
+"what you're looking for.",
+4,
+"c",
+"Trollfemalelaidbacknpc"
+],
+[
+"Yeah, what do you want?",
+4,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"You're getting on my nerves.",
+4,
+"c",
+"Humanfemaleofficialnpc"
+],
+[
+"Ah, I've been expecting you.",
+3,
+"c",
+"Taurenfemaleofficialnpc"
+],
+[
+"Be gone.",
+3,
+"c",
+"Nightelffemalepriestessnpc"
+],
+[
+"Be seeing ya!",
+3,
+"c",
+"Trollfemalestandardnpc"
+],
+[
+"Bye bye now.",
+3,
+"c",
+"Trollfemalelaidbacknpc"
+],
+[
+"Do not tempt my wrath.",
+3,
+"c",
+"Undeadfemalemagicnpc"
+],
+[
+"Forget something.",
+3,
+"c",
+"Humanmaleofficialnpc"
+],
+[
+"Great to meet you.",
+3,
+"c",
+"Dwarffemaleguardnpc"
+],
+[
+"Greetings, traveler.",
+3,
+"c",
+"Ahabwheathoof"
+],
+[
+"Hmm interesting",
+3,
+"c",
+"Gnomefemalenerdynpc"
+],
+[
+"How may I help?",
+3,
+"c",
+"Nightelffemalesentinelnpc"
+],
+[
+"Hurry back!",
+3,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"I am forsaken.",
+3,
+"c",
+"Undeadfemalemagicnpc"
+],
+[
+"I am listening.",
+3,
+"c",
+"Nightelffemalestandardnpc"
+],
+[
+"I got a long day, kid.",
+3,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"I'm kind of busy.",
+3,
+"c",
+"Humanfemalestandardnpc"
+],
+[
+"I'm listening.",
+3,
+"c",
+"Undeadfemalemagicnpc"
+],
+[
+"I'm not listening!",
+3,
+"c",
+"Gnomefemalehappynpc"
+],
+[
+"I've the finest wares in the land.",
+3,
+"c",
+"Dwarffemaleguardnpc"
+],
+[
+"Keep your feet on the ground.",
+3,
+"c",
+"Dwarffemaleguardnpc"
+],
+[
+"Knock it off.",
+3,
+"c",
+"Humanfemaleofficialnpc"
+],
+[
+"making me angry man.",
+3,
+"c",
+"Trollfemalestandardnpc"
+],
+[
+"May your blades never dull.",
+3,
+"c",
+"Orcfemalestandardnpc"
+],
+[
+"Need help?",
+3,
+"c",
+"Humanfemaleofficialnpc"
+],
+[
+"Our time will come.",
+3,
+"c",
+"Undeadfemalemagicnpc"
+],
+[
+"Peace, friend.",
+3,
+"c",
+"Taurenfemaleofficialnpc"
+],
+[
+"Quit it.",
+3,
+"c",
+"Humanfemalewarriornpc"
+],
+[
+"Relax.",
+3,
+"c",
+"Trollfemalelaidbacknpc"
+],
+[
+"SHUT IT!",
+3,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"Stay away from the voodoo.",
+3,
+"c",
+"Trollfemalestandardnpc"
+],
+[
+"Strength and Honor",
+3,
+"c",
+"Orcfemalestandardnpc"
+],
+[
+"The spirit is not amused.",
+3,
+"c",
+"Trollfemalelaidbacknpc"
+],
+[
+"The spirit's not amused.",
+3,
+"c",
+"Trollfemaleoldnpc"
+],
+[
+"Was there something else?",
+3,
+"c",
+"Gnomemalestandardnpc"
+],
+[
+"We shall meet again.",
+3,
+"c",
+"Taurenfemaleofficialnpc"
+],
+[
+"Welcome.",
+3,
+"c",
+"Dwarffemaleguardnpc"
+],
+[
+"Well, spit it out!",
+3,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"What can I do for ya?",
+3,
+"c",
+"Dwarffemaleguardnpc"
+],
+[
+"What do you need?",
+3,
+"c",
+"Orcfemaleshamannpc"
+],
+[
+"What now?",
+3,
+"c",
+"Undeadfemalemagicnpc"
+],
+[
+"What you want.",
+3,
+"c",
+"Trollmaledarknpc"
+],
+[
+"Will you knock it off?",
+3,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"Will you stop touching me?",
+3,
+"c",
+"Orcfemalewarriornpc"
+],
+[
+"Winds be at your back.",
+3,
+"c",
+"Taurenfemaleofficialnpc"
+],
+[
+"Yo.",
+3,
+"c",
+"Goblinmalegruffnpc"
+],
+[
+"You need something?",
+3,
+"c",
+"Humanfemaleofficialnpc"
+],
+[
+"Ah, potential customer!",
+2,
+"c",
+"Goblinmalegruffnpc"
+],
+[
+"All right.",
+2,
+"c",
+"Tauren"
+],
+[
+"Alrighty then.",
+2,
+"c",
+"Gnomefemalehappynpc"
+],
+[
+"and sisters watch over you.",
+2,
+"c",
+"Taurenmaleshamannpc"
+],
+[
+"And you are...",
+2,
+"c",
+"Undeadfemalestandardnpc"
+],
+[
+"Are you through?",
+2,
+"c",
+"Gnomefemalenerdynpc"
+],
+[
+"Away, Pest!",
+2,
+"c",
+"Taurenmaleeldernpc"
+],
+[
+"Back off, WILP.",
+2,
+"c",
+"Orcfemaleshamannpc"
+],
+[
+"Be safe.",
+2,
+"c",
+"Orcfemalestandardnpc"
+],
+[
+"Beware, our enemies abound.",
+2,
+"c",
+"Undeadfemalemagicnpc"
+],
+[
+"BLOOD AND THUNDER",
+2,
+"c",
+"Orcmaleguardnpc"
+],
+[
+"But there's something else.",
+2,
+"c",
+"Gnomefemalehappynpc"
+],
+[
+"Can I assist you?",
+2,
+"c",
+"Nightelfmalestandardnpc"
+],
+[
+"Careful there.",
+2,
+"c",
+"Undeadfemalewarriornpc"
+],
+[
+"Come with me.",
+2,
+"c",
+"Tauren"
+],
+[
+"danger approaches.",
+2,
+"c",
+"Tauren"
+],
+[
+"Do I have a deal for you?",
+2,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"Don't be shy.",
+2,
+"c",
+"Trollfemaleoldnpc"
+],
+[
+"Don't try anything stupid.",
+2,
+"c",
+"Goblinguardf"
+],
+[
+"Don't waste my time.",
+2,
+"c",
+"Goblinguardf"
+],
+[
+"Fate smiles upon you.",
+2,
+"c",
+"Tauren"
+],
+[
+"for the Alliance.",
+2,
+"c",
+"Humanmaleofficialnpc"
+],
+[
+"Get lost, will ya?",
+2,
+"c",
+"Goblinguardf"
+],
+[
+"Glory to the Horde!",
+2,
+"c",
+"Orcfemaleshamannpc"
+],
+[
+"Go with honor, friend.",
+2,
+"c",
+"Humanfemaleofficialnpc"
+],
+[
+"Go with honor.",
+2,
+"c",
+"Orcfemaleshamannpc"
+],
+[
+"God is watch over you.",
+2,
+"c",
+"Nightelffemalesentinelnpc"
+],
+[
+"Got the best deals anywhere!",
+2,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"Great to meet ya!",
+2,
+"c",
+"Dwarffemaleyoungnpc"
+],
+[
+"Greetings, man!",
+2,
+"c",
+"Trollmaledarknpc"
+],
+[
+"Help.",
+2,
+"c",
+"Tauren"
+],
+[
+"Hi, how are ya?",
+2,
+"c",
+"Gnomefemalestandardnpc"
+],
+[
+"Hi, how are you?",
+2,
+"c",
+"Gnomefemalehappynpc"
+],
+[
+"How kind of you.",
+2,
+"c",
+"Tauren"
+],
+[
+"I can't loop that.",
+2,
+"c",
+"Tauren"
+],
+[
+"I got the best deals anywhere!",
+2,
+"c",
+"Goblinmalegruffnpc"
+],
+[
+"I have just the thing for you.",
+2,
+"c",
+"Taurenfemalestandardnpc"
+],
+[
+"I have the finest wires in the land.",
+2,
+"c",
+"Dwarffemaleyoungnpc"
+],
+[
+"I haven't got all day.",
+2,
+"c",
+"Undeadfemalestandardnpc"
+],
+[
+"I'm over this.",
+2,
+"c",
+"Trollfemalestandardnpc"
+],
+[
+"If you can make it here, you can make it anywhere.",
+2,
+"c",
+"Goblinguardf"
+],
+[
+"Is there a problem?",
+2,
+"c",
+"Undeadfemalemagicnpc"
+],
+[
+"King's Honor, friend.",
+2,
+"c",
+"Humanfemaleofficialnpc"
+],
+[
+"Later.",
+2,
+"c",
+"Trollfemaleoldnpc"
+],
+[
+"Light be with you.",
+2,
+"c",
+"Humanfemaleofficialnpc"
+],
+[
+"Light bless you.",
+2,
+"c",
+"Humanfemaleofficialnpc"
+],
+[
+"Master yourself.",
+2,
+"c",
+"Undeadfemalemagicnpc"
+],
+[
+"May our paths cross again.",
+2,
+"c",
+"Tauren"
+],
+[
+"Mmm, interesting.",
+2,
+"c",
+"Gnomefemalestandardnpc"
+],
+[
+"My, you're a tall one.",
+2,
+"c",
+"Gnomefemalehappynpc"
+],
+[
+"Need assistance?",
+2,
+"c",
+"Gnomefemalestandardnpc"
+],
+[
+"No, loitering, whatever that means.",
+2,
+"c",
+"Goblinguardf"
+],
+[
+"Off with ya!",
+2,
+"c",
+"Dwarffemalematernalnpc"
+],
+[
+"Peace be with you.",
+2,
+"c",
+"Nightelffemalepriestessnpc"
+],
+[
+"Please to meet you.",
+2,
+"c",
+"Gnomefemalenerdynpc"
+],
+[
+"Ready to work!",
+2,
+"c",
+"Peasant"
+],
+[
+"Right!",
+2,
+"c",
+"Gnomefemalehappynpc"
+],
+[
+"Salutations!",
+2,
+"c",
+"Gnomefemalehappynpc"
+],
+[
+"security, enforcement, extortion, we do it all.",
+2,
+"c",
+"Goblinguardf"
+],
+[
+"See ya later!",
+2,
+"c",
+"Humanmalestandardnpc"
+],
+[
+"See you later.",
+2,
+"c",
+"Humanfemalestandardnpc"
+],
+[
+"Speak friend",
+2,
+"c",
+"Orcfemalestandardnpc"
+],
+[
+"Spirits be with your man.",
+2,
+"c",
+"Trollmaledarknpc"
+],
+[
+"Strength.",
+2,
+"c",
+"Orcfemaleshamannpc"
+],
+[
+"Strike now!",
+2,
+"c",
+"Tauren"
+],
+[
+"The winds guide you.",
+2,
+"c",
+"Taurenfemaleshamannpc"
+],
+[
+"Time to move on.",
+2,
+"c",
+"Gnomemalestandardnpc"
+],
+[
+"Very good.",
+2,
+"c",
+"Gnomefemalenerdynpc"
+],
+[
+"Very well then.",
+2,
+"c",
+"Gnomefemalenerdynpc"
+],
+[
+"Welcome, friend!",
+2,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"Weren't you leaving?",
+2,
+"c",
+"Nightelffemalesentinelnpc"
+],
+[
+"What do you require?",
+2,
+"c",
+"Undeadfemalestandardnpc"
+],
+[
+"What part of time is money don't you understand?",
+2,
+"c",
+"Goblinguardf"
+],
+[
+"What would you ask of death?",
+2,
+"c",
+"Undeadfemalemagicnpc"
+],
+[
+"What's up?",
+2,
+"c",
+"Goblinmalegruffnpc"
+],
+[
+"Who you be?",
+2,
+"c",
+"Trollfemaleoldnpc"
+],
+[
+"Yes, you're totally annoying.",
+2,
+"c",
+"Gnomefemalenerdynpc"
+],
+[
+"You be careful man.",
+2,
+"c",
+"Trollfemalestandardnpc"
+],
+[
+"You ever need anything? You know where to find me.",
+2,
+"c",
+"Goblinguardf"
+],
+[
+"You got my attention.",
+2,
+"c",
+"Dwarfmalegrimnpc"
+],
+[
+"You wish to speak?",
+2,
+"c",
+"Taurenfemaleofficialnpc"
+],
+[
+"You won't like me when I'm angry.",
+2,
+"c",
+"Nightelffemalesentinelnpc"
+],
+[
+"You're doing it wrong.",
+2,
+"c",
+"Goblinguardf"
+],
+[
+"You're not amusing.",
+2,
+"c",
+"Dwarffemaleguardnpc"
+],
+[
+"A loon be with you.",
+1,
+"c",
+"Nightelffemalepriestessnpc"
+],
+[
+"A Shafila.",
+1,
+"c",
+"Nightelffemalepriestessnpc"
+],
+[
+"Adjust embarrassing yourself.",
+1,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"Adventure awaits!",
+1,
+"c",
+"Baronrevilgaz"
+],
+[
+"Ah! Ah, ah, ah, ah, ah!",
+1,
+"c",
+"Babymurloc"
+],
+[
+"Ah, I grow weary of this.",
+1,
+"c",
+"Undeadfemalestandardnpc"
+],
+[
+"Ah, the great outdoors.",
+1,
+"c",
+"Dryad"
+],
+[
+"Aha potential customer!",
+1,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"Ahhh, I've been expecting you.",
+1,
+"c",
+"Taurenfemaleshamannpc"
+],
+[
+"All I ever wanted was to study.",
+1,
+"c",
+"Jainaproudmoore"
+],
+[
+"All right, even.",
+1,
+"c",
+"Gnomemaleyoungnpc"
+],
+[
+"all too easy.",
+1,
+"c",
+"Archer"
+],
+[
+"All you doing, man.",
+1,
+"c",
+"Trollfemalelaidbacknpc"
+],
+[
+"Alune light your path.",
+1,
+"c",
+"Nightelfmalestandardnpc"
+],
+[
+"Always blood to help.",
+1,
+"c",
+"Tauren"
+],
+[
+"Always glad to help.",
+1,
+"c",
+"Tauren"
+],
+[
+"Amateur",
+1,
+"c",
+"Goblinmalegruffnpc"
+],
+[
+"Ancestors watch over you.",
+1,
+"c",
+"Taurenfemaleshamannpc"
+],
+[
+"Anything for an ally.",
+1,
+"c",
+"Tauren"
+],
+[
+"Are you comfortable with complicated machinery?",
+1,
+"c",
+"Tauren"
+],
+[
+"At last it is here. More than ever meant the passing of all you have ever known, and all that would have been, have been koorai!",
+1,
+"c",
+"Archimonde"
+],
+[
+"ATTACK!",
+1,
+"c",
+"Footman"
+],
+[
+"Away vermin!",
+1,
+"c",
+"Archimonde"
+],
+[
+"B and Peace.",
+1,
+"c",
+"Archbishopbenedictus"
+],
+[
+"Back off, well, back off, well, back off, well, back off, well back off.",
+1,
+"c",
+"Orcfemalewarriornpc"
+],
+[
+"Back off, Welp!",
+1,
+"c",
+"Orcfemalestandardnpc"
+],
+[
+"Back off, Whelp!",
+1,
+"c",
+"Orcmaleshadynpc"
+],
+[
+"Be careful out there!",
+1,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"Be careful what you search for, stranger!",
+1,
+"c",
+"Magathagrimtotem"
+],
+[
+"Be garden.",
+1,
+"c",
+"Nightelfmalewarriornpc"
+],
+[
+"Be happy too!",
+1,
+"c",
+"Peon"
+],
+[
+"Be watchful.",
+1,
+"c",
+"Tauren"
+],
+[
+"be with you.",
+1,
+"c",
+"Nightelfmalestandardnpc"
+],
+[
+"Beware, our enemy is abound.",
+1,
+"c",
+"Undeadmalewarriornpc"
+],
+[
+"Big shot, huh?",
+1,
+"c",
+"Goblinguardf"
+],
+[
+"Blah, blah, blah, blah, blah, blah, blah, are you through?",
+1,
+"c",
+"Gnomemalezanynpc"
+],
+[
+"Bo-Go!",
+1,
+"c",
+"Goblinguardf"
+],
+[
+"Bow to my will!",
+1,
+"c",
+"Archimonde"
+],
+[
+"Bring it on!",
+1,
+"c",
+"Tauren"
+],
+[
+"By Mr. Richards, you will come in the rivers of the lot.",
+1,
+"c",
+"Skeram"
+],
+[
+"by the eternal.",
+1,
+"c",
+"Taurenfemaleofficialnpc"
+],
+[
+"Bye, bye, bye, bye, bye.",
+1,
+"c",
+"Babymurloc"
+],
+[
+"Bye, you're a tall one.",
+1,
+"c",
+"Gnomefemalenerdynpc"
+],
+[
+"Call on me, I'll call on you!",
+1,
+"c",
+"Impvo"
+],
+[
+"Can I help you with something?",
+1,
+"c",
+"Goblinguardf"
+],
+[
+"Can I show you my wares?",
+1,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"Careful out there",
+1,
+"c",
+"Goblinguardf"
+],
+[
+"Cass, you're totally annoying!",
+1,
+"c",
+"Gnomefemalehappynpc"
+],
+[
+"Come on mortals, the age of darkness is at hand.",
+1,
+"c",
+"Skeram"
+],
+[
+"Come on, shorty. On our way!",
+1,
+"c",
+"Mortar Team"
+],
+[
+"Come over here, sailor.",
+1,
+"c",
+"Tauren"
+],
+[
+"Da-boo.",
+1,
+"c",
+"Orcfemalestandardnpc"
+],
+[
+"Dark lady watch over you.",
+1,
+"c",
+"Undeadfemalemagicnpc"
+],
+[
+"Daylight's burning!",
+1,
+"c",
+"Gnomemalestandardnpc"
+],
+[
+"Del Nodris.",
+1,
+"c",
+"Nightelffemalesentinelnpc"
+],
+[
+"Do not call on me again.",
+1,
+"c",
+"Doomguardvo"
+],
+[
+"Do not get on Gallywix's bedside!",
+1,
+"c",
+"Goblinguardm"
+],
+[
+"Do not push me, or I will impale you on my horns!",
+1,
+"c",
+"Tauren"
+],
+[
+"Do not seek death.",
+1,
+"c",
+"Undeadfemalestandardnpc"
+],
+[
+"Do not tempt my life.",
+1,
+"c",
+"Undeadmalewarriornpc"
+],
+[
+"Do you be feeling well?",
+1,
+"c",
+"Witch Doctor"
+],
+[
+"Do you need something?",
+1,
+"c",
+"Humanmalestandardnpc"
+],
+[
+"Doc Lady, watch over you.",
+1,
+"c",
+"Undeadfemalestandardnpc"
+],
+[
+"Does that better be good?",
+1,
+"c",
+"Undeadmaledarknpc"
+],
+[
+"Don't do anything I wouldn't do.",
+1,
+"c",
+"Succubusvo"
+],
+[
+"DON'T TOUCH ME!",
+1,
+"c",
+"Satyre"
+],
+[
+"dot to be unnecessary",
+1,
+"c",
+"Trollfemaleoldnpc"
+],
+[
+"Elun, give me strength.",
+1,
+"c",
+"Tyrandewhisperwind"
+],
+[
+"Elune Adore.",
+1,
+"c",
+"Nightelffemalestandardnpc"
+],
+[
+"Elune light your path.",
+1,
+"c",
+"Nightelffemalepriestessnpc"
+],
+[
+"Enjoying your stay in Stormwind?",
+1,
+"c",
+"Kinganduinwrynn"
+],
+[
+"Fair enough.",
+1,
+"c",
+"Archer"
+],
+[
+"Fight well, friend.",
+1,
+"c",
+"Orcfemalewarriornpc"
+],
+[
+"Fire away!",
+1,
+"c",
+"Tauren"
+],
+[
+"First, we'll start with a little fire. Am I bugging you? I'm not touching you. Am I bugging you? I'm not touching you. There. Now you're hot and bothered.",
+1,
+"c",
+"Succubusvo"
+],
+[
+"Follow my trail.",
+1,
+"c",
+"Tauren"
+],
+[
+"FOR THE HARD!",
+1,
+"c",
+"Orcmalestandardnpc"
+],
+[
+"FOR THE HORD!",
+1,
+"c",
+"Orcfemalestandardnpc"
+],
+[
+"for the horde.",
+1,
+"c",
+"Orcmaleguardnpc"
+],
+[
+"forsaken",
+1,
+"c",
+"Undeadmaledarknpc"
+],
+[
+"Free rides for the ladies.",
+1,
+"c",
+"Tauren"
+],
+[
+"Give me aid!",
+1,
+"c",
+"Tauren"
+],
+[
+"Glad I can help!",
+1,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"Glad I could help.",
+1,
+"c",
+"Goblinmaleguardnpc"
+],
+[
+"God has swatch over you.",
+1,
+"c",
+"Nightelffemalepriestessnpc"
+],
+[
+"Goddess bless you.",
+1,
+"c",
+"Nightelffemalepriestessnpc"
+],
+[
+"Going piece.",
+1,
+"c",
+"Ahabwheathoof"
+],
+[
+"Good to meet ya.",
+1,
+"c",
+"Trollfemalelaidbacknpc"
+],
+[
+"Goodbye for now!",
+1,
+"c",
+"Gnomefemalehappynpc"
+],
+[
+"Goodbye! Thanks!",
+1,
+"c",
+"Impvo"
+],
+[
+"Gooding, citizen.",
+1,
+"c",
+"Kinganduinwrynn"
+],
+[
+"Got a long day, kid.",
+1,
+"c",
+"Goblinguardf"
+],
+[
+"Ha ha, big shout-out!",
+1,
+"c",
+"Goblinguardm"
+],
+[
+"Hail!",
+1,
+"c",
+"Taurenmaleeldernpc"
+],
+[
+"Harry!",
+1,
+"c",
+"Gnomemalestandardnpc"
+],
+[
+"He there.",
+1,
+"c",
+"Trollfemalestandardnpc"
+],
+[
+"Heh, heh, heh, heh, heh, heh.",
+1,
+"c",
+"Tauren"
+],
+[
+"Hello, man.",
+1,
+"c",
+"Trollmalestandardnpc"
+],
+[
+"Hello, mine!",
+1,
+"c",
+"Trollfemaleoldnpc"
+],
+[
+"Here they are.",
+1,
+"c",
+"Dwarfmalegrimnpc"
+],
+[
+"Hey lookin' at me!",
+1,
+"c",
+"Goblinguardf"
+],
+[
+"Hey there, just passing through.",
+1,
+"c",
+"Gazlowe"
+],
+[
+"Hey, how ya doin'?",
+1,
+"c",
+"Goblinmalegruffnpc"
+],
+[
+"Hey, how you doing?",
+1,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"Hey, I got you back.",
+1,
+"c",
+"Goblinguardm"
+],
+[
+"Hey, you and the leather.",
+1,
+"c",
+"Tauren"
+],
+[
+"Hey, you work out.",
+1,
+"c",
+"Tauren"
+],
+[
+"Hit the road!",
+1,
+"c",
+"Goblinguardf"
+],
+[
+"Honor and I'm sure.",
+1,
+"c",
+"Gnomemaleyoungnpc"
+],
+[
+"How can old fortune help you?",
+1,
+"c",
+"Voljin"
+],
+[
+"How can the dwarves help you?",
+1,
+"c",
+"Kingmagnibronzebeard"
+],
+[
+"How will this benefit me?",
+1,
+"c",
+"Varimathras"
+],
+[
+"How you do in mind?",
+1,
+"c",
+"Trollmalestandardnpc"
+],
+[
+"How you do it, man?",
+1,
+"c",
+"Trollmaledarknpc"
+],
+[
+"How you doing, man?",
+1,
+"c",
+"Trollmaleshamannpc"
+],
+[
+"How you doing, Mun?",
+1,
+"c",
+"Trollfemalestandardnpc"
+],
+[
+"I ain't gettin' paid to chat!",
+1,
+"c",
+"Goblinguardm"
+],
+[
+"I ain't getting paid to chat.",
+1,
+"c",
+"Goblinguardf"
+],
+[
+"I am awake at last.",
+1,
+"c",
+"Naralex"
+],
+[
+"I am Cairn, Chief of the Bloodhoof Toren.",
+1,
+"c",
+"Cairnebloodhoof"
+],
+[
+"I am over this.",
+1,
+"c",
+"Trollfemalelaidbacknpc"
+],
+[
+"I believe so.",
+1,
+"c",
+"Tauren"
+],
+[
+"I can do that.",
+1,
+"c",
+"Peon"
+],
+[
+"I can't drink any more yet.",
+1,
+"c",
+"Tauren"
+],
+[
+"I can't shoot straight unless I've had a paint.",
+1,
+"c",
+"Rifleman"
+],
+[
+"I can't stop that.",
+1,
+"c",
+"Tauren"
+],
+[
+"I could help!",
+1,
+"c",
+"Goblinmalezanynpc"
+],
+[
+"I do not think so.",
+1,
+"c",
+"Tauren"
+],
+[
+"I get no respect around here.",
+1,
+"c",
+"Goblinguardm"
+],
+[
+"I got no respect around here.",
+1,
+"c",
+"Goblinguardf"
+],
+[
+"I got you back.",
+1,
+"c",
+"Goblinguardf"
+],
+[
+"I grow wary of this.",
+1,
+"c",
+"Undeadfemalemagicnpc"
+],
+[
+"I grow weary of this.",
+1,
+"c",
+"Undeadmalestandardnpc"
+],
+[
+"I have no time for games.",
+1,
+"c",
+"Sylvanaswindrunner"
+],
+[
+"I have the finest wares in the land.",
+1,
+"c",
+"Dwarffemalematernalnpc"
+],
+[
+"I have visioned that she lacks.",
+1,
+"c",
+"Fandralstaghelm"
+],
+[
+"I have worked for one such as you.",
+1,
+"c",
+"Baronrevilgaz"
+],
+[
+"I heed the voice of a loon.",
+1,
+"c",
+"Tyrandewhisperwind"
+],
+[
+"I hope it was good for you.",
+1,
+"c",
+"Succubusvo"
+],
+[
+"I just love to tinker.",
+1,
+"c",
+"Hightinkermekkatorque"
+],
+[
+"I may have something for ya.",
+1,
+"c",
+"Witch Doctor"
+],
+[
+"I play all my records backwards. Snow cats look around who is here.",
+1,
+"c",
+"Doomguardvo"
+],
+[
+"I stand ready.",
+1,
+"c",
+"Archer"
+],
+[
+"I sure could use your help kid.",
+1,
+"c",
+"Gazlowe"
+],
+[
+"I thank you.",
+1,
+"c",
+"Tauren"
+],
+[
+"I think that's funny, do ya?",
+1,
+"c",
+"Dwarffemaleguardnpc"
+],
+[
+"I want a man with soft hands, preferably four of them.",
+1,
+"c",
+"Tauren"
+],
+[
+"I wish you had them with you again.",
+1,
+"c",
+"Impvo"
+],
+[
+"I'll be back.",
+1,
+"c",
+"Doomguardvo"
+],
+[
+"I'll be in the trails.",
+1,
+"c",
+"Abomination"
+],
+[
+"I'll miss my dog so much.",
+1,
+"c",
+"Ahabwheathoof"
+],
+[
+"I'll take care of it!",
+1,
+"c",
+"Rifleman"
+],
+[
+"I'm always on the winning side.",
+1,
+"c",
+"Varimathras"
+],
+[
+"I'm busy, ain't ya?",
+1,
+"c",
+"Trollmalestandardnpc"
+],
+[
+"I'm getting angry.",
+1,
+"c",
+"Orcfemalewarriornpc"
+],
+[
+"I'm kinda busy.",
+1,
+"c",
+"Humanfemalewarriornpc"
+],
+[
+"I'm not amused.",
+1,
+"c",
+"Undeadmaledarknpc"
+],
+[
+"I'm not getting paid enough for this!",
+1,
+"c",
+"Goblinguardm"
+],
+[
+"I'm not getting paid enough of this.",
+1,
+"c",
+"Goblinguardf"
+],
+[
+"I'm T.N.T. I'm Tyno MIGHT!",
+1,
+"c",
+"Mortar Team"
+],
+[
+"I'm tired of the same old bull.",
+1,
+"c",
+"Tauren"
+],
+[
+"I'm trying to think here.",
+1,
+"c",
+"Jainaproudmoore"
+],
+[
+"I'm your shooter.",
+1,
+"c",
+"Rifleman"
+],
+[
+"I've got big soulful eyes, long eyelashes, and a wet tongue. What more could a guy want?",
+1,
+"c",
+"Tauren"
+],
+[
+"in position.",
+1,
+"c",
+"Huntress"
+],
+[
+"Intriguing.",
+1,
+"c",
+"Necromancer"
+],
+[
+"Is there trouble?",
+1,
+"c",
+"Dryad"
+],
+[
+"Ishnu Allah, may alone light your path.",
+1,
+"c",
+"Tyrandewhisperwind"
+],
+[
+"Ishnu Allah.",
+1,
+"c",
+"Nightelffemalestandardnpc"
+],
+[
+"ishnu dal diab.",
+1,
+"c",
+"Nightelffemalestandardnpc"
+],
+[
+"Isnu Allah.",
+1,
+"c",
+"Nightelfmalestandardnpc"
+],
+[
+"Isnyolo Bora, may the Earth mother smile upon you.",
+1,
+"c",
+"Cairnebloodhoof"
+],
+[
+"It is meant to be.",
+1,
+"c",
+"Tauren"
+],
+[
+"It is not meant to be.",
+1,
+"c",
+"Tauren"
+],
+[
+"It won't be shy.",
+1,
+"c",
+"Trollfemalelaidbacknpc"
+],
+[
+"It's funny though, yeah.",
+1,
+"c",
+"Dwarffemaleyoungnpc"
+],
+[
+"It's my way for the highway.",
+1,
+"c",
+"Goblinguardf"
+],
+[
+"It's my way or the highway pal",
+1,
+"c",
+"Goblinguardm"
+],
+[
+"It's not pretty yet.",
+1,
+"c",
+"Tauren"
+],
+[
+"It's you and me pal! We've got the synergy!",
+1,
+"c",
+"Mortar Team"
+],
+[
+"Keep it quick kid, I ain't got all day.",
+1,
+"c",
+"Gazlowe"
+],
+[
+"Keep it up, Alhexia.",
+1,
+"c",
+"Trollmalestandardnpc"
+],
+[
+"Keep it up, I'll hex ya!",
+1,
+"c",
+"Trollfemaleoldnpc"
+],
+[
+"Keep it up, I'll hit ya!",
+1,
+"c",
+"Trollfemalestandardnpc"
+],
+[
+"Keep it up. I'll hex you.",
+1,
+"c",
+"Trollmaledarknpc"
+],
+[
+"Keep your nose clean in my town.",
+1,
+"c",
+"Baronrevilgaz"
+],
+[
+"Knuck it off.",
+1,
+"c",
+"Humanmaleofficialnpc"
+],
+[
+"La-la-la!",
+1,
+"c",
+"Babymurloc"
+],
+[
+"Let me at him!",
+1,
+"c",
+"Footman"
+],
+[
+"Let's go!",
+1,
+"c",
+"Abomination"
+],
+[
+"Let's ride!",
+1,
+"c",
+"Wolf Rider"
+],
+[
+"Light be with you. What can I do for you today?",
+1,
+"c",
+"Archbishopbenedictus"
+],
+[
+"Listening.",
+1,
+"c",
+"Undeadmaledarknpc"
+],
+[
+"Lokta, friend. What is it you wish?",
+1,
+"c",
+"Thrall"
+],
+[
+"May the wind be at your back.",
+1,
+"c",
+"Tauren"
+],
+[
+"May your ancestors forever guard your path.",
+1,
+"c",
+"Tauren"
+],
+[
+"McGraw",
+1,
+"c",
+"Orcmalestandardnpc"
+],
+[
+"Me busy. Leave me alone.",
+1,
+"c",
+"Peon"
+],
+[
+"Me got a good stuff, man.",
+1,
+"c",
+"Trollmaleshamannpc"
+],
+[
+"mean not that kind of orc.",
+1,
+"c",
+"Peon"
+],
+[
+"MMMMMMMMMMMMMMMMMMMMMM",
+1,
+"c",
+"Tauren"
+],
+[
+"Mo-GRA!",
+1,
+"c",
+"Orcfemalestandardnpc"
+],
+[
+"More work.",
+1,
+"c",
+"Peasant"
+],
+[
+"Move it!",
+1,
+"c",
+"Goblinguardf"
+],
+[
+"My mana is spent.",
+1,
+"c",
+"Tauren"
+],
+[
+"My manner must be replenished.",
+1,
+"c",
+"Tauren"
+],
+[
+"my wrath.",
+1,
+"c",
+"Undeadmaledarknpc"
+],
+[
+"Necessity is the first cousin of invention.",
+1,
+"c",
+"Hightinkermekkatorque"
+],
+[
+"Need something?",
+1,
+"c",
+"Wolf Rider"
+],
+[
+"Never.",
+1,
+"c",
+"Tauren"
+],
+[
+"No time for play!",
+1,
+"c",
+"Peon"
+],
+[
+"No! No!",
+1,
+"c",
+"Corgi"
+],
+[
+"NOOO! NOOO! NOOO!",
+1,
+"c",
+"Tauren"
+],
+[
+"Now what?",
+1,
+"c",
+"Satyre"
+],
+[
+"Off I go then.",
+1,
+"c",
+"Peasant"
+],
+[
+"off with you.",
+1,
+"c",
+"Dwarfmalestandardnpc"
+],
+[
+"Oh, do I have a deal for you?",
+1,
+"c",
+"Goblinmalezanynpc"
+],
+[
+"Oh, that's me, drink. Get in my belly!",
+1,
+"c",
+"Rifleman"
+],
+[
+"Oh, what is it, you one stranger? I have little time for foolishness.",
+1,
+"c",
+"Magathagrimtotem"
+],
+[
+"Okay, okay.",
+1,
+"c",
+"Trollfemalestandardnpc"
+],
+[
+"Okey dokey!",
+1,
+"c",
+"Peon"
+],
+[
+"Okie dokie!",
+1,
+"c",
+"Trollmaleshamannpc"
+],
+[
+"ON YOUR GOD!",
+1,
+"c",
+"Tauren"
+],
+[
+"On your way.",
+1,
+"c",
+"Goblinguardf"
+],
+[
+"Onward.",
+1,
+"c",
+"Hero Moon Priestess"
+],
+[
+"or the horde!",
+1,
+"c",
+"Orcmaleshadynpc"
+],
+[
+"patience, discipline.",
+1,
+"c",
+"Undeadmaledarknpc"
+],
+[
+"Peace.",
+1,
+"c",
+"Voidwalkervo"
+],
+[
+"Play game!",
+1,
+"c",
+"Orcmalestandardnpc"
+],
+[
+"pleased to meet you.",
+1,
+"c",
+"Gnomemalezanynpc"
+],
+[
+"Prepare for the return of the ancient one.",
+1,
+"c",
+"Skeram"
+],
+[
+"Quickly, quickly!",
+1,
+"c",
+"Goblinguardf"
+],
+[
+"Ready to ride!",
+1,
+"c",
+"Wolf Rider"
+],
+[
+"Remember, patience, discipline.",
+1,
+"c",
+"Undeadfemalemagicnpc"
+],
+[
+"Remember, patients, discipline.",
+1,
+"c",
+"Undeadmalewarriornpc"
+],
+[
+"Rest a moment.",
+1,
+"c",
+"Tauren"
+],
+[
+"Rest your hunches.",
+1,
+"c",
+"Tauren"
+],
+[
+"Right the way.",
+1,
+"c",
+"Witch Doctor"
+],
+[
+"Righto.",
+1,
+"c",
+"Peasant"
+],
+[
+"RRRRRRRRRRRRRRRRRRRRRRRR",
+1,
+"c",
+"Draenorwolf"
+],
+[
+"Run as you're so cute!",
+1,
+"c",
+"Impvo"
+],
+[
+"Save travels!",
+1,
+"c",
+"Dwarfmalestandardnpc"
+],
+[
+"Save your hide.",
+1,
+"c",
+"Tauren"
+],
+[
+"Say no more.",
+1,
+"c",
+"Archer"
+],
+[
+"Sleep.",
+1,
+"c",
+"Twilightmasterkelris"
+],
+[
+"Smart mouth eh?",
+1,
+"c",
+"Goblinguardf"
+],
+[
+"Smart now, though.",
+1,
+"c",
+"Goblinguardm"
+],
+[
+"Someone call for the doctor?",
+1,
+"c",
+"Witch Doctor"
+],
+[
+"Something you're doing?",
+1,
+"c",
+"Peon"
+],
+[
+"Speak quickly, young one, I have urgent matters to attend.",
+1,
+"c",
+"Fandralstaghelm"
+],
+[
+"Spirits be with German.",
+1,
+"c",
+"Trollfemaleoldnpc"
+],
+[
+"Spirits be with you, Ma'am.",
+1,
+"c",
+"Trollfemalelaidbacknpc"
+],
+[
+"Spirits be with you, stranger. How may I help?",
+1,
+"c",
+"Voljin"
+],
+[
+"Standing guard.",
+1,
+"c",
+"Huntress"
+],
+[
+"Stay strong pal!",
+1,
+"c",
+"Goblinguardm"
+],
+[
+"Still here.",
+1,
+"c",
+"Tauren"
+],
+[
+"still not risk.",
+1,
+"c",
+"Nightelfmalewarriornpc"
+],
+[
+"Strength, honor. I see them in you. Why have you come?\"",
+1,
+"c",
+"Kingmagnibronzebeard"
+],
+[
+"Strengthen honor.",
+1,
+"c",
+"Orcfemalewarriornpc"
+],
+[
+"Strengths.",
+1,
+"c",
+"Orcmaleshadynpc"
+],
+[
+"Summon me again at your peril.",
+1,
+"c",
+"Doomguardvo"
+],
+[
+"Take heart, young one. The Earth's mother is near.",
+1,
+"c",
+"Cairnebloodhoof"
+],
+[
+"Take this, you bastard!",
+1,
+"c",
+"Mortar Team"
+],
+[
+"Talk, lady. Watch over you.",
+1,
+"c",
+"Undeadmaledarknpc"
+],
+[
+"Tell me I serve.",
+1,
+"c",
+"Witch Doctor"
+],
+[
+"That be unnecessary.",
+1,
+"c",
+"Trollmaleshamannpc"
+],
+[
+"That'd be unnecessary.",
+1,
+"c",
+"Trollfemalelaidbacknpc"
+],
+[
+"That'll be good choice man!",
+1,
+"c",
+"Witch Doctor"
+],
+[
+"That's more like it.",
+1,
+"c",
+"Muradin"
+],
+[
+"The dead shall serve.",
+1,
+"c",
+"Necromancer"
+],
+[
+"The Goddess is my shield.",
+1,
+"c",
+"Tyrandewhisperwind"
+],
+[
+"The laws of the ancients will not be challenged.",
+1,
+"c",
+"Fankriss"
+],
+[
+"The screams of the dying will feel the error. A symphony of terror is a power to begin in.",
+1,
+"c",
+"Skeram"
+],
+[
+"The shadows beckoned.",
+1,
+"c",
+"Necromancer"
+],
+[
+"The trespasses will be annihilated.",
+1,
+"c",
+"Fankriss"
+],
+[
+"The wind's guide you.",
+1,
+"c",
+"Ahabwheathoof"
+],
+[
+"There",
+1,
+"c",
+"Trollmaleshamannpc"
+],
+[
+"Think that's fun idea.",
+1,
+"c",
+"Dwarfmalegrimnpc"
+],
+[
+"Think that's funny, do ya?",
+1,
+"c",
+"Dwarffemalematernalnpc"
+],
+[
+"Think that's funny, do you?",
+1,
+"c",
+"Dwarfmalestandardnpc"
+],
+[
+"This better be good.",
+1,
+"c",
+"Necromancer"
+],
+[
+"This could gain so bad.",
+1,
+"c",
+"Goblinguardf"
+],
+[
+"This gig ain't so bad.",
+1,
+"c",
+"Goblinguardm"
+],
+[
+"This had better be good.",
+1,
+"c",
+"Undeadmalewarriornpc"
+],
+[
+"THIS IS MY BUNSTICK!",
+1,
+"c",
+"Rifleman"
+],
+[
+"Throw how.",
+1,
+"c",
+"Orcmaleshadynpc"
+],
+[
+"Till next we meet.",
+1,
+"c",
+"Nightelfmalestandardnpc"
+],
+[
+"to meet ya.",
+1,
+"c",
+"Gnomefemalestandardnpc"
+],
+[
+"Tremelor, the ending is upon one.",
+1,
+"c",
+"Skeram"
+],
+[
+"Try not to miss me too much.",
+1,
+"c",
+"Succubusvo"
+],
+[
+"Turanda has no idea how to lead our people.",
+1,
+"c",
+"Fandralstaghelm"
+],
+[
+"Ugh, I don't have time for this!",
+1,
+"c",
+"Goblinmaleguardnpc"
+],
+[
+"Unleash your fury!",
+1,
+"c",
+"Tauren"
+],
+[
+"us here and obey.",
+1,
+"c",
+"Abomination"
+],
+[
+"Very well, Ben.",
+1,
+"c",
+"Gnomefemalestandardnpc"
+],
+[
+"Victory!",
+1,
+"c",
+"Orcmaleshadynpc"
+],
+[
+"Wait, you knock it off!",
+1,
+"c",
+"Goblinmalegruffnpc"
+],
+[
+"Waiting on you.",
+1,
+"c",
+"Archer"
+],
+[
+"Want to see some good clog dancing?",
+1,
+"c",
+"Tauren"
+],
+[
+"Warriors of the night assemble",
+1,
+"c",
+"Hero Moon Priestess"
+],
+[
+"Watch you looking for",
+1,
+"c",
+"Trollfemalestandardnpc"
+],
+[
+"We are the forsaken. We will slaughter anyone who stands in our way.",
+1,
+"c",
+"Sylvanaswindrunner"
+],
+[
+"We got the good stuff, man.",
+1,
+"c",
+"Trollmaledarknpc"
+],
+[
+"We must act.",
+1,
+"c",
+"Hero Moon Priestess"
+],
+[
+"We're complete.",
+1,
+"c",
+"Peon"
+],
+[
+"We, Torren, have always held a great respect for the works of the Earth Mother.",
+1,
+"c",
+"Cairnebloodhoof"
+],
+[
+"Welcome to Orgrimmar. Have you come to serve the Horde?",
+1,
+"c",
+"Thrall"
+],
+[
+"Welcome to Ratchet. Hope you're looking for work.",
+1,
+"c",
+"Gazlowe"
+],
+[
+"Welcome to the Cathedral of Light.",
+1,
+"c",
+"Archbishopbenedictus"
+],
+[
+"Welcome to Theramore. Have you come to help the Alliance?",
+1,
+"c",
+"Jainaproudmoore"
+],
+[
+"Well met, Traveler. There's opportunity to be had here if you're clever enough.",
+1,
+"c",
+"Baronrevilgaz"
+],
+[
+"Well, Net!",
+1,
+"c",
+"Dwarfmaleguardnpc"
+],
+[
+"Wha-",
+1,
+"c",
+"Peasant"
+],
+[
+"What are we if not slaves to this torment?",
+1,
+"c",
+"Sylvanaswindrunner"
+],
+[
+"What are you doing business with ya?",
+1,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"What are you through?",
+1,
+"c",
+"Gnomefemalehappynpc"
+],
+[
+"What brings you to ironford?",
+1,
+"c",
+"Kingmagnibronzebeard"
+],
+[
+"What brings you to Omagatha?",
+1,
+"c",
+"Magathagrimtotem"
+],
+[
+"What do you seek within the mountain?",
+1,
+"c",
+"Kingmagnibronzebeard"
+],
+[
+"What does nature's call?",
+1,
+"c",
+"Dryad"
+],
+[
+"What does the shadow will?",
+1,
+"c",
+"Necromancer"
+],
+[
+"What joy is there in this curse?",
+1,
+"c",
+"Sylvanaswindrunner"
+],
+[
+"What we do.",
+1,
+"c",
+"Abomination"
+],
+[
+"What will you require?",
+1,
+"c",
+"Undeadfemalemagicnpc"
+],
+[
+"What you'll be craving.",
+1,
+"c",
+"Witch Doctor"
+],
+[
+"What's beyond your mind?",
+1,
+"c",
+"Trollmaledarknpc"
+],
+[
+"What's happening?",
+1,
+"c",
+"Dwarffemaleyoungnpc"
+],
+[
+"What's that smell? Oh, bad dog!",
+1,
+"c",
+"Wolf Rider"
+],
+[
+"What's that?",
+1,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"What's you looking for?",
+1,
+"c",
+"Trollmaleshamannpc"
+],
+[
+"What's you want?",
+1,
+"c",
+"Trollmaleshamannpc"
+],
+[
+"Where is that dog?",
+1,
+"c",
+"Ahabwheathoof"
+],
+[
+"Where's my drink?",
+1,
+"c",
+"Rifleman"
+],
+[
+"Where's my kuby doll?",
+1,
+"c",
+"Trollfemaleoldnpc"
+],
+[
+"Where's my QP doll?",
+1,
+"c",
+"Trollmalestandardnpc"
+],
+[
+"Who you'll be.",
+1,
+"c",
+"Trollmaleshamannpc"
+],
+[
+"Why hello there, how can I help you?",
+1,
+"c",
+"Hightinkermekkatorque"
+],
+[
+"Will you help me find my dog?",
+1,
+"c",
+"Ahabwheathoof"
+],
+[
+"With honor",
+1,
+"c",
+"Orcmaleguardnpc"
+],
+[
+"Y'know, we've had a lot of fun together, it's been really special, but I think it's time I started to see other warlocks just a little bit on the side now, and then maybe on far this and through this, that is maybe some- IT'S NOT YOU, IT'S NOT YOU, IT'S ME! I just need my space, it's nobody's fault really.",
+1,
+"c",
+"Impvo"
+],
+[
+"Yeesh! Took my head off, why don't ya?",
+1,
+"c",
+"Goblinguardm"
+],
+[
+"Yes, tuck my head off, why don't you?",
+1,
+"c",
+"Goblinguardf"
+],
+[
+"Yo, can I help you with something?",
+1,
+"c",
+"Goblinguardm"
+],
+[
+"You again?",
+1,
+"c",
+"Satyre"
+],
+[
+"YOU ARE MINE!",
+1,
+"c",
+"Archimonde"
+],
+[
+"You are testing my patience.",
+1,
+"c",
+"Taurenmaleeldernpc"
+],
+[
+"You are welcome here.",
+1,
+"c",
+"Archbishopbenedictus"
+],
+[
+"You are welcome.",
+1,
+"c",
+"Tauren"
+],
+[
+"You come get the food.",
+1,
+"c",
+"Trollmaledarknpc"
+],
+[
+"You come get the voodoo.",
+1,
+"c",
+"Trollfemalelaidbacknpc"
+],
+[
+"You come to consult the spirits.",
+1,
+"c",
+"Voljin"
+],
+[
+"You ever need anything?",
+1,
+"c",
+"Goblinfemalezanynpc"
+],
+[
+"You have a target!",
+1,
+"c",
+"Rifleman"
+],
+[
+"You just embarrassing yourself.",
+1,
+"c",
+"Goblinguardf"
+],
+[
+"You know, older bulls really only have one function.",
+1,
+"c",
+"Tauren"
+],
+[
+"You live for now.",
+1,
+"c",
+"Doomguardvo"
+],
+[
+"You lookin' at me!",
+1,
+"c",
+"Goblinguardm"
+],
+[
+"You move me.",
+1,
+"c",
+"Tauren"
+],
+[
+"You seek me help?",
+1,
+"c",
+"Witch Doctor"
+],
+[
+"You think you can match the might of a dreadlord?",
+1,
+"c",
+"Varimathras"
+],
+[
+"You'll be careful, man.",
+1,
+"c",
+"Trollfemalelaidbacknpc"
+],
+[
+"You're annoying, my dog.",
+1,
+"c",
+"Wolf Rider"
+],
+[
+"You're just embarrassing yourself.",
+1,
+"c",
+"Goblinguardm"
+],
+[
+"You're not amazing.",
+1,
+"c",
+"Dwarfmalestandardnpc"
+],
+[
+"You're totally annoying!",
+1,
+"c",
+"Gnomefemalestandardnpc"
+],
+[
+"Zugzug!",
+1,
+"c",
+"Orcmaleshadynpc"
+]
+]

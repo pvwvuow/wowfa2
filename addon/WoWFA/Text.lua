@@ -845,8 +845,85 @@ function T.Once(tt, key)
     return true
 end
 
+-- 1.2.3 (the owner 28 Nov: "sometimes the text is not completely inside the window"): the game sizes a tooltip when it
+-- is shown, from the English it had then. Our Persian is rewritten after that and can be taller (a line more) or have
+-- a word wider than its box, so the last line fell out of the frame. One moment after the layout the lowest text line
+-- and the widest string are measured; a tooltip that is too small is made as big as its text needs. Never in a fight,
+-- never on a tooltip of a protected frame (action bars), nothing is written when the text already fits.
+local function fit_num(v)
+    return (F.Usable(v) and type(v) == "number") and v or nil
+end
+
+local function fit_now(tt)
+    tt.wfaFitPend = nil
+    local name = tt.GetName and tt:GetName()
+    if type(name) ~= "string" or not (tt.IsShown and tt:IsShown()) then
+        return false
+    end
+    if InCombatLockdown and InCombatLockdown() then
+        return false
+    end
+    local owner = tt.GetOwner and tt:GetOwner()
+    if owner and owner.IsProtected and owner:IsProtected() then
+        return false
+    end
+    local tl, tb, tw, th = fit_num(tt:GetLeft()), fit_num(tt:GetBottom()), fit_num(tt:GetWidth()), fit_num(tt:GetHeight())
+    if not (tl and tb and tw and th) then
+        return false
+    end
+    local n = fit_num(tt:NumLines()) or 0
+    local lowest, needW = nil, 0
+    for i = 1, n do
+        for _, side in ipairs({ "Left", "Right" }) do
+            local fs = _G[name .. "Text" .. side .. i]
+            if fs and fs.IsShown and fs:IsShown() then
+                local txt = fs:GetText()
+                if F.Usable(txt) and type(txt) == "string" and txt ~= "" then
+                    local b, sh = fit_num(fs:GetBottom()), fit_num(fs:GetStringHeight())
+                    if b and sh then
+                        local fh = fit_num(fs:GetHeight()) or sh
+                        local textBottom = (sh > fh) and (b - (sh - fh)) or b
+                        if not lowest or textBottom < lowest then
+                            lowest = textBottom
+                        end
+                    end
+                    local sw, fw = fit_num(fs:GetStringWidth()), fit_num(fs:GetWidth())
+                    if sw and fw and sw > fw + 1 and sw - fw > needW then
+                        needW = sw - fw
+                    end
+                end
+            end
+        end
+    end
+    local changed = false
+    if lowest and lowest < tb + 4 then
+        tt:SetHeight(th + math.ceil(tb + 9 - lowest))
+        changed = true
+    end
+    if needW > 0 then
+        tt:SetWidth(tw + math.ceil(needW) + 2)
+        changed = true
+    end
+    return changed
+end
+T.TipFit = fit_now
+
+function T.TipFitSoon(tt)
+    if tt.wfaFitPend or not F.After then
+        return
+    end
+    tt.wfaFitPend = true
+    F.After(0.03, function()
+        local ok = pcall(fit_now, tt)
+        if not ok then
+            tt.wfaFitPend = nil
+        end
+    end)
+end
+
 function T.Done(tt)
     tt.wfaLines = tt:NumLines()
+    T.TipFitSoon(tt)
 end
 
 local function style(tt, side)

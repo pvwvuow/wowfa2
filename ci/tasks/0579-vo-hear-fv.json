@@ -1,0 +1,1 @@
+{"id": "0579-vo-hear-fv", "kind": "script", "why": "owner 28 Nov: hear every Forever voice line that has no text yet (player races first)", "args": {"module": "voice_text", "args": {"stt": true, "fv": true, "minutes": 40, "limit": 3000}}}

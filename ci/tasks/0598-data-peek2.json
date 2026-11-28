@@ -1,0 +1,1 @@
+{"id": "0598-data-peek2", "kind": "script", "why": "owner 28 Nov report 571: how alerts and say lines are stored", "args": {"module": "data_peek", "args": {"words": ["closer to interact", "ammo equipped", "mail database", "you are mounted", "becomes enraged", "thank you"], "limit": 4}}}

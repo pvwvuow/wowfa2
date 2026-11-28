@@ -84,6 +84,8 @@ select option{background:#151b24}
 .row.ok .nm{color:#b4e8cf}.row .mine{display:none}.row.ok .mine{display:inline-block;color:#7fd6a8}#wave{cursor:ew-resize;touch-action:none}#scrop{font-size:12px;color:var(--mut);min-height:16px;margin-top:4px}#sold,#sedit{display:none}#sold.on,#sedit.on{display:inline-block}
 .ct{color:var(--mut);font-size:.76em;white-space:nowrap}
 .ct::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;margin-inline-end:6px;background:var(--cc,#888)}
+.c7{--cc:#f0a6d8}.c8{--cc:#a7a7a7}.c9{--cc:#6b7480}.c10{--cc:#9fc7a0}
+#packs table{border-collapse:collapse;width:100%;font-size:.86em;margin:6px 0 4px}#packs th,#packs td{padding:4px 10px;text-align:right;border-bottom:1px solid var(--line);font-weight:400}#packs th{color:var(--mut)}#packs tr.rp{cursor:pointer}#packs tr.rp:hover,#packs tr.rp.on{background:var(--soft)}#packs tr.rp.on th{color:var(--acc)}
 .c0{--cc:#7fe0b0}.c1{--cc:#8bb6ff}.c2{--cc:#ffab7a}.c3{--cc:#ff7b7b}.c4{--cc:#d3b0ff}.c5{--cc:#7fd0e0}.c6{--cc:#c8a878}
 .era{color:var(--mut);font-size:.72em}
 .empty{color:var(--mut);text-align:center;padding:50px 0}
@@ -155,6 +157,8 @@ details.adv summary{cursor:pointer;color:var(--mut);font-size:.84em}
 <input class="search" id="q" type="search" dir="auto" placeholder="جست&#x200c;وجوی اسم یا فایل&#x2026;" autocomplete="off">
 <select id="fstatus"><option value="all">همه&#x654; خط&#x200c;ها</option><option value="todo">ضبط&#x200c;نشده</option><option value="done">ضبط&#x200c;شده</option></select>
 <select id="fsex"><option value="all">هر جنسیت</option><option value="m">مرد</option><option value="f">زن</option><option value="u">نامشخص</option></select>
+<select id="frace"><option value="all">همه نژادها</option><option value="human">انسان</option><option value="dwarf">دورف</option><option value="gnome">گنوم</option><option value="nightelf">نایت‌الف</option><option value="orc">اورک</option><option value="troll">ترول</option><option value="tauren">تائورن</option><option value="scourge">آندد</option></select>
+<select id="fvoc"><option value="react">حرف + واکنش‌ها (بی جانوران)</option><option value="voice">فقط حرف و پیام</option><option value="all">همه، حتی صدای جانوران</option></select>
 <select id="fkind"><option value="all">همه نوع&#x200c;ها</option><option value="c">NPC و موجودات</option><option value="h">نژادهای بازیکن</option></select>
 <select id="fplace"><option value="all">&#x647;&#x645;&#x647; &#x645;&#x6a9;&#x627;&#x646;&#x200c;&#x647;&#x627;</option><option value="d">&#x62f;&#x627;&#x646;&#x62c;&#x646; &#x648; &#x631;&#x6cc;&#x6cc;&#x62f;</option><option value="w">&#x62f;&#x646;&#x6cc;&#x627;&#x6cc; &#x628;&#x6cc;&#x631;&#x648;&#x646;</option><option value="u">&#x645;&#x6a9;&#x627;&#x646; &#x646;&#x627;&#x645;&#x634;&#x62e;&#x635;</option></select>
 <select id="ffac"><option value="all">&#x647;&#x631; &#x62f;&#x648; &#x62c;&#x628;&#x647;&#x647;</option><option value="A">&#x622;&#x644;&#x6cc;&#x627;&#x646;&#x633;</option><option value="H">&#x647;&#x648;&#x631;&#x62f;</option><option value="N">&#x628;&#x6cc;&#x200c;&#x637;&#x631;&#x641; &#x6cc;&#x627; &#x62f;&#x634;&#x645;&#x646;</option><option value="u">&#x62c;&#x628;&#x647;&#x647; &#x646;&#x627;&#x645;&#x634;&#x62e;&#x635;</option></select>
@@ -165,6 +169,7 @@ details.adv summary{cursor:pointer;color:var(--mut);font-size:.84em}
 <button class="lnk" id="resume">ادامه از جایی که بودم</button>
 <button class="lnk" id="export">فهرست ضبط&#x200c;ها (CSV)</button>
 </div>
+<div id="packs"></div>
 <main id="list"></main>
 <details class="about" id="sumbox"><summary>&#x622;&#x645;&#x627;&#x631; &#x6a9;&#x644;&#x6cc; &#x647;&#x645;&#x647;&#x654; &#x635;&#x62f;&#x627;&#x647;&#x627;</summary><div id="sumtab"></div></details>
 <details class="about"><summary>درباره&#x654; داده&#x200c;ها</summary>

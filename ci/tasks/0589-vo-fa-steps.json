@@ -1,0 +1,1 @@
+{"id": "0589-vo-fa-steps", "kind": "script", "why": "owner 28 Nov: the 842 Persian lines (0580a was dropped from the queue) and merge them into the studio", "args": {"module": "steps", "args": {"steps": [{"from": "ci/tasks/0580a-vo-fa.json"}, {"from": "ci/inbox/0580b-vo-fa.json"}, {"module": "voice_text", "args": {}}]}}}

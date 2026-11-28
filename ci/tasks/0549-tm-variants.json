@@ -1,0 +1,1 @@
+{"id": "0549-tm-variants", "kind": "script", "why": "owner 28 Nov: the same term translated two ways inside the markers", "args": {"module": "tm_variants", "args": {"kinds": ["tm"], "top": 140, "words": ["stun", "stunned", "stuns", "stunning"]}}}

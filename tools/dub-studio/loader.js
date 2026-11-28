@@ -84,7 +84,7 @@
     G0.forEach(function (gk, gi) {
       var gname = gk[0], kind = gk[1], rows = byg[gi] || [], keep = [];
       var beast = kind === 'c' && BEAST.test(gname.toLowerCase().replace(/[^a-z]/g, ''));
-      rows.forEach(function (r) { var lk = kind === 'c' && PRACE.test(r[3].toLowerCase()) ? 'h' : kind; var c = catOf(r[3], gname, r[4], lk, beast && lk === 'c'); if (c !== null) keep.push([r[0], c, r[3], r[4], lk]); });
+      rows.forEach(function (r) { var lk = kind === 'c' && PRACE.test(r[3].toLowerCase()) && !/npc|vendor|guard/.test(gname.toLowerCase()) ? 'h' : kind; var c = catOf(r[3], gname, r[4], lk, beast && lk === 'c'); if (c !== null) keep.push([r[0], c, r[3], r[4], lk]); });
       if (!keep.length) return;
       var sex = gender(gname, keep.map(function (r) { return r[2]; }));
       var mn = Infinity; keep.forEach(function (r) { if (r[0] < mn) mn = r[0]; });

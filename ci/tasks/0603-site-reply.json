@@ -1,0 +1,1 @@
+{"id": "0603-site-reply", "kind": "script", "why": "owner 28 Nov: take the report-page reply to the public site", "args": {"module": "site_copy_block", "args": {"path": "report.html", "begin": "<style>\n.rp-reply{", "before": "<div class=\"ad-note reveal\">", "msg": "report page: reply to you (same as wow#596)"}}}

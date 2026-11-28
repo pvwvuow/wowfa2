@@ -127,8 +127,23 @@ local function aura_audit(tt)
     end
 end
 
+-- 1.2.3 (the owner 28 Nov: 38 "new misses" at once, all lines of his weapon): the button of a weapon enchant
+-- (TempEnchant) shows the WEAPON's item tooltip. Its lines (Soulbound, Durability, Sell Price...) are item
+-- text, not buff text: they were run through the spell function and filled the report. An item tooltip is
+-- left alone here (it also took most of the time of this module).
+local function is_item(tt)
+    if type(tt.GetItem) ~= "function" then
+        return false
+    end
+    local ok, name, link = pcall(tt.GetItem, tt)
+    return ok and (name ~= nil or link ~= nil)
+end
+
 local function aura_tip(tt, data)
     if not tt or (tt.IsForbidden and tt:IsForbidden()) then
+        return
+    end
+    if is_item(tt) then
         return
     end
     if F.ShiftEn and F.ShiftEn() then

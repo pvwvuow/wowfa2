@@ -77,7 +77,9 @@ af:SetScript("OnEvent", function(_, _, _, info)
             return
         end
         local add = info.addedAuras
-        if type(add) ~= "table" or #add == 0 then
+        -- 1.2.3 (the owner's taint.log: "get length of a secret value was blocked", Diag.lua:80): the list of a
+        -- fight's auras can come as a secret table
+        if type(add) ~= "table" or not F.Usable(add) or #add == 0 then
             return
         end
         lastAura = now
@@ -145,4 +147,64 @@ function F.DiagLines()
         out[#out + 1] = string.format("perf :: mem :: %d KB", kb)
     end
     return out
+end
+
+-- 1.2.3 (the owner's taint.log of 28 Nov: "Execution tainted by WoWFA while reading field action"
+-- (MultiBarBottomRightButton7) and "field autoCastEnabled": a few action button fields hold a value that WoWFA
+-- wrote, and a click on that button is blocked). WHO wrote it is the question, and the game's log only says
+-- who READ it. So these fields are looked at after EVERY hook of every module and once a second: the first
+-- time one of them is WoWFA's, the line names the module whose hook had just run. Nothing is written.
+-- It stops after 4 findings.
+local CANARY = {
+    { "ActionButton1", "action" }, { "ActionButton7", "action" }, { "MultiBarBottomLeftButton1", "action" },
+    { "MultiBarBottomRightButton7", "action" }, { "MultiBarRightButton1", "action" },
+    { "MultiBarLeftButton10", "action" }, { "PetActionButton1", "action" }, { "PetActionButton1", "autoCastEnabled" },
+}
+local canaryFound, canarySeen = 0, {}
+local function canary(tag)
+    if canaryFound >= 4 or type(issecurevariable) ~= "function" then
+        return
+    end
+    for _, c in ipairs(CANARY) do
+        local id = c[1] .. "." .. c[2]
+        if not canarySeen[id] then
+            local t = _G[c[1]]
+            if type(t) == "table" then
+                local ok, sec, by = pcall(issecurevariable, t, c[2])
+                if ok and sec == false and by == F.ADDON then
+                    canarySeen[id] = true
+                    canaryFound = canaryFound + 1
+                    local line = string.format("taint-first %s is WoWFA's value, seen after: %s (last hook %s %.1fs ago)",
+                        id, tostring(tag), tostring(F.lastRun), (GetTime and GetTime() or 0) - (F.lastRunT or 0))
+                    pcall(F.Trace, "taint", line)
+                    pcall(F.LogError, F, "blocked", line)
+                    if canaryFound <= 2 and F.Chat then
+                        pcall(F.Chat, "WoWFA: " .. line .. " - please send this line")
+                    end
+                end
+            end
+        end
+    end
+end
+
+local origWrap = F.Wrap
+if type(origWrap) == "function" then
+    function F:Wrap(id, fn, ...)
+        local w = origWrap(self, id, fn, ...)
+        if type(w) ~= "function" then
+            return w
+        end
+        return function(...)
+            local r1, r2, r3 = w(...)
+            if canaryFound < 4 then
+                canary(id)
+            end
+            return r1, r2, r3
+        end
+    end
+end
+if C_Timer and C_Timer.NewTicker then
+    pcall(C_Timer.NewTicker, 1, function()
+        canary("tick")
+    end)
 end

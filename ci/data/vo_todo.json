@@ -205,11 +205,6 @@
 "Aggra"
 ],
 [
-"Be careful.",
-11,
-"Aggra"
-],
-[
 "be still my love, calm your mind. You became a slave to your duty, but being true to your heart is how you'll fulfill that duty, to your people and to me. I would have it no other your way.",
 1,
 "Aggra"
@@ -262,11 +257,6 @@
 [
 "Go well. Go well, you must stop. Your anger is just, but it will only consume you. Fight it down all way or lost. Can you even hear me?",
 1,
-"Aggra"
-],
-[
-"Go with honor.",
-3,
 "Aggra"
 ],
 [
@@ -483,51 +473,6 @@
 "You're almost home, my love. Our time is so brief. You will change again, Goel. But I will find you. I will never give up on you.",
 1,
 "Aggra"
-],
-[
-"Going piece.",
-1,
-"Ahabwheathoof"
-],
-[
-"Greetings, traveler.",
-7,
-"Ahabwheathoof"
-],
-[
-"I have no time for playing.",
-5,
-"Ahabwheathoof"
-],
-[
-"I'll miss my dog so much.",
-1,
-"Ahabwheathoof"
-],
-[
-"May the eternal sun shine upon thee.",
-6,
-"Ahabwheathoof"
-],
-[
-"The wind's guide you.",
-1,
-"Ahabwheathoof"
-],
-[
-"Where is that dog?",
-1,
-"Ahabwheathoof"
-],
-[
-"Will you help me find my dog?",
-1,
-"Ahabwheathoof"
-],
-[
-"You are not amusing.",
-6,
-"Ahabwheathoof"
 ],
 [
 "A comma has no master, not anymore.",
@@ -882,11 +827,6 @@
 [
 "Behold the tools of creation!",
 1,
-"Algalontheobserver"
-],
-[
-"Beware!",
-2,
 "Algalontheobserver"
 ],
 [
@@ -1330,59 +1270,9 @@
 "Arcanetitan"
 ],
 [
-"What is it?",
-17,
-"Arcanetitan"
-],
-[
-"B and Peace.",
-1,
-"Archbishopbenedictus"
-],
-[
-"Light be with you. What can I do for you today?",
-1,
-"Archbishopbenedictus"
-],
-[
 "Sacrilege! Defend the cathedral!",
 1,
 "Archbishopbenedictus"
-],
-[
-"Welcome to the Cathedral of Light.",
-1,
-"Archbishopbenedictus"
-],
-[
-"You are welcome here.",
-3,
-"Archbishopbenedictus"
-],
-[
-"all too easy.",
-2,
-"Archer"
-],
-[
-"Fair enough.",
-1,
-"Archer"
-],
-[
-"I stand ready.",
-1,
-"Archer"
-],
-[
-"Say no more.",
-1,
-"Archer"
-],
-[
-"Waiting on you.",
-1,
-"Archer"
 ],
 [
 "All creation will be devoured.",
@@ -1400,16 +1290,6 @@
 "Archimonde"
 ],
 [
-"Away vermin!",
-1,
-"Archimonde"
-],
-[
-"Bow to my will!",
-2,
-"Archimonde"
-],
-[
 "I am the coming of the end!",
 1,
 "Archimonde"
@@ -1417,11 +1297,6 @@
 [
 "Let the echoes of doom resound across this wretched world that all who live may hear them and despair.",
 1,
-"Archimonde"
-],
-[
-"YOU ARE MINE!",
-2,
 "Archimonde"
 ],
 [
@@ -2595,21 +2470,6 @@
 "Azzakel"
 ],
 [
-"Ah! Ah, ah, ah, ah, ah!",
-2,
-"Babymurloc"
-],
-[
-"Bye, bye, bye, bye, bye.",
-1,
-"Babymurloc"
-],
-[
-"La-la-la!",
-1,
-"Babymurloc"
-],
-[
 "Adjust punishment!",
 1,
 "Baine"
@@ -2765,11 +2625,6 @@
 "Baleroc"
 ],
 [
-"Ugh!",
-71,
-"Baleroc"
-],
-[
 "You are forbidden from my master's domain, mortals.",
 1,
 "Baleroc"
@@ -2845,27 +2700,7 @@
 "Barnesthestagemanager"
 ],
 [
-"Adventure awaits!",
-1,
-"Baronrevilgaz"
-],
-[
-"I have worked for one such as you.",
-1,
-"Baronrevilgaz"
-],
-[
 "I'll toss you swabs attack!",
-1,
-"Baronrevilgaz"
-],
-[
-"Keep your nose clean in my town.",
-1,
-"Baronrevilgaz"
-],
-[
-"Well met, Traveler. There's opportunity to be had here if you're clever enough.",
 1,
 "Baronrevilgaz"
 ],
@@ -2995,11 +2830,6 @@
 "Benedictus"
 ],
 [
-"Light be with you.",
-3,
-"Benedictus"
-],
-[
 "Oh, these are but petty accusations without proof.",
 1,
 "Benedictus"
@@ -3105,11 +2935,6 @@
 "Bloodelf"
 ],
 [
-"Congratulations!",
-14,
-"Bloodelf"
-],
-[
 "Do you believe in love at first sight, or should I walk by again?",
 1,
 "Bloodelf"
@@ -3145,16 +2970,6 @@
 "Bloodelf"
 ],
 [
-"FIRE!",
-10,
-"Bloodelf"
-],
-[
-"Follow me.",
-17,
-"Bloodelf"
-],
-[
 "Follow my lead.",
 1,
 "Bloodelf"
@@ -3165,18 +2980,8 @@
 "Bloodelf"
 ],
 [
-"Heal me.",
-19,
-"Bloodelf"
-],
-[
 "HEAL!",
 2,
-"Bloodelf"
-],
-[
-"Help me!",
-12,
 "Bloodelf"
 ],
 [
@@ -3210,128 +3015,8 @@
 "Bloodelf"
 ],
 [
-"I can't afford that.",
-23,
-"Bloodelf"
-],
-[
-"I can't carry any more of those.",
-24,
-"Bloodelf"
-],
-[
-"I can't carry anymore.",
-18,
-"Bloodelf"
-],
-[
-"I can't cast that yet.",
-22,
-"Bloodelf"
-],
-[
-"I can't do that here.",
-25,
-"Bloodelf"
-],
-[
-"I can't do that yet.",
-25,
-"Bloodelf"
-],
-[
-"I can't do that.",
-25,
-"Bloodelf"
-],
-[
-"I can't drink any more yet.",
-5,
-"Bloodelf"
-],
-[
-"I can't drink anymore yet.",
-19,
-"Bloodelf"
-],
-[
-"I can't drop that.",
-23,
-"Bloodelf"
-],
-[
-"I can't equip that.",
-22,
-"Bloodelf"
-],
-[
-"I can't learn that spell.",
-21,
-"Bloodelf"
-],
-[
-"I can't loot that right now.",
-18,
-"Bloodelf"
-],
-[
-"I can't put that there.",
-22,
-"Bloodelf"
-],
-[
-"I can't reach that.",
-24,
-"Bloodelf"
-],
-[
-"I can't trade that.",
-20,
-"Bloodelf"
-],
-[
-"I can't use that item yet.",
-24,
-"Bloodelf"
-],
-[
-"I can't use that yet.",
-39,
-"Bloodelf"
-],
-[
-"I can't use that.",
-24,
-"Bloodelf"
-],
-[
-"I can't wield that yet.",
-17,
-"Bloodelf"
-],
-[
 "I could really use a scrunchie. Yeah, you heard me.",
 1,
-"Bloodelf"
-],
-[
-"I don't have a target.",
-23,
-"Bloodelf"
-],
-[
-"I don't have enough energy.",
-24,
-"Bloodelf"
-],
-[
-"I don't have enough money.",
-23,
-"Bloodelf"
-],
-[
-"I don't have that ability yet.",
-25,
 "Bloodelf"
 ],
 [
@@ -3342,31 +3027,6 @@
 [
 "I know every rose has its thorn, but if you would just pull some sugar on me, we could rock and roll all night and party every day.",
 1,
-"Bloodelf"
-],
-[
-"I need a target.",
-25,
-"Bloodelf"
-],
-[
-"I need both hands for my weapon.",
-26,
-"Bloodelf"
-],
-[
-"I need more mana.",
-28,
-"Bloodelf"
-],
-[
-"I need to get closer.",
-52,
-"Bloodelf"
-],
-[
-"I need to target something first.",
-24,
 "Bloodelf"
 ],
 [
@@ -3395,38 +3055,8 @@
 "Bloodelf"
 ],
 [
-"I'll need permission first.",
-21,
-"Bloodelf"
-],
-[
-"I'll need to equip that to use it.",
-21,
-"Bloodelf"
-],
-[
-"I'll never be able to equip that.",
-24,
-"Bloodelf"
-],
-[
 "I'm addicted to you, baby.",
 1,
-"Bloodelf"
-],
-[
-"I'm not high enough level to use that.",
-19,
-"Bloodelf"
-],
-[
-"I'm out of ammo.",
-23,
-"Bloodelf"
-],
-[
-"I'm out of range.",
-25,
 "Bloodelf"
 ],
 [
@@ -3445,11 +3075,6 @@
 "Bloodelf"
 ],
 [
-"Inventory is full.",
-24,
-"Bloodelf"
-],
-[
 "Is that a man of worm in your pocket? Or are you just happy to see me?",
 1,
 "Bloodelf"
@@ -3457,31 +3082,6 @@
 [
 "It was no trouble.",
 2,
-"Bloodelf"
-],
-[
-"It's locked.",
-24,
-"Bloodelf"
-],
-[
-"It's not ready yet.",
-24,
-"Bloodelf"
-],
-[
-"It's still recharging.",
-24,
-"Bloodelf"
-],
-[
-"It's too expensive.",
-23,
-"Bloodelf"
-],
-[
-"It's too far away.",
-21,
 "Bloodelf"
 ],
 [
@@ -3505,23 +3105,8 @@
 "Bloodelf"
 ],
 [
-"My mana is low.",
-22,
-"Bloodelf"
-],
-[
 "my mana is nearly gone",
 2,
-"Bloodelf"
-],
-[
-"My skill level isn't high enough to equip that.",
-24,
-"Bloodelf"
-],
-[
-"need more rage.",
-26,
 "Bloodelf"
 ],
 [
@@ -3537,26 +3122,6 @@
 [
 "Normally I only ride on epic mounts, but let's talk.",
 1,
-"Bloodelf"
-],
-[
-"not enough energy.",
-25,
-"Bloodelf"
-],
-[
-"Not enough mana.",
-24,
-"Bloodelf"
-],
-[
-"not enough rage.",
-25,
-"Bloodelf"
-],
-[
-"not ready yet.",
-24,
 "Bloodelf"
 ],
 [
@@ -3585,11 +3150,6 @@
 "Bloodelf"
 ],
 [
-"Right.",
-4,
-"Bloodelf"
-],
-[
 "So I was in line at the bat handler yesterday with some undead guy in front of me, and all of a sudden he just, let's one go, didn't even try to disguise it. I don't know what he ate, but it did not agree with him. I thought, what crawled up you and died?",
 1,
 "Bloodelf"
@@ -3610,48 +3170,8 @@
 "Bloodelf"
 ],
 [
-"Stay here.",
-11,
-"Bloodelf"
-],
-[
 "Survival first!",
 2,
-"Bloodelf"
-],
-[
-"That ability isn't ready yet.",
-23,
-"Bloodelf"
-],
-[
-"That bag is full.",
-24,
-"Bloodelf"
-],
-[
-"That spell isn't ready yet.",
-24,
-"Bloodelf"
-],
-[
-"That's bound to me.",
-21,
-"Bloodelf"
-],
-[
-"That's not a bag.",
-23,
-"Bloodelf"
-],
-[
-"That's not equipped yet.",
-24,
-"Bloodelf"
-],
-[
-"that's still recharging.",
-21,
 "Bloodelf"
 ],
 [
@@ -3662,16 +3182,6 @@
 [
 "The tide has turned against us.",
 1,
-"Bloodelf"
-],
-[
-"too far away.",
-27,
-"Bloodelf"
-],
-[
-"Ugh! Ugh!",
-5,
 "Bloodelf"
 ],
 [
@@ -3695,11 +3205,6 @@
 "Bloodelf"
 ],
 [
-"We can't invite anyone else.",
-21,
-"Bloodelf"
-],
-[
 "We're allied with the Turin. Fantastic! We'll be having steak twice a week.",
 1,
 "Bloodelf"
@@ -3707,16 +3212,6 @@
 [
 "well deserved.",
 2,
-"Bloodelf"
-],
-[
-"Yes.",
-37,
-"Bloodelf"
-],
-[
-"You are welcome.",
-3,
 "Bloodelf"
 ],
 [
@@ -4022,11 +3517,6 @@
 [
 "Evasive action! Evasive action!",
 1,
-"Brann"
-],
-[
-"for the Alliance!",
-6,
 "Brann"
 ],
 [
@@ -4510,11 +4000,6 @@
 "Brokennpc1"
 ],
 [
-"What?",
-34,
-"Brokennpc1"
-],
-[
 "Why you do this?",
 4,
 "Brokennpc1"
@@ -4795,17 +4280,7 @@
 "Caelestrasz"
 ],
 [
-"I am Cairn, Chief of the Bloodhoof Toren.",
-1,
-"Cairnebloodhoof"
-],
-[
 "Isnyolo Bora, may the Earth mother smile upon you.",
-1,
-"Cairnebloodhoof"
-],
-[
-"Take heart, young one. The Earth's mother is near.",
 1,
 "Cairnebloodhoof"
 ],
@@ -5588,11 +5063,6 @@
 "What say you?",
 1,
 "Cordanafelsong"
-],
-[
-"No! No!",
-1,
-"Corgi"
 ],
 [
 "Bask in his power, rise as an agent of the master's rage.",
@@ -6390,11 +5860,6 @@
 "Doomguardvo"
 ],
 [
-"Do not call on me again.",
-1,
-"Doomguardvo"
-],
-[
 "Do not waste my time, lesser creature.",
 1,
 "Doomguardvo"
@@ -6415,16 +5880,6 @@
 "Doomguardvo"
 ],
 [
-"I'll be back.",
-1,
-"Doomguardvo"
-],
-[
-"Summon me again at your peril.",
-1,
-"Doomguardvo"
-],
-[
 "to pathetic to fight your own battles?",
 1,
 "Doomguardvo"
@@ -6441,11 +5896,6 @@
 ],
 [
 "You cannot command me.",
-1,
-"Doomguardvo"
-],
-[
-"You live for now.",
 1,
 "Doomguardvo"
 ],
@@ -6495,11 +5945,6 @@
 "Doomwalker"
 ],
 [
-"Absolutely not.",
-3,
-"Draenei"
-],
-[
 "Absolutely.",
 5,
 "Draenei"
@@ -6517,11 +5962,6 @@
 [
 "and the Anakur Kura.",
 1,
-"Draenei"
-],
-[
-"Anytime.",
-6,
 "Draenei"
 ],
 [
@@ -6570,18 +6010,8 @@
 "Draenei"
 ],
 [
-"Go in peace.",
-8,
-"Draenei"
-],
-[
 "Hear me, please.",
 1,
-"Draenei"
-],
-[
-"Hear me.",
-2,
 "Draenei"
 ],
 [
@@ -6637,11 +6067,6 @@
 [
 "I love this planet. I come here. I see cow and chicken and the right little horses. This planet has everything.",
 1,
-"Draenei"
-],
-[
-"I need mana.",
-3,
 "Draenei"
 ],
 [
@@ -6730,16 +6155,6 @@
 "Draenei"
 ],
 [
-"My pleasure.",
-8,
-"Draenei"
-],
-[
-"NEVER!",
-6,
-"Draenei"
-],
-[
 "Nicely done.",
 1,
 "Draenei"
@@ -6760,11 +6175,6 @@
 "Draenei"
 ],
 [
-"Open fire!",
-7,
-"Draenei"
-],
-[
 "Peace and prosperity.",
 2,
 "Draenei"
@@ -6782,16 +6192,6 @@
 [
 "Protect yourself!",
 1,
-"Draenei"
-],
-[
-"Remain here.",
-6,
-"Draenei"
-],
-[
-"Retreat!",
-11,
 "Draenei"
 ],
 [
@@ -6830,11 +6230,6 @@
 "Draenei"
 ],
 [
-"Wait here.",
-6,
-"Draenei"
-],
-[
 "We did not realize, but in our own language, Exodar means the fact of Alek Turd.",
 1,
 "Draenei"
@@ -6852,16 +6247,6 @@
 [
 "We stand united.",
 2,
-"Draenei"
-],
-[
-"We're here.",
-2,
-"Draenei"
-],
-[
-"Well done.",
-8,
 "Draenei"
 ],
 [
@@ -7390,21 +6775,6 @@
 "Drelanim Whisperwind"
 ],
 [
-"Ah, the great outdoors.",
-1,
-"Dryad"
-],
-[
-"Is there trouble?",
-1,
-"Dryad"
-],
-[
-"What does nature's call?",
-1,
-"Dryad"
-],
-[
 "All I need is a wolf at my side, and a fellow warrior at my back.",
 1,
 "Durotan"
@@ -7455,208 +6825,8 @@
 "Durotan"
 ],
 [
-"A lot of ya.",
-1,
-"Dwarf"
-],
-[
-"Ah, you're nice.",
-1,
-"Dwarf"
-],
-[
-"Ahh, you're nice!",
-1,
-"Dwarf"
-],
-[
-"And over this chit chat, let's get to it then.",
-1,
-"Dwarf"
-],
-[
-"Brilliant!",
-3,
-"Dwarf"
-],
-[
-"but still recharging.",
-2,
-"Dwarf"
-],
-[
-"Can't use that yet",
-1,
-"Dwarf"
-],
-[
-"Close!",
-1,
-"Dwarf"
-],
-[
-"Damn straight!",
-1,
-"Dwarf"
-],
-[
-"Damn street.",
-1,
-"Dwarf"
-],
-[
-"Danger approaching!",
-2,
-"Dwarf"
-],
-[
 "Enough with your flirting. I know you think I'll dwarf and women look the same.",
 1,
-"Dwarf"
-],
-[
-"FINE TUSTIC!",
-1,
-"Dwarf"
-],
-[
-"Follow me quick!",
-1,
-"Dwarf"
-],
-[
-"Goodbye.",
-12,
-"Dwarf"
-],
-[
-"Hands up!",
-1,
-"Dwarf"
-],
-[
-"Heads up!",
-1,
-"Dwarf"
-],
-[
-"Hi there!",
-5,
-"Dwarf"
-],
-[
-"I can't learn that, Spill.",
-1,
-"Dwarf"
-],
-[
-"I can't look that right now.",
-1,
-"Dwarf"
-],
-[
-"I can't loot that.",
-18,
-"Dwarf"
-],
-[
-"I can't more than that spell.",
-1,
-"Dwarf"
-],
-[
-"I can't put up that.",
-1,
-"Dwarf"
-],
-[
-"I can't root that.",
-2,
-"Dwarf"
-],
-[
-"I can't treat that.",
-1,
-"Dwarf"
-],
-[
-"I like tall men.",
-1,
-"Dwarf"
-],
-[
-"I like to see you in a kilt!",
-1,
-"Dwarf"
-],
-[
-"I must be asleep because you're a dream come true, also I'm slightly damp.",
-1,
-"Dwarf"
-],
-[
-"I need healing.",
-10,
-"Dwarf"
-],
-[
-"I need help.",
-7,
-"Dwarf"
-],
-[
-"I need to tag it something first.",
-1,
-"Dwarf"
-],
-[
-"I won't fall for any bad pick-up line, you've got to try two or three at least.",
-1,
-"Dwarf"
-],
-[
-"I'll have you know I can flatten steel with my thighs!",
-1,
-"Dwarf"
-],
-[
-"I'll lead the way.",
-6,
-"Dwarf"
-],
-[
-"I've got no mana!",
-1,
-"Dwarf"
-],
-[
-"I've got no manner.",
-1,
-"Dwarf"
-],
-[
-"Let's get on with it then. I've got a quest to do in 15 minutes.",
-1,
-"Dwarf"
-],
-[
-"Let's run!",
-1,
-"Dwarf"
-],
-[
-"May your generosity be returned to you 100-fold.",
-1,
-"Dwarf"
-],
-[
-"May your generosity be returned to you a hundredfold.",
-1,
-"Dwarf"
-],
-[
-"No problem.",
-6,
 "Dwarf"
 ],
 [
@@ -7670,97 +6840,12 @@
 "Dwarf"
 ],
 [
-"SHUT TO KILL!",
-1,
-"Dwarf"
-],
-[
-"So long.",
-5,
-"Dwarf"
-],
-[
-"Stay put.",
-5,
-"Dwarf"
-],
-[
-"Still recharging",
-1,
-"Dwarf"
-],
-[
-"Sure!",
-4,
-"Dwarf"
-],
-[
-"TEND ME WONDS!",
-1,
-"Dwarf"
-],
-[
-"Thanks a lot!",
-2,
-"Dwarf"
-],
-[
-"That's bone to me.",
-1,
-"Dwarf"
-],
-[
-"That's great",
-1,
-"Dwarf"
-],
-[
-"Till we meet again.",
-4,
-"Dwarf"
-],
-[
-"Uh-uh.",
-2,
-"Dwarf"
-],
-[
-"Wait-a-go!",
-1,
-"Dwarf"
-],
-[
-"We can't invade anyone else.",
-1,
-"Dwarf"
-],
-[
 "We're here to go!",
 1,
 "Dwarf"
 ],
 [
-"Where are you from? Not that it matters.",
-1,
-"Dwarf"
-],
-[
 "Whoa! Pup, pup, pup, pup!",
-1,
-"Dwarf"
-],
-[
-"with you.",
-1,
-"Dwarf"
-],
-[
-"You later run your hands through my beard, wouldn't ya?",
-1,
-"Dwarf"
-],
-[
-"You look pretty, I like your hair. Here's a drink. Are you ready now?",
 1,
 "Dwarf"
 ],
@@ -7775,138 +6860,8 @@
 "Dwarffemaleerrormessages"
 ],
 [
-"Great to meet you.",
-3,
-"Dwarffemaleguardnpc"
-],
-[
-"Hello.",
-24,
-"Dwarffemaleguardnpc"
-],
-[
-"How are you?",
-4,
-"Dwarffemaleguardnpc"
-],
-[
-"I think that's funny, do ya?",
-1,
-"Dwarffemaleguardnpc"
-],
-[
-"I've the finest wares in the land.",
-3,
-"Dwarffemaleguardnpc"
-],
-[
-"Keep your feet on the ground.",
-3,
-"Dwarffemaleguardnpc"
-],
-[
-"Safe travels!",
-9,
-"Dwarffemaleguardnpc"
-],
-[
-"See you soon!",
-4,
-"Dwarffemaleguardnpc"
-],
-[
-"Welcome.",
-4,
-"Dwarffemaleguardnpc"
-],
-[
-"Well met.",
-11,
-"Dwarffemaleguardnpc"
-],
-[
-"What can I do for ya?",
-3,
-"Dwarffemaleguardnpc"
-],
-[
-"What can I get for you today?",
-6,
-"Dwarffemaleguardnpc"
-],
-[
-"You're not amusing.",
-2,
-"Dwarffemaleguardnpc"
-],
-[
-"You're starting to bother me.",
-5,
-"Dwarffemaleguardnpc"
-],
-[
-"Be good.",
-8,
-"Dwarffemalematernalnpc"
-],
-[
-"Hi!",
-10,
-"Dwarffemalematernalnpc"
-],
-[
-"How are ya?",
-7,
-"Dwarffemalematernalnpc"
-],
-[
-"I have the finest wares in the land.",
-1,
-"Dwarffemalematernalnpc"
-],
-[
-"Off with ya!",
-2,
-"Dwarffemalematernalnpc"
-],
-[
-"Think that's funny, do ya?",
-1,
-"Dwarffemalematernalnpc"
-],
-[
-"Watch your back!",
-20,
-"Dwarffemalematernalnpc"
-],
-[
-"What's on your mind?",
-5,
-"Dwarffemalematernalnpc"
-],
-[
-"Great to meet ya!",
-2,
-"Dwarffemaleyoungnpc"
-],
-[
-"I have the finest wires in the land.",
-2,
-"Dwarffemaleyoungnpc"
-],
-[
 "It's funny though, yeah.",
 1,
-"Dwarffemaleyoungnpc"
-],
-[
-"Talk to me.",
-7,
-"Dwarffemaleyoungnpc"
-],
-[
-"What's happening?",
-2,
 "Dwarffemaleyoungnpc"
 ],
 [
@@ -7920,59 +6875,14 @@
 "Dwarfmaleerrormessages"
 ],
 [
-"Here they are.",
-1,
-"Dwarfmalegrimnpc"
-],
-[
 "Think that's fun idea.",
 1,
 "Dwarfmalegrimnpc"
 ],
 [
-"You got my attention.",
-2,
-"Dwarfmalegrimnpc"
-],
-[
-"No!",
-29,
-"Dwarfmaleguardnpc"
-],
-[
 "Well, Net!",
 1,
 "Dwarfmaleguardnpc"
-],
-[
-"BWAH!",
-1,
-"Dwarfmalenpc1"
-],
-[
-"off with you.",
-1,
-"Dwarfmalestandardnpc"
-],
-[
-"Save travels!",
-1,
-"Dwarfmalestandardnpc"
-],
-[
-"Think that's funny, do you?",
-1,
-"Dwarfmalestandardnpc"
-],
-[
-"You're not amazing.",
-1,
-"Dwarfmalestandardnpc"
-],
-[
-"I don't like to be underground. It reminds me of death.",
-1,
-"Dwarfvocalfemale"
 ],
 [
 "I give myself a Dutch oven pedicure every night. I've got no foot fungus at all. My toes are pristine. in.",
@@ -7985,57 +6895,12 @@
 "Dwarfvocalfemale"
 ],
 [
-"It's like my father always used to say, shut up and get out.",
-1,
-"Dwarfvocalfemale"
-],
-[
-"My uncle has brass balls. No, really.",
-1,
-"Dwarfvocalfemale"
-],
-[
-"No, they're not real, but thanks for noticing.",
-1,
-"Dwarfvocalfemale"
-],
-[
-"Ah, winter. Yes. Winter.",
-1,
-"Dwarfvocalmale"
-],
-[
 "Charge!",
 2,
 "Dwarfvocalmale"
 ],
 [
-"I don't drink anymore. Of course I don't drink any less either.",
-1,
-"Dwarfvocalmale"
-],
-[
-"I don't have a drinking problem, I drink, I get drunk, I fall down, no problem.",
-1,
-"Dwarfvocalmale"
-],
-[
-"I like my beer, like I like my women, stout and better.",
-1,
-"Dwarfvocalmale"
-],
-[
 "I who, I who, second verse, it was the first.",
-1,
-"Dwarfvocalmale"
-],
-[
-"I'm having a wardrobe malfunction. Oh, there's me hammer",
-1,
-"Dwarfvocalmale"
-],
-[
-"Oh, I'm just a social drinker. Every time someone says I'll have a drink, I say, social, I...",
 1,
 "Dwarfvocalmale"
 ],
@@ -8690,26 +7555,6 @@
 "Fandralstaghelm"
 ],
 [
-"Speak quickly, young one, I have urgent matters to attend.",
-1,
-"Fandralstaghelm"
-],
-[
-"Turanda has no idea how to lead our people.",
-1,
-"Fandralstaghelm"
-],
-[
-"The laws of the ancients will not be challenged.",
-1,
-"Fankriss"
-],
-[
-"The trespasses will be annihilated.",
-1,
-"Fankriss"
-],
-[
 "Go on! Kill them! I'll be the better for it!",
 1,
 "Fathomlordkarathress"
@@ -9133,11 +7978,6 @@
 "Though we provide thousand online, all systems nominal.",
 1,
 "Foereaper"
-],
-[
-"Let me at him!",
-1,
-"Footman"
 ],
 [
 "I kill you!",
@@ -9820,17 +8660,7 @@
 "Gazlowe"
 ],
 [
-"Hey there, just passing through.",
-1,
-"Gazlowe"
-],
-[
 "I LOVE IT!",
-1,
-"Gazlowe"
-],
-[
-"I sure could use your help kid.",
 1,
 "Gazlowe"
 ],
@@ -9841,11 +8671,6 @@
 ],
 [
 "I'm on it!",
-1,
-"Gazlowe"
-],
-[
-"Keep it quick kid, I ain't got all day.",
 1,
 "Gazlowe"
 ],
@@ -9866,11 +8691,6 @@
 ],
 [
 "So, what's next, Commander?",
-1,
-"Gazlowe"
-],
-[
-"Welcome to Ratchet. Hope you're looking for work.",
 1,
 "Gazlowe"
 ],
@@ -10040,11 +8860,6 @@
 "Gilneancivf"
 ],
 [
-"Careful out there!",
-16,
-"Gilneancivf"
-],
-[
 "Get Gabin' or get goin'",
 1,
 "Gilneancivf"
@@ -10125,18 +8940,8 @@
 "Gilneancivf"
 ],
 [
-"on your way.",
-17,
-"Gilneancivf"
-],
-[
 "Open for business.",
 13,
-"Gilneancivf"
-],
-[
-"Quickly, quickly!",
-16,
 "Gilneancivf"
 ],
 [
@@ -10147,11 +8952,6 @@
 [
 "We are bound by a common enemy.",
 7,
-"Gilneancivf"
-],
-[
-"What can I do for you?",
-12,
 "Gilneancivf"
 ],
 [
@@ -10232,11 +9032,6 @@
 [
 "Do not waste my time!",
 3,
-"Gilneanguardf"
-],
-[
-"Don't waste my time.",
-18,
 "Gilneanguardf"
 ],
 [
@@ -10655,157 +9450,12 @@
 "Gnomefemaleerrormessages"
 ],
 [
-"Alrighty then.",
-2,
-"Gnomefemalehappynpc"
-],
-[
-"Be seeing you!",
-5,
-"Gnomefemalehappynpc"
-],
-[
-"But there's something else.",
-2,
-"Gnomefemalehappynpc"
-],
-[
-"Can I help you?",
-7,
-"Gnomefemalehappynpc"
-],
-[
-"Cass, you're totally annoying!",
-1,
-"Gnomefemalehappynpc"
-],
-[
-"Goodbye for now!",
-1,
-"Gnomefemalehappynpc"
-],
-[
-"HEY!",
-11,
-"Gnomefemalehappynpc"
-],
-[
-"Hi, how are you?",
-2,
-"Gnomefemalehappynpc"
-],
-[
-"I'm not listening!",
-3,
-"Gnomefemalehappynpc"
-],
-[
-"making a special purchase?",
-6,
-"Gnomefemalehappynpc"
-],
-[
-"My, you're a tall one.",
-2,
-"Gnomefemalehappynpc"
-],
-[
-"Salutations!",
-3,
-"Gnomefemalehappynpc"
-],
-[
-"Sorry, I wasn't listening.",
-4,
-"Gnomefemalehappynpc"
-],
-[
-"What are you through?",
-1,
-"Gnomefemalehappynpc"
-],
-[
-"Would you like to purchase something?",
-5,
-"Gnomefemalehappynpc"
-],
-[
-"You have a great day now.",
-5,
-"Gnomefemalehappynpc"
-],
-[
-"Are you through?",
-2,
-"Gnomefemalenerdynpc"
-],
-[
-"Bye, you're a tall one.",
-1,
-"Gnomefemalenerdynpc"
-],
-[
-"Good day to you.",
-5,
-"Gnomefemalenerdynpc"
-],
-[
-"Hmm interesting",
-3,
-"Gnomefemalenerdynpc"
-],
-[
-"Off and away!",
-4,
-"Gnomefemalenerdynpc"
-],
-[
-"Please to meet you.",
-2,
-"Gnomefemalenerdynpc"
-],
-[
-"Very good.",
-2,
-"Gnomefemalenerdynpc"
-],
-[
-"Very well then.",
-2,
-"Gnomefemalenerdynpc"
-],
-[
-"Yes, you're totally annoying.",
-2,
-"Gnomefemalenerdynpc"
-],
-[
-"Hi, how are ya?",
-2,
-"Gnomefemalestandardnpc"
-],
-[
-"Mmm, interesting.",
-2,
-"Gnomefemalestandardnpc"
-],
-[
-"Need assistance?",
-2,
-"Gnomefemalestandardnpc"
-],
-[
 "to meet ya.",
 1,
 "Gnomefemalestandardnpc"
 ],
 [
 "Very well, Ben.",
-1,
-"Gnomefemalestandardnpc"
-],
-[
-"You're totally annoying!",
 1,
 "Gnomefemalestandardnpc"
 ],
@@ -10825,26 +9475,6 @@
 "Gnomemaleerrormessages"
 ],
 [
-"Daylight's burning!",
-1,
-"Gnomemalestandardnpc"
-],
-[
-"Harry!",
-1,
-"Gnomemalestandardnpc"
-],
-[
-"Time to move on.",
-2,
-"Gnomemalestandardnpc"
-],
-[
-"Was there something else?",
-3,
-"Gnomemalestandardnpc"
-],
-[
 "All right, even.",
 1,
 "Gnomemaleyoungnpc"
@@ -10853,16 +9483,6 @@
 "Honor and I'm sure.",
 1,
 "Gnomemaleyoungnpc"
-],
-[
-"Blah, blah, blah, blah, blah, blah, blah, are you through?",
-1,
-"Gnomemalezanynpc"
-],
-[
-"pleased to meet you.",
-1,
-"Gnomemalezanynpc"
 ],
 [
 "At this time, I think you should purchase me in alcoholic beverage and engage in diminutive conversation with me in hopes of establishing a rapport.",
@@ -10885,22 +9505,12 @@
 "Gnomevocalfemale"
 ],
 [
-"I apologize profusely for any inconvenience my murderous rampage may have caused.",
-1,
-"Gnomevocalfemale"
-],
-[
 "I do not find you completely disagreeable.",
 1,
 "Gnomevocalfemale"
 ],
 [
 "I don't feel that the 1 to 10 scale is fine enough to capture subtle details of compatibility. I'd prefer a 12-dimensional compatibility scale with additional parameters for mechanical aptitude and torque.",
-1,
-"Gnomevocalfemale"
-],
-[
-"I have discovered that getting pummeled by a blunt weapon can be quite painful.",
 1,
 "Gnomevocalfemale"
 ],
@@ -10935,11 +9545,6 @@
 "Gnomevocalfemale"
 ],
 [
-"Someday, I hope to find the nuggets on a chicken.",
-1,
-"Gnomevocalfemale"
-],
-[
 "Stay here for a moment.",
 2,
 "Gnomevocalfemale"
@@ -10961,11 +9566,6 @@
 ],
 [
 "You are cute!",
-1,
-"Gnomevocalfemale"
-],
-[
-"You know, squirrels can be deadly when cornered.",
 1,
 "Gnomevocalfemale"
 ],
@@ -11015,16 +9615,6 @@
 "Gnomevocalmale"
 ],
 [
-"I do hope to find some interesting gadgets around here. I do love tinkering with things.",
-1,
-"Gnomevocalmale"
-],
-[
-"I had an idea for a device that you could put small pieces of bread in to cook, but in the end, I really didn't think there would be much of a market for it.",
-1,
-"Gnomevocalmale"
-],
-[
 "I have a number of inventions I'd like to show you back at my place.",
 1,
 "Gnomevocalmale"
@@ -11035,17 +9625,7 @@
 "Gnomevocalmale"
 ],
 [
-"I look bigger in those mirrors where things look bigger.",
-1,
-"Gnomevocalmale"
-],
-[
 "I need some mana!",
-1,
-"Gnomevocalmale"
-],
-[
-"I think that last vendor shortchanged me. Oh, oh, that was a bad one.",
 1,
 "Gnomevocalmale"
 ],
@@ -11090,16 +9670,6 @@
 "Gnomevocalmale"
 ],
 [
-"You know, I really wish I had a garden where I could put a couple of human statues.",
-1,
-"Gnomevocalmale"
-],
-[
-"Be careful out there.",
-4,
-"Goblincivf"
-],
-[
 "Catch you on the flip side.",
 2,
 "Goblincivf"
@@ -11107,11 +9677,6 @@
 [
 "Don't be a stranger.",
 1,
-"Goblincivf"
-],
-[
-"Glad I could help.",
-4,
 "Goblincivf"
 ],
 [
@@ -11125,21 +9690,6 @@
 "Goblincivf"
 ],
 [
-"Have a good one.",
-9,
-"Goblincivf"
-],
-[
-"Hey, how you doing?",
-3,
-"Goblincivf"
-],
-[
-"Hit the road!",
-4,
-"Goblincivf"
-],
-[
 "I do not have time for this.",
 3,
 "Goblincivf"
@@ -11147,11 +9697,6 @@
 [
 "I've seen you around here before.",
 2,
-"Goblincivf"
-],
-[
-"Keep it real.",
-6,
 "Goblincivf"
 ],
 [
@@ -11175,18 +9720,8 @@
 "Goblincivf"
 ],
 [
-"Shut it.",
-5,
-"Goblincivf"
-],
-[
 "tickle in cost extra, bub.",
 1,
-"Goblincivf"
-],
-[
-"Well, spit it out.",
-5,
 "Goblincivf"
 ],
 [
@@ -11205,43 +9740,13 @@
 "Goblincivf"
 ],
 [
-"Will you knock it off?",
-7,
-"Goblincivf"
-],
-[
 "Yeah, I get it. You can poke things.",
 3,
 "Goblincivf"
 ],
 [
-"Yeah, very funny.",
-9,
-"Goblincivf"
-],
-[
-"Yeah, what do you want?",
-7,
-"Goblincivf"
-],
-[
 "Yeah, yeah.",
 2,
-"Goblincivf"
-],
-[
-"Yo.",
-5,
-"Goblincivf"
-],
-[
-"You're doing it wrong!",
-6,
-"Goblincivf"
-],
-[
-"You're just embarrassing yourself.",
-5,
 "Goblincivf"
 ],
 [
@@ -11275,11 +9780,6 @@
 "Goblincivm"
 ],
 [
-"What part of time is money, don't you understand?",
-5,
-"Goblincivm"
-],
-[
 "Yep, what do you want?",
 1,
 "Goblincivm"
@@ -11300,87 +9800,12 @@
 "Goblinfemale"
 ],
 [
-"Adjust embarrassing yourself.",
-1,
-"Goblinfemalezanynpc"
-],
-[
-"Aha potential customer!",
-1,
-"Goblinfemalezanynpc"
-],
-[
-"Alright, move along now!",
-4,
-"Goblinfemalezanynpc"
-],
-[
-"Can I show you my wares?",
-1,
-"Goblinfemalezanynpc"
-],
-[
-"Do I have a deal for you?",
-2,
-"Goblinfemalezanynpc"
-],
-[
-"Glad I can help!",
-1,
-"Goblinfemalezanynpc"
-],
-[
-"Hurry back!",
-3,
-"Goblinfemalezanynpc"
-],
-[
-"I don't have time for this.",
-6,
-"Goblinfemalezanynpc"
-],
-[
-"I got a long day, kid.",
-3,
-"Goblinfemalezanynpc"
-],
-[
-"Time is money, friend.",
-4,
-"Goblinfemalezanynpc"
-],
-[
-"Welcome, friend!",
-3,
-"Goblinfemalezanynpc"
-],
-[
 "What are you doing business with ya?",
 1,
 "Goblinfemalezanynpc"
 ],
 [
-"What's that?",
-1,
-"Goblinfemalezanynpc"
-],
-[
-"You ever need anything?",
-1,
-"Goblinfemalezanynpc"
-],
-[
-"Big shot, huh?",
-1,
-"Goblinguardf"
-],
-[
 "Bo-Go!",
-1,
-"Goblinguardf"
-],
-[
-"Can I help you with something?",
 1,
 "Goblinguardf"
 ],
@@ -11390,122 +9815,7 @@
 "Goblinguardf"
 ],
 [
-"Don't try anything stupid.",
-2,
-"Goblinguardf"
-],
-[
-"Get lost, will ya?",
-2,
-"Goblinguardf"
-],
-[
-"Got a long day, kid.",
-1,
-"Goblinguardf"
-],
-[
-"Hey lookin' at me!",
-1,
-"Goblinguardf"
-],
-[
-"I ain't getting paid to chat.",
-1,
-"Goblinguardf"
-],
-[
-"I got no respect around here.",
-1,
-"Goblinguardf"
-],
-[
-"I got you back.",
-1,
-"Goblinguardf"
-],
-[
-"I'm not getting paid enough of this.",
-1,
-"Goblinguardf"
-],
-[
-"If you can make it here, you can make it anywhere.",
-2,
-"Goblinguardf"
-],
-[
-"It's my way for the highway.",
-1,
-"Goblinguardf"
-],
-[
-"No, loitering, whatever that means.",
-2,
-"Goblinguardf"
-],
-[
-"security, enforcement, extortion, we do it all.",
-2,
-"Goblinguardf"
-],
-[
-"Smart mouth eh?",
-1,
-"Goblinguardf"
-],
-[
-"This could gain so bad.",
-1,
-"Goblinguardf"
-],
-[
-"Yes, tuck my head off, why don't you?",
-1,
-"Goblinguardf"
-],
-[
-"You ever need anything? You know where to find me.",
-2,
-"Goblinguardf"
-],
-[
-"You just embarrassing yourself.",
-1,
-"Goblinguardf"
-],
-[
-"Do not get on Gallywix's bedside!",
-1,
-"Goblinguardm"
-],
-[
 "Ha ha, big shout-out!",
-1,
-"Goblinguardm"
-],
-[
-"Hey, I got you back.",
-1,
-"Goblinguardm"
-],
-[
-"I ain't gettin' paid to chat!",
-1,
-"Goblinguardm"
-],
-[
-"I get no respect around here.",
-1,
-"Goblinguardm"
-],
-[
-"I'm not getting paid enough for this!",
-2,
-"Goblinguardm"
-],
-[
-"It's my way or the highway pal",
 1,
 "Goblinguardm"
 ],
@@ -11515,69 +9825,9 @@
 "Goblinguardm"
 ],
 [
-"Stay strong pal!",
-1,
-"Goblinguardm"
-],
-[
-"This gig ain't so bad.",
-1,
-"Goblinguardm"
-],
-[
-"Yeesh! Took my head off, why don't ya?",
-1,
-"Goblinguardm"
-],
-[
-"Yo, can I help you with something?",
-1,
-"Goblinguardm"
-],
-[
-"You lookin' at me!",
-1,
-"Goblinguardm"
-],
-[
-"Ah, potential customer!",
-2,
-"Goblinmalegruffnpc"
-],
-[
-"Amateur",
-1,
-"Goblinmalegruffnpc"
-],
-[
-"Hey, how ya doin'?",
-1,
-"Goblinmalegruffnpc"
-],
-[
-"I got the best deals anywhere!",
-2,
-"Goblinmalegruffnpc"
-],
-[
 "Wait, you knock it off!",
 1,
 "Goblinmalegruffnpc"
-],
-[
-"Ugh, I don't have time for this!",
-1,
-"Goblinmaleguardnpc"
-],
-[
-"I could help!",
-1,
-"Goblinmalezanynpc"
-],
-[
-"Oh, do I have a deal for you?",
-1,
-"Goblinmalezanynpc"
 ],
 [
 "Can I lighten that coin purse for ya?",
@@ -11597,11 +9847,6 @@
 [
 "Goblin products are built to blast.",
 1,
-"Goblinvendorf"
-],
-[
-"Got the best deals anywhere!",
-3,
 "Goblinvendorf"
 ],
 [
@@ -11787,11 +10032,6 @@
 [
 "We've got Uranus! Fire at will!",
 1,
-"Godfrey"
-],
-[
-"What now?",
-4,
 "Godfrey"
 ],
 [
@@ -12960,21 +11200,6 @@
 "Hemet Nesingwary"
 ],
 [
-"Onward.",
-2,
-"Hero Moon Priestess"
-],
-[
-"Warriors of the night assemble",
-1,
-"Hero Moon Priestess"
-],
-[
-"We must act.",
-1,
-"Hero Moon Priestess"
-],
-[
 "Commence fire!",
 1,
 "Hexascrub"
@@ -13220,27 +11445,12 @@
 "Highnethermancerzerevor"
 ],
 [
-"I just love to tinker.",
-1,
-"Hightinkermekkatorque"
-],
-[
 "I won't stand for that!",
 1,
 "Hightinkermekkatorque"
 ],
 [
-"Necessity is the first cousin of invention.",
-1,
-"Hightinkermekkatorque"
-],
-[
 "Pick on someone your own size.",
-1,
-"Hightinkermekkatorque"
-],
-[
-"Why hello there, how can I help you?",
 1,
 "Hightinkermekkatorque"
 ],
@@ -13315,11 +11525,6 @@
 "Humanfemalefinal"
 ],
 [
-"Go with honor, friend.",
-2,
-"Humanfemaleofficialnpc"
-],
-[
 "Help you find something?",
 2,
 "Humanfemaleofficialnpc"
@@ -13330,64 +11535,9 @@
 "Humanfemaleofficialnpc"
 ],
 [
-"King's Honor, friend.",
-2,
-"Humanfemaleofficialnpc"
-],
-[
-"Knock it off.",
-3,
-"Humanfemaleofficialnpc"
-],
-[
-"Light bless you.",
-3,
-"Humanfemaleofficialnpc"
-],
-[
 "Looking for something specific?",
 3,
 "Humanfemaleofficialnpc"
-],
-[
-"Need help?",
-3,
-"Humanfemaleofficialnpc"
-],
-[
-"What's your problem?",
-6,
-"Humanfemaleofficialnpc"
-],
-[
-"You need something?",
-13,
-"Humanfemaleofficialnpc"
-],
-[
-"You're getting on my nerves.",
-4,
-"Humanfemaleofficialnpc"
-],
-[
-"Hey there!",
-6,
-"Humanfemalestandardnpc"
-],
-[
-"I'm kind of busy.",
-3,
-"Humanfemalestandardnpc"
-],
-[
-"See you around!",
-4,
-"Humanfemalestandardnpc"
-],
-[
-"See you later.",
-3,
-"Humanfemalestandardnpc"
 ],
 [
 "I supply only the finest goods.",
@@ -13395,44 +11545,9 @@
 "Humanfemalewarriornpc"
 ],
 [
-"I'm kinda busy.",
-1,
-"Humanfemalewarriornpc"
-],
-[
-"Quit it.",
-3,
-"Humanfemalewarriornpc"
-],
-[
 "board. Nice. OK. Ahh! Let's go. Yeah. Don't stop. Don't stop. No. No. No. No. No. No. No. No, no. No. I want to. No. No! No, no! Oh. Oh. No. Oh. No. No. No. No. No.",
 1,
 "Humanmalefinal"
-],
-[
-"Forget something.",
-3,
-"Humanmaleofficialnpc"
-],
-[
-"Knuck it off.",
-1,
-"Humanmaleofficialnpc"
-],
-[
-"Do you need something?",
-1,
-"Humanmalestandardnpc"
-],
-[
-"See ya later!",
-2,
-"Humanmalestandardnpc"
-],
-[
-"Do you ever feel like you're not in charge of your own destiny? Like, you're being controlled by an invisible hand?",
-1,
-"Humanvocalfemale"
 ],
 [
 "Fantastic!",
@@ -13446,21 +11561,6 @@
 ],
 [
 "Huzzah!",
-1,
-"Humanvocalfemale"
-],
-[
-"I can't find anywhere to get my nails done.",
-1,
-"Humanvocalfemale"
-],
-[
-"I can't wait till this quest is done and I can look for another Garibaldi artifact.",
-1,
-"Humanvocalfemale"
-],
-[
-"I like to fart in the tub.",
 1,
 "Humanvocalfemale"
 ],
@@ -13480,28 +11580,13 @@
 "Humanvocalfemale"
 ],
 [
-"Me and my girlfriend's exchange close all the time. We're all the same size.",
-1,
-"Humanvocalfemale"
-],
-[
 "My turn-offs are rude people, mean people, and people who aren't nice.",
-1,
-"Humanvocalfemale"
-],
-[
-"Sometimes I have trouble controlling the volume of my boys!",
 1,
 "Humanvocalfemale"
 ],
 [
 "to battle.",
 2,
-"Humanvocalfemale"
-],
-[
-"Why does everyone automatically assume I know tailoring and cooking?",
-1,
 "Humanvocalfemale"
 ],
 [
@@ -13515,27 +11600,12 @@
 "Humanvocalfemale"
 ],
 [
-"A duck walked into an apothecary and he said give me some chapstick and put it on my bill.",
-1,
-"Humanvocalmale"
-],
-[
-"A guy walked up to me and said, I'm a teepee. I'm a wigwam. I'm a teepee. I'm a wigwam. I said, relax, man. You're too tense.",
-1,
-"Humanvocalmale"
-],
-[
 "Are you tired, because you've been running through my mind all day?",
 1,
 "Humanvocalmale"
 ],
 [
 "at your service.",
-1,
-"Humanvocalmale"
-],
-[
-"Cover for me. I got a whiz behind the tree.",
 1,
 "Humanvocalmale"
 ],
@@ -13551,11 +11621,6 @@
 ],
 [
 "Hey baby cakes.",
-1,
-"Humanvocalmale"
-],
-[
-"How does a taurine hide in a cherry tree? He paints his hooves red.",
 1,
 "Humanvocalmale"
 ],
@@ -13595,16 +11660,6 @@
 "Humanvocalmale"
 ],
 [
-"So I have this idea for a great movie. It's about two gnomes who find a bracelet of power, and they have to take it to the burning steps and cast it into the cauldron. They formed the Brotherhood of the Bracelet. Along the way, they're trailed by a murloc named Gottem, who's obsessed with the bracelet, and nine bracelet bogeymen. It could be a three-parter called ruler of the bracelet. The first part would be called the Brotherhood of the Bracelet, followed by a couple of towers with a climactic ending called, Hey! The King's Back!",
-1,
-"Humanvocalmale"
-],
-[
-"So, an orc walks into a bar with a parrot on his shoulder. The bartender says, hey, where'd you get that? The parrot says, dueratar, they got them all over the place.",
-1,
-"Humanvocalmale"
-],
-[
 "Sounds fine.",
 1,
 "Humanvocalmale"
@@ -13636,16 +11691,6 @@
 ],
 [
 "for the great mother.",
-1,
-"Huntress"
-],
-[
-"in position.",
-1,
-"Huntress"
-],
-[
-"Standing guard.",
 1,
 "Huntress"
 ],
@@ -13985,11 +12030,6 @@
 "Illidan"
 ],
 [
-"Ha!",
-19,
-"Illidan"
-],
-[
 "Handel Verethin, Maneroth is mine.",
 1,
 "Illidan"
@@ -14300,22 +12340,12 @@
 "Illidan"
 ],
 [
-"Call on me, I'll call on you!",
-1,
-"Impvo"
-],
-[
 "Can't we all just get along?",
 1,
 "Impvo"
 ],
 [
 "Do I have to?",
-1,
-"Impvo"
-],
-[
-"Goodbye! Thanks!",
 1,
 "Impvo"
 ],
@@ -14336,11 +12366,6 @@
 ],
 [
 "Okay, okay, okay, okay, okay.",
-1,
-"Impvo"
-],
-[
-"Run as you're so cute!",
 1,
 "Impvo"
 ],
@@ -14436,11 +12461,6 @@
 ],
 [
 "A little eye sought to quench the fire in your hearts.",
-1,
-"Jainaproudmoore"
-],
-[
-"All I ever wanted was to study.",
 1,
 "Jainaproudmoore"
 ],
@@ -14605,11 +12625,6 @@
 "Jainaproudmoore"
 ],
 [
-"I'm trying to think here.",
-1,
-"Jainaproudmoore"
-],
-[
 "I... I could not save them. Damn you, Arthas. Damn you!",
 1,
 "Jainaproudmoore"
@@ -14762,11 +12777,6 @@
 [
 "We're almost there, don't give up!",
 2,
-"Jainaproudmoore"
-],
-[
-"Welcome to Theramore. Have you come to help the Alliance?",
-1,
 "Jainaproudmoore"
 ],
 [
@@ -15740,16 +13750,6 @@
 "Kilnara"
 ],
 [
-"Enjoying your stay in Stormwind?",
-1,
-"Kinganduinwrynn"
-],
-[
-"Gooding, citizen.",
-1,
-"Kinganduinwrynn"
-],
-[
 "We will hold until the reinforcements come. As long as men with stout hearts are manning the walls and the throne, Stormwind will hold.",
 1,
 "Kingllane"
@@ -15761,26 +13761,6 @@
 ],
 [
 "For Kaz Modan!",
-1,
-"Kingmagnibronzebeard"
-],
-[
-"How can the dwarves help you?",
-1,
-"Kingmagnibronzebeard"
-],
-[
-"Strength, honor. I see them in you. Why have you come?\"",
-1,
-"Kingmagnibronzebeard"
-],
-[
-"What brings you to ironford?",
-1,
-"Kingmagnibronzebeard"
-],
-[
-"What do you seek within the mountain?",
 1,
 "Kingmagnibronzebeard"
 ],
@@ -17275,11 +15255,6 @@
 "Lordvarothen"
 ],
 [
-"ATTACK!",
-11,
-"Lorna"
-],
-[
 "Father!",
 1,
 "Lorna"
@@ -17515,16 +15490,6 @@
 "Madrigosa"
 ],
 [
-"Be careful what you search for, stranger!",
-1,
-"Magathagrimtotem"
-],
-[
-"Oh, what is it, you one stranger? I have little time for foolishness.",
-1,
-"Magathagrimtotem"
-],
-[
 "What brings you to Omagatha?",
 1,
 "Magathagrimtotem"
@@ -17726,11 +15691,6 @@
 ],
 [
 "bak bak bak bak bak bak bak",
-1,
-"Male"
-],
-[
-"Here!",
 1,
 "Male"
 ],
@@ -18192,11 +16152,6 @@
 [
 "What they lack in intelligence, they make up for infaracity!",
 1,
-"Maloriak"
-],
-[
-"Yay!",
-3,
 "Maloriak"
 ],
 [
@@ -19310,26 +17265,6 @@
 "Morogrimtidewalker"
 ],
 [
-"Come on, shorty. On our way!",
-1,
-"Mortar Team"
-],
-[
-"I'm T.N.T. I'm Tyno MIGHT!",
-1,
-"Mortar Team"
-],
-[
-"It's you and me pal! We've got the synergy!",
-1,
-"Mortar Team"
-],
-[
-"Take this, you bastard!",
-1,
-"Mortar Team"
-],
-[
 "Aha! There are no guards back here. Maybe you can find a way up onto the roof.",
 1,
 "Mostrasz"
@@ -19571,11 +17506,6 @@
 ],
 [
 "sharpen in your skill with this dull blade.",
-1,
-"Muradin"
-],
-[
-"That's more like it.",
 1,
 "Muradin"
 ],
@@ -19828,11 +17758,6 @@
 "You caught on the beast, you gonna get more than you buggin' for!",
 1,
 "Nalorakk"
-],
-[
-"I am awake at last.",
-1,
-"Naralex"
 ],
 [
 "Farandas should never have opposed Kunazhara.",
@@ -20245,27 +18170,7 @@
 "Nazjar"
 ],
 [
-"Intriguing.",
-1,
-"Necromancer"
-],
-[
-"The dead shall serve.",
-1,
-"Necromancer"
-],
-[
-"The shadows beckoned.",
-1,
-"Necromancer"
-],
-[
 "They'll all be mine in the end.",
-1,
-"Necromancer"
-],
-[
-"This better be good.",
 1,
 "Necromancer"
 ],
@@ -20570,262 +18475,12 @@
 "Nhalish"
 ],
 [
-"Aid me.",
-3,
-"Nightelf"
-],
-[
-"ASSIST ME!",
-4,
-"Nightelf"
-],
-[
-"Baby, I'm mortal now. Time's a wasting.",
-1,
-"Nightelf"
-],
-[
-"Be alert.",
-2,
-"Nightelf"
-],
-[
-"Blah! Blah! Blah! Blah!",
-2,
-"Nightelf"
-],
-[
 "Buyer.",
 1,
 "Nightelf"
 ],
 [
-"Certainly.",
-4,
-"Nightelf"
-],
-[
-"Danger",
-3,
-"Nightelf"
-],
-[
-"Excellent.",
-8,
-"Nightelf"
-],
-[
-"Fire at will.",
-2,
-"Nightelf"
-],
-[
-"Good bye.",
-8,
-"Nightelf"
-],
-[
-"Good journey.",
-2,
-"Nightelf"
-],
-[
-"How generous.",
-6,
-"Nightelf"
-],
-[
-"I am not high enough level to use that.",
-2,
-"Nightelf"
-],
-[
-"I am out of ammo.",
-2,
-"Nightelf"
-],
-[
-"I can't loot.",
-1,
-"Nightelf"
-],
-[
-"I cannot afford that.",
-2,
-"Nightelf"
-],
-[
-"I cannot learn that spell.",
-2,
-"Nightelf"
-],
-[
-"I cannot lose that right now.",
-1,
-"Nightelf"
-],
-[
-"I cannot put that there.",
-2,
-"Nightelf"
-],
-[
-"I cannot trade that.",
-1,
-"Nightelf"
-],
-[
-"I cannot use that item yet.",
-2,
-"Nightelf"
-],
-[
-"I don't think so.",
-9,
-"Nightelf"
-],
-[
-"I hope you're not afraid of snakes.",
-1,
-"Nightelf"
-],
-[
-"I wish you well.",
-2,
-"Nightelf"
-],
-[
-"I'm a force of nature.",
-1,
-"Nightelf"
-],
-[
-"I'm not a high enough level to use that.",
-4,
-"Nightelf"
-],
-[
-"I'm the type of girl my mother warned me about.",
-1,
-"Nightelf"
-],
-[
-"If I wasn't purple, you'd see I was blushing.",
-1,
-"Nightelf"
-],
-[
-"It is too far away.",
-2,
-"Nightelf"
-],
-[
-"It was nothing.",
-3,
-"Nightelf"
-],
-[
 "mu-e-mu-mu-mu-mu-mu-mu-mu-mu-mu-mu-mu.",
-1,
-"Nightelf"
-],
-[
-"much appreciated.",
-3,
-"Nightelf"
-],
-[
-"My manna has waned.",
-1,
-"Nightelf"
-],
-[
-"My men are as low.",
-1,
-"Nightelf"
-],
-[
-"My meta is nearly gone.",
-1,
-"Nightelf"
-],
-[
-"Naturally.",
-3,
-"Nightelf"
-],
-[
-"Not enough manner.",
-1,
-"Nightelf"
-],
-[
-"Not enough money.",
-1,
-"Nightelf"
-],
-[
-"One.",
-1,
-"Nightelf"
-],
-[
-"Our foe is too strong.",
-1,
-"Nightelf"
-],
-[
-"SCATTER!",
-1,
-"Nightelf"
-],
-[
-"Strike quickly!",
-1,
-"Nightelf"
-],
-[
-"Sure, I've got exotic piercings.",
-1,
-"Nightelf"
-],
-[
-"That is bound to me.",
-2,
-"Nightelf"
-],
-[
-"The honor was mine.",
-2,
-"Nightelf"
-],
-[
-"There's nothing like sleeping in the forest under the moonlight.",
-1,
-"Nightelf"
-],
-[
-"to my side.",
-1,
-"Nightelf"
-],
-[
-"Wanna bring out the animal in me?",
-1,
-"Nightelf"
-],
-[
-"You are too kind.",
-2,
-"Nightelf"
-],
-[
-"You are worthy.",
-3,
-"Nightelf"
-],
-[
-"You're an emerald dream come true.",
 1,
 "Nightelf"
 ],
@@ -20835,68 +18490,8 @@
 "Nightelffemale"
 ],
 [
-"A loon be with you.",
-1,
-"Nightelffemalepriestessnpc"
-],
-[
 "A Shafila.",
 1,
-"Nightelffemalepriestessnpc"
-],
-[
-"Elune light your path.",
-1,
-"Nightelffemalepriestessnpc"
-],
-[
-"Enough already.",
-6,
-"Nightelffemalepriestessnpc"
-],
-[
-"Feel free to browse.",
-6,
-"Nightelffemalepriestessnpc"
-],
-[
-"God has swatch over you.",
-1,
-"Nightelffemalepriestessnpc"
-],
-[
-"Goddess bless you.",
-1,
-"Nightelffemalepriestessnpc"
-],
-[
-"Have you nothing better to do?",
-8,
-"Nightelffemalepriestessnpc"
-],
-[
-"May the Stars guide you.",
-4,
-"Nightelffemalepriestessnpc"
-],
-[
-"My goods are of the highest quality.",
-6,
-"Nightelffemalepriestessnpc"
-],
-[
-"Peace be with you.",
-3,
-"Nightelffemalepriestessnpc"
-],
-[
-"Stop this nonsense.",
-4,
-"Nightelffemalepriestessnpc"
-],
-[
-"What brings you here?",
-11,
 "Nightelffemalepriestessnpc"
 ],
 [
@@ -20905,94 +18500,14 @@
 "Nightelffemalesentinelnpc"
 ],
 [
-"God is watch over you.",
-2,
-"Nightelffemalesentinelnpc"
-],
-[
-"Good luck, friend.",
-4,
-"Nightelffemalesentinelnpc"
-],
-[
-"How may I help?",
-3,
-"Nightelffemalesentinelnpc"
-],
-[
-"Weren't you leaving?",
-2,
-"Nightelffemalesentinelnpc"
-],
-[
-"You won't like me when I'm angry.",
-2,
-"Nightelffemalesentinelnpc"
-],
-[
-"Elune Adore.",
-1,
-"Nightelffemalestandardnpc"
-],
-[
-"I am listening.",
-6,
-"Nightelffemalestandardnpc"
-],
-[
-"Ishnu Allah.",
-3,
-"Nightelffemalestandardnpc"
-],
-[
-"ishnu dal diab.",
-1,
-"Nightelffemalestandardnpc"
-],
-[
 "I can't elute that.",
 1,
 "Nightelfmaleerrormessages"
 ],
 [
-"Alune light your path.",
-1,
-"Nightelfmalestandardnpc"
-],
-[
-"be with you.",
-1,
-"Nightelfmalestandardnpc"
-],
-[
-"Can I assist you?",
-2,
-"Nightelfmalestandardnpc"
-],
-[
-"Isnu Allah.",
-1,
-"Nightelfmalestandardnpc"
-],
-[
-"Till next we meet.",
-1,
-"Nightelfmalestandardnpc"
-],
-[
-"Be garden.",
-1,
-"Nightelfmalewarriornpc"
-],
-[
 "still not risk.",
 1,
 "Nightelfmalewarriornpc"
-],
-[
-"Actually, I'm more of a morning elf.",
-1,
-"Nightelfvocalfemale"
 ],
 [
 "alone be praised.",
@@ -21005,32 +18520,7 @@
 "Nightelfvocalfemale"
 ],
 [
-"I think the guys just use the emerald dream as an excuse to avoid calling me back.",
-1,
-"Nightelfvocalfemale"
-],
-[
-"Oh, I'm dancing again! I hope all your friends are enjoying the show.",
-1,
-"Nightelfvocalfemale"
-],
-[
-"You know, I have to keep moving at night, or I'll disappear.",
-1,
-"Nightelfvocalfemale"
-],
-[
-"You know, wisps are actually pretty useful for personal hygiene.",
-1,
-"Nightelfvocalfemale"
-],
-[
 "by the light of the moon.",
-1,
-"Nightelfvocalmale"
-],
-[
-"I don't know about you, but I can't understand a thing those wisps say. I usually just nod.",
 1,
 "Nightelfvocalmale"
 ],
@@ -21040,37 +18530,7 @@
 "Nightelfvocalmale"
 ],
 [
-"Is that thing sharp? Could that thing cut me? I'm not immortal now, you know.",
-1,
-"Nightelfvocalmale"
-],
-[
-"Last night I went to an awesome stag party.",
-1,
-"Nightelfvocalmale"
-],
-[
-"Man, I was half way through the emerald dream when I had to pee.",
-1,
-"Nightelfvocalmale"
-],
-[
 "Poor Scenarius!",
-1,
-"Nightelfvocalmale"
-],
-[
-"What? I didn't hear that.",
-1,
-"Nightelfvocalmale"
-],
-[
-"Who wants to live forever?",
-1,
-"Nightelfvocalmale"
-],
-[
-"You know those ancient protectors in Darnassus? They're not that old.",
 1,
 "Nightelfvocalmale"
 ],
@@ -22705,202 +20165,12 @@
 "Oracle"
 ],
 [
-"Anything for a friend.",
-2,
-"Orc"
-],
-[
-"back, back, back, back, back, back!",
-1,
-"Orc"
-],
-[
-"Chugga chugga chugga chugga chugga chugga...",
-1,
-"Orc"
-],
-[
-"Come.",
-3,
-"Orc"
-],
-[
-"Don't talk, just follow me.",
-1,
-"Orc"
-],
-[
 "Double.",
 3,
 "Orc"
 ],
 [
-"Good job.",
-6,
-"Orc"
-],
-[
-"Honor required it.",
-1,
-"Orc"
-],
-[
-"I can't learn that smell.",
-1,
-"Orc"
-],
-[
-"I like men who aren't afraid to cry. Cry, uncle.",
-1,
-"Orc"
-],
-[
-"I love you like a fat kid loves cake.",
-1,
-"Orc"
-],
-[
-"I will return the favor.",
-1,
-"Orc"
-],
-[
-"I won't forget this.",
-2,
-"Orc"
-],
-[
-"I would expect the same.",
-1,
-"Orc"
-],
-[
-"I'll give you crazy love.",
-1,
-"Orc"
-],
-[
-"Incoming.",
-3,
-"Orc"
-],
-[
-"Lady from the moment I see you I did not expect to get this far",
-1,
-"Orc"
-],
-[
-"Let them have it!",
-1,
-"Orc"
-],
-[
-"Let's not ruin this moment with Chit Chat.",
-1,
-"Orc"
-],
-[
-"May you always be victorious.",
-1,
-"Orc"
-],
-[
-"May your blade be true.",
-1,
-"Orc"
-],
-[
-"Mm-mm. Mm-mm.",
-1,
-"Orc"
-],
-[
-"My manner is low.",
-2,
-"Orc"
-],
-[
-"My meta is low.",
-1,
-"Orc"
-],
-[
-"Not bad.",
-1,
-"Orc"
-],
-[
-"on your guard.",
-5,
-"Orc"
-],
-[
-"Ooh.",
-1,
-"Orc"
-],
-[
-"Run!",
-5,
-"Orc"
-],
-[
-"SHUT!",
-2,
-"Orc"
-],
-[
-"skillfully done.",
-1,
-"Orc"
-],
-[
-"Stay strong.",
-6,
-"Orc"
-],
-[
-"SUG SUG",
-1,
-"Orc"
-],
-[
-"That armor looks good on you. It would also look good on my floor.",
-1,
-"Orc"
-],
-[
-"This is true love. Do you think this happens every day?",
-1,
-"Orc"
-],
-[
 "Thrump Car.",
-1,
-"Orc"
-],
-[
-"Until next time.",
-4,
-"Orc"
-],
-[
-"until our paths cross again.",
-1,
-"Orc"
-],
-[
-"Watch it.",
-5,
-"Orc"
-],
-[
-"Woo! Chugga chugga chugga chugga chugga chugga chugga chugga... WOOOP!",
-1,
-"Orc"
-],
-[
-"You had me at Zugzug!",
 1,
 "Orc"
 ],
@@ -22910,98 +20180,13 @@
 "Orc"
 ],
 [
-"You must be joking.",
-1,
-"Orc"
-],
-[
-"You should be proud.",
-1,
-"Orc"
-],
-[
 "You will look like a lady.",
 1,
 "Orc"
 ],
 [
-"You'll do. Let's go.",
-1,
-"Orc"
-],
-[
-"Back off, WILP.",
-2,
-"Orcfemaleshamannpc"
-],
-[
-"Glory to the Horde!",
-2,
-"Orcfemaleshamannpc"
-],
-[
-"Go forth to victory!",
-4,
-"Orcfemaleshamannpc"
-],
-[
-"I am not amused.",
-9,
-"Orcfemaleshamannpc"
-],
-[
-"Strength.",
-2,
-"Orcfemaleshamannpc"
-],
-[
-"What are you looking for?",
-8,
-"Orcfemaleshamannpc"
-],
-[
-"What can I help you with?",
-7,
-"Orcfemaleshamannpc"
-],
-[
-"What do you need?",
-6,
-"Orcfemaleshamannpc"
-],
-[
-"You dispute my honor?",
-5,
-"Orcfemaleshamannpc"
-],
-[
-"Are you challenging me?",
-4,
-"Orcfemalestandardnpc"
-],
-[
-"Back off, Welp!",
-1,
-"Orcfemalestandardnpc"
-],
-[
-"Be safe.",
-2,
-"Orcfemalestandardnpc"
-],
-[
 "Da-boo.",
 1,
-"Orcfemalestandardnpc"
-],
-[
-"FOR THE HORD!",
-1,
-"Orcfemalestandardnpc"
-],
-[
-"May your blades never dull.",
-3,
 "Orcfemalestandardnpc"
 ],
 [
@@ -23010,64 +20195,9 @@
 "Orcfemalestandardnpc"
 ],
 [
-"Speak friend",
-2,
-"Orcfemalestandardnpc"
-],
-[
-"Strength and Honor",
-5,
-"Orcfemalestandardnpc"
-],
-[
-"Zug, zug.",
-2,
-"Orcfemalestandardnpc"
-],
-[
 "Back off, well, back off, well, back off, well, back off, well back off.",
 1,
 "Orcfemalewarriornpc"
-],
-[
-"Fight well, friend.",
-1,
-"Orcfemalewarriornpc"
-],
-[
-"I'm getting angry.",
-1,
-"Orcfemalewarriornpc"
-],
-[
-"Strengthen honor.",
-1,
-"Orcfemalewarriornpc"
-],
-[
-"Will you stop touching me?",
-3,
-"Orcfemalewarriornpc"
-],
-[
-"BLOOD AND THUNDER",
-2,
-"Orcmaleguardnpc"
-],
-[
-"for the horde.",
-1,
-"Orcmaleguardnpc"
-],
-[
-"With honor",
-1,
-"Orcmaleguardnpc"
-],
-[
-"Back off, Whelp!",
-1,
-"Orcmaleshadynpc"
 ],
 [
 "or the horde!",
@@ -23075,29 +20205,9 @@
 "Orcmaleshadynpc"
 ],
 [
-"Strengths.",
-1,
-"Orcmaleshadynpc"
-],
-[
 "Throw how.",
 1,
 "Orcmaleshadynpc"
-],
-[
-"Victory!",
-1,
-"Orcmaleshadynpc"
-],
-[
-"Zugzug!",
-1,
-"Orcmaleshadynpc"
-],
-[
-"FOR THE HARD!",
-2,
-"Orcmalestandardnpc"
 ],
 [
 "McGraw",
@@ -23120,32 +20230,7 @@
 "Orcvocalfemale"
 ],
 [
-"Get between me and my food and you'll lose a hand.",
-1,
-"Orcvocalfemale"
-],
-[
-"I feel very feminine, and I'll beat the crap out of anyone who disagrees.",
-1,
-"Orcvocalfemale"
-],
-[
-"I have no respect for people with small piercings. I say go full hog, put a spear through your head.",
-1,
-"Orcvocalfemale"
-],
-[
-"I need to get my chest waxed again.",
-1,
-"Orcvocalfemale"
-],
-[
 "Leave none alive!",
-1,
-"Orcvocalfemale"
-],
-[
-"Man, I think that boar meat's coming back on me. I gotta hit the can. Anyone have a hearthstone?",
 1,
 "Orcvocalfemale"
 ],
@@ -23155,47 +20240,12 @@
 "Orcvocalfemale"
 ],
 [
-"What's estrogen? Can you eat it?",
-1,
-"Orcvocalfemale"
-],
-[
 "Break their bones.",
 1,
 "Orcvocalmale"
 ],
 [
 "Destroy them.",
-1,
-"Orcvocalmale"
-],
-[
-"I come from New York, we eat with spoons and forks, we love to eat our pork.",
-1,
-"Orcvocalmale"
-],
-[
-"I will crush and destroy and, ooh, shiny.",
-1,
-"Orcvocalmale"
-],
-[
-"It's not easy being green.",
-1,
-"Orcvocalmale"
-],
-[
-"Man, dog, you know, it's like I'm feeling you, but I'm not feeling it, you know?",
-1,
-"Orcvocalmale"
-],
-[
-"ORC SMASH!",
-1,
-"Orcvocalmale"
-],
-[
-"Stop poking me. Well, that was okay.",
 1,
 "Orcvocalmale"
 ],
@@ -23515,18 +20565,8 @@
 "Pcgilneanfemale"
 ],
 [
-"Come with me.",
-6,
-"Pcgilneanfemale"
-],
-[
 "Discretion is the better part of valor, now flee.",
 4,
-"Pcgilneanfemale"
-],
-[
-"Don't mention it.",
-6,
 "Pcgilneanfemale"
 ],
 [
@@ -23542,11 +20582,6 @@
 [
 "Excuse me, could I just, um, sniff your backside for a second?",
 1,
-"Pcgilneanfemale"
-],
-[
-"Farewell.",
-38,
 "Pcgilneanfemale"
 ],
 [
@@ -23570,23 +20605,8 @@
 "Pcgilneanfemale"
 ],
 [
-"Greetings.",
-33,
-"Pcgilneanfemale"
-],
-[
-"Help.",
-5,
-"Pcgilneanfemale"
-],
-[
 "Hmm, that's like... Is that bacon? Hey guys, I smell... You smell bacon? Bacon, anyone? Oh, that's bacon! Bacon! Who's got the bacon? Where's the bacon?",
 1,
-"Pcgilneanfemale"
-],
-[
-"I am honored.",
-7,
 "Pcgilneanfemale"
 ],
 [
@@ -23650,11 +20670,6 @@
 "Pcgilneanfemale"
 ],
 [
-"Mm-hmm",
-9,
-"Pcgilneanfemale"
-],
-[
 "Most assuredly.",
 4,
 "Pcgilneanfemale"
@@ -23695,11 +20710,6 @@
 "Pcgilneanfemale"
 ],
 [
-"Run away!",
-5,
-"Pcgilneanfemale"
-],
-[
 "Seal yourselves.",
 1,
 "Pcgilneanfemale"
@@ -23712,11 +20722,6 @@
 [
 "Stay close.",
 4,
-"Pcgilneanfemale"
-],
-[
-"Stay.",
-7,
 "Pcgilneanfemale"
 ],
 [
@@ -23812,11 +20817,6 @@
 [
 "Honey, being with me is like having two guys in one.",
 2,
-"Pcgilneanmale"
-],
-[
-"I can't wheel that yet.",
-6,
 "Pcgilneanmale"
 ],
 [
@@ -24050,11 +21050,6 @@
 "Pcgoblinfemale"
 ],
 [
-"Later!",
-3,
-"Pcgoblinfemale"
-],
-[
 "Let the right bribes, anything is street legal.",
 1,
 "Pcgoblinfemale"
@@ -24062,11 +21057,6 @@
 [
 "Let's get together and compare our figures.",
 1,
-"Pcgoblinfemale"
-],
-[
-"Let's go!",
-4,
 "Pcgoblinfemale"
 ],
 [
@@ -24082,21 +21072,6 @@
 [
 "My adventure portfolio is up, but most of my liquid assets right now are tied up in post-divid and superannuity, remorgagement futures, bought or margin. That's a sure thing.",
 1,
-"Pcgoblinfemale"
-],
-[
-"My manna is low.",
-2,
-"Pcgoblinfemale"
-],
-[
-"No way!",
-8,
-"Pcgoblinfemale"
-],
-[
-"Not on your life.",
-8,
 "Pcgoblinfemale"
 ],
 [
@@ -24122,11 +21097,6 @@
 [
 "Super Fraggolastic!",
 1,
-"Pcgoblinfemale"
-],
-[
-"Thanks.",
-4,
 "Pcgoblinfemale"
 ],
 [
@@ -24157,16 +21127,6 @@
 [
 "Wait till you try a piece of this shortcake.",
 1,
-"Pcgoblinfemale"
-],
-[
-"What's up?",
-6,
-"Pcgoblinfemale"
-],
-[
-"Yeah.",
-39,
 "Pcgoblinfemale"
 ],
 [
@@ -24202,11 +21162,6 @@
 [
 "You're gonna have to do all the work, help!",
 1,
-"Pcgoblinfemale"
-],
-[
-"You're welcome.",
-7,
 "Pcgoblinfemale"
 ],
 [
@@ -24285,11 +21240,6 @@
 "Pcgoblinmale"
 ],
 [
-"I can't carry any more.",
-6,
-"Pcgoblinmale"
-],
-[
 "I cannot equip that.",
 2,
 "Pcgoblinmale"
@@ -24307,11 +21257,6 @@
 [
 "I got nothing left.",
 1,
-"Pcgoblinmale"
-],
-[
-"I got what you need.",
-7,
 "Pcgoblinmale"
 ],
 [
@@ -24390,16 +21335,6 @@
 "Pcgoblinmale"
 ],
 [
-"Not a chance.",
-2,
-"Pcgoblinmale"
-],
-[
-"Of course!",
-4,
-"Pcgoblinmale"
-],
-[
 "Oh, baby, you know how to turn my gaze.",
 1,
 "Pcgoblinmale"
@@ -24432,11 +21367,6 @@
 [
 "Please!",
 1,
-"Pcgoblinmale"
-],
-[
-"See ya!",
-4,
 "Pcgoblinmale"
 ],
 [
@@ -24655,31 +21585,6 @@
 "Pcworgenmale"
 ],
 [
-"More work.",
-1,
-"Peasant"
-],
-[
-"Off I go then.",
-1,
-"Peasant"
-],
-[
-"Ready to work!",
-2,
-"Peasant"
-],
-[
-"Righto.",
-1,
-"Peasant"
-],
-[
-"Wha-",
-1,
-"Peasant"
-],
-[
 "Come back soon!",
 1,
 "Penelope Heathrow"
@@ -24700,42 +21605,12 @@
 "Penelope Heathrow"
 ],
 [
-"Be happy too!",
-1,
-"Peon"
-],
-[
-"I can do that.",
-1,
-"Peon"
-],
-[
-"Me busy. Leave me alone.",
-1,
-"Peon"
-],
-[
 "mean not that kind of orc.",
 1,
 "Peon"
 ],
 [
-"No time for play!",
-1,
-"Peon"
-],
-[
-"Okey dokey!",
-1,
-"Peon"
-],
-[
 "Something you're doing?",
-1,
-"Peon"
-],
-[
-"We're complete.",
 1,
 "Peon"
 ],
@@ -24858,11 +21733,6 @@
 "Your essence is mine!",
 1,
 "Perotharn"
-],
-[
-"Heh!",
-3,
-"Playerexertions"
 ],
 [
 "But...",
@@ -25590,41 +22460,6 @@
 "Rhyolith"
 ],
 [
-"I can't shoot straight unless I've had a paint.",
-1,
-"Rifleman"
-],
-[
-"I'll take care of it!",
-1,
-"Rifleman"
-],
-[
-"I'm your shooter.",
-1,
-"Rifleman"
-],
-[
-"Oh, that's me, drink. Get in my belly!",
-1,
-"Rifleman"
-],
-[
-"THIS IS MY BUNSTICK!",
-1,
-"Rifleman"
-],
-[
-"Where's my drink?",
-1,
-"Rifleman"
-],
-[
-"You have a target!",
-1,
-"Rifleman"
-],
-[
 "Do you feel that chill running up your spine? The fog is rolling in.",
 1,
 "Ripsnarl"
@@ -25955,21 +22790,6 @@
 "Sathrovarthecorruptor"
 ],
 [
-"DON'T TOUCH ME!",
-1,
-"Satyre"
-],
-[
-"Now what?",
-2,
-"Satyre"
-],
-[
-"You again?",
-1,
-"Satyre"
-],
-[
 "He would say to you, Thrall, lead your people.",
 1,
 "Saurfang"
@@ -26090,11 +22910,6 @@
 "Scourgemaleerrormessages"
 ],
 [
-"Ah, doornails!",
-1,
-"Scourgevocalfemale"
-],
-[
 "Bind by wounds.",
 1,
 "Scourgevocalfemale"
@@ -26130,11 +22945,6 @@
 "Scourgevocalfemale"
 ],
 [
-"I heard a knee slapper once, and skipped my knee cap right across the lake.",
-1,
-"Scourgevocalfemale"
-],
-[
 "I need manna!",
 1,
 "Scourgevocalfemale"
@@ -26142,11 +22952,6 @@
 [
 "I suppose so.",
 2,
-"Scourgevocalfemale"
-],
-[
-"I'd paint my toenails, but I'm not sure where they fell off.",
-1,
 "Scourgevocalfemale"
 ],
 [
@@ -26195,17 +23000,7 @@
 "Scourgevocalfemale"
 ],
 [
-"rotten mood.",
-1,
-"Scourgevocalfemale"
-],
-[
 "This doesn't mean I like you.",
-1,
-"Scourgevocalfemale"
-],
-[
-"This stinks.",
 1,
 "Scourgevocalfemale"
 ],
@@ -26230,26 +23025,6 @@
 "Scourgevocalfemale"
 ],
 [
-"Yes, they're real. They're not mine, but they're real.",
-1,
-"Scourgevocalfemale"
-],
-[
-"You don't need deodorant when you don't have any armpits.",
-1,
-"Scourgevocalfemale"
-],
-[
-"You know, once you're dead, nothing smells bad anymore. Rotten eggs, no problem. Dead fish, like a spring breeze.",
-1,
-"Scourgevocalfemale"
-],
-[
-"Anyone have any odorant, either wet dog, fresh garbage, or low tide would do.",
-1,
-"Scourgevocalmale"
-],
-[
 "Appreciated.",
 1,
 "Scourgevocalmale"
@@ -26257,11 +23032,6 @@
 [
 "By the dark lady, what is this?",
 2,
-"Scourgevocalmale"
-],
-[
-"can't stand the smell of orcs.",
-1,
 "Scourgevocalmale"
 ],
 [
@@ -26305,11 +23075,6 @@
 "Scourgevocalmale"
 ],
 [
-"I'm dead and I'm pissed.",
-1,
-"Scourgevocalmale"
-],
-[
 "If rot was hot, I'd be a volcano.",
 1,
 "Scourgevocalmale"
@@ -26326,11 +23091,6 @@
 ],
 [
 "REND FLASH WITH ME",
-1,
-"Scourgevocalmale"
-],
-[
-"Roses are gray, fillets are gray. I'm dead and colorblind.",
 1,
 "Scourgevocalmale"
 ],
@@ -26860,16 +23620,6 @@
 "Skeram"
 ],
 [
-"Come on mortals, the age of darkness is at hand.",
-1,
-"Skeram"
-],
-[
-"Prepare for the return of the ancient one.",
-1,
-"Skeram"
-],
-[
 "The screams of the dying will feel the error. A symphony of terror is a power to begin in.",
 1,
 "Skeram"
@@ -27205,22 +23955,7 @@
 "Succubusvo"
 ],
 [
-"Don't do anything I wouldn't do.",
-2,
-"Succubusvo"
-],
-[
 "Don't touch what you can't afford.",
-1,
-"Succubusvo"
-],
-[
-"First, we'll start with a little fire. Am I bugging you? I'm not touching you. Am I bugging you? I'm not touching you. There. Now you're hot and bothered.",
-1,
-"Succubusvo"
-],
-[
-"I hope it was good for you.",
 1,
 "Succubusvo"
 ],
@@ -27251,11 +23986,6 @@
 ],
 [
 "Say please.",
-1,
-"Succubusvo"
-],
-[
-"Try not to miss me too much.",
 1,
 "Succubusvo"
 ],
@@ -27720,11 +24450,6 @@
 "Sylvanaswindrunner"
 ],
 [
-"I have no time for games.",
-2,
-"Sylvanaswindrunner"
-],
-[
 "I thought he'd never shut off at last. Cindra goes to silence to that long-winded fool. To the halls of reflection champions, our objective is near. I can sense it.",
 1,
 "Sylvanaswindrunner"
@@ -27845,27 +24570,12 @@
 "Sylvanaswindrunner"
 ],
 [
-"We are the forsaken. We will slaughter anyone who stands in our way.",
-1,
-"Sylvanaswindrunner"
-],
-[
 "We will cut a swath of destruction through this cursed place and find a way to enter the halls of reflection. If there is anything of value to be found here, it will be found in the halls.",
 1,
 "Sylvanaswindrunner"
 ],
 [
-"What are we if not slaves to this torment?",
-1,
-"Sylvanaswindrunner"
-],
-[
 "What have they done to my beautiful city?",
-1,
-"Sylvanaswindrunner"
-],
-[
-"What joy is there in this curse?",
 1,
 "Sylvanaswindrunner"
 ],
@@ -28075,147 +24785,12 @@
 "Tarecgosa"
 ],
 [
-"All right.",
-3,
-"Tauren"
-],
-[
-"Always blood to help.",
-1,
-"Tauren"
-],
-[
-"Always glad to help.",
-3,
-"Tauren"
-],
-[
-"Anything for an ally.",
-1,
-"Tauren"
-],
-[
-"Are you comfortable with complicated machinery?",
-1,
-"Tauren"
-],
-[
-"Be watchful.",
-1,
-"Tauren"
-],
-[
-"Bring it on!",
-1,
-"Tauren"
-],
-[
-"Come over here, sailor.",
-1,
-"Tauren"
-],
-[
-"danger approaches.",
-4,
-"Tauren"
-],
-[
-"Do not push me, or I will impale you on my horns!",
-1,
-"Tauren"
-],
-[
-"Fate smiles upon you.",
-2,
-"Tauren"
-],
-[
-"Fire away!",
-1,
-"Tauren"
-],
-[
-"Follow my trail.",
-1,
-"Tauren"
-],
-[
-"Free rides for the ladies.",
-1,
-"Tauren"
-],
-[
-"Give me aid!",
-1,
-"Tauren"
-],
-[
-"Heh, heh, heh, heh, heh, heh.",
-3,
-"Tauren"
-],
-[
 "Hey, you and the leather.",
 1,
 "Tauren"
 ],
 [
-"Hey, you work out.",
-1,
-"Tauren"
-],
-[
-"How kind of you.",
-4,
-"Tauren"
-],
-[
-"I believe so.",
-1,
-"Tauren"
-],
-[
-"I can't loop that.",
-2,
-"Tauren"
-],
-[
 "I can't stop that.",
-1,
-"Tauren"
-],
-[
-"I do not think so.",
-1,
-"Tauren"
-],
-[
-"I thank you.",
-1,
-"Tauren"
-],
-[
-"I want a man with soft hands, preferably four of them.",
-1,
-"Tauren"
-],
-[
-"I'm tired of the same old bull.",
-1,
-"Tauren"
-],
-[
-"I've got big soulful eyes, long eyelashes, and a wet tongue. What more could a guy want?",
-1,
-"Tauren"
-],
-[
-"It is meant to be.",
-1,
-"Tauren"
-],
-[
-"It is not meant to be.",
 1,
 "Tauren"
 ],
@@ -28225,47 +24800,7 @@
 "Tauren"
 ],
 [
-"May our paths cross again.",
-2,
-"Tauren"
-],
-[
-"May the wind be at your back.",
-2,
-"Tauren"
-],
-[
-"May your ancestors forever guard your path.",
-1,
-"Tauren"
-],
-[
 "MMMMMMMMMMMMMMMMMMMMMM",
-1,
-"Tauren"
-],
-[
-"My mana is spent.",
-1,
-"Tauren"
-],
-[
-"My manner must be replenished.",
-1,
-"Tauren"
-],
-[
-"NOOO! NOOO! NOOO!",
-1,
-"Tauren"
-],
-[
-"ON YOUR GOD!",
-1,
-"Tauren"
-],
-[
-"Rest a moment.",
 1,
 "Tauren"
 ],
@@ -28275,134 +24810,9 @@
 "Tauren"
 ],
 [
-"Save your hide.",
-1,
-"Tauren"
-],
-[
-"Still here.",
-1,
-"Tauren"
-],
-[
-"Strike now!",
-2,
-"Tauren"
-],
-[
-"Unleash your fury!",
-2,
-"Tauren"
-],
-[
-"Want to see some good clog dancing?",
-1,
-"Tauren"
-],
-[
-"You know, older bulls really only have one function.",
-1,
-"Tauren"
-],
-[
-"You move me.",
-1,
-"Tauren"
-],
-[
-"Ah, I have just the thing for you.",
-4,
-"Taurenfemaleofficialnpc"
-],
-[
-"Ah, I've been expecting you.",
-3,
-"Taurenfemaleofficialnpc"
-],
-[
 "by the eternal.",
 1,
 "Taurenfemaleofficialnpc"
-],
-[
-"How may I aid you?",
-5,
-"Taurenfemaleofficialnpc"
-],
-[
-"I have business to attend to.",
-6,
-"Taurenfemaleofficialnpc"
-],
-[
-"looking for something special.",
-6,
-"Taurenfemaleofficialnpc"
-],
-[
-"Peace, friend.",
-4,
-"Taurenfemaleofficialnpc"
-],
-[
-"Walk with the Earth Mother.",
-4,
-"Taurenfemaleofficialnpc"
-],
-[
-"We shall meet again.",
-3,
-"Taurenfemaleofficialnpc"
-],
-[
-"Winds be at your back.",
-3,
-"Taurenfemaleofficialnpc"
-],
-[
-"You are testing my patients.",
-5,
-"Taurenfemaleofficialnpc"
-],
-[
-"You wish to speak?",
-2,
-"Taurenfemaleofficialnpc"
-],
-[
-"Ahhh, I've been expecting you.",
-1,
-"Taurenfemaleshamannpc"
-],
-[
-"Ancestors watch over you.",
-1,
-"Taurenfemaleshamannpc"
-],
-[
-"The winds guide you.",
-2,
-"Taurenfemaleshamannpc"
-],
-[
-"I have just the thing for you.",
-2,
-"Taurenfemalestandardnpc"
-],
-[
-"Away, Pest!",
-2,
-"Taurenmaleeldernpc"
-],
-[
-"Hail!",
-1,
-"Taurenmaleeldernpc"
-],
-[
-"You are testing my patience.",
-2,
-"Taurenmaleeldernpc"
 ],
 [
 "I can't elude that.",
@@ -28410,27 +24820,7 @@
 "Taurenmaleerrormessages"
 ],
 [
-"and sisters watch over you.",
-2,
-"Taurenmaleshamannpc"
-],
-[
-"At once laughed so hard I milked all over the floor.",
-1,
-"Taurenvocalfemale"
-],
-[
 "For Kalimdor!",
-1,
-"Taurenvocalfemale"
-],
-[
-"Happy torrents come from Mulgore.",
-1,
-"Taurenvocalfemale"
-],
-[
-"In my native tongue, my name means dances with tassels.",
 1,
 "Taurenvocalfemale"
 ],
@@ -28440,17 +24830,7 @@
 "Taurenvocalfemale"
 ],
 [
-"You know how hard it is to get your groove on with the spirit of your great grandmother looking over you?",
-1,
-"Taurenvocalfemale"
-],
-[
 "CHERGE!",
-1,
-"Taurenvocalmale"
-],
-[
-"Here's the beef.",
 1,
 "Taurenvocalmale"
 ],
@@ -28462,11 +24842,6 @@
 [
 "Lou, are you happy now?",
 1,
-"Taurenvocalmale"
-],
-[
-"Mess with the bull, you get the horns.",
-2,
 "Taurenvocalmale"
 ],
 [
@@ -29365,11 +25740,6 @@
 "Thrall"
 ],
 [
-"Be gone.",
-8,
-"Thrall"
-],
-[
 "Beware, enemy's approach.",
 1,
 "Thrall"
@@ -29650,11 +26020,6 @@
 "Thrall"
 ],
 [
-"Lokta, friend. What is it you wish?",
-1,
-"Thrall"
-],
-[
 "Look, Narrows!",
 1,
 "Thrall"
@@ -29920,11 +26285,6 @@
 "Thrall"
 ],
 [
-"Welcome to Orgrimmar. Have you come to serve the Horde?",
-1,
-"Thrall"
-],
-[
 "Well done. Let's see to our friend.",
 1,
 "Thrall"
@@ -29997,11 +26357,6 @@
 [
 "I will fight to the last.",
 1,
-"Thrallcot"
-],
-[
-"Let's ride!",
-2,
 "Thrallcot"
 ],
 [
@@ -30600,202 +26955,12 @@
 "Trollfemalelaidbacknpc"
 ],
 [
-"Be cool, man.",
-4,
-"Trollfemalelaidbacknpc"
-],
-[
-"Bye bye now.",
-3,
-"Trollfemalelaidbacknpc"
-],
-[
-"Good to meet ya.",
-1,
-"Trollfemalelaidbacknpc"
-],
-[
-"I am over this.",
-1,
-"Trollfemalelaidbacknpc"
-],
-[
-"It won't be shy.",
-1,
-"Trollfemalelaidbacknpc"
-],
-[
-"Me got the good stuff, man.",
-4,
-"Trollfemalelaidbacknpc"
-],
-[
-"Relax.",
-3,
-"Trollfemalelaidbacknpc"
-],
-[
-"Spirits be with you, Ma'am.",
-1,
-"Trollfemalelaidbacknpc"
-],
-[
-"That'd be unnecessary.",
-1,
-"Trollfemalelaidbacknpc"
-],
-[
-"The spirit is not amused.",
-3,
-"Trollfemalelaidbacknpc"
-],
-[
-"what you're looking for.",
-4,
-"Trollfemalelaidbacknpc"
-],
-[
-"You come get the voodoo.",
-1,
-"Trollfemalelaidbacknpc"
-],
-[
-"You'll be careful, man.",
-1,
-"Trollfemalelaidbacknpc"
-],
-[
-"Don't be shy.",
-3,
-"Trollfemaleoldnpc"
-],
-[
-"dot to be unnecessary",
-1,
-"Trollfemaleoldnpc"
-],
-[
-"Hello, mine!",
-1,
-"Trollfemaleoldnpc"
-],
-[
-"Keep it up, I'll hex ya!",
-1,
-"Trollfemaleoldnpc"
-],
-[
-"Spirits be with German.",
-1,
-"Trollfemaleoldnpc"
-],
-[
-"The spirit's not amused.",
-3,
-"Trollfemaleoldnpc"
-],
-[
-"Where's my kuby doll?",
-1,
-"Trollfemaleoldnpc"
-],
-[
-"Who you be?",
-2,
-"Trollfemaleoldnpc"
-],
-[
-"Be seeing ya!",
-3,
-"Trollfemalestandardnpc"
-],
-[
-"He there.",
-1,
-"Trollfemalestandardnpc"
-],
-[
-"How you doing, Mun?",
-1,
-"Trollfemalestandardnpc"
-],
-[
-"I'm over this.",
-2,
-"Trollfemalestandardnpc"
-],
-[
-"Keep it up, I'll hit ya!",
-1,
-"Trollfemalestandardnpc"
-],
-[
-"making me angry man.",
-3,
-"Trollfemalestandardnpc"
-],
-[
-"Okay, okay.",
-1,
-"Trollfemalestandardnpc"
-],
-[
-"Stay away from the voodoo.",
-3,
-"Trollfemalestandardnpc"
-],
-[
-"Watch you looking for",
-1,
-"Trollfemalestandardnpc"
-],
-[
-"You be careful man.",
-2,
-"Trollfemalestandardnpc"
-],
-[
 "So hungry, must feed.",
 1,
 "Trollgore"
 ],
 [
-"Greetings, man!",
-2,
-"Trollmaledarknpc"
-],
-[
-"How you do it, man?",
-1,
-"Trollmaledarknpc"
-],
-[
-"Keep it up. I'll hex you.",
-1,
-"Trollmaledarknpc"
-],
-[
-"Spirits be with your man.",
-2,
-"Trollmaledarknpc"
-],
-[
-"We got the good stuff, man.",
-1,
-"Trollmaledarknpc"
-],
-[
-"What you want.",
-3,
-"Trollmaledarknpc"
-],
-[
 "What's beyond your mind?",
-1,
-"Trollmaledarknpc"
-],
-[
-"You come get the food.",
 1,
 "Trollmaledarknpc"
 ],
@@ -30845,62 +27010,12 @@
 "Trollmaleerrormessages"
 ],
 [
-"How you doing, man?",
-1,
-"Trollmaleshamannpc"
-],
-[
-"Me got a good stuff, man.",
-1,
-"Trollmaleshamannpc"
-],
-[
-"Okie dokie!",
-1,
-"Trollmaleshamannpc"
-],
-[
-"That be unnecessary.",
-1,
-"Trollmaleshamannpc"
-],
-[
-"What's you looking for?",
-1,
-"Trollmaleshamannpc"
-],
-[
-"What's you want?",
-1,
-"Trollmaleshamannpc"
-],
-[
-"Who you'll be.",
-1,
-"Trollmaleshamannpc"
-],
-[
-"Hello, man.",
-1,
-"Trollmalestandardnpc"
-],
-[
 "How you do in mind?",
 1,
 "Trollmalestandardnpc"
 ],
 [
 "I'm busy, ain't ya?",
-1,
-"Trollmalestandardnpc"
-],
-[
-"Keep it up, Alhexia.",
-1,
-"Trollmalestandardnpc"
-],
-[
-"Where's my QP doll?",
 1,
 "Trollmalestandardnpc"
 ],
@@ -30960,27 +27075,12 @@
 "Trollvocalfemale"
 ],
 [
-"I feel pretty. Oh, so pretty.",
-1,
-"Trollvocalfemale"
-],
-[
-"I got all this, and personality too.",
-1,
-"Trollvocalfemale"
-],
-[
 "I know my natural beauty is intimidating.",
 1,
 "Trollvocalfemale"
 ],
 [
 "I won't bite you where it shows.",
-1,
-"Trollvocalfemale"
-],
-[
-"If cannibalism be wrong, I don't want to be right.",
 1,
 "Trollvocalfemale"
 ],
@@ -31015,17 +27115,7 @@
 "Trollvocalfemale"
 ],
 [
-"Strong halitosis be but one of my feminine traits.",
-1,
-"Trollvocalfemale"
-],
-[
 "TASDINGLE!",
-1,
-"Trollvocalfemale"
-],
-[
-"The way to a man's heart be through his stomach, but I go through a rib cage.",
 1,
 "Trollvocalfemale"
 ],
@@ -31090,11 +27180,6 @@
 "Trollvocalmale"
 ],
 [
-"Cookin's done. Still here.",
-1,
-"Trollvocalmale"
-],
-[
 "For Zuljin!",
 1,
 "Trollvocalmale"
@@ -31111,11 +27196,6 @@
 ],
 [
 "I got a shrugging head. I just came out of the pool.",
-1,
-"Trollvocalmale"
-],
-[
-"I heard if you cut off an extremity, it'll regenerate a little bigger. Don't believe it.",
 1,
 "Trollvocalmale"
 ],
@@ -31147,11 +27227,6 @@
 [
 "Me man, I be running low.",
 1,
-"Trollvocalmale"
-],
-[
-"neutral here.",
-2,
 "Trollvocalmale"
 ],
 [
@@ -31270,11 +27345,6 @@
 "Twilightdragon"
 ],
 [
-"Sleep.",
-1,
-"Twilightmasterkelris"
-],
-[
 "Our agents have been outed and killed, Master.",
 1,
 "Twilservant"
@@ -31291,26 +27361,6 @@
 ],
 [
 "Aludora!",
-1,
-"Tyrandewhisperwind"
-],
-[
-"Elun, give me strength.",
-1,
-"Tyrandewhisperwind"
-],
-[
-"I heed the voice of a loon.",
-1,
-"Tyrandewhisperwind"
-],
-[
-"Ishnu Allah, may alone light your path.",
-1,
-"Tyrandewhisperwind"
-],
-[
-"The Goddess is my shield.",
 1,
 "Tyrandewhisperwind"
 ],
@@ -31465,144 +27515,9 @@
 "Undeadfemalemagicnpc"
 ],
 [
-"Beware the living",
-5,
-"Undeadfemalemagicnpc"
-],
-[
-"Beware, our enemies abound.",
-2,
-"Undeadfemalemagicnpc"
-],
-[
-"Dark lady watch over you.",
-1,
-"Undeadfemalemagicnpc"
-],
-[
-"Do not tempt my wrath.",
-3,
-"Undeadfemalemagicnpc"
-],
-[
-"Embrace the shadow.",
-4,
-"Undeadfemalemagicnpc"
-],
-[
-"I am forsaken.",
-3,
-"Undeadfemalemagicnpc"
-],
-[
-"I grow wary of this.",
-1,
-"Undeadfemalemagicnpc"
-],
-[
 "I have exactly what you need.",
 4,
 "Undeadfemalemagicnpc"
-],
-[
-"I'm listening.",
-4,
-"Undeadfemalemagicnpc"
-],
-[
-"Is there a problem?",
-2,
-"Undeadfemalemagicnpc"
-],
-[
-"Master yourself.",
-2,
-"Undeadfemalemagicnpc"
-],
-[
-"Our time will come.",
-3,
-"Undeadfemalemagicnpc"
-],
-[
-"Remember, patience, discipline.",
-1,
-"Undeadfemalemagicnpc"
-],
-[
-"Victory for Sylvanas.",
-4,
-"Undeadfemalemagicnpc"
-],
-[
-"What will you require?",
-1,
-"Undeadfemalemagicnpc"
-],
-[
-"What would you ask of death?",
-2,
-"Undeadfemalemagicnpc"
-],
-[
-"Ah, I grow weary of this.",
-1,
-"Undeadfemalestandardnpc"
-],
-[
-"And you are...",
-2,
-"Undeadfemalestandardnpc"
-],
-[
-"Are you insane?",
-4,
-"Undeadfemalestandardnpc"
-],
-[
-"Do not seek death.",
-1,
-"Undeadfemalestandardnpc"
-],
-[
-"Doc Lady, watch over you.",
-1,
-"Undeadfemalestandardnpc"
-],
-[
-"I haven't got all day.",
-2,
-"Undeadfemalestandardnpc"
-],
-[
-"I'm starting to hate you.",
-4,
-"Undeadfemalestandardnpc"
-],
-[
-"Trust no one!",
-5,
-"Undeadfemalestandardnpc"
-],
-[
-"What do you require?",
-2,
-"Undeadfemalestandardnpc"
-],
-[
-"Careful there.",
-2,
-"Undeadfemalewarriornpc"
-],
-[
-"Speak quickly.",
-15,
-"Undeadfemalewarriornpc"
-],
-[
-"Does that better be good?",
-1,
-"Undeadmaledarknpc"
 ],
 [
 "forsaken",
@@ -31610,54 +27525,9 @@
 "Undeadmaledarknpc"
 ],
 [
-"I'm not amused.",
-1,
-"Undeadmaledarknpc"
-],
-[
-"Listening.",
-1,
-"Undeadmaledarknpc"
-],
-[
 "my wrath.",
 1,
 "Undeadmaledarknpc"
-],
-[
-"patience, discipline.",
-1,
-"Undeadmaledarknpc"
-],
-[
-"Talk, lady. Watch over you.",
-1,
-"Undeadmaledarknpc"
-],
-[
-"I grow weary of this.",
-1,
-"Undeadmalestandardnpc"
-],
-[
-"Beware, our enemy is abound.",
-1,
-"Undeadmalewarriornpc"
-],
-[
-"Do not tempt my life.",
-1,
-"Undeadmalewarriornpc"
-],
-[
-"Remember, patients, discipline.",
-1,
-"Undeadmalewarriornpc"
-],
-[
-"This had better be good.",
-1,
-"Undeadmalewarriornpc"
 ],
 [
 "Alas, hero of Azeroth, you give me a greater gift than you know.",
@@ -32215,22 +28085,12 @@
 "Varimathras"
 ],
 [
-"How will this benefit me?",
-1,
-"Varimathras"
-],
-[
 "I cannot hold destabilizing.",
 1,
 "Varimathras"
 ],
 [
 "I will not fail, not again.",
-1,
-"Varimathras"
-],
-[
-"I'm always on the winning side.",
 1,
 "Varimathras"
 ],
@@ -32281,11 +28141,6 @@
 ],
 [
 "Years wasted.",
-1,
-"Varimathras"
-],
-[
-"You think you can match the might of a dreadlord?",
 1,
 "Varimathras"
 ],
@@ -32660,11 +28515,6 @@
 "Voidwalkervo"
 ],
 [
-"Peace.",
-1,
-"Voidwalkervo"
-],
-[
 "Send me back!",
 1,
 "Voidwalkervo"
@@ -32815,11 +28665,6 @@
 "Voljin"
 ],
 [
-"Spirits be with you, stranger. How may I help?",
-1,
-"Voljin"
-],
-[
 "Still, I fear I was letting my temper drive me to be in rash. Thrall devoted himself to making the horde what it is. So I have no eagerness to be leaving it on a whim. This will be needing much more thought.",
 1,
 "Voljin"
@@ -32901,11 +28746,6 @@
 ],
 [
 "You came, why, sister, the dark spear be grateful.",
-1,
-"Voljin"
-],
-[
-"You come to consult the spirits.",
 1,
 "Voljin"
 ],
@@ -33155,11 +28995,6 @@
 "Warbringeromrogg"
 ],
 [
-"That's not funny!",
-9,
-"Warbringeromrogg"
-],
-[
 "We kill someone else.",
 1,
 "Warbringeromrogg"
@@ -33260,11 +29095,6 @@
 "Warlordzonozz"
 ],
 [
-"Grr!",
-1,
-"Warlordzonozz"
-],
-[
 "Hola, hola, hola.",
 1,
 "Warlordzonozz"
@@ -33360,22 +29190,7 @@
 "Wilfred"
 ],
 [
-"Do you be feeling well?",
-1,
-"Witch Doctor"
-],
-[
-"I may have something for ya.",
-1,
-"Witch Doctor"
-],
-[
 "Right the way.",
-1,
-"Witch Doctor"
-],
-[
-"Someone call for the doctor?",
 1,
 "Witch Doctor"
 ],
@@ -33395,37 +29210,12 @@
 "Witch Doctor"
 ],
 [
-"You seek me help?",
-1,
-"Witch Doctor"
-],
-[
 "Don't hurt me.",
 1,
 "Wolf Ghost"
 ],
 [
 "for the glory of the war chief.",
-1,
-"Wolf Rider"
-],
-[
-"Need something?",
-1,
-"Wolf Rider"
-],
-[
-"Ready to ride!",
-1,
-"Wolf Rider"
-],
-[
-"What's that smell? Oh, bad dog!",
-1,
-"Wolf Rider"
-],
-[
-"You're annoying, my dog.",
 1,
 "Wolf Rider"
 ],

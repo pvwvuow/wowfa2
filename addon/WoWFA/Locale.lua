@@ -330,7 +330,7 @@ L.tip = {
     ["Chest"] = "سینه", ["Shirt"] = "پیراهن", ["Tabard"] = "شنل‌نشانه", ["Wrist"] = "مچ",
     ["Hands"] = "دستان", ["Waist"] = "کمر", ["Legs"] = "پاها", ["Feet"] = "پا",
     ["Finger"] = "انگشتر", ["Trinket"] = "آویز",
-    ["One-Hand"] = "یک‌دستی", ["Two-Hand"] = "دودستی", ["Main Hand"] = "دست اصلی",
+    ["One-Hand"] = "یک‌دستی", ["Two-Hand"] = "دو دستی", ["Main Hand"] = "دست اصلی",
     ["Off Hand"] = "دست چپ", ["Held In Off-hand"] = "نگه‌داشته در دست چپ",
     ["Ranged"] = "دوربرد", ["Thrown"] = "پرتابی", ["Relic"] = "یادگار",
     ["Bag"] = "کیف", ["Projectile"] = "مهمات", ["Ammo"] = "مهمات",

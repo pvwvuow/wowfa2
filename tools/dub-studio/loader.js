@@ -9,6 +9,8 @@
   var EMOTE = /laugh|cheer|chuckle|sigh|yawn|cough|sneeze|whistle|snore|choochoo|clap|kiss|giggle|flirt|emote|dance|applau/;
   var EXERT = /wound|attack|death|(^|_)dies?(_|\d|$)|dying|pain|hurt|injur|grunt|roar|crit|windup|(^|_)cast|precast|channel|spell|effort|exert|battleshout|battlecry|warcry|stun|knockdown|parry|dodge|block|jump|(^|_)land|(^|_)fall|breath|drown|yell_?pain|growl|snarl|howl|hiss|bark|screech|shriek|gasp/;
   var BEAST = /wolf|worg|bear(?!d)|raven|crow(?!n)|owl|moose|eagle|hawk|lion|tiger|panther|saber|sabre|boar|crab|spider|tarantula|scorpi|basilisk|hydra|lasher|wasp|snake|serpent|turtle|tortoise|croc|raptor|devilsaur|triceratops|gorilla|monkey|kodo|deer|goat|sheep|chicken|frog|toad|shark|fox|hyena|worm|beetle|cricket|moth|insect|carrion|vulture|gryphon|griffon|wyvern|hippogryph|moonkin|corgi|puppy|strider|lizard|silithid|ooze|slime|crawler|bird|parrot|rabbit|squirrel|mammoth|rhino|^cat|cat$|kitten|^bat|bat$|^rat|rat$|^dog|dog$|hound|elemental|golem|construct|revenant|treant|ancientprotector|spidertank|whelp|wyrm|bogbeast|owlcat/;
+  // a player race line that sits in an NPC group (the Tauren folder holds the tauren player pack): counted as a player line
+  var PRACE = /^(vo_)?(pc)?(human|dwarf|gnome|nightelf|orc|troll|tauren|undead|scourge)(fe)?male/;
   function lineRace(n, gr) { for (var i = 0; i < RACES.length; i++) if (n.indexOf(RACES[i][0]) >= 0) return RACES[i][1]; return gr; }
   var GRUNT = /wound|attack|death|(^|_)dies?(_|\d|$)|dying|pain|hurt|injur|grunt|roar|breath|footstep|windup|(^|_)cast|jump|(^|_)land|effort|exert|battleshout|battlecry|warcry|emote|laugh|cheer|chuckle|sigh|yawn|cough|sneeze|whistle|snore|knock|choochoo|clap|kiss|giggle|flirt|fidget|loop|idle|stand|bored|footfall|swim|fall|parry|dodge|block|crit|spell|precast|channel|mount|growl|snarl|howl|bark|hiss|chirp|squawk|purr|whine|moo|oink|neigh|bleat|screech|shriek|scream|gasp|stun|knockdown|sleep|yell_?pain/;
   var SPEECH = /slay|kill|intro|yell|(^|_)say|speech|speak|taunt|summon|berserk|engage|event|quest|(^|_)line|vo_qe|vo_quest|order|command|special|phase|talk|whisper|warn|alert|chat|greet|bye|farewell|(^|_)\d{2,3}_[mf]$|(^|_)[mf]$|response|reply|story|lore|intro|outro|victory|defeat|win|lose|thank|help|question|vendor|trainer|flight|innkeeper|guard/;
@@ -75,18 +77,18 @@
     return fid < 600000 ? 'old' : 'new';
   }
   function build(L0, G0) {
-    var byg = {}, out = [], groups = [], gidx = {};
+    var byg = {}, out = [], groups = [], gidx = {}, HK = {};
     L0.forEach(function (x) { (byg[x[1]] = byg[x[1]] || []).push(x); });
     G0.forEach(function (gk, gi) {
       var gname = gk[0], kind = gk[1], rows = byg[gi] || [], keep = [];
       var beast = kind === 'c' && BEAST.test(gname.toLowerCase().replace(/[^a-z]/g, ''));
-      rows.forEach(function (r) { var c = catOf(r[3], gname, r[4], kind, beast); if (c !== null) keep.push([r[0], c, r[3], r[4]]); });
+      rows.forEach(function (r) { var lk = kind === 'c' && PRACE.test(r[3].toLowerCase()) ? 'h' : kind; var c = catOf(r[3], gname, r[4], lk, beast && lk === 'c'); if (c !== null) keep.push([r[0], c, r[3], r[4], lk]); });
       if (!keep.length) return;
       var sex = gender(gname, keep.map(function (r) { return r[2]; }));
       var mn = Infinity; keep.forEach(function (r) { if (r[0] < mn) mn = r[0]; });
       gidx[gi] = groups.length;
       groups.push([gname, kind, sex, race(gname), mn, gi]);
-      keep.forEach(function (r) { out.push([r[0], gidx[gi], r[1], r[2], r[3]]); });
+      keep.forEach(function (r) { if (r[4] === 'h' && kind === 'c') HK[out.length] = 1; out.push([r[0], gidx[gi], r[1], r[2], r[3]]); });
     });
     var cnt = {}; groups.forEach(function (g) { cnt[g[0]] = (cnt[g[0]] || 0) + 1; });
     var seen = {};
@@ -102,12 +104,13 @@
         g[0] = g[0] + ' (' + lab + ')';
       }
     });
-    out.forEach(function (r) {
+    out.forEach(function (r, ri) {
       var n = r[3].toLowerCase();
       r.push(/female|_f$|_f_|woman/.test(n) ? 'f' : (/(?<!fe)male|_m$|_m_/.test(n) ? 'm' : ''));
       r.push(era(r[3], r[0]));
       var gg = groups[r[1]];
-      r.push(gg[1] === 'h' ? lineRace(n, gg[3]) : gg[3]);
+      r.push(gg[1] === 'h' || HK[ri] ? lineRace(n, gg[3]) : gg[3]);
+      r.push(HK[ri] ? 'h' : '');
     });
     groups.forEach(function (g, gi) {
       if (!g[2]) {

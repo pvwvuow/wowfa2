@@ -43,10 +43,10 @@ window.wfaStart = function () {
   // strict: an NPC group counts only when a creature of it is really spawned in the vanilla world (M.n, from the CMaNGOS dump)
   function isFv(l, g) {
     if (!FVS) return true;
-    var lr = l[7] || g[3];
-    if (g[1] === 'h' && ((lr && !PLAY[lr]) || BADH.test(g[0].toLowerCase()))) return false;
+    var lr = l[7] || g[3], hk = (l[8] || g[1]) === 'h';
+    if (hk && ((lr && !PLAY[lr]) || BADH.test(g[0].toLowerCase()))) return false;
     if (!FVS[l[0]]) return false;
-    if (st.fv === 'strict' && g[1] === 'c') { var mm = MT[l[1]]; if (!(mm && mm.n > 0)) return false; }
+    if (st.fv === 'strict' && !hk) { var mm = MT[l[1]]; if (!(mm && mm.n > 0)) return false; }
     return true;
   }
   function inScope(i) {
@@ -57,7 +57,7 @@ window.wfaStart = function () {
     if (st.voc === 'voice' && l[2] > 5) return false;
     if (st.voc === 'react' && l[2] === 9) return false;
     if (st.race !== 'all' && (l[7] || g[3]) !== st.race) return false;
-    if (st.kind !== 'all' && g[1] !== st.kind) return false;
+    if (st.kind !== 'all' && (l[8] || g[1]) !== st.kind) return false;
     if (st.place !== 'all') { var mp = MT[l[1]], pp = mp ? mp.p : ''; if (st.place === 'd' ? !(pp === 'd' || pp === 'b') : st.place === 'w' ? !(pp === 'w' || pp === 'b') : pp) return false; }
     if (st.fac !== 'all') { var mf = MT[l[1]], ff = mf ? mf.f : ''; if (st.fac === 'u' ? ff : !(ff === st.fac || (ff === 'B' && (st.fac === 'A' || st.fac === 'H')))) return false; }
     if (st.sex !== 'all') { var sx = l[5] || g[2] || 'u'; if (sx !== st.sex) return false; }
@@ -189,7 +189,7 @@ window.wfaStart = function () {
     var el = $('sumtab'); if (!el) return;
     var rows = {};
     function add(k, l) { var r = rows[k] || (rows[k] = [0, 0, 0]); r[0]++; if (l[6] === 'old') r[1]++; if (done[l[0]]) r[2]++; }
-    for (var i = 0; i < L.length; i++) { var l = L[i], kd = G[l[1]][1] === 'h' ? 'p' : 'n'; if (st.fv !== 'all' && !isFv(l, G[l[1]])) continue; add(kd + l[2], l); add(kd + '*', l); add('*' + l[2], l); add('**', l); }
+    for (var i = 0; i < L.length; i++) { var l = L[i], kd = (l[8] || G[l[1]][1]) === 'h' ? 'p' : 'n'; if (st.fv !== 'all' && !isFv(l, G[l[1]])) continue; add(kd + l[2], l); add(kd + '*', l); add('*' + l[2], l); add('**', l); }
     function cell(k) { var r = rows[k] || [0, 0, 0]; return '<td><b>' + fa(r[0]) + '</b> <small>' + fa(r[1]) + ' \u0642\u062f\u06cc\u0645\u06cc \u00b7 ' + fa(r[2]) + ' \u0636\u0628\u0637</small></td>'; }
     var h = '<table><tr><th>\u062f\u0633\u062a\u0647</th><th>NPC \u0648 \u0645\u0648\u062c\u0648\u062f\u0627\u062a</th><th>\u0646\u0698\u0627\u062f\u0647\u0627\u06cc \u0628\u0627\u0632\u06cc\u06a9\u0646</th><th>\u0647\u0645\u0647</th></tr>';
     CATS.forEach(function (c, i) { h += '<tr><th>' + CAT_FA[c] + '</th>' + cell('n' + i) + cell('p' + i) + cell('*' + i) + '</tr>'; });
@@ -202,7 +202,7 @@ window.wfaStart = function () {
     if (st.kind !== 'h' && st.race === 'all') { el.innerHTML = ''; return; }
     var rp = {}, order = ['human', 'dwarf', 'gnome', 'nightelf', 'orc', 'troll', 'tauren', 'scourge'];
     for (var i = 0; i < L.length; i++) {
-      var l = L[i], g = G[l[1]]; if (g[1] !== 'h') continue;
+      var l = L[i], g = G[l[1]]; if ((l[8] || g[1]) !== 'h') continue;
       if (st.fv !== 'all' && !isFv(l, g)) continue;
       if (st.voc === 'voice' && l[2] > 5) continue;
       var r = l[7] || g[3]; if (!PLAY[r]) continue;

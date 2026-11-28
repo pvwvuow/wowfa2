@@ -27,8 +27,7 @@ local FRAMES = {
     "SkillFrame", "HonorFrame", "PVPFrame", "TokenFrame", "SpellBookFrame", "FriendsFrame",
     "FriendsListFrame", "IgnoreListFrame", "WhoFrame", "GuildFrame", "RaidFrame", "MailFrame",
     "InboxFrame", "SendMailFrame", "OpenMailFrame", "TradeFrame", "MerchantFrame", "BankFrame",
-    "AuctionFrame", "AuctionFrameBrowse", "AuctionFrameBid", "AuctionFrameAuctions",
-    "AuctionHouseFrame", "ClassTrainerFrame", "LootFrame", "TabardFrame", "GuildRegistrarFrame",
+    "ClassTrainerFrame", "LootFrame", "TabardFrame", "GuildRegistrarFrame",
     "PetStableFrame", "DressUpFrame", "InspectFrame", "MacroFrame", "TimeManagerFrame",
     "LFGParentFrame", "PVEFrame", "GuildBankFrame", "TradeSkillFrame", "CraftFrame",
     "BattlefieldFrame", "ArenaFrame", "WorldStateScoreFrame", "ContainerFrameCombinedBags",
@@ -49,11 +48,11 @@ local GROUPS = {
         "GuildRegistrarFrame" },
     mail = { "MailFrame", "InboxFrame", "SendMailFrame", "OpenMailFrame", "TradeFrame" },
     shops = { "MerchantFrame", "ClassTrainerFrame", "TradeSkillFrame", "CraftFrame", "LootFrame" },
-    ah = { "AuctionFrame", "AuctionFrameBrowse", "AuctionFrameBid", "AuctionFrameAuctions", "AuctionHouseFrame" },
+    -- 1.2.3 (the owner 28 Nov): the auction house windows are off for now (too many problems): not hooked, no switch
     finder = { "LFGParentFrame", "PVEFrame", "PVPFrame", "BattlefieldFrame", "ArenaFrame",
         "WorldStateScoreFrame" },
 }
-local GROUP_IDS = { "menu", "char", "bags", "social", "mail", "shops", "ah", "finder" }
+local GROUP_IDS = { "menu", "char", "bags", "social", "mail", "shops", "finder" }
 local GROUP_OF = {}
 for gid, list in pairs(GROUPS) do
     for _, n in ipairs(list) do
@@ -584,6 +583,9 @@ local function group_set(id, v)
 end
 
 local function group_get(id)
+    if id == "ah" then
+        return false -- 1.2.3 (the owner 28 Nov): the auction house is off for now
+    end
     local off = F.db and F.db.guiOff
     return not (type(off) == "table" and off[id])
 end

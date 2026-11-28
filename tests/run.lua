@@ -897,8 +897,8 @@ check("gameui tests ran", okGu, errGu)
 -- ------------------------------------------------------------------ 1.2.0: window groups, combat watch
 local okGg, errGg = pcall(function()
     local G = F.GameUI
-    check("groups: the module lists 8 groups", type(G.Groups) == "table" and #G.Groups == 8, G.Groups and #G.Groups)
-    check("groups: the auction house has its own group", G.GroupOn("ah") == true)
+    check("groups: the module lists 7 groups", type(G.Groups) == "table" and #G.Groups == 7, G.Groups and #G.Groups)
+    check("groups: the auction house is switched off for now", G.GroupOn("ah") == false)
     local h = CreateFrame("Frame", "ZzGroupHost", UIParent)
     local a = h:CreateFontString(nil, "OVERLAY")
     a:SetText("Reputation")

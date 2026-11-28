@@ -15,8 +15,8 @@ let shown = 0, fvAll = 0;
 for (const l of D.lines) {
   if (!fv.has(l[0])) continue;
   const g = D.groups[l[1]]; shown++;
-  const k = g[1] + ':' + D.cats[l[2]]; cat[k] = (cat[k] || 0) + 1;
-  if (g[1] === 'h') { const r = l[7] || g[3]; if (PLAY[r]) { const p = r + ' ' + (l[5] || g[2] || 'u'); const a = packs[p] || (packs[p] = [0, 0, 0]); a[0]++; if (l[2] === 6) a[2]++; else a[1]++; } else { kinds['h-norace'] = (kinds['h-norace'] || 0) + 1; } }
+  const hk = l[8] || g[1]; const k = hk + ':' + D.cats[l[2]]; cat[k] = (cat[k] || 0) + 1;
+  if (hk === 'h') { const r = l[7] || g[3]; if (PLAY[r]) { const p = r + ' ' + (l[5] || g[2] || 'u'); const a = packs[p] || (packs[p] = [0, 0, 0]); a[0]++; if (l[2] === 6) a[2]++; else a[1]++; } else { kinds['h-norace'] = (kinds['h-norace'] || 0) + 1; } }
 }
 for (const x of R.L) if (fv.has(x[0])) fvAll++;
 console.log(JSON.stringify({groups: D.groups.length, lines: D.lines.length, fvAll, shown, cat, packs, kinds}));

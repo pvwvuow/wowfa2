@@ -34,7 +34,7 @@
 "do not fail us!":"ناامیدمون نکن!",
 "do not waste my time. what is it you want?":"وقتم را تلف نکن. چه می‌خواهی؟",
 "do you mock me while i am unable to defend myself, bound to this ball of iron?":"حالا که به این گوی آهنی بسته شده‌ام و نمی‌توانم از خودم دفاع کنم، مسخره‌ام می‌کنی؟",
-"dodge chance increased by #% and movement speed increased by #%. night elf rogues and druids are harder to detect in stealth as if they were # level higher.":"شانس جاخالی‌دادنت {0}% و سرعت حرکتت {1}% افزایش می‌یابد. تشخیص {{cls:Rogue}}ها و {{cls:Druid}}های الف شب در حالت پنهان‌کاری دشوارتر است؛ گویی سطحشان {2} واحد بالاتر است.",
+"dodge chance increased by #% and movement speed increased by #%. night elf rogues and druids are harder to detect in stealth as if they were # level higher.":"شانس جاخالی‌دادنت {0}% و سرعت حرکتت {1}% افزایش می‌یابد. تشخیص {{cls:Rogue}}ها و {{cls:Druid}}های الف شب در حالت مخفی‌کاری دشوارتر است؛ گویی سطحشان {2} واحد بالاتر است.",
 "don't waste my time. i have research projects older than you. go talk to doctor martin felben in the apothecarium of the undercity. he's a forsaken who can probably manage to teach you the basics":"وقتم را تلف نکن. پروژه‌های پژوهشی من از تو قدیمی‌ترند. برو با {{npc:Doctor Martin Felben}} در آپوتکاریوم {{zn:Undercity}} حرف بزن. او یک فورسیکن است و احتمالاً از پس یاد دادن اصول کار به تو برمی‌آید.",
 "drains # to # mana from a target. for each mana drained in this way, the target takes # shadow damage":"{0} تا {1} {{tm:mana|مانا}} را از هدف می‌گیرد. به‌ازای هر واحد مانایی که به این روش گرفته شود، هدف {2} {{tm:Shadow damage|آسیب سایه}} می‌بیند.",
 "drains the soul of the target, causing # shadow damage over # sec":"جان هدف را می‌مکد و طی {1} ثانیه {0} {{tm:Shadow damage|آسیب سایه}} وارد می‌کند.",

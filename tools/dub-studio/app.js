@@ -4,6 +4,12 @@ window.wfaStart = function () {
   var CDN = 'https://wow.zamimg.com/wowsounds/';
   var ICON = 'https://wow.zamimg.com/images/wow/icons/large/';
   var CAT_FA = { player: '\u0635\u062f\u0627 \u0648 \u067e\u06cc\u0627\u0645 \u0628\u0627\u0632\u06cc\u06a9\u0646 (\u062e\u0637\u0627\u060c \u0627\u06cc\u0645\u0648\u062a)', combat: '\u0635\u062f\u0627\u06cc \u0646\u0628\u0631\u062f \u0628\u0627\u0632\u06cc\u06a9\u0646', greeting: 'سلام', farewell: 'خداحافظی', pissed: 'عصبانی (کلیک زیاد)', aggro: 'شروع نبرد', speech: 'دیالوگ / فریاد' };
+  // 1.3: names of the new categories (loader.js)
+  CAT_FA.combat = "واکنش بدن بازیکن (نبرد، پرش، مرگ)";
+  CAT_FA.emote = "ایموت و صدای حالت";
+  CAT_FA.exert = "واکنش بدن NPC (زخم، حمله، مرگ)";
+  CAT_FA.beast = "جانور و هیولا (معمولا دوبله نمی‌خواهد)";
+  CAT_FA.other = "سایر صداها";
   var RACE_FA = { human: 'انسان', dwarf: 'دورف', gnome: 'گنوم', nightelf: 'نایت\u200cالف', orc: 'اورک', troll: 'ترول', tauren: 'تائورن', scourge: 'آندد', bloodelf: 'بلادالف', draenei: 'درنای', goblin: 'گابلین', worgen: 'ورگن', pandaren: 'پانداران' };
   var ERA_FA = { old: 'قدیمی', new: 'جدید', WoD: 'WoD', Legion: 'Legion', BfA: 'BfA', SL: 'Shadowlands', DF: 'Dragonflight', TWW: 'War Within' };
   var CREATURE_ICON = [[/dragon|drake|whelp|wyrm|onyx|nefar|deathwing|alexstr|malygos|sindragosa/, 'inv_misc_head_dragon_01'], [/elemental|ragnaros|golem|geode|earth|fire|water|air|wind/, 'spell_fire_elemental_totem'], [/lich|ghoul|zombie|skelet|banshee|ghost|wraith|abomin|scourge|undead|kelthuzad|arthas/, 'spell_shadow_raisedead'], [/demon|dreadlord|doomguard|felhound|imp|succubus|archimonde|kazzak|eredar|pitlord|mannoroth|illidan/, 'spell_shadow_summonfelguard'], [/wolf|worg|hound/, 'ability_mount_whitedirewolf'], [/bear/, 'ability_racial_bearform'], [/cat|tiger|lion|panther/, 'ability_druid_catform'], [/spider|crawler|nerub|anub/, 'inv_misc_monsterspidercarapace_01'], [/murloc/, 'inv_misc_head_murloc_01'], [/gnoll/, 'inv_misc_head_gnoll_01'], [/kobold/, 'inv_misc_head_kobold_01'], [/ogre|ettin|gronn|giant/, 'inv_misc_head_ogre_01'], [/centaur/, 'inv_misc_head_centaur_01'], [/naga|vashj/, 'inv_misc_head_naga_01'], [/tauren|cairne|baine/, 'race_tauren_male'], [/orc|thrall|garrosh|grom|durotan/, 'race_orc_male'], [/troll|zul|voljin/, 'race_troll_male'], [/dwarf|bronzebeard|muradin|magni/, 'race_dwarf_male'], [/gnome|mekkatorque/, 'race_gnome_male'], [/elf|tyrande|malfurion|sylvanas|kael/, 'race_nightelf_male'], [/human|king|varian|anduin|jaina|bolvar|guard|soldier|peasant/, 'race_human_male']];
@@ -12,7 +18,7 @@ window.wfaStart = function () {
   function load(k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }
   function save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
   var done = load('wfadub_done', {});
-  var st = { q: '', cat: -1, sex: 'all', era: 'old', kind: 'all', place: 'all', fac: 'all', fv: 'on', status: 'all', sort: 'name', page: 60 };
+  var st = { q: '', cat: -1, sex: 'all', era: 'old', kind: 'all', place: 'all', fac: 'all', fv: 'on', voc: 'react', race: 'all', status: 'all', sort: 'name', page: 60 };
   var MT = D.M || {};
   var root = null, rootOk = false;
   var $ = function (id) { return document.getElementById(id); };
@@ -27,8 +33,8 @@ window.wfaStart = function () {
   byG.forEach(function (a) { a.sort(function (x, y) { return L[x][2] - L[y][2] || nat.compare(L[x][3], L[y][3]); }); });
 
   var PK = 'wfadub_f';
-  (function () { var p = load(PK, null); if (p) ['cat', 'sex', 'era', 'kind', 'place', 'fac', 'fv', 'status', 'sort'].forEach(function (k) { if (p[k] !== undefined) st[k] = p[k]; }); })();
-  function savePrefs() { save(PK, { cat: st.cat, sex: st.sex, era: st.era, kind: st.kind, place: st.place, fac: st.fac, fv: st.fv, status: st.status, sort: st.sort }); }
+  (function () { var p = load(PK, null); if (p) ['cat', 'sex', 'era', 'kind', 'place', 'fac', 'fv', 'voc', 'race', 'status', 'sort'].forEach(function (k) { if (p[k] !== undefined) st[k] = p[k]; }); })();
+  function savePrefs() { save(PK, { cat: st.cat, sex: st.sex, era: st.era, kind: st.kind, place: st.place, fac: st.fac, fv: st.fv, voc: st.voc, race: st.race, status: st.status, sort: st.sort }); }
   // scope = what the numbers count (era, kind, sex); lineOk adds category and recorded-state
   // 1.2.3 (the owner 28 Nov: dub only what Forever needs): FV = the sound files the Forever client has (voice_forever job).
   // With the filter on, only those lines count, and only player races that can be played in Forever; the era filter is not needed then.
@@ -37,7 +43,8 @@ window.wfaStart = function () {
   // strict: an NPC group counts only when a creature of it is really spawned in the vanilla world (M.n, from the CMaNGOS dump)
   function isFv(l, g) {
     if (!FVS) return true;
-    if (g[1] === 'h' && ((g[3] && !PLAY[g[3]]) || BADH.test(g[0].toLowerCase()))) return false;
+    var lr = l[7] || g[3];
+    if (g[1] === 'h' && ((lr && !PLAY[lr]) || BADH.test(g[0].toLowerCase()))) return false;
     if (!FVS[l[0]]) return false;
     if (st.fv === 'strict' && g[1] === 'c') { var mm = MT[l[1]]; if (!(mm && mm.n > 0)) return false; }
     return true;
@@ -46,6 +53,10 @@ window.wfaStart = function () {
     var l = L[i], g = G[l[1]];
     if (st.fv !== 'all' && !isFv(l, g)) return false;
     if (st.fv === 'all' && st.era === 'old' && l[6] !== 'old') return false;
+    // 1.3: voc = spoken only (0-5), spoken + reactions (no beasts, default) or everything; race = one player race pack
+    if (st.voc === 'voice' && l[2] > 5) return false;
+    if (st.voc === 'react' && l[2] === 9) return false;
+    if (st.race !== 'all' && (l[7] || g[3]) !== st.race) return false;
     if (st.kind !== 'all' && g[1] !== st.kind) return false;
     if (st.place !== 'all') { var mp = MT[l[1]], pp = mp ? mp.p : ''; if (st.place === 'd' ? !(pp === 'd' || pp === 'b') : st.place === 'w' ? !(pp === 'w' || pp === 'b') : pp) return false; }
     if (st.fac !== 'all') { var mf = MT[l[1]], ff = mf ? mf.f : ''; if (st.fac === 'u' ? ff : !(ff === st.fac || (ff === 'B' && (st.fac === 'A' || st.fac === 'H')))) return false; }
@@ -141,7 +152,7 @@ window.wfaStart = function () {
     if (view.length > st.page) h += '<div class="more"><button class="btn" id="more">' + fa(Math.min(60, view.length - st.page)) + ' گروه دیگر</button></div>';
     list.innerHTML = h;
     if (st.q && view.length <= 3) [].forEach.call(list.querySelectorAll('details.g'), function (d) { d.open = true; fill(d); });
-    progress(); summary();
+    progress(); summary(); packs();
   }
   function fill(d) {
     var gi = +d.dataset.g, v = null;
@@ -164,7 +175,7 @@ window.wfaStart = function () {
     nums.innerHTML = '<div><b>' + fa(tot) + '</b><span>خط صدا</span></div><div class="ok"><b>' + fa(rec) + '</b><span>ضبط\u200cشده \u2713</span></div><div><b>' + fa(tot - rec) + '</b><span>مانده</span></div><div><b>' + fa(gd) + ' / ' + fa(gt) + '</b><span>گروه کامل</span></div><div><b>' + fa(tot ? Math.round(rec * 100 / tot) : 0) + '\u066a</b><span>پیشرفت</span></div>';
     $('pbar').style.width = (tot ? rec * 100 / tot : 0) + '%';
     var h = '<button data-v="-1" aria-selected="' + (st.cat < 0) + '">همه<small>' + fa(rec) + '/' + fa(tot) + '</small></button>';
-    CATS.forEach(function (c, i) { h += '<button data-v="' + i + '" aria-selected="' + (st.cat === i) + '">' + CAT_FA[c] + '<small>' + fa(pc[i][1]) + '/' + fa(pc[i][0]) + '</small></button>'; });
+    CATS.forEach(function (c, i) { if (!pc[i][0] && st.cat !== i) return; h += '<button data-v="' + i + '" aria-selected="' + (st.cat === i) + '">' + CAT_FA[c] + '<small>' + fa(pc[i][1]) + '/' + fa(pc[i][0]) + '</small></button>'; });
     $('fcat').innerHTML = h;
     [].forEach.call(list.querySelectorAll('details.g'), function (el) {
       var gi = +el.dataset.g, t = 0, dd = 0;
@@ -185,6 +196,37 @@ window.wfaStart = function () {
     h += '<tr class="tot"><th>\u062c\u0645\u0639</th>' + cell('n*') + cell('p*') + cell('**') + '</tr></table>';
     el.innerHTML = h;
   }
+  // 1.3 (the owner 28 Nov: every race needs its full pack): one row per playable race and sex, click = only that pack
+  function packs() {
+    var el = $('packs'); if (!el) return;
+    if (st.kind !== 'h' && st.race === 'all') { el.innerHTML = ''; return; }
+    var rp = {}, order = ['human', 'dwarf', 'gnome', 'nightelf', 'orc', 'troll', 'tauren', 'scourge'];
+    for (var i = 0; i < L.length; i++) {
+      var l = L[i], g = G[l[1]]; if (g[1] !== 'h') continue;
+      if (st.fv !== 'all' && !isFv(l, g)) continue;
+      if (st.voc === 'voice' && l[2] > 5) continue;
+      var r = l[7] || g[3]; if (!PLAY[r]) continue;
+      var sx = l[5] || g[2] || 'u', k = r + '|' + sx, a = rp[k] || (rp[k] = [0, 0, 0, 0]);
+      a[0]++; if (done[l[0]]) a[1]++; if (l[2] === 6) a[3]++; else a[2]++;
+    }
+    var h = '<table><tr><th>نژاد</th><th>جنس</th><th>خط</th><th>ضبط‌شده</th><th>حرف و پیام</th><th>واکنش بدن</th></tr>';
+    order.forEach(function (r) {
+      ['m', 'f', 'u'].forEach(function (sx) {
+        var a = rp[r + '|' + sx]; if (!a) return;
+        h += '<tr class="rp' + (st.race === r && st.sex === sx ? ' on' : '') + '" data-r="' + r + '" data-s="' + sx + '"><th>' + RACE_FA[r] + '</th><td>' + (sx === 'm' ? 'مرد' : sx === 'f' ? 'زن' : 'نامشخص') + '</td><td><b>' + fa(a[0]) + '</b></td><td>' + fa(a[1]) + (a[0] && a[1] === a[0] ? ' \u2713' : '') + '</td><td>' + fa(a[2]) + '</td><td>' + fa(a[3]) + '</td></tr>';
+      });
+    });
+    el.innerHTML = '<p class="ptitle">پک صدای هر نژاد بازیکن: روی یک ردیف بزن تا فقط همان پک بیاید (دوباره بزن = همه)</p>' + h + '</table>';
+  }
+  (function () {
+    var el = $('packs'); if (!el) return;
+    el.addEventListener('click', function (e) {
+      var tr = e.target.closest('tr.rp'); if (!tr) return;
+      var same = st.race === tr.dataset.r && st.sex === tr.dataset.s;
+      st.race = same ? 'all' : tr.dataset.r; st.sex = same ? 'all' : tr.dataset.s; st.kind = 'h'; st.page = 60;
+      $('frace').value = st.race; $('fsex').value = st.sex; $('fkind').value = st.kind; savePrefs(); render();
+    });
+  })();
   list.addEventListener('toggle', function (e) { var d = e.target; if (d.classList && d.classList.contains('g') && d.open) fill(d); }, true);
   list.addEventListener('click', function (e) {
     if (e.target.id === 'more') { st.page += 60; render(); return; }
@@ -210,7 +252,7 @@ window.wfaStart = function () {
     var el = $(id); el.value = st[key]; if (el.value !== st[key]) { st[key] = el.options[0].value; el.value = st[key]; }
     el.addEventListener('change', function () { st[key] = el.value; st.page = 60; savePrefs(); render(); });
   }
-  bindSel('ffv', 'fv'); bindSel('fsex', 'sex'); bindSel('fplace', 'place'); bindSel('ffac', 'fac'); bindSel('fkind', 'kind'); bindSel('fera', 'era'); bindSel('fsort', 'sort'); bindSel('fstatus', 'status');
+  bindSel('ffv', 'fv'); bindSel('fvoc', 'voc'); bindSel('frace', 'race'); bindSel('fsex', 'sex'); bindSel('fplace', 'place'); bindSel('ffac', 'fac'); bindSel('fkind', 'kind'); bindSel('fera', 'era'); bindSel('fsort', 'sort'); bindSel('fstatus', 'status');
   $('fcat').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; st.cat = +b.dataset.v; st.page = 60; savePrefs(); render(); });
   var tq; $('q').addEventListener('input', function () { var v = this.value; clearTimeout(tq); tq = setTimeout(function () { st.q = v.trim().toLowerCase().replace(/[۰-۹]/g, function (d) { return FD.indexOf(d); }); st.page = 60; render(); }, 180); });
   // jump to the first line that is not recorded yet (inside the current filters)

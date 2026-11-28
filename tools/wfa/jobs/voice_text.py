@@ -34,6 +34,7 @@ STT = "ci/data/vo_stt.json"
 TODO = "ci/data/vo_todo.json"
 CDN = "https://wow.zamimg.com/wowsounds/%d"
 # what whisper says on noise; never a real line on its own
+NOWORDS = re.compile(r"wound|attack|death|dying|footstep|foot|loop|fidget|stand|idle|breath|jump|land|crit|swim|mount|exert|effort|grunt|growl|roar|snarl|hiss|howl|precast|channel|stun|parry|dodge|block|knock|wing")
 JUNK = {"", "you", "thank you", "thanks for watching", "bye", "oh", "ah", "uh", "hmm", "huh", "mm", "um", "so", "okay"}
 
 
@@ -192,19 +193,24 @@ def _pcm(p):
 def hear(out, args, rep):
     L, G, T = out["L"], out["G"], out["T"]
     stt = _load(STT, {})
-    cats = [int(c) for c in args.get("cats", [0, 1, 2, 3])]
+    # fv: hear every line of the Forever client (voice_forever FV) that has no text and may hold words, player races first
+    fvo = set(out.get("FV") or []) if args.get("fv") else None
+    cats = None if (fvo is not None or args.get("cats") == "all") else [int(c) for c in args.get("cats", [0, 1, 2, 3])]
     limit = int(args.get("limit", 1500))
     budget = float(args.get("minutes", 35)) * 60
     cand = []
     for x in L:
         f = str(x[0])
-        if x[2] not in cats or f in T or f in stt:
+        if (cats is not None and x[2] not in cats) or f in T or f in stt:
             continue
         g = G[x[1]] if x[1] < len(G) else ["", ""]
-        if x[2] == 3 and not (x[4] or "npc" in x[3] or g[1] == "h"):
+        if fvo is not None:
+            if x[0] not in fvo or NOWORDS.search(x[3].lower()):
+                continue
+        elif x[2] == 3 and not (x[4] or "npc" in x[3] or g[1] == "h"):
             continue  # creature aggro noises: nothing to hear
         cand.append(x)
-    cand.sort(key=lambda x: (x[0] >= 600000, cats.index(x[2]), x[1], x[0]))
+    cand.sort(key=lambda x: (G[x[1]][1] != "h" if x[1] < len(G) else True, x[0] >= 600000, cats.index(x[2]) if cats else 0, x[1], x[0]))
     rep.ok("%d lines without a text in categories %s; hearing up to %d" % (len(cand), cats, limit))
     cand = cand[:limit]
     if not cand or not _whisper(rep):
@@ -271,7 +277,7 @@ def hear(out, args, rep):
         rep.add("error: " + s)
     for s in samples:
         rep.add(s)
-    left = len([x for x in L if x[2] in cats and str(x[0]) not in T and str(x[0]) not in stt])
+    left = len([x for x in L if (cats is None or x[2] in cats) and str(x[0]) not in T and str(x[0]) not in stt])
     rep.add("still to hear in these categories (before the aggro filter): %d" % left)
     return n
 

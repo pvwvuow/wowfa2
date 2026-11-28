@@ -1,0 +1,1 @@
+{"id": "0587-publish-122-571", "kind": "script", "why": "owner 28 Nov: check the addon and release it", "args": {"module": "cf_retry", "args": {"tag": "forever-v1.2.2.571-beta", "retag": false, "notes_replace": [[";", ","]]}}}

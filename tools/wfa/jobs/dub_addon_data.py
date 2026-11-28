@@ -46,8 +46,12 @@ def run(args, rep):
             M[int(p[1])] = p[2].split(",")
         elif p[0] == "X":
             X.append(p)
+    stems = args.get("stems")
+    if not stems and args.get("stems_from"):
+        import json
+        stems = json.load(open(args["stems_from"], encoding="utf-8"))["args"]["args"]["steps"][0]["args"]["stems"]
     have = collections.defaultdict(dict)
-    for st in args["stems"]:
+    for st in stems:
         g, _, stem = st.partition("/")
         if stem not in L[g]:
             rep.fail("no game sound for %s" % st)
@@ -75,7 +79,7 @@ def run(args, rep):
         k["orig"].append(fid)
         if stem in have[ERRG]:
             k["dub"].append(fid)
-    o = ["WoWFAVoiceData = {", '  dir = "Interface\\\\AddOns\\\\WoWFA_VoiceTest\\\\voice\\\\",', "  count = 0,", "  npcs = {},", "  generic = {"]
+    o = ["WoWFAVoiceData = {", '  dir = "Interface\\\\AddOns\\\\WoWFA_VoiceTest\\\\voice\\\\",', "  count = 0,", "  npcs = {},", "  extraMute = { %s }," % ", ".join(str(x) for x in S.get("_extra", [])), "  generic = {"]
     for g in sorted(dubbed):
         info, c = G[g], dubbed[g]
         o.append("    {")

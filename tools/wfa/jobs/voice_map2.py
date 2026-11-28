@@ -90,6 +90,12 @@ def run(args, rep):
         if s in keep and m:
             models.setdefault(m, set()).add(s)
     rep.ok("model files that use a dubbed voice set: %d" % len(models))
+    # the other voice sets that sit only on those models: such NPCs get the model's voice too (see the addon), so their English is muted too
+    set_models = {}
+    for _d, (s, m) in disp.items():
+        set_models.setdefault(s, set()).add(m)
+    extra = sorted(s for s in set_models if s not in keep and s in set_files and set_models[s] <= set(models))
+    rep.ok("voice sets on dubbed models that nobody dubbed: %d" % len(extra))
 
     rep.h("Creatures")
     url = str(args.get("cmangos") or "")
@@ -118,7 +124,8 @@ def run(args, rep):
             npc[r.get("entry")] = [cov.clean(r.get("name")), pairs]
     rep.ok("%d creatures use a dubbed voice set on at least one model" % len(npc))
     out = {"build": build or "latest", "sets": {str(s): set_files[s] for s in sorted(keep)},
-           "models": {str(m): sorted(ss) for m, ss in sorted(models.items())}, "npc": npc, "vendors": sorted(set(vendors))}
+           "models": {str(m): sorted(ss) for m, ss in sorted(models.items())}, "npc": npc, "vendors": sorted(set(vendors)),
+           "extra": {str(s): set_files[s] for s in extra}}
     os.makedirs("ci/work/voice", exist_ok=True)
     with open("ci/work/voice/addon_map.json", "w", encoding="utf-8", newline="\n") as fh:
         json.dump(out, fh, ensure_ascii=False, separators=(",", ":"), sort_keys=True)

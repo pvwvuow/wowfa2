@@ -114,8 +114,24 @@ def run(args, rep):
     for name in sorted(per):
         mute = sorted({f for s in per[name] for f in m["sets"][str(s)]})
         out.append("S|%s|%s" % (name, _ranges(mute)))
+    ex = sorted({f for fs in (m.get("extra") or {}).values() for f in fs})
+    if ex:
+        out.append("S|_extra|%s" % _ranges(ex))
+        rep.ok("%d more original sounds of voice sets on dubbed models (muted too)" % len(ex))
+    race_of = {g[0]: (g[3] or "").lower() for g in d["groups"]}
+    rep.h("Model voices")
     for mod, ss in sorted(m["models"].items(), key=lambda kv: int(kv[0])):
-        gs = sorted({set_group[str(s)] for s in ss if str(s) in set_group})
+        # a model shared by several races (a troll model that a goblin set also uses): the race with most voice sets owns it
+        votes = {}
+        for s in ss:
+            g = set_group.get(str(s))
+            if g:
+                votes[race_of.get(g, "")] = votes.get(race_of.get(g, ""), 0) + 1
+        top = max(votes.values()) if votes else 0
+        allg = sorted({set_group[str(s)] for s in ss if str(s) in set_group})
+        gs = sorted({set_group[str(s)] for s in ss if str(s) in set_group and votes[race_of.get(set_group[str(s)], "")] == top})
+        if gs != allg:
+            rep.add("model %s: %s only (not %s)" % (mod, ",".join(gs), ",".join(x for x in allg if x not in gs)))
         if gs:
             out.append("M|%s|%s" % (mod, ",".join(gs)))
     single, multi = {}, []

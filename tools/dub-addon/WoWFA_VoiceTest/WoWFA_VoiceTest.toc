@@ -2,7 +2,7 @@
 ## Title: WoWFA Voice Test |cfff0c75e(Persian dub)|r
 ## Notes: Test: plays Persian dub files for NPCs (and the error voice of your own character). /wfv
 ## Author: WoWFarsi
-## Version: 0.4.0
+## Version: 0.4.1
 ## AllowLoadGameType: forever
 ## SavedVariables: WoWFAVoiceDB
 

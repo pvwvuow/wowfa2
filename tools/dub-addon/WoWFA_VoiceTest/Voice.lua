@@ -346,6 +346,9 @@ local function muteAll()
   end
   for _, n in pairs(D.npcs) do one(n) end
   for _, g in ipairs(D.generic) do one(g) end
+  for _, id in ipairs(D.extraMute or {}) do
+    if pcall(MuteSoundFile, id) then muted = muted + 1 end
+  end
   return muted, true
 end
 
@@ -356,7 +359,7 @@ f:SetScript("OnEvent", function(_, ev, ...)
     local mutedErr = muteErrors()
     local nEntry = 0
     for _ in pairs(D.byEntry) do nEntry = nEntry + 1 end
-    say(string.format("v0.4.0 loaded: %d named NPC, %d voice groups, %d creatures, %d original sounds muted%s, model check %s (/wfv)",
+    say(string.format("v0.4.1 loaded: %d named NPC, %d voice groups, %d creatures, %d original sounds muted%s, model check %s (/wfv)",
       D.count or 0, #D.generic, nEntry, muted + mutedErr, has and "" or " (MuteSoundFile missing)", modelAvailable() and "on" or "OFF"))
     if D.player then
       say(string.format("own voice (%s %s): %s, %d error kinds", tostring(D.player.race), tostring(D.player.sex), errOn and "ON for this character" or "off (other race or sex)", nErr))

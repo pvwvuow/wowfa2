@@ -1,0 +1,206 @@
+## task 0575-studio-audit (script)
+
+**GREEN**
+
+
+### 1. Lines the studio page drops (Forever lines only)
+
+- ok: kind c: 1841 shown, 2764 dropped
+- ok: kind h: 2219 shown, 219 dropped
+reasons (kind, first matching word: lines):
+- c grunt:wound: 811
+- c grunt:attack: 790
+- c nomatch: 549
+- c grunt:death: 306
+- h nomatch: 146
+- c grunt:footstep: 53
+- c grunt:fidget: 49
+- c grunt:stand: 41
+- c grunt:moo: 39
+- h h-noise:giant: 31
+- c grunt:loop: 30
+- c grunt:idle: 21
+- c grunt:spell: 18
+- h grunt:jump: 15
+- h h-noise:choochoo: 14
+- c grunt:flirt: 11
+- c grunt:warcry: 8
+- c grunt:laugh: 8
+- c grunt:emote: 6
+- h grunt:stand: 6
+- h h-noise:footstep: 4
+- c grunt:stun: 3
+- c grunt:exert: 2
+- c grunt:battleshout: 2
+- c grunt:kiss: 2
+- c grunt:yawn: 2
+- c grunt:sigh: 2
+- c grunt:choochoo: 2
+- c grunt:knock: 2
+- c grunt:scream: 2
+- h h-noise:jump: 1
+- h h-noise:land: 1
+- c grunt:hiss: 1
+- c grunt:roar: 1
+- h h-noise:fidget: 1
+- c grunt:breath: 1
+- c grunt:sleep: 1
+- c grunt:crit: 1
+groups with the most dropped Forever lines (shown/dropped: samples):
+- Tauren [c] 25/205: taurenyesattack3, taurenyesattack1, taurenwarcry1, taurenfemalekiss01, taurenfemalechicken01, mtaurenfemalestunvoxa
+- Footsteps [h] 0/138: mfootmediumlargestonej, mfoothugegiantgrassc, mfoothugegiantsnowa, mfootsmallgrassd, footstepfishd, mfootsmalldirtc
+- Lavaworm [c] 16/40: lavaworm_wound_crit_04, lavaworm_wound_crit_03, lavaworm_wound_03, lavaworm_attack_crit_04, lavaworm_attack_crit_05, lavaworm_attack_10
+- Raven [c] 15/40: raven_death_10, raven_attack_08, raven_death_01, raven_attackcrit_04, raven_death_04, raven_attackcrit_01
+- Satyr2 [c] 5/40: mon_satyr_v2_attack_01, mon_satyr_v2_attack_02, mon_satyr_v2_attack_03, mon_satyr_v2_attack_04, mon_satyr_v2_attack_05, mon_satyr_v2_attack_06
+- Moose [c] 5/36: mon_moose_attack_01, mon_moose_attack_02, mon_moose_attack_03, mon_moose_attack_04, mon_moose_attack_05, mon_moose_attack_06
+- Moonkinv2 [c] 7/35: mon_moonkin_attack01, mon_moonkin_attack02, mon_moonkin_attack03, mon_moonkin_attack04, mon_moonkin_attack05, mon_moonkin_attack06
+- Owlcat [c] 6/35: mon_owlcat_attack01, mon_owlcat_attack02, mon_owlcat_attack03, mon_owlcat_attack04, mon_owlcat_attack05, mon_owlcat_attack06
+- Horse [c] 1/34: mhorsewounda, mhorseattackc, mhorseattackb, mhorsedeatha, mhorsewoundb, mhorseattacka
+- Koboldv2 [c] 7/34: mon_kobold_v2_attack_01, mon_kobold_v2_attack_02, mon_kobold_v2_attack_03, mon_kobold_v2_attack_04, mon_kobold_v2_attack_05, mon_kobold_v2_attack_06
+- Eagle [c] 4/32: mon_eagle_death_01, mon_eagle_death_02, mon_eagle_death_03, mon_eagle_death_04, mon_eagle_death_05, mon_eagle_death_06
+- Goblinmale [c] 0/30: goblinmale_death05, goblinmale_attack06, goblinmale_wound02, goblinmale_death04, goblinmale_attack05, goblinmale_wound06
+- Mistfox [c] 17/30: mistfox_death_05, mistfox_wound_03, mistfox_woundcrit_01, mistfox_attack_03, mistfox_wound_07, mistfox_woundcrit_07
+- Troggv2 [c] 4/28: mon_troggv2_attack_02, mon_troggv2_attack_03, mon_troggv2_attack_04, mon_troggv2_attack_05, mon_troggv2_attack_06, mon_troggv2_attack_07
+- Goblinfemale [c] 0/27: goblinfemale_wound02, goblinfemale_death03, goblinfemale_wound07, goblinfemale_death01, goblinfemale_death02, goblinfemale_attack02
+- Doomguard2 [c] 0/26: mon_sandpiper_attack_02, mon_sandpiper_attack_03, mon_sandpiper_attack_04, mon_sandpiper_attack_05, mon_sandpiper_attack_06, mon_sandpiper_attack_07
+- Playerexertions [h] 0/24: dwarffemalemainland, dwarffemalemainjump, dwarfmalemainjump, dwarfmalemainland, gnomefemalemainland, gnomefemalemainjump
+- Bearv2 [c] 7/22: mon_bear_v2_attack_01, mon_bear_v2_attack_02, mon_bear_v2_attack_03, mon_bear_v2_attack_04, mon_bear_v2_attack_05, mon_bear_v2_attack_06
+- Seagiantv2 [c] 4/21: mon_seagiant_v2_death_03, mon_seagiant_v2_death_04, mon_seagiant_v2_death_05, mon_seagiant_v2_wound_01, mon_seagiant_v2_wound_02, mon_seagiant_v2_wound_03
+- Kelthuzad [c] 11/20: kelthuzadwoundc, kelthuzadwounda, kel_naxx_death, kelthuzadwoundb, kelthuzadloop, kelthuzadattacka
+- Fireelemental [c] 0/20: mon_fireelementaldraenor_attack_01, mon_fireelementaldraenor_attack_02, mon_fireelementaldraenor_attack_03, mon_fireelementaldraenor_attack_04, mon_fireelementaldraenor_attack_05, mon_fireelementaldraenor_attack_06
+- Corgi [c] 0/19: pet_corgi_attack01, pet_corgi_attack02, pet_corgi_attack03, pet_corgi_attack04, pet_corgi_attack05, pet_corgi_death01
+- Tarantula [c] 2/18: mtarantulawoundd, mtarantulaattackc, mtarantulawoundb, mtarantulafidget2c, mtarantulafidget2b, mtarantulawounda
+- Ancientprotector [c] 0/17: mancientstandfidget1, mancientattack1, mancientattack3, mancientstandfidget2, mancientdeath1, mancientwound2
+- Archimonde [c] 6/17: cav_arch_death01, cav_arch_charm01, cav_arch_burn01, cav_arch_burn02, cav_arch_knockup02, cav_arch_charm02
+- Cthun [c] 0/17: cthundeath, cthunattacka, cthunwoundcrit, cthundeathisclose, cthunwoundc, cthunwounda
+- Wolf [c] 2/17: mwolfattack4, mwolfattack1, wolfstandvar4, mwolfattack6, mwolfattack2, mwolfattack3
+- Gnoll [c] 2/16: mgnollattack4, mgnollfidget2, mgnollattack5, mgnollattack7, mgnollattack6, mgnollwound4
+- Ragnaros [c] 1/16: ragnarosattackb, ragnarosattacka, ragnarosspecialattack01, ragnarosattackc, ragnarosattackd, ragnarosattacke
+- Ravenlord [c] 3/16: mon_ravenlord_attack_03, mon_ravenlord_attack_04, mon_ravenlord_attack_05, mon_ravenlord_attack_06, mon_ravenlord_attack_07, mon_ravenlord_attack_08
+- Ghoul [c] 1/15: mghoulattack3, mghoulattack5, mghoulwound3, mghoulwoundcritical1, mghoulfidget2b, mghoulfidget1a
+- Harvestgolem [c] 2/15: harvestgolemdeathstage1, harvestgolemwounda, harvestgolemwoundcriticala, harvestgolemattackb, harvestgolemdeathstage2, harvestgolemwoundb
+- Dragonwhelp [c] 6/14: mdragonwhelpwoundc, mdragonwhelprunfidgetb, mdragonwhelprunfidgetc, mdragonwhelpstandfidgeta, mdragonwhelprunfidgeta, mdragonwhelpattackb
+- Gnomespidertank [c] 2/14: gnomespidertankwoundb, gnomespidertankwoundf, gnomespidertankattackb, gnomespidertankloop, gnomespidertankwounde, gnomespidertankattacka
+- Basilisk [c] 1/13: mbasiliskstand3a, mbasiliskwounda, mbasiliskattackb, mbasiliskdeath2a, mbasiliskattackc, mbasiliskattacka
+- Dryad [c] 1/13: dryadwoundb, dryadstand2a, dryadattacka, dryadattackc, dryadwoundcrit, dryadwounda
+- Hydra [c] 1/13: mhydrawounda, mhydraattackc, mhydrawoundc, mhydraattacka, mhydrawoundcriticala, mhydraattackb
+- Lasher [c] 2/13: lasherwounda, lasherattackc, lasherwoundc, lasherattacka, lasherattackb, lasherdeath
+- Babymurloc [c] 0/13: babymurloca, babymurlocb, babymurlocdance, babymurlocc, babymurloc_attack_01, babymurloc_attack_06
+- Crab [c] 2/12: crabwoundc, crabwoundcrit, crabattackb, crabwounda, crabwoundb, crabattackc
+
+### 2. Voice files of the Forever client that are not in the database
+
+- ok: client sound files: 35668
+- ok: client sound files with a listfile path: 33838 (no path: 1830)
+client files per top folder (files, of them in the studio):
+- sound/creature: 8109, 4374
+- sound/doodad: 6890, 0
+- sound/spell: 5030, 0
+- sound/spells: 3596, 0
+- sound/character: 3391, 2669
+- sound/item: 2363, 0
+- sound/ambience: 2061, 0
+- sound/emitters: 851, 0
+- sound/music: 772, 0
+- sound/interface: 399, 0
+- sound/ui: 196, 0
+- sound/foley: 74, 0
+- sound/effects: 29, 0
+- sound/elevator_transport: 14, 0
+- sound/event: 14, 0
+- sound/event sounds: 11, 0
+- sound/universal: 10, 0
+- sound/cinematicvoices: 8, 0
+- sound/vehicles: 8, 0
+- sound/events: 2, 0
+- sound/soundtest06.ogg: 1, 0
+- sound/soundtest01.ogg: 1, 0
+- sound/dmf_l70etc01.ogg: 1, 0
+- spells/spell_generic_anima_cast_3502345.ogg: 1, 0
+- spells/spell_generic_anima_cast_3502346.ogg: 1, 0
+- ok: voice-like client files NOT in the studio: 4446 in 280 folders
+- character/footsteps: 397: 643449 mon_insectoid_large_footstep_01.ogg, 643451 mon_insectoid_large_footstep_02.ogg, 643453 mon_insectoid_large_footstep_03.ogg, 643455 mon_insectoid_large_footstep_04.ogg, 643457 mon_insectoid_large_footstep_05.ogg
+- creature/goblinheadmech: 138: 6245240 goblinheadmech_fidget_6245240.ogg, 6245242 goblinheadmech_fidget_6245242.ogg, 6245244 goblinheadmech_fidget_6245244.ogg, 6245246 goblinheadmech_fidget_6245246.ogg, 6245248 goblinheadmech_fidget_6245248.ogg
+- character/skyborne_elf_female: 133: 7744885 vo_skyborne_elf_female_flee_7744885.ogg, 7744886 vo_skyborne_elf_female_flee_7744886.ogg, 7744887 vo_skyborne_elf_female_flee_7744887.ogg, 7744888 vo_skyborne_elf_female_flirt_7744888.ogg, 7744889 vo_skyborne_elf_female_flirt_7744889.ogg
+- character/skyborne_elf_male: 132: 7744475 vo_skyborne_elf_male_charge_7744475.ogg, 7744479 vo_skyborne_elf_male_flee_7744479.ogg, 7744480 vo_skyborne_elf_male_flee_7744480.ogg, 7744481 vo_skyborne_elf_male_flee_7744481.ogg, 7744482 vo_skyborne_elf_male_flirt_7744482.ogg
+- creature/7478487: 127: 7964287 7478487_attack_7964287.ogg, 7964289 7478487_attack_7964289.ogg, 7964291 7478487_attack_7964291.ogg, 7964293 7478487_attack_7964293.ogg, 7964295 7478487_attack_7964295.ogg
+- creature/7478494: 119: 7973475 7478494_attackcritical_7973475.ogg, 7973477 7478494_attackcritical_7973477.ogg, 7973479 7478494_attackcritical_7973479.ogg, 7973481 7478494_attackcritical_7973481.ogg, 7973483 7478494_attackcritical_7973483.ogg
+- creature/5882574: 99: 6252083 5882574_fidget5_6252083.ogg, 6252085 5882574_fidget5_6252085.ogg, 6252087 5882574_fidget5_6252087.ogg, 6252089 5882574_fidget5_6252089.ogg, 6252091 5882574_fidget5_6252091.ogg
+- creature/furbolg2: 70: 4563218 furbolg2_aggro_4563218.ogg, 4563220 furbolg2_aggro_4563220.ogg, 4563222 furbolg2_aggro_4563222.ogg, 4563224 furbolg2_aggro_4563224.ogg, 4563226 furbolg2_aggro_4563226.ogg
+- creature/fogcreature: 65: 610257 mon_fogcreature_aggro_01.ogg, 610259 mon_fogcreature_aggro_02.ogg, 610261 mon_fogcreature_aggro_03.ogg, 610263 mon_fogcreature_aggro_04.ogg, 610265 mon_fogcreature_aggro_05.ogg
+- creature/giantwasp: 64: 3533496 mon_giantwasp_aggro_03_154703.ogg, 3533498 mon_giantwasp_aggro_02_154703.ogg, 5609419 giantwasp_wound_5609419.ogg, 5609421 giantwasp_wound_5609421.ogg, 5609423 giantwasp_wound_5609423.ogg
+- creature/incubus: 61: 4278423 vo_92_incubus_01_m.ogg, 4278424 vo_92_incubus_02_m.ogg, 4278425 vo_92_incubus_03_m.ogg, 4278426 vo_92_incubus_04_m.ogg, 4278427 vo_92_incubus_05_m.ogg
+- creature/triceratops: 60: 801330 mon_triceratops_aggro_01.ogg, 801332 mon_triceratops_aggro_02.ogg, 801334 mon_triceratops_aggro_03.ogg, 801336 mon_triceratops_aggro_04.ogg, 801338 mon_triceratops_aggro_05.ogg
+- creature/constructiondogpet: 60: 7545548 constructiondogpet_fidget7_7545548.ogg, 7545550 constructiondogpet_fidget7_7545550.ogg, 7545552 constructiondogpet_fidget7_7545552.ogg, 7545554 constructiondogpet_fidget7_7545554.ogg, 7545556 constructiondogpet_fidget7_7545556.ogg
+- creature/onyxpanther: 59: 623455 mon_onyx_panther_aggro01.ogg, 623457 mon_onyx_panther_aggro02.ogg, 623459 mon_onyx_panther_aggro03.ogg, 623461 mon_onyx_panther_aggro04.ogg, 623463 mon_onyx_panther_aggro05.ogg
+- creature/6018566: 57: 6245376 6018566_unknown_6245376.ogg, 6245378 6018566_unknown_6245378.ogg, 6245380 6018566_unknown_6245380.ogg, 6245382 6018566_unknown_6245382.ogg, 6245384 6018566_unknown_6245384.ogg
+- creature/shreddermount: 57: 6255041 shreddermount_fidget_6255041.ogg, 6255043 shreddermount_fidget_6255043.ogg, 6255045 shreddermount_fidget_6255045.ogg, 6255047 shreddermount_fidget_6255047.ogg, 6255049 shreddermount_fidget_6255049.ogg
+- creature/chihuahuadogpet: 53: 6856305 chihuahuadogpet_aggro_6856305.ogg, 6856307 chihuahuadogpet_aggro_6856307.ogg, 6856309 chihuahuadogpet_aggro_6856309.ogg, 6856311 chihuahuadogpet_aggro_6856311.ogg, 6856313 chihuahuadogpet_aggro_6856313.ogg
+- creature/dwarfbearsnowmount: 46: 8300783 dwarfbearsnowmount_fidget_8300783.ogg, 8300785 dwarfbearsnowmount_fidget_8300785.ogg, 8300787 dwarfbearsnowmount_fidget_8300787.ogg, 8300789 dwarfbearsnowmount_fidget_8300789.ogg, 8300791 dwarfbearsnowmount_fidget_8300791.ogg
+- creature/shadowguardmechboss: 44: 6784838 shadowguardmechboss_loop_6784838.ogg, 6784840 shadowguardmechboss_loop_6784840.ogg, 6784843 shadowguardmechboss_loop_6784843.ogg, 6784845 shadowguardmechboss_loop_6784845.ogg, 6784847 shadowguardmechboss_loop_6784847.ogg
+- creature/6181820: 43: 7463817 6181820_fidget11_7463817.ogg, 7463819 6181820_fidget11_7463819.ogg, 7463821 6181820_fidget11_7463821.ogg, 7463823 6181820_fidget11_7463823.ogg, 7463825 6181820_fidget11_7463825.ogg
+- creature/mothardenweald: 41: 3593912 mon_mothardenweald_aggro_01_158023.ogg, 3593914 mon_mothardenweald_aggro_02_158023.ogg, 3593916 mon_mothardenweald_aggro_03_158023.ogg, 3593918 mon_mothardenweald_aggro_04_158023.ogg, 3593920 mon_mothardenweald_aggro_05_158023.ogg
+- creature/5927977: 40: 7049315 5927977_wound_7049315.ogg, 7049317 5927977_wound_7049317.ogg, 7049319 5927977_wound_7049319.ogg, 7049321 5927977_wound_7049321.ogg, 7049323 5927977_wound_7049323.ogg
+- creature/draenorwolf: 38: 929455 fx_fw_wolfhowl_dry_01.ogg, 929457 fx_fw_wolfhowl_dry_02.ogg, 929459 fx_fw_wolfhowl_dry_03.ogg, 929461 fx_fw_wolfhowl_dry_04.ogg, 929463 fx_fw_wolfhowl_dry_05.ogg
+- creature/cricket: 35: 628288 mon_cricket_attack01.ogg, 628290 mon_cricket_attack02.ogg, 628292 mon_cricket_attack03.ogg, 628294 mon_cricket_attack04.ogg, 628296 mon_cricket_attack05.ogg
+- creature/5876723: 34: 6253317 5876723_fidget11_6253317.ogg, 6253319 5876723_fidget11_6253319.ogg, 6253321 5876723_fidget11_6253321.ogg, 6253323 5876723_fidget11_6253323.ogg, 6253325 5876723_fidget11_6253325.ogg
+- creature/6078519: 34: 7049627 6078519_wound_7049627.ogg, 7049629 6078519_wound_7049629.ogg, 7049631 6078519_wound_7049631.ogg, 7049633 6078519_wound_7049633.ogg, 7049635 6078519_wound_7049635.ogg
+- creature/iceelementalprimal: 32: 4543522 iceelementalprimal_battleshout_4543522.ogg, 4543524 iceelementalprimal_battleshout_4543524.ogg, 4543526 iceelementalprimal_battleshout_4543526.ogg, 4543528 iceelementalprimal_battleshout_4543528.ogg, 4543540 iceelementalprimal_fidget_4543540.ogg
+- creature/spiritdarter: 31: 628437 mon_spiritdarter_aggro_01.ogg, 628439 mon_spiritdarter_aggro_02.ogg, 628441 mon_spiritdarter_aggro_03.ogg, 628443 mon_spiritdarter_aggro_04.ogg, 628445 mon_spiritdarter_aggro_05.ogg
+- creature/wingflap: 30: 1553607 fx_wingflap_feather_medium01.ogg, 1553608 fx_wingflap_feather_medium02.ogg, 1553609 fx_wingflap_feather_medium03.ogg, 1553610 fx_wingflap_feather_medium04.ogg, 1553611 fx_wingflap_feather_medium05.ogg
+- creature/revenant2_earth: 30: 4551897 revenant2_earth_fidget_4551897.ogg, 4551899 revenant2_earth_fidget_4551899.ogg, 4551901 revenant2_earth_fidget_4551901.ogg, 4551903 revenant2_earth_fidget_4551903.ogg, 4551905 revenant2_earth_fidget_4551905.ogg
+- creature/goblinspidertank: 30: 6359439 goblinspidertank_cast_oneshot_6359439.ogg, 6359441 goblinspidertank_cast_oneshot_6359441.ogg, 6359443 goblinspidertank_cast_oneshot_6359443.ogg, 6359445 goblinspidertank_cast_oneshot_6359445.ogg, 6359447 goblinspidertank_cast_oneshot_6359447.ogg
+- creature/6101859: 30: 6788422 6101859_loop_6788422.ogg, 6788424 6101859_loop_6788424.ogg, 6788426 6101859_loop_6788426.ogg, 6788428 6101859_loop_6788428.ogg, 6788430 6101859_loop_6788430.ogg
+- creature/6247694: 30: 7049435 6247694_aggro_7049435.ogg, 7049437 6247694_aggro_7049437.ogg, 7049439 6247694_aggro_7049439.ogg, 7049441 6247694_aggro_7049441.ogg, 7049443 6247694_aggro_7049443.ogg
+- creature/5884375: 30: 7227247 5884375_loop_7227247.ogg, 7227249 5884375_loop_7227249.ogg, 7227251 5884375_loop_7227251.ogg, 7227253 5884375_loop_7227253.ogg, 7227255 5884375_loop_7227255.ogg
+- creature/satyr3: 29: 7962370 satyr3_attack_7962370.ogg, 7962372 satyr3_attack_7962372.ogg, 7962374 satyr3_attack_7962374.ogg, 7962376 satyr3_attack_7962376.ogg, 7962378 satyr3_attack_7962378.ogg
+- creature/snowelemental: 28: 3748701 snowelemental_fidget_3748701.ogg, 3748703 snowelemental_fidget_3748703.ogg, 3748705 snowelemental_fidget_3748705.ogg, 4626827 snowelemental_fidget4_4626827.ogg, 4626829 snowelemental_fidget4_4626829.ogg
+- creature/fx_fungarianmysticscluster_aura: 28: 5736443 fx_fungarianmysticscluster_aura_death_5736443.ogg, 5736445 fx_fungarianmysticscluster_aura_death_5736445.ogg, 5736447 fx_fungarianmysticscluster_aura_death_5736447.ogg, 5736449 fx_fungarianmysticscluster_aura_death_5736449.ogg, 5736451 fx_fungarianmysticscluster_aura_death_5736451.ogg
+- creature/7581813: 27: 7964074 7581813_attack_7964074.ogg, 7964076 7581813_attack_7964076.ogg, 7964078 7581813_attack_7964078.ogg, 7964080 7581813_attack_7964080.ogg, 7964082 7581813_attack_7964082.ogg
+- creature/maldraxxusboar: 26: 3597806 mon_maldraxxusboar_aggro_00_158567.ogg, 3597808 mon_maldraxxusboar_aggro_01_158567.ogg, 3597810 mon_maldraxxusboar_aggro_02_158567.ogg, 3597818 mon_maldraxxusboar_attack_00_158568.ogg, 3597820 mon_maldraxxusboar_attack_01_158568.ogg
+- creature/goblinbombbot: 25: 6242328 goblinbombbot_loop_6242328.ogg, 6242330 goblinbombbot_loop_6242330.ogg, 6242332 goblinbombbot_loop_6242332.ogg, 6242334 goblinbombbot_loop_6242334.ogg, 6242336 goblinbombbot_loop_6242336.ogg
+- creature/kareshelemental: 25: 6788682 kareshelemental_loop_6788682.ogg, 6788684 kareshelemental_loop_6788684.ogg, 6788686 kareshelemental_loop_6788686.ogg, 6788688 kareshelemental_loop_6788688.ogg, 6788690 kareshelemental_loop_6788690.ogg
+- creature/centaur2_male: 24: 4577735 centaur2_male_fidget_4577735.ogg, 4577737 centaur2_male_fidget_4577737.ogg, 4577739 centaur2_male_fidget_4577739.ogg, 4577741 centaur2_male_fidget_4577741.ogg, 4577743 centaur2_male_fidget_4577743.ogg
+- creature/undeadicetroll: 23: 602756 undeadicetrollattack7.ogg, 602759 undeadicetrollwound7.ogg, 602762 undeadicetrollwound10.ogg, 602765 undeadicetrollattack3.ogg, 602768 undeadicetrollwound9.ogg
+- creature/companiondrake: 23: 4059176 companiondrake_aura_loop_4059176.ogg, 4517650 companiondrake_fidget16_4517650.ogg, 4517652 companiondrake_fidget16_4517652.ogg, 4517654 companiondrake_fidget16_4517654.ogg, 4627378 companiondrake_aura_loop_4627378.ogg
+- creature/snailrock: 22: 4543428 snailrock_fidget_4543428.ogg, 4543430 snailrock_fidget_4543430.ogg, 4543432 snailrock_fidget_4543432.ogg, 4543434 snailrock_fidget_4543434.ogg, 4543436 snailrock_fidget_4543436.ogg
+- creature/30thgryphonmount: 22: 6209473 30thgryphonmount_battleshout_6209473.ogg, 6209475 30thgryphonmount_battleshout_6209475.ogg, 6209477 30thgryphonmount_battleshout_6209477.ogg, 6209479 30thgryphonmount_battleshout_6209479.ogg, 6209497 30thgryphonmount_fidget_6209497.ogg
+- creature/5882586: 22: 6252059 5882586_fidget5_6252059.ogg, 6252061 5882586_fidget5_6252061.ogg, 6252063 5882586_fidget5_6252063.ogg, 6252065 5882586_fidget5_6252065.ogg, 6252067 5882586_fidget5_6252067.ogg
+- creature/manaray: 21: 1663826 mon_manaray_chuff_03.ogg, 1663827 mon_manaray_chuff_04.ogg, 1663828 mon_manaray_chuff_05.ogg, 1663829 mon_manaray_chuff_06.ogg, 1663830 mon_manaray_chuff_07.ogg
+- creature/ladybugpet: 21: 5551200 ladybugpet_fidget_5551200.ogg, 5551202 ladybugpet_fidget_5551202.ogg, 5551204 ladybugpet_fidget_5551204.ogg, 5551206 ladybugpet_fidget_5551206.ogg, 5551208 ladybugpet_fidget_5551208.ogg
+- creature/5884369: 21: 7311926 5884369_fidget6_7311926.ogg, 7311928 5884369_fidget6_7311928.ogg, 7311930 5884369_fidget6_7311930.ogg, 7311932 5884369_fidget6_7311932.ogg, 7311934 5884369_fidget6_7311934.ogg
+- creature/draenorwolfpup: 20: 977101 pet_draenorwolfpup_attack01.ogg, 977103 pet_draenorwolfpup_attack02.ogg, 977105 pet_draenorwolfpup_attack03.ogg, 977107 pet_draenorwolfpup_attackcrit01.ogg, 977109 pet_draenorwolfpup_attackcrit02.ogg
+- creature/deepseacrab: 20: 4686287 deepseacrab_fidget4_4686287.ogg, 4686289 deepseacrab_fidget4_4686289.ogg, 4686291 deepseacrab_fidget4_4686291.ogg, 4686293 deepseacrab_fidget4_4686293.ogg, 4686295 deepseacrab_fidget4_4686295.ogg
+- creature/fleshbeastdark: 20: 5335128 fleshbeastdark_fidget17_5335128.ogg, 5335130 fleshbeastdark_fidget17_5335130.ogg, 5335132 fleshbeastdark_fidget17_5335132.ogg, 5335134 fleshbeastdark_fidget17_5335134.ogg, 5335136 fleshbeastdark_fidget17_5335136.ogg
+- creature/rostrumairship: 20: 5342350 rostrumairship_precaststart_loop_5342350.ogg, 5342352 rostrumairship_precaststart_loop_5342352.ogg, 5342354 rostrumairship_precaststart_loop_5342354.ogg, 5342356 rostrumairship_precaststart_loop_5342356.ogg, 5342358 rostrumairship_precaststart_loop_5342358.ogg
+- creature/tidalguardian: 20: 5657934 tidalguardian_fidget6_5657934.ogg, 5657936 tidalguardian_fidget6_5657936.ogg, 5657938 tidalguardian_fidget6_5657938.ogg, 5657940 tidalguardian_fidget6_5657940.ogg, 5657942 tidalguardian_fidget6_5657942.ogg
+- creature/6379358: 20: 7049335 6379358_fidget6_7049335.ogg, 7049337 6379358_fidget6_7049337.ogg, 7049339 6379358_fidget6_7049339.ogg, 7049341 6379358_fidget6_7049341.ogg, 7049343 6379358_fidget6_7049343.ogg
+- creature/resinrhinomount: 20: 7257843 resinrhinomount_cast_oneshot_7257843.ogg, 7257845 resinrhinomount_cast_oneshot_7257845.ogg, 7257847 resinrhinomount_cast_oneshot_7257847.ogg, 7257849 resinrhinomount_cast_oneshot_7257849.ogg, 7257851 resinrhinomount_cast_oneshot_7257851.ogg
+- creature/5884327: 20: 7258630 5884327_fidget6_7258630.ogg, 7258637 5884327_fidget6_7258637.ogg, 7258642 5884327_fidget6_7258642.ogg, 7258645 5884327_fidget6_7258645.ogg, 7258647 5884327_fidget6_7258647.ogg
+- creature/7110402: 20: 7261559 7110402_fidget6_7261559.ogg, 7261561 7110402_fidget6_7261561.ogg, 7261563 7110402_fidget6_7261563.ogg, 7261565 7110402_fidget6_7261565.ogg, 7261567 7110402_fidget6_7261567.ogg
+- creature/oldgodfishmount: 19: 5846775 oldgodfishmount_moving_5846775.ogg, 5846777 oldgodfishmount_moving_5846777.ogg, 5846779 oldgodfishmount_moving_5846779.ogg, 5846781 oldgodfishmount_moving_5846781.ogg, 5846783 oldgodfishmount_moving_5846783.ogg
+- creature/mountaingiant: 19: 7961480 mountaingiant_attackcritical_7961480.ogg, 7961482 mountaingiant_attackcritical_7961482.ogg, 7961484 mountaingiant_attackcritical_7961484.ogg, 7961486 mountaingiant_attackcritical_7961486.ogg, 7961488 mountaingiant_attackcritical_7961488.ogg
+- creature/bearmountutility: 18: 6049199 bearmountutility_aggro_6049199.ogg, 6049201 bearmountutility_aggro_6049201.ogg, 6049203 bearmountutility_aggro_6049203.ogg, 6049205 bearmountutility_aggro_6049205.ogg, 6049207 bearmountutility_fidget_6049207.ogg
+- creature/5872182: 18: 6331742 5872182_fidget12_6331742.ogg, 6331744 5872182_fidget12_6331744.ogg, 6331746 5872182_fidget12_6331746.ogg, 6331748 5872182_fidget12_6331748.ogg, 6331750 5872182_fidget12_6331750.ogg
+- creature/gilneasstagecoach: 17: 600185 gilneasstagecoach_jinglesos_02.ogg, 600188 gilneasstagecoach_idleos_09.ogg, 600194 gilneasstagecoach_idleos_05.ogg, 600197 gilneasstagecoach_jinglesos_04.ogg, 600200 gilneasstagecoach_idleos_02.ogg
+- creature/revenant2_fire: 17: 4544779 revenant2_fire_fidget_4544779.ogg, 4544781 revenant2_fire_fidget_4544781.ogg, 4544783 revenant2_fire_fidget_4544783.ogg, 4544785 revenant2_fire_fidget_4544785.ogg, 4544787 revenant2_fire_fidget_4544787.ogg
+- creature/kobyss: 17: 5905079 kobyss_fidget7_5905079.ogg, 5905081 kobyss_fidget7_5905081.ogg, 5905083 kobyss_fidget7_5905083.ogg, 5905085 kobyss_fidget7_5905085.ogg, 5905087 kobyss_fidget7_5905087.ogg
+- creature/crucible_soulseeker: 16: 3691849 mon_crucible_soulseeker_attack_01_174592.ogg, 3691851 mon_crucible_soulseeker_attack_02_174592.ogg, 3691853 mon_crucible_soulseeker_attack_03_174592.ogg, 3691855 mon_crucible_soulseeker_attack_04_174592.ogg, 3691857 mon_crucible_soulseeker_attack_05_174592.ogg
+- creature/giro: 16: 4280359 giro_fidget11_4280359.ogg, 4280361 giro_fidget11_4280361.ogg, 4280363 giro_fidget11_4280363.ogg, 4280365 giro_fidget11_4280365.ogg, 4280367 giro_fidget11_4280367.ogg
+- creature/lunardragonmount: 16: 5338911 lunardragonmount_fidget5_5338911.ogg, 5338913 lunardragonmount_fidget5_5338913.ogg, 5338915 lunardragonmount_fidget5_5338915.ogg, 5338917 lunardragonmount_fidget5_5338917.ogg, 5338919 lunardragonmount_fidget5_5338919.ogg
+- creature/brontosaurusmountspecial: 16: 6211670 brontosaurusmountspecial_fidget16_6211670.ogg, 6211672 brontosaurusmountspecial_fidget16_6211672.ogg, 6211674 brontosaurusmountspecial_fidget16_6211674.ogg, 6211676 brontosaurusmountspecial_fidget16_6211676.ogg, 6211678 brontosaurusmountspecial_fidget16_6211678.ogg
+- creature/treasuregoblinpet: 15: 943380 pet_treasuregoblinpet_bag_foley_01.ogg, 943382 pet_treasuregoblinpet_bag_foley_02.ogg, 943384 pet_treasuregoblinpet_bag_foley_03.ogg, 943386 pet_treasuregoblinpet_bag_foley_04.ogg, 943388 pet_treasuregoblinpet_bag_foley_05.ogg
+- creature/invisiblestalker: 15: 3548497 mon_invisiblestalker_loop_01_176619.ogg, 3548499 mon_invisiblestalker_loop_02_176619.ogg, 3548501 mon_invisiblestalker_loop_03_176619.ogg, 3812012 mon_invisiblestalker_loop_01_177228.ogg, 3812014 mon_invisiblestalker_loop_02_177228.ogg
+- creature/gnoll2caster: 15: 4545468 gnoll2caster_fidget8_4545468.ogg, 4545470 gnoll2caster_fidget8_4545470.ogg, 4545472 gnoll2caster_fidget8_4545472.ogg, 4545474 gnoll2caster_fidget8_4545474.ogg, 4545476 gnoll2caster_fidget8_4545476.ogg
+- creature/titanmale: 15: 4548997 titanmale_fidget_4548997.ogg, 4548999 titanmale_fidget_4548999.ogg, 4549001 titanmale_fidget_4549001.ogg, 4549003 titanmale_fidget_4549003.ogg, 4549005 titanmale_fidget5_4549005.ogg
+- creature/smolderon: 15: 4569668 smolderon_fidget14_4569668.ogg, 4569670 smolderon_fidget14_4569670.ogg, 4569672 smolderon_fidget14_4569672.ogg, 4569674 smolderon_fidget14_4569674.ogg, 4569676 smolderon_fidget14_4569676.ogg
+- creature/protodragonice: 15: 4626519 protodragonice_loop_4626519.ogg, 4626521 protodragonice_loop_4626521.ogg, 4626523 protodragonice_loop_4626523.ogg, 4627086 protodragonice_fidget_4627086.ogg, 4627088 protodragonice_fidget_4627088.ogg
+- creature/5736026: 15: 5796685 5736026_fidget_5796685.ogg, 5796687 5736026_fidget_5796687.ogg, 5796689 5736026_fidget_5796689.ogg, 5796691 5736026_fidget_5796691.ogg, 5796693 5736026_fidget_5796693.ogg
+- creature/voidcreeper: 15: 6892303 voidcreeper_fidget7_6892303.ogg, 6892305 voidcreeper_fidget7_6892305.ogg, 6892307 voidcreeper_fidget7_6892307.ogg, 6892309 voidcreeper_fidget7_6892309.ogg, 6892311 voidcreeper_fidget7_6892311.ogg
+- creature/dragonhawk2lightmount: 15: 6917022 dragonhawk2lightmount_fidget7_6917022.ogg, 6917024 dragonhawk2lightmount_fidget7_6917024.ogg, 6917026 dragonhawk2lightmount_fidget7_6917026.ogg, 6917028 dragonhawk2lightmount_fidget7_6917028.ogg, 6917030 dragonhawk2lightmount_fidget7_6917030.ogg
+- creature/druidbearskyborne_c60: 15: 8207931 druidbearskyborne_c60_attack_8207931.ogg, 8207933 druidbearskyborne_c60_attack_8207933.ogg, 8207935 druidbearskyborne_c60_attack_8207935.ogg, 8207937 druidbearskyborne_c60_attack_8207937.ogg, 8207939 druidbearskyborne_c60_attack_8207939.ogg
+
+### 3. Texts, race, sex, names
+
+- ok: Forever lines 7043, with spoken text 2304, with Persian 328
+- ok: group names used by more than one group: 4: Female, Gnome, Goblinfemale, Troll

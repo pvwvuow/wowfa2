@@ -124,6 +124,7 @@
     var fa = function (n) { return String(n).replace(/\d/g, function (d) { return '\u06f0\u06f1\u06f2\u06f3\u06f4\u06f5\u06f6\u06f7\u06f8\u06f9'[+d]; }); };
     var old = D.lines.filter(function (l) { return l[0] < 600000; }).length;
     var s = document.getElementById('stats'); if (s) s.textContent = '\u0627\u0632 ' + fa(D.lines.length) + ' \u062e\u0637 \u062d\u0631\u0641 NPC (' + fa(old) + ' \u062e\u0637 \u0642\u062f\u06cc\u0645\u06cc)\u060c';
+    if (D.fv && s) { var fn = D.lines.filter(function (l) { return D.fv[l[0]]; }).length; s.textContent += ' \u0627\u0632 \u0627\u06cc\u0646\u200c\u0647\u0627 ' + fa(fn) + ' \u062e\u0637 \u062f\u0631 \u06a9\u0644\u0627\u06cc\u0646\u062a Forever ' + (D.fvBuild || '') + ' \u0647\u0633\u062a\u061b'; }
     window.wfaStart();
   }
   function showImport(msg) {
@@ -147,6 +148,7 @@
       // full database shipped with the studio (voice_db.js): no import needed
       var R = window.VO_RAW, D = build(R.L, R.G);
       D.T = R.T || {}; D.C = {}; D.thumb = R.thumb || '';
+      D.fv = null; if (R.FV && R.FV.length) { D.fv = {}; R.FV.forEach(function (f) { D.fv[f] = 1; }); D.fvBuild = R.FB || ''; }
       D.groups.forEach(function (g, i) { var c = R.C && R.C[String(g[5])]; if (c) D.C[i] = c; });
       D.M = {}; D.groups.forEach(function (g, i) { var m = R.M && R.M[String(g[5])]; if (m) D.M[i] = m; });
       start(D);

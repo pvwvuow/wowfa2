@@ -12,7 +12,7 @@ window.wfaStart = function () {
   function load(k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }
   function save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
   var done = load('wfadub_done', {});
-  var st = { q: '', cat: -1, sex: 'all', era: 'old', kind: 'all', place: 'all', fac: 'all', status: 'all', sort: 'name', page: 60 };
+  var st = { q: '', cat: -1, sex: 'all', era: 'old', kind: 'all', place: 'all', fac: 'all', fv: 'on', status: 'all', sort: 'name', page: 60 };
   var MT = D.M || {};
   var root = null, rootOk = false;
   var $ = function (id) { return document.getElementById(id); };
@@ -27,12 +27,17 @@ window.wfaStart = function () {
   byG.forEach(function (a) { a.sort(function (x, y) { return L[x][2] - L[y][2] || nat.compare(L[x][3], L[y][3]); }); });
 
   var PK = 'wfadub_f';
-  (function () { var p = load(PK, null); if (p) ['cat', 'sex', 'era', 'kind', 'place', 'fac', 'status', 'sort'].forEach(function (k) { if (p[k] !== undefined) st[k] = p[k]; }); })();
-  function savePrefs() { save(PK, { cat: st.cat, sex: st.sex, era: st.era, kind: st.kind, place: st.place, fac: st.fac, status: st.status, sort: st.sort }); }
+  (function () { var p = load(PK, null); if (p) ['cat', 'sex', 'era', 'kind', 'place', 'fac', 'fv', 'status', 'sort'].forEach(function (k) { if (p[k] !== undefined) st[k] = p[k]; }); })();
+  function savePrefs() { save(PK, { cat: st.cat, sex: st.sex, era: st.era, kind: st.kind, place: st.place, fac: st.fac, fv: st.fv, status: st.status, sort: st.sort }); }
   // scope = what the numbers count (era, kind, sex); lineOk adds category and recorded-state
+  // 1.2.3 (the owner 28 Nov: dub only what Forever needs): FV = the sound files the Forever client has (voice_forever job).
+  // With the filter on, only those lines count, and only player races that can be played in Forever; the era filter is not needed then.
+  var FVS = D.fv || null, PLAY = { human: 1, dwarf: 1, gnome: 1, nightelf: 1, orc: 1, troll: 1, tauren: 1, scourge: 1 };
+  function isFv(l, g) { if (!FVS) return true; if (g[1] === 'h' && g[3] && !PLAY[g[3]]) return false; return !!FVS[l[0]]; }
   function inScope(i) {
     var l = L[i], g = G[l[1]];
-    if (st.era === 'old' && l[6] !== 'old') return false;
+    if (st.fv === 'on' && !isFv(l, g)) return false;
+    if (st.fv !== 'on' && st.era === 'old' && l[6] !== 'old') return false;
     if (st.kind !== 'all' && g[1] !== st.kind) return false;
     if (st.place !== 'all') { var mp = MT[l[1]], pp = mp ? mp.p : ''; if (st.place === 'd' ? !(pp === 'd' || pp === 'b') : st.place === 'w' ? !(pp === 'w' || pp === 'b') : pp) return false; }
     if (st.fac !== 'all') { var mf = MT[l[1]], ff = mf ? mf.f : ''; if (st.fac === 'u' ? ff : !(ff === st.fac || (ff === 'B' && (st.fac === 'A' || st.fac === 'H')))) return false; }
@@ -165,7 +170,7 @@ window.wfaStart = function () {
     var el = $('sumtab'); if (!el) return;
     var rows = {};
     function add(k, l) { var r = rows[k] || (rows[k] = [0, 0, 0]); r[0]++; if (l[6] === 'old') r[1]++; if (done[l[0]]) r[2]++; }
-    for (var i = 0; i < L.length; i++) { var l = L[i], kd = G[l[1]][1] === 'h' ? 'p' : 'n'; add(kd + l[2], l); add(kd + '*', l); add('*' + l[2], l); add('**', l); }
+    for (var i = 0; i < L.length; i++) { var l = L[i], kd = G[l[1]][1] === 'h' ? 'p' : 'n'; if (st.fv === 'on' && !isFv(l, G[l[1]])) continue; add(kd + l[2], l); add(kd + '*', l); add('*' + l[2], l); add('**', l); }
     function cell(k) { var r = rows[k] || [0, 0, 0]; return '<td><b>' + fa(r[0]) + '</b> <small>' + fa(r[1]) + ' \u0642\u062f\u06cc\u0645\u06cc \u00b7 ' + fa(r[2]) + ' \u0636\u0628\u0637</small></td>'; }
     var h = '<table><tr><th>\u062f\u0633\u062a\u0647</th><th>NPC \u0648 \u0645\u0648\u062c\u0648\u062f\u0627\u062a</th><th>\u0646\u0698\u0627\u062f\u0647\u0627\u06cc \u0628\u0627\u0632\u06cc\u06a9\u0646</th><th>\u0647\u0645\u0647</th></tr>';
     CATS.forEach(function (c, i) { h += '<tr><th>' + CAT_FA[c] + '</th>' + cell('n' + i) + cell('p' + i) + cell('*' + i) + '</tr>'; });
@@ -197,7 +202,7 @@ window.wfaStart = function () {
     var el = $(id); el.value = st[key]; if (el.value !== st[key]) { st[key] = el.options[0].value; el.value = st[key]; }
     el.addEventListener('change', function () { st[key] = el.value; st.page = 60; savePrefs(); render(); });
   }
-  bindSel('fsex', 'sex'); bindSel('fplace', 'place'); bindSel('ffac', 'fac'); bindSel('fkind', 'kind'); bindSel('fera', 'era'); bindSel('fsort', 'sort'); bindSel('fstatus', 'status');
+  bindSel('ffv', 'fv'); bindSel('fsex', 'sex'); bindSel('fplace', 'place'); bindSel('ffac', 'fac'); bindSel('fkind', 'kind'); bindSel('fera', 'era'); bindSel('fsort', 'sort'); bindSel('fstatus', 'status');
   $('fcat').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; st.cat = +b.dataset.v; st.page = 60; savePrefs(); render(); });
   var tq; $('q').addEventListener('input', function () { var v = this.value; clearTimeout(tq); tq = setTimeout(function () { st.q = v.trim().toLowerCase().replace(/[۰-۹]/g, function (d) { return FD.indexOf(d); }); st.page = 60; render(); }, 180); });
   // jump to the first line that is not recorded yet (inside the current filters)

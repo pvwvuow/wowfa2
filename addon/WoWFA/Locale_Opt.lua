@@ -84,6 +84,11 @@ L.ALERTS[#L.ALERTS + 1] = { "Must have ammo equipped in the ammo slot.", fa("ب�
 L.ALERTS[#L.ALERTS + 1] = { "You need to be closer to interact with that target.", fa("برای تعامل با این هدف باید نزدیک~تر بروید.") }
 L.ALERTS[#L.ALERTS + 1] = { "You don't have a pet!", fa("حیوان خانگی ندارید!") }
 L.ALERTS[#L.ALERTS + 1] = { "Thank you for your report!", fa("از گزارش شما سپاسگزاریم!") }
+-- 1.2.3 (report 1.2.2.571)
+L.ALERTS[#L.ALERTS + 1] = { "No room for more features at this camp.", fa("جا برای امکانات بیشتر در این اردوگاه نیست.") }
+L.ALERTS[#L.ALERTS + 1] = { "Someone is already looting that corpse.", fa("شخص دیگری در حال غارت آن لاشه است.") }
+L.ALERTS[#L.ALERTS + 1] = { "To use this mount in the current area you must be above water.", fa("برای استفاده از این مرکب در این منطقه باید بالای آب باشید.") }
+L.ALERTS[#L.ALERTS + 1] = { "That item is not a valid target.", fa("این آیتم هدف معتبری نیست.") }
 
 -- 1.0.6 (the owner's screenshots): fixed lines under the world map that are no zone
 -- names: the map description ("Fishing: 1") and the tags of the quest list ("(Dungeon)").

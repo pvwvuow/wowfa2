@@ -1,0 +1,1 @@
+{"id": "0586-pre-release-lua", "kind": "script", "why": "owner 28 Nov: check the addon, release it if fine", "args": {"module": "lua_check", "args": {"files": ["addon/WoWFA/Text.lua", "addon/WoWFA/Modules/GameUI.lua", "addon/WoWFA/Core.lua", "addon/WoWFA/Options.lua", "addon/WoWFA/Taint.lua", "tests/run.lua"]}}}

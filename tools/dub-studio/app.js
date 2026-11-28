@@ -10,6 +10,7 @@ window.wfaStart = function () {
   CAT_FA.exert = "واکنش بدن NPC (زخم، حمله، مرگ)";
   CAT_FA.beast = "جانور و هیولا (معمولا دوبله نمی‌خواهد)";
   CAT_FA.other = "سایر صداها";
+  CAT_FA.races = "نژادها (پک کامل بازیکن)";
   var RACE_FA = { human: 'انسان', dwarf: 'دورف', gnome: 'گنوم', nightelf: 'نایت\u200cالف', orc: 'اورک', troll: 'ترول', tauren: 'تائورن', scourge: 'آندد', bloodelf: 'بلادالف', draenei: 'درنای', goblin: 'گابلین', worgen: 'ورگن', pandaren: 'پانداران' };
   var ERA_FA = { old: 'قدیمی', new: 'جدید', WoD: 'WoD', Legion: 'Legion', BfA: 'BfA', SL: 'Shadowlands', DF: 'Dragonflight', TWW: 'War Within' };
   var CREATURE_ICON = [[/dragon|drake|whelp|wyrm|onyx|nefar|deathwing|alexstr|malygos|sindragosa/, 'inv_misc_head_dragon_01'], [/elemental|ragnaros|golem|geode|earth|fire|water|air|wind/, 'spell_fire_elemental_totem'], [/lich|ghoul|zombie|skelet|banshee|ghost|wraith|abomin|scourge|undead|kelthuzad|arthas/, 'spell_shadow_raisedead'], [/demon|dreadlord|doomguard|felhound|imp|succubus|archimonde|kazzak|eredar|pitlord|mannoroth|illidan/, 'spell_shadow_summonfelguard'], [/wolf|worg|hound/, 'ability_mount_whitedirewolf'], [/bear/, 'ability_racial_bearform'], [/cat|tiger|lion|panther/, 'ability_druid_catform'], [/spider|crawler|nerub|anub/, 'inv_misc_monsterspidercarapace_01'], [/murloc/, 'inv_misc_head_murloc_01'], [/gnoll/, 'inv_misc_head_gnoll_01'], [/kobold/, 'inv_misc_head_kobold_01'], [/ogre|ettin|gronn|giant/, 'inv_misc_head_ogre_01'], [/centaur/, 'inv_misc_head_centaur_01'], [/naga|vashj/, 'inv_misc_head_naga_01'], [/tauren|cairne|baine/, 'race_tauren_male'], [/orc|thrall|garrosh|grom|durotan/, 'race_orc_male'], [/troll|zul|voljin/, 'race_troll_male'], [/dwarf|bronzebeard|muradin|magni/, 'race_dwarf_male'], [/gnome|mekkatorque/, 'race_gnome_male'], [/elf|tyrande|malfurion|sylvanas|kael/, 'race_nightelf_male'], [/human|king|varian|anduin|jaina|bolvar|guard|soldier|peasant/, 'race_human_male']];
@@ -54,7 +55,7 @@ window.wfaStart = function () {
     if (st.fv !== 'all' && !isFv(l, g)) return false;
     if (st.fv === 'all' && st.era === 'old' && l[6] !== 'old') return false;
     // 1.3: voc = spoken only (0-5), spoken + reactions (no beasts, default) or everything; race = one player race pack
-    if (st.voc === 'voice' && l[2] > 5) return false;
+    if (st.voc === 'voice' && (l[2] === 11 ? l[9] : l[2]) > 5) return false;
     if (st.voc === 'react' && l[2] === 9) return false;
     if (st.race !== 'all' && (l[7] || g[3]) !== st.race) return false;
     if (st.kind !== 'all' && (l[8] || g[1]) !== st.kind) return false;
@@ -204,10 +205,10 @@ window.wfaStart = function () {
     for (var i = 0; i < L.length; i++) {
       var l = L[i], g = G[l[1]]; if ((l[8] || g[1]) !== 'h') continue;
       if (st.fv !== 'all' && !isFv(l, g)) continue;
-      if (st.voc === 'voice' && l[2] > 5) continue;
+      if (st.voc === 'voice' && (l[2] === 11 ? l[9] : l[2]) > 5) continue;
       var r = l[7] || g[3]; if (!PLAY[r]) continue;
       var sx = l[5] || g[2] || 'u', k = r + '|' + sx, a = rp[k] || (rp[k] = [0, 0, 0, 0]);
-      a[0]++; if (done[l[0]]) a[1]++; if (l[2] === 6) a[3]++; else a[2]++;
+      a[0]++; if (done[l[0]]) a[1]++; if ((l[2] === 11 ? l[9] : l[2]) === 6) a[3]++; else a[2]++;
     }
     var h = '<table><tr><th>نژاد</th><th>جنس</th><th>خط</th><th>ضبط‌شده</th><th>حرف و پیام</th><th>واکنش بدن</th></tr>';
     order.forEach(function (r) {

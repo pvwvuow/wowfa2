@@ -1,0 +1,1 @@
+{"id": "0565-find", "kind": "script", "why": "owner 28 Nov: the misses of report 541", "args": {"module": "names_find", "args": {"kinds": ["npc", "zone", "spell"], "words": ["blackrock ", "sulfuron", "bootlegger", "smuggler", "handed ", "polearms", "fist weapons", "guns", "crossbows", "daggers"], "limit": 6}}}

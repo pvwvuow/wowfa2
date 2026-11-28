@@ -60,6 +60,7 @@
 "thorns sprout from the friendly target causing # nature damage to attackers when hit. lasts # min":"{{sp:Thorns}} از هدف {{tm:friendly|دوستانه}} می‌رویند و هنگام {{tm:hit|اصابت}}، به مهاجمان {0} {{tm:Nature damage|آسیب طبیعت}} وارد می‌کنند. مدت اثر: {1} دقیقه.",
 "throws a distraction, attracting the attention of all nearby enemies and reducing their stealth detection as if they were # level lower for # sec. does not break stealth":"حواس‌پرتی‌ای ایجاد می‌کند که توجه همهٔ دشمنان نزدیک را جلب می‌کند و تشخیص مخفی‌کاری‌شان را انگار {0} لِوِل پایین‌تر باشند، برای {1} ثانیه کاهش می‌دهد. {{tm:stealth|مخفی‌کاری}} را نمی‌شکند.",
 "to maintain our link to the mainland, we have hippogryphs constantly flying between rut'theran village and darkshore":"برای حفظ پیوندمان با سرزمین اصلی، هیپوگریف‌ها همیشه میان {{zn:Rut'theran Village|روستای روتران}} و {{zn:Darkshore|دارک‌شور}} در پروازند.",
+"tracking beasts":"ردیابی جانوران.",
 "trained from level # in classic; not in forever":"در نسخهٔ کلاسیک از لِوِل {0} آموزش داده می‌شود؛ در فوراور وجود ندارد.",
 "transfers # health every # second from the target to the caster. lasts # sec":"هر {1} ثانیه {0} {{tm:health|سلامتی}} را از هدف به اجراکننده منتقل می‌کند. {2} ثانیه دوام دارد.",
 "transfers # health every second from the target to the caster. lasts # sec":"هر ثانیه {0} {{tm:health|سلامتی}} را از هدف به اجراکننده منتقل می‌کند. {1} ثانیه دوام دارد.",

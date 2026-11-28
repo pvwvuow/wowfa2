@@ -307,6 +307,7 @@
 "increases your spell damage by #% and the critical strike chance of your offensive spells by #%":"{{tm:spell damage|آسیب اسپل}} تو را {0}% و {{tm:critical strike chance|شانس ضربهٔ بحرانی}} اسپل‌های تهاجمی تو را {1}% افزایش می‌دهد.",
 "increases your spell damage by up to #% of your intellect, and reduces the cast time of your hammer of wrath by # sec":"{{tm:spell damage|آسیب اسپل}} را تا {0}% از هوشت افزایش می‌دهد و {{tm:cast time|زمان اجرای}} {{sp:Hammer of Wrath}} را {1} ثانیه کوتاه می‌کند.",
 "increases your spell healing by up to #% of your total spirit and your spell damage by up to #% of your total spirit":"{{tm:spell healing|شفای اسپل}} را تا {0}% از کل {{tm:Spirit|روح}} تو و {{tm:spell damage|آسیب اسپل}} را تا {1}% از کل {{tm:Spirit|روح}} تو افزایش می‌دهد.",
+"increases your spellcasting and attack speed by #% for # sec":"سرعت اسپل‌زنی و حمله‌ات را به مدت {1} ثانیه {0}% افزایش می‌دهد.",
 "increases your spirit by #%":"روحت را {0}% افزایش می‌دهد.",
 "increases your stamina by #%":"{{tm:Stamina|استقامت}} تو را {0}% افزایش می‌دهد.",
 "increases your stealth detection as if you were # level higher and reduces your chance to be hit by spells and ranged attacks by #%":"توانایی تشخیص {{sp:Stealth|مخفی‌کاری}} تو را چنان افزایش می‌دهد که گویی سطح تو {0} واحد بالاتر است؛ همچنین احتمال اصابت {{tm:spells|اسپل‌ها}} و حمله‌های دوربرد به تو را {1}% کاهش می‌دهد.",

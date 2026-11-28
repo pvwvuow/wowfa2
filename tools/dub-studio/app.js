@@ -384,18 +384,38 @@ window.wfaStart = function () {
     if (root && !rootOk) { root.requestPermission({ mode: 'readwrite' }).then(function (p) { rootOk = p === 'granted'; folderUI(); if (rootOk) scan(); }); return; }
     window.showDirectoryPicker({ mode: 'readwrite' }).then(function (h) { root = h; rootOk = true; idbSet('root', h); folderUI(); scan(); }).catch(function () {});
   });
+  // 1.3.1 (the owner 28 Nov: an old dub folder was not recognised): the folder may be the parent of fa/ or fa/ itself,
+  // files may sit in fa/<group>/ or be downloads named <group>__<line>.wav; a line is matched by group and name,
+  // or by its name alone when the group folder has another name. The toast says how many were found.
+  function faDir(create) { return root.name.toLowerCase() === 'fa' ? Promise.resolve(root) : root.getDirectoryHandle('fa', { create: create }); }
+  var scanRes = null;
+  function scanMsg() {
+    var r = scanRes; if (!r) return '';
+    if (r.err) return 'خواندن پوشه نشد: ' + r.err;
+    return 'پوشه بررسی شد: ' + fa(r.found) + ' ضبط قبلی پیدا و علامت خورد' + (r.miss ? '، ' + fa(r.miss) + ' فایل با هیچ خطی جور نشد' : '') + (r.found ? '' : ' (پوشه\u0654 اصلی دوبله یا خود fa را انتخاب کن)');
+  }
   function scan() {
     if (!root) return;
-    var map = {}; L.forEach(function (l) { map[safe(G[l[1]][0]) + '/' + l[3] + '.wav'] = l[0]; });
-    root.getDirectoryHandle('fa', { create: true }).then(function (fad) {
-      var jobs = [];
-      return (async function () {
-        for await (var e of fad.values()) {
-          if (e.kind !== 'directory') continue;
-          for await (var f of e.values()) { var fid = map[e.name + '/' + f.name]; if (fid) done[fid] = 1; }
-        }
-      })();
-    }).then(function () { save('wfadub_done', done); render(); toast('پوشه بررسی شد: ضبط\u200cهای قبلی علامت خوردند'); }).catch(function () {});
+    var byPath = {}, byName = {};
+    L.forEach(function (l) { var n = String(l[3]).toLowerCase(); byPath[safe(G[l[1]][0]).toLowerCase() + '/' + n] = l[0]; (byName[n] = byName[n] || []).push(l[0]); });
+    var res = { found: 0, miss: 0, err: '' };
+    function hit(dir, file) {
+      var f = file.toLowerCase(); if (!/\.(wav|ogg|mp3|webm)$/.test(f)) return;
+      var n = f.replace(/\.[a-z0-9]+$/, ''), d = String(dir || '').toLowerCase();
+      if (n.indexOf('__') > 0) { var p = n.split('__'); if (!d) d = p[0]; n = p.slice(1).join('__'); }
+      var fid = byPath[d + '/' + n], a = byName[n];
+      if (fid) done[fid] = 1; else if (a) a.forEach(function (x) { done[x] = 1; }); else { res.miss++; return; }
+      res.found++;
+    }
+    async function walk(dh, dir, depth) {
+      for await (var e of dh.values()) {
+        if (e.kind === 'directory') { var nm = e.name.toLowerCase(); if (depth < 4 && nm !== 'original') await walk(e, nm === 'fa' ? '' : e.name, depth + 1); }
+        else hit(dir, e.name);
+      }
+    }
+    walk(root, '', 0).catch(function (e) { res.err = (e && e.message) || String(e); }).then(function () { scanRes = res;
+    }).then(function () { save('wfadub_done', done); render(); toast(scanMsg() || 
+'پوشه بررسی شد: ضبط\u200cهای قبلی علامت خوردند'); }).catch(function () {});
   }
   if (canFS) idbGet('root').then(function (h) {
     if (!h) { folderUI(); return; }
@@ -465,7 +485,7 @@ window.wfaStart = function () {
   function readTake(i) {
     var l = L[i], g = G[l[1]];
     if (!(root && rootOk)) return Promise.reject(new Error('nofolder'));
-    return root.getDirectoryHandle('fa').then(function (d) { return d.getDirectoryHandle(safe(g[0])); })
+    return faDir(false).then(function (d) { return d.getDirectoryHandle(safe(g[0])); })
       .then(function (d) { return d.getFileHandle(l[3] + '.wav'); })
       .then(function (fh) { return fh.getFile(); })
       .then(function (f) { return f.arrayBuffer(); })
@@ -624,7 +644,7 @@ window.wfaStart = function () {
     var l = L[sline], g = G[l[1]], wav = new Blob([DSP.encodeWav(outSamples(), sr)], { type: 'audio/wav' }), name = l[3] + '.wav';
     function ok() { done[l[0]] = 1; save('wfadub_done', done); toast('ذخیره شد: ' + name); var r = list.querySelector('.row[data-i="' + sline + '"]'); if (r) { r.classList.add('ok'); r.querySelector('.st').textContent = '\u2713'; } progress(); nextLine(); }
     if (root && rootOk) {
-      root.getDirectoryHandle('fa', { create: true }).then(function (d) { return d.getDirectoryHandle(safe(g[0]), { create: true }); })
+      faDir(true).then(function (d) { return d.getDirectoryHandle(safe(g[0]), { create: true }); })
         .then(function (d) { return d.getFileHandle(name, { create: true }); })
         .then(function (fh) { return fh.createWritable(); })
         .then(function (w) { return w.write(wav).then(function () { return w.close(); }); })

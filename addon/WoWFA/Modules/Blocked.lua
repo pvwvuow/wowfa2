@@ -23,6 +23,46 @@ local function ours(t, k)
     return ok and not sec and by == F.ADDON
 end
 
+-- 1.2.3 (the owner 28 Nov: the block came back on the action bars, "tainted: none found"): when the game's own
+-- taint log is OFF (with it on, every read is a log line: the 40 MB crash) the whole global table and the
+-- frames of the bars, the pet bar and the flyouts are checked once for a key the WoWFA wrote.
+local function log_off()
+    if type(GetCVar) ~= "function" then
+        return false
+    end
+    local ok, v = pcall(GetCVar, "taintLog")
+    return ok and (v == nil or tostring(v) == "0")
+end
+
+local BAR_NAMES = { "^MultiBar", "^ActionButton", "^PetAction", "^MainMenu", "^MainActionBar", "^StatusTracking",
+    "^ActionBar", "^Stance", "^Gamepad", "^PetSpellFlyout", "^SpellFlyout", "^ExtraAction", "^OverrideActionBar",
+    "^UIParent$", "^BagsBar", "^MicroMenu" }
+
+local function sweep(hits, scan)
+    for k in pairs(_G) do
+        if #hits >= 12 then
+            return
+        end
+        if type(k) == "string" and not string.find(k, "^wfa") and not string.find(k, "^WoWFA")
+            and not string.find(k, "^SLASH_WOWFA") and ours(_G, k) then
+            hits[#hits + 1] = "_G." .. k
+        end
+    end
+    for k, v in pairs(_G) do
+        if #hits >= 12 then
+            return
+        end
+        if type(k) == "string" and type(v) == "table" then
+            for _, pat in ipairs(BAR_NAMES) do
+                if string.find(k, pat) then
+                    scan(k, v)
+                    break
+                end
+            end
+        end
+    end
+end
+
 local function taint_scan(fn)
     if type(issecurevariable) ~= "function" then
         return ""
@@ -56,6 +96,9 @@ local function taint_scan(fn)
     end
     scan("GameTooltip", _G.GameTooltip)
     scan("UIErrorsFrame", _G.UIErrorsFrame)
+    if log_off() then
+        pcall(sweep, hits, scan)
+    end
     -- no sweep over every global any more: with the game's taint log on it wrote one line per
     -- global read (40 MB in a minute, the owner's crash); the frame, its bar and the tooltip
     -- are enough to name the cause
